@@ -1,0 +1,33 @@
+# Scrap Car Runner — .gitignore
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Vite / dev artifacts
+.vite/
+
+# Environment (not used in VS1, but excluded for safety)
+.env
+.env.*
+!.env.example
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test coverage output
+coverage/
+
+# Capacitor (will be added later; exclude platform builds)
+android/
+ios/

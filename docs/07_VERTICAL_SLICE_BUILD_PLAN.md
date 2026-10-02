@@ -2,15 +2,21 @@
 
 This is the strict implementation sequence. Do not skip phases. Each phase must be stable before moving to the next.
 
-## Phase 1: Project Foundation
-- **Goal:** Setup the build environment.
-- **Tasks:** Initialize Vite + TypeScript + Phaser 3 project. Setup folder structure.
-- **Validation:** Dev server runs and shows a blank Phaser canvas scaling correctly to mobile portrait.
+## Phase 1: Project Foundation ✅ COMPLETE
+- **Goal:** Setup the build environment and production-grade technical foundation.
+- **Tasks:** Phaser 4 + TypeScript + Vite 8 project. Domain/service/data structure. Save abstraction. Unit tests. Data validator.
+- **Commands:** `npm install` → `npm run typecheck` → `npm test` → `npm run validate:data` → `npm run build`
+- **Validation:** Dev server runs (`npm run dev`) and shows a Phaser canvas scaling correctly to mobile portrait. All tests pass. Build succeeds.
+- **Reference:** See `docs/10_TECHNOLOGY_DECISION.md` for technology rationale.
 
-## Phase 2: Data & Save System
+## Phase 2: Data & Save System ✅ FOUNDATION COMPLETE
 - **Goal:** Implement the static data and save manager.
-- **Tasks:** Create `src/data/` with the parts and chassis defined in `03_GAME_DATA_BIBLE.md`. Implement `SaveManager` using `localStorage`.
-- **Validation:** Game can save and load dummy scrap and inventory data.
+- **Foundation already in place:**
+  - `src/data/parts.ts`, `src/data/chassis.ts`, `src/data/roads.ts` — all VS1 static data.
+  - `src/services/save/SaveRepository.ts` — load/save/migrate/validate.
+  - `src/services/storage/StorageAdapter.ts` — localStorage abstraction.
+- **Remaining task:** Implement `GameStateService` that holds the live mutable `SaveData`, calls `SaveRepository` on trigger events (Scavenge, Merge, Install, Uninstall, Run End), and exposes state to Phaser scenes.
+- **Validation:** Game can save and load scrap and inventory data. `npm run validate:data` passes.
 
 ## Phase 3: Garage UI & State Integration (Visuals Only)
 - **Goal:** Render the garage.

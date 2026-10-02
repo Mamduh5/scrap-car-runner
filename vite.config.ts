@@ -1,0 +1,45 @@
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+
+// ---------------------------------------------------------------------------
+// Scrap Car Runner — Vite Configuration
+//
+// Design decisions:
+//   - Single HTML entry: index.html at repo root
+//   - Logical canvas: 360×640 (portrait) — all scaling done in Phaser config
+//   - Assets served from src/assets/ during dev; copied to dist/ on build
+//   - No React, no UI framework
+//   - Phaser 4 is bundled normally (ESM)
+// ---------------------------------------------------------------------------
+
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'),
+    },
+  },
+
+  build: {
+    outDir:       'dist',
+    assetsDir:    'assets',
+    sourcemap:    true,
+    target:       'es2022',
+    rollupOptions: {
+      output: {
+        // Keep Phaser in its own chunk so game logic chunks stay small
+        manualChunks: {
+          phaser: ['phaser'],
+        },
+      },
+    },
+  },
+
+  server: {
+    port: 8080,
+    open: false,
+  },
+
+  preview: {
+    port: 8081,
+  },
+});

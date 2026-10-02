@@ -18,10 +18,12 @@
 - The foundation must be stable enough to support future expansion without major refactors.
 
 ## 4. Technical Direction
-- **Engine:** Phaser 3
-- **Language:** TypeScript
-- **Bundler:** Vite
-- **Platform:** Browser-first (mobile portrait layout), local save. Capacitor/Android will come much later.
+- **Engine:** Phaser 4 (v4.2.1+) — see `docs/10_TECHNOLOGY_DECISION.md` for rationale.
+- **Language:** TypeScript 5.8.x (strict mode)
+- **Bundler:** Vite 8
+- **Testing:** Vitest 5 (domain/logic only — no Phaser in tests)
+- **Platform:** Browser-first (mobile portrait layout), local save via `localStorage`. Capacitor/Android will come much later.
+- **Package manager:** npm
 
 ## 5. Art Philosophy
 - **Style:** Pixel art, retro aesthetic, chunky pixels, strong silhouettes.

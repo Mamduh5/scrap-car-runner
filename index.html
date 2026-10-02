@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!--
+    viewport: width=device-width, initial-scale=1 is required for correct
+    mobile rendering. user-scalable=no prevents accidental pinch-zoom during
+    gameplay. The Phaser Scale Manager handles the actual canvas sizing.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <title>Scrap Car Runner</title>
+
+  <style>
+    /* Reset: fill the entire viewport with no scroll, no margin.
+       The Phaser canvas will be centred inside this black body. */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: none; /* Prevents browser scroll/gesture interfering with game input */
+    }
+
+    /* Phaser places its canvas directly inside body. These rules ensure it
+       stays pixel-sharp: no browser-level smoothing. */
+    canvas {
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+  </style>
+</head>
+<body>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

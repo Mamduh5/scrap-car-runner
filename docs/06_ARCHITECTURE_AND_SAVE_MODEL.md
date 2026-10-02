@@ -1,10 +1,11 @@
 # Architecture and Save Model
 
 ## 1. Technical Stack
-- **Engine:** Phaser 3 (for rendering, scene management, input).
-- **Language:** TypeScript (strict mode enabled).
-- **Bundler:** Vite.
-- **Persistence:** Browser `localStorage`.
+- **Engine:** Phaser 4 (v4.2.1+). See `docs/10_TECHNOLOGY_DECISION.md` for the rationale for choosing Phaser 4 over Phaser 3.
+- **Language:** TypeScript 5.8.x (`strict: true` + `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`).
+- **Bundler:** Vite 8.
+- **Persistence:** Browser `localStorage` via `StorageAdapter` interface (allows swap to Capacitor Preferences later without touching game logic).
+- **Testing:** Vitest 5 — scoped to `src/domain/`, `src/services/`, `src/data/` only. Phaser scenes are not unit-tested.
 
 ## 2. Architecture Philosophy
 Strict separation of concerns. Phaser scenes should act as the "View" and "Controller". The game state and simulation logic should be pure TypeScript objects and functions independent of the rendering loop.
@@ -42,16 +43,46 @@ The scene then updates the UI gauges based on the new `RunState`.
 
 **Formulas:** All simulation formulas are defined in `02_GAMEPLAY_SYSTEMS_AND_PROGRESSION.md` §3. The `advanceSimulation` function must follow those formulas exactly. Do not invent alternative formulas in the implementation.
 
-## 5. Directory Structure (Proposed)
+## 5. Directory Structure (Implemented)
 ```text
 src/
-  assets/         # Images, fonts
-  data/           # Static definitions (Parts, Roads, Chassis)
-  logic/          # Pure functions: calculateVehicleStats, advanceSimulation, mergeLogic
-  scenes/         # Phaser scenes (Boot, Garage, Run)
-  state/          # Current game state and SaveManager
-  types/          # TypeScript interfaces (PartDefinition, ChassisDefinition, VehicleStats, RunState, SaveData)
-  ui/             # Reusable UI components (Buttons, Bars, Gauges)
-  main.ts         # Entry point
+  main.ts              # Entry point — creates Phaser.Game only
+
+  types/
+    game.ts            # ALL canonical TypeScript types (PartDefinition, ChassisDefinition,
+                       #   VehicleStats, RunState, SaveData, FailureCause, etc.)
+
+  data/
+    parts.ts           # Static PartDefinition[] — mirrors Data Bible §Parts
+    chassis.ts         # Static ChassisDefinition[] — mirrors Data Bible §Chassis
+    roads.ts           # Static RoadDefinition[] — mirrors Data Bible §Roads
+
+  domain/
+    vehicle/
+      calculateVehicleStats.ts       # Pure: chassis + parts → VehicleStats
+      calculateVehicleStats.test.ts
+    run/
+      simulation.ts                  # Pure: advanceSimulation, createRunState, getActiveSegment
+      simulation.test.ts
+      rewards.ts                     # Pure: calculateRunReward
+    parts/
+      merge.ts                       # Pure: resolveMerge, canMergeInInventory
+      merge.test.ts
+
+  services/
+    storage/
+      StorageAdapter.ts              # Interface + LocalStorageAdapter (VS1 implementation)
+    save/
+      SaveRepository.ts              # Load, save, migrate, validate SaveData
+
+  game/
+    config/
+      phaserConfig.ts                # Phaser 4 game config (pixelArt, Scale.FIT, 360×640)
+    scenes/
+      BootScene.ts                   # Phase 1 minimal boot; transitions to GarageScene later
+
+  assets/                            # Art assets go here when produced
+                                     # See docs/04_ART_DIRECTION_AND_ASSET_REGISTRY.md
 ```
 
+**Boundary rule:** `domain/` and `services/` must NEVER import from `game/`. The Phaser layer (`game/`) may import from `domain/` and `services/`. This keeps simulation logic testable without Phaser.
