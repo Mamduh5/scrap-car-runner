@@ -9,14 +9,15 @@ This is the strict implementation sequence. Do not skip phases. Each phase must 
 - **Validation:** Dev server runs (`npm run dev`) and shows a Phaser canvas scaling correctly to mobile portrait. All tests pass. Build succeeds.
 - **Reference:** See `docs/10_TECHNOLOGY_DECISION.md` for technology rationale.
 
-## Phase 2: Data & Save System ✅ FOUNDATION COMPLETE
+## Phase 2: Data & Save System ✅ COMPLETE
 - **Goal:** Implement the static data and save manager.
 - **Foundation already in place:**
   - `src/data/parts.ts`, `src/data/chassis.ts`, `src/data/roads.ts` — all VS1 static data.
   - `src/services/save/SaveRepository.ts` — load/save/migrate/validate.
   - `src/services/storage/StorageAdapter.ts` — localStorage abstraction.
-- **Remaining task:** Implement `GameStateService` that holds the live mutable `SaveData`, calls `SaveRepository` on trigger events (Scavenge, Merge, Install, Uninstall, Run End), and exposes state to Phaser scenes.
-- **Validation:** Game can save and load scrap and inventory data. `npm run validate:data` passes.
+- **Remaining task:** `GameStateService` implemented to handle Scavenge, Merge, Install, Uninstall, and Run End state mutations and triggering saves.
+- **Validation:** `GameStateService.test.ts` passes all edge cases. Game state is completely abstracted from UI.
+
 
 ## Phase 3: Garage UI & State Integration (Visuals Only)
 - **Goal:** Render the garage.

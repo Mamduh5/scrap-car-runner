@@ -74,6 +74,9 @@ src/
       StorageAdapter.ts              # Interface + LocalStorageAdapter (VS1 implementation)
     save/
       SaveRepository.ts              # Load, save, migrate, validate SaveData
+    state/
+      GameStateService.ts            # Live mutable state wrapper (Scavenge, Merge, Install)
+      GameStateService.test.ts
 
   game/
     config/

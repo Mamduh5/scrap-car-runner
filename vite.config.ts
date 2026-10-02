@@ -15,7 +15,7 @@ import { resolve } from 'path';
 export default defineConfig({
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': resolve(import.meta.dirname, 'src'),
     },
   },
 
@@ -27,8 +27,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Keep Phaser in its own chunk so game logic chunks stay small
-        manualChunks: {
-          phaser: ['phaser'],
+        manualChunks(id) {
+          if (id.includes('node_modules/phaser')) {
+            return 'phaser';
+          }
         },
       },
     },

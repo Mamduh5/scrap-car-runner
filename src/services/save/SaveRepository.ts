@@ -53,7 +53,7 @@ function migrateSave(data: LegacySave, fromVersion: number): SaveData {
   // if (fromVersion < 2) { save = migrateV1toV2(save); }
   // if (fromVersion < 3) { save = migrateV2toV3(save); }
   void fromVersion; // suppress unused warning until first migration is needed
-  return save as SaveData;
+  return save as unknown as SaveData;
 }
 
 // ---------------------------------------------------------------------------
@@ -126,7 +126,7 @@ export class SaveRepository {
 
     let data = parsed as LegacySave;
     if (version < CURRENT_SAVE_VERSION) {
-      data = migrateSave(data, version) as LegacySave;
+      data = migrateSave(data, version) as unknown as LegacySave;
     }
 
     if (!isValidSave(data)) {
