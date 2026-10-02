@@ -57,4 +57,49 @@
 
 ## 6. Feedback & Warnings
 - **Toasts:** Use brief floating text for errors (e.g., "Not enough Scrap!").
-- **Gauges:** Flash red when nearing critical failure thresholds.
+- **Gauges:** Flash red when nearing critical failure thresholds (see `02_GAMEPLAY_SYSTEMS_AND_PROGRESSION.md` §3 Warning Thresholds table).
+
+## 7. Boot Scene
+The `Boot` scene is a minimal Phaser preload wrapper:
+1. Display a simple loading indicator (text or progress bar).
+2. Load all assets listed in `04_ART_DIRECTION_AND_ASSET_REGISTRY.md`.
+3. Run `SaveManager.load()` to hydrate the game state.
+4. Transition directly to `GarageScene`.
+
+No gameplay occurs during Boot. It exists only to preload assets and restore save state before any scene is rendered.
+
+## 8. Garage Slot States
+
+Each chassis slot must visually distinguish the following states:
+
+| State | Visual |
+|---|---|
+| `empty` | Slot outline with a family icon (e.g., engine icon placeholder). Tapping an empty slot while a part is selected installs the part. |
+| `installed` | Shows the part sprite + part name. Tapping uninstalls (moves to inventory). |
+| `selected_target` | Highlighted outline (gold). The player has tapped a part in inventory and can now tap an empty slot to install it. |
+| `max_tier` | Slot has a small "MAX" badge. Tapping shows part details; no merge is available. |
+
+**Incompatible part targeting:** If the player selects a part in inventory and then taps a slot of the wrong family (e.g., select a Fuel part, tap the Engine slot), show a toast: "Wrong slot type." No state change occurs.
+
+## 9. Pause / Quit Behavior
+- Pause is reached via the Pause/Quit button on the Run screen.
+- While paused: the simulation tick is halted; gauges are frozen; the background music (if any) stops.
+- Options shown: **"Resume"** and **"Quit Run"**.
+- **"Quit Run"** triggers the normal result flow at the current distance. Full distance-based Scrap reward is awarded (see `02_GAMEPLAY_SYSTEMS_AND_PROGRESSION.md` §4). The failure cause is shown as "Run Abandoned".
+
+## 10. Result Screen Variants
+
+The Result screen always shows Cause, Distance, Rewards, and stat snapshots. The **Cause** line varies:
+
+| Failure Cause | Cause Text | Sub-line Hint |
+|---|---|---|
+| `Fuel <= 0` | ENGINE STALLED | "Tip: Install or upgrade your Fuel Tank." |
+| `Heat >= MaxHeat` | ENGINE OVERHEATED | "Tip: Install or upgrade your Radiator." |
+| `Durability <= 0` | BREAKDOWN | "Tip: Install Tires or Suspension for more HP." |
+| Run abandoned (quit) | RUN ABANDONED | — |
+
+The hint lines are suggestions, not mandatory UI text. They improve the diagnosis feedback loop and may be toggled off later.
+
+## 11. Start Run Readiness
+The "DRIVE" button is always enabled. The player may start a run with no parts installed (bare chassis). This is a valid (if very short) run. The UI does **not** block the player from running with an empty garage.
+

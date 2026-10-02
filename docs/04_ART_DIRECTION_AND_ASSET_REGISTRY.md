@@ -12,7 +12,7 @@
 
 ## 3. Asset Registry (VS1)
 
-*Total Assets Required: 29*
+*Total Assets Required: 32*
 
 ### Vehicles & Environment
 | ID | Filename | Dimensions | Usage & Animation Notes |
@@ -32,9 +32,10 @@
 | `icon_stat_cooling` | `icon_cooling.png` | 16x16 | Snowflake/fan icon. |
 | `icon_stat_durability` | `icon_durability.png` | 16x16 | Shield/wrench icon. |
 | `icon_stat_weight` | `icon_weight.png` | 16x16 | Anvil icon. |
+| `icon_stat_speed` | `icon_speed.png` | 16x16 | Speedometer icon. Used on Run screen "Current Speed" readout. |
 | `btn_scavenge` | `btn_scavenge.png` | 96x32 | Button for buying parts. |
 | `btn_drive` | `btn_drive.png` | 96x32 | Button to start run. |
-| `ui_panel` | `ui_panel.png` | 9-slice | Base 9-slice border for UI containers. |
+| `ui_panel` | `ui_panel.png` | 48x48 base | Base 9-slice border for UI containers. Authored at 48x48 with 8px borders on all sides. Scaled via 9-slice at runtime. |
 
 ### Parts (15 Total)
 *Naming convention: `part_[family]_t[tier].png`. Size: 32x32.*
@@ -45,6 +46,9 @@
 - `part_suspension_t1.png`, `part_suspension_t2.png`, `part_suspension_t3.png`
 
 ### Effects (Code Driven / Simple Sprites)
-- Smoke particles (white/grey/black based on heat/damage).
-- Sparks (yellow/orange).
-- Merge Effect (simple flash/sparkle when combining parts).
+*These are particle/animation sprites managed in code. They are not included in the 32 count above.*
+- **Smoke particle** (`fx_smoke.png`, 8x8): White/grey/black tint based on heat severity.
+- **Spark particle** (`fx_spark.png`, 4x4): Yellow/orange. Used at critical durability.
+- **Merge flash** (`fx_merge.png`, 32x32): Simple sparkle frame. Plays once on merge completion.
+
+*Effect sprites are simple single-frame or 2–4 frame strips. They are considered secondary and may be implemented as Phaser particle emitters with a solid color if art is not yet ready, since they are not primary UI or gameplay assets.*

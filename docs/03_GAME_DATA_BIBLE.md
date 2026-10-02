@@ -30,6 +30,7 @@ interface ChassisDefinition {
     cooling: number;
     durability: number;
     weight: number;
+    maxHeat: number; // Fixed chassis property; does not change with installed parts in VS1
   };
   slots: PartFamily[]; // The required categorical slots
 }
@@ -51,12 +52,16 @@ interface RoadSegment {
   roughness: number;  // Damage over time modifier
 }
 
+// Increment CURRENT_SAVE_VERSION whenever the schema changes. Migration functions
+// must handle all prior versions. Never read a save without checking this field.
+const CURRENT_SAVE_VERSION = 1;
+
 interface SaveData {
-  version: number;
-  scrap: number;
-  inventory: string[]; // Array of Part IDs
-  installedParts: Record<PartFamily, string | null>;
-  bestDistance: number;
+  version: number;                              // Must equal CURRENT_SAVE_VERSION
+  scrap: number;                                // Current Scrap balance (integer, >= 0)
+  inventory: string[];                          // Array of part IDs (e.g., ['engine_t1', 'fuel_t1']). Unbounded in VS1. May contain duplicates.
+  installedParts: Record<PartFamily, string | null>; // null = slot is empty
+  bestDistance: number;                         // metres (float, >= 0)
 }
 ```
 
@@ -102,9 +107,21 @@ interface SaveData {
 - **Merge Cost:** 0 (Free).
 
 ### The First Road: Scrapland Highway
+- **ID:** `road_scrapland_highway`
 - **0 - 500m (Outskirts):** LoadFactor: 1.0, Roughness: 0
 - **500 - 1500m (Cracked Pavement):** LoadFactor: 1.2, Roughness: 1
 - **1500 - 3000m (Dirt Incline):** LoadFactor: 1.5, Roughness: 3
 - **3000m+ (Steep Rocky Pass):** LoadFactor: 2.0, Roughness: 5
 
 *Note: Balance values are starting estimates and will require playtesting.*
+
+### Save Loading & Corruption Behavior
+
+| Scenario | Behavior |
+|---|---|
+| No save exists | Create a new save using the starting state defined in `02_GAMEPLAY_SYSTEMS_AND_PROGRESSION.md` §7 |
+| Save `version` matches `CURRENT_SAVE_VERSION` | Load and use as-is |
+| Save `version` is lower (older save) | Run migration function(s) for each version step, then load |
+| Save is missing required fields / JSON parse error | Treat as corrupted: discard and create a new save. Log a warning. |
+| Save `version` is higher than `CURRENT_SAVE_VERSION` | Unknown future save: discard and create a new save. Log a warning. |
+
