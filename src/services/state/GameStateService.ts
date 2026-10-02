@@ -18,19 +18,26 @@ import { calculateRunReward } from '@/domain/run/rewards';
 export const SCAVENGE_COST = 10;
 
 export class GameStateService {
-  private state: SaveData;
+  private state!: SaveData;
 
   constructor(private readonly repository: SaveRepository) {
-    this.state = this.repository.load();
+    // State is uninitialized until init() is called
+  }
+
+  /** Must be called before accessing any state. */
+  public async init(): Promise<void> {
+    this.state = await this.repository.load();
   }
 
   // --- Getters ---
 
   public get currentState(): Readonly<SaveData> {
+    if (!this.state) throw new Error('GameStateService not initialized');
     return this.state;
   }
 
   public get currentVehicleStats(): VehicleStats {
+    if (!this.state) throw new Error('GameStateService not initialized');
     const installedDefs = Object.values(this.state.installedParts)
       .filter((id): id is string => id !== null)
       .map(id => PARTS_BY_ID.get(id)!)
@@ -157,6 +164,9 @@ export class GameStateService {
   }
 
   private save(): void {
-    this.repository.save(this.state);
+    // Fire-and-forget the save to avoid blocking gameplay logic
+    this.repository.save(this.state).catch((e) => {
+      console.error('[GameStateService] Async save failed:', e);
+    });
   }
 }

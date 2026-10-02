@@ -97,8 +97,8 @@ export class SaveRepository {
    *   - Version lower:    migrate then return
    *   - Version matches:  return as-is
    */
-  load(): SaveData {
-    const raw = this.storage.get(SAVE_KEY);
+  async load(): Promise<SaveData> {
+    const raw = await this.storage.get(SAVE_KEY);
     if (raw === null) {
       return createNewSave();
     }
@@ -138,16 +138,16 @@ export class SaveRepository {
   }
 
   /** Serialise and persist the current save state. */
-  save(data: SaveData): void {
+  async save(data: SaveData): Promise<void> {
     try {
-      this.storage.set(SAVE_KEY, JSON.stringify(data));
+      await this.storage.set(SAVE_KEY, JSON.stringify(data));
     } catch (e) {
       console.error('[Save] Failed to persist save:', e);
     }
   }
 
   /** Remove all save data (e.g. player resets progress). */
-  reset(): void {
-    this.storage.remove(SAVE_KEY);
+  async reset(): Promise<void> {
+    await this.storage.remove(SAVE_KEY);
   }
 }

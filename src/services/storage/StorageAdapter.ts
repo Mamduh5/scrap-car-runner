@@ -3,28 +3,28 @@
  *
  * Thin abstraction over the physical storage backend.
  *
- * VS1 uses localStorage. This interface allows replacing localStorage with
- * Capacitor Preferences (mobile) or IndexedDB without touching game logic.
+ * VS1 uses localStorage. This interface uses Promises to ensure seamless
+ * future migration to Capacitor Preferences (mobile) or IndexedDB without
+ * touching any upstream game logic.
  *
  * Rule: StorageAdapter only handles raw string get/set/remove.
  * It knows nothing about SaveData structure or game rules.
  */
 
 export interface StorageAdapter {
-  get(key: string): string | null;
-  set(key: string, value: string): void;
-  remove(key: string): void;
+  get(key: string): Promise<string | null>;
+  set(key: string, value: string): Promise<void>;
+  remove(key: string): Promise<void>;
 }
 
 /**
  * LocalStorageAdapter — VS1 implementation.
  *
- * localStorage is synchronous, requires no async/await,
- * and is available in all browsers and Capacitor WebViews.
- * Size limit (~5 MB) is far in excess of SaveData requirements.
+ * Uses localStorage but wraps returns in Promises to satisfy the async
+ * interface contract.
  */
 export class LocalStorageAdapter implements StorageAdapter {
-  get(key: string): string | null {
+  async get(key: string): Promise<string | null> {
     try {
       return localStorage.getItem(key);
     } catch {
@@ -34,7 +34,7 @@ export class LocalStorageAdapter implements StorageAdapter {
     }
   }
 
-  set(key: string, value: string): void {
+  async set(key: string, value: string): Promise<void> {
     try {
       localStorage.setItem(key, value);
     } catch (e) {
@@ -43,7 +43,7 @@ export class LocalStorageAdapter implements StorageAdapter {
     }
   }
 
-  remove(key: string): void {
+  async remove(key: string): Promise<void> {
     try {
       localStorage.removeItem(key);
     } catch {

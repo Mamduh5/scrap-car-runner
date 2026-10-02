@@ -19,6 +19,7 @@ import type {
   RoadSegment,
   FailureCause,
 } from '@/types/game';
+import { SIMULATION_BALANCE } from './balance';
 
 // ---------------------------------------------------------------------------
 // Road segment lookup
@@ -74,9 +75,9 @@ export function advanceSimulation(
   const seg = getActiveSegment(road, state.distance);
 
   // --- Compute rates -------------------------------------------------------
-  const speed     = stats.power / stats.weight;
-  const heatDelta = stats.power * seg.loadFactor - stats.cooling;
-  const fuelBurn  = (stats.power * seg.loadFactor) / 10;
+  const speed     = (stats.power / stats.weight) / SIMULATION_BALANCE.SPEED_DIVISOR;
+  const heatDelta = (stats.power * seg.loadFactor * SIMULATION_BALANCE.HEAT_GENERATION_MULTIPLIER) - stats.cooling;
+  const fuelBurn  = (stats.power * seg.loadFactor) / SIMULATION_BALANCE.FUEL_BURN_DIVISOR;
 
   // --- Apply delta ---------------------------------------------------------
   const newDistance    = state.distance + speed * dt;
