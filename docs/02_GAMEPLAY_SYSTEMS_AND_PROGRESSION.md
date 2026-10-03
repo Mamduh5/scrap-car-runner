@@ -1,132 +1,71 @@
 # Gameplay Systems and Progression
 
-## 1. Garage & Engineering (VS1)
-- **Part Acquisition:** The player spends "Scrap" to "Scavenge", which yields a random Tier 1 part from the 5 core families.
-- **Merge System:** 2 identical parts of Tier N -> 1 part of Tier N+1. Merging is instant and free.
-- **Vehicle Installation:** The chassis has 5 dedicated categorical slots: Engine, Fuel, Cooling, Tires, Suspension. One part per slot.
-- **Vehicle Calculation:** Total Stats = Chassis Base Stats + Sum of Installed Parts' Stats.
+## 1. Garage and engineering (VS1)
 
-## 2. Core Stats (VS1)
-- **Power:** Determines base speed. Higher speed = faster distance gain, but generates more Heat and consumes more Fuel per second.
-- **Fuel Capacity:** Maximum fuel.
-- **Cooling:** Reduces Heat accumulation.
-- **Durability:** Health of the vehicle. Reduced by rough terrain.
-- **Weight:** Acts as a divider on Power for actual Speed. `Speed = Power / Weight`.
+Scavenge costs 10 Scrap and produces one Tier 1 part with equal probability for each of the five families. Merge is free: two identical owned IDs become one next-tier part of the same family; Tier 3 cannot merge. Installation explicitly selects a slot and the service validates ownership and compatibility. One slot per family in VS1. Stats are chassis base plus installed contributions. Garage commands are blocked during an active run.
 
-## 3. Run Simulation (VS1)
-- **Start Run Flow:** Tap "Drive". The view shifts to the road. The car begins moving automatically.
-- **Distance Progression:** Distance (in metres) increases based on current Speed each tick.
-- **Road Difficulty Progression:** As distance increases, the Road Segment changes (see `03_GAME_DATA_BIBLE.md` for segment definitions).
-  - *Load Factor:* Simulates uphill/steepness. Increases Heat generation and Fuel consumption.
-  - *Roughness:* Increases Durability loss per second.
+## 2. Stats and production formulas
 
-### Tick Logic (per-second rates, delta-normalised)
+Power increases speed, heat generation and fuel burn. Weight divides speed. Fuel capacity is the tank size. Cooling subtracts from heat generation. Tires and suspension add durability capacity; they do not reduce damage rate. MaxHeat is fixed by the chassis.
 
-All formula values below are **per-second rates**. The simulation function receives `delta` (seconds elapsed since last frame). Each quantity is multiplied by `delta` before being applied.
+Central provisional coefficients live in `src/domain/run/balance.ts`:
 
-```
-dt = delta_ms / 1000          // convert Phaser delta (ms) to seconds
-
-Speed (m/s) = Power / Weight  // computed once per tick; used for distance and fuel
-
-Distance  += Speed * dt
-
-HeatDelta  = (Power * LoadFactor) - Cooling
-Heat       = clamp(Heat + HeatDelta * dt, 0, MaxHeat)
-
-Fuel       = max(0, Fuel - (Power * LoadFactor / 10) * dt)
-
-Durability = max(0, Durability - Roughness * dt)
+```text
+seconds = Phaser deltaMs / 1000
+speed = power / weight / SPEED_DIVISOR                (0.05)
+heatRate = power * segment.loadFactor * HEAT_GENERATION_MULTIPLIER (0.5) - cooling
+fuelRate = power * segment.loadFactor / FUEL_BURN_DIVISOR (40)
+durabilityRate = segment.roughness
+reward = BASE_REWARD (5) + floor(distance / DISTANCE_REWARD_DIVISOR (10))
 ```
 
-**Notes on the formulas:**
-- `Speed` is in metres per second (m/s). `Power / Weight` with base values (Power 10, Weight 100) gives 0.1 m/s. A fully-loaded T1 car (Power 20, Weight 110) gives ≈ 0.18 m/s. A T3 car (Power 70+, Weight 125+) gives roughly 0.5 m/s. These values require playtesting; units are internally consistent.
-- Fuel consumption at base stats (Power 10, LoadFactor 1.0) = 1.0 per second. Base Fuel = 20, so the bare chassis lasts 20 seconds ≈ 2m. The player **must install at least a Fuel Tank** to have a meaningful first run; starting conditions below enforce this.
-- `Roughness` directly subtracts from Durability per second. **Tires and Suspension do not reduce the damage rate; they increase the Durability HP pool.** This is intentional for VS1 simplicity. Future tiers may add a `damageResist` stat to those families.
-- `HeatDelta` may be negative (cooling exceeds generation). `clamp` prevents Heat going below 0 or above `MaxHeat`.
-- `MaxHeat` is a fixed chassis property (see `03_GAME_DATA_BIBLE.md`). It does not change with installed parts in VS1.
+Distance adds speed * accepted seconds. Heat clamps to [0,maxHeat]; fuel/durability stop at zero. No global per-tick rounding. Reward quotients within eight machine-epsilon units of an integer snap to that integer to prevent a floating-point 10m threshold from losing Scrap.
 
-> **Balance Calibration Warning (from `node tools/sim-check.js`):**
-> At documented starting values, the Heat system is very aggressive. A starter build (engine_t1 + fuel_t1, no radiator) overheats in ~7 seconds, travelling ~1 metre. A T1 full build with `cooling_t1` overheats in ~20 seconds, reaching ~3m. A T3 full build overheats in ~20 seconds reaching ~10m — limited entirely by fuel.
->
-> **This is acceptable as provisional scaffolding.** The formula structure is correct and internally consistent. The numbers below need adjustment during playtesting. Recommended first tuning pass: reduce the Heat generation divisor (e.g., `Power * LoadFactor / 20` instead of `/10` equivalent), or increase base Cooling, or reduce the Heat accumulation coefficient.
->
-> **Do not change the formula structure during implementation — only change the coefficient values after playtesting.** Run `node tools/sim-check.js` after each balance adjustment.
+## 3. Foreground stepping and background policy
 
-### Warning Thresholds (for UI and visual effects)
+A delta must be finite and nonnegative; invalid input throws. Zero is a no-op. The production simulator analytically divides each accepted interval at terrain boundaries and the earliest failure. A call accepts at most one second; excess stall time is discarded. Thus one accepted second agrees with ten 0.1s steps within floating-point tolerance. A huge stalled call intentionally does not represent its full wall-clock duration.
 
-| Condition | Threshold | Visual Cue |
-|---|---|---|
-| Low Fuel | `Fuel / FuelCapacity < 0.20` | Fuel bar flashes; engine sputtering effect |
-| High Heat | `Heat / MaxHeat > 0.80` | Heat bar flashes; heavy smoke effect |
-| Critical Durability | `Durability / MaxDurability < 0.20` | Durability bar flashes; sparks effect |
+Active runs pause when the tab/app is hidden. On resume, discard the first frame delta. Future RunScene must use `GameStateService.advanceRun(token, state, road, deltaMs / 1000)`. Explicit user pause likewise stops calling the tick. Offline progression/automation is a separate future design; hiding a foreground run grants no catch-up simulation.
 
-`MaxDurability` is the total Durability calculated at run start (`ChassisBase.durability + sum of installed part durability bonuses`). It does not change during the run.
+## 4. Failure and completion
 
-## 4. Failure Conditions & Diagnosis (VS1)
-A run ends immediately if:
-1. `Fuel <= 0` (Failure: "Out of Gas")
-2. `Heat >= MaxHeat` (Failure: "Engine Overheated")
-3. `Durability <= 0` (Failure: "Breakdown")
+Stop at the earliest fuel=0, heat=maxHeat or durability=0 event. True numerical ties use out_of_gas, overheated, breakdown priority. Failed states never advance again. Diagnosis uses final stat snapshots; peak telemetry, if shown later, must be collected by the scene (RunState does not currently track peaks).
 
-The Result Screen highlights the exact cause and the peak values of other stats.
+Explicit Quit marks the state abandoned and grants the same distance reward. A minimum 5 Scrap per valid completion avoids a currency soft lock: two zero-distance completions can fund one scavenge. Service-issued session tokens are consumed synchronously before saving; repeated/stale callbacks cannot pay twice. Unfinished, inconsistent and nonfinite results are rejected. No reward is granted merely for hiding or closing the page. Ephemeral active runs do not resume after process loss.
 
-**Mid-Run Quit:** If the player taps Pause then "Quit Run", the run ends as if it failed at the current distance. The full distance-based Scrap reward is calculated and awarded (not zeroed). This prevents punishment for quitting and avoids confusion about reward mechanics.
+## 5. Initial playtest baseline (provisional)
 
-## 5. Run Rewards (VS1)
-- **Scrap Earned:** `Base (5) + Floor(Distance / 10)`.
-- Players always earn a minimum of 5 Scrap to prevent soft-locking, ensuring they can always buy a Tier 1 part (costs 10 Scrap) after at most 2 failed runs.
+Terrain begins at 100m (cracked pavement), 300m (dirt incline), 600m (rocky pass). Part/chassis values and reward economy are unchanged. Speed divisor 0.05, fuel divisor 40 and heat coefficient 0.5 replace unreachable scaffolding. Measure with `npm run simulate`, which imports production formulas.
 
-## 6. Inventory & Part Lifecycle (VS1)
+| Installed build | Approximate distance | Duration | Cause |
+|---|---:|---:|---|
+| Bare chassis | 150m | 75s | Fuel |
+| Starter engine + fuel | 69.57m | 20s | Heat |
+| Full T1 | 248.55m | 71.47s | Fuel |
+| Full T2 | 372m | 66.43s | Fuel |
+| Full T3 | 605m | 60.50s | Fuel |
+| T3 engine, T1 others | 53.85m | 5s | Heat |
+| T3 fuel, T1 others | 308m | 96.25s | Breakdown |
+| T3 engine/fuel/cooling, no tires or suspension | 400m | 40s | Breakdown |
 
-### Inventory Capacity
-- **Unbounded in VS1.** The player may hold any number of parts. No inventory management pressure is intended for VS1.
+The crude starter makes a short run; adding cooling enables the first terrain transition. Balanced upgrades reach later transitions; more power without cooling can worsen survival. Bare chassis outruns the overheating starter but earns less than a full T1 build. This is an explicit provisional engineering tradeoff to revisit in playtesting, along with short high-power heat failures, progression pacing and T3's brief rocky-pass exposure. These numbers are not final balance.
 
-### Part States
-| State | Description |
-|---|---|
-| `stored` | In inventory; not installed. |
-| `installed` | In a chassis slot; contributes to vehicle stats. |
-| `consumed` | Destroyed as an input to a successful merge. |
-| `max_tier` | Tier 3; cannot be merged further. |
+## 6. Inventory, merges and ownership
 
-### Max-Tier Duplicate Behavior
-If the player holds two or more `Tier 3` (max-tier) parts of the same family, the extras remain in inventory in `stored` state. They cannot be merged and **cannot be sold in VS1** (no sell mechanic exists). This is a minor dead-end acknowledged as acceptable for VS1. A `sell` action or part-recycling mechanism is planned for Stage 2 (see `09_EXPANSION_ROADMAP.md`). The implementer must not invent a sell mechanic to solve this — simply do not prevent the player from accumulating them.
+Inventory stores definition IDs, permits duplicates and is unbounded in VS1. Unique instances are unnecessary until per-copy state exists. No sell mechanic; max-tier extras remain stored.
 
-### Merge Eligibility
-A merge is available if and only if:
-- The player holds ≥ 2 `stored` parts with the **same `id`** (i.e., same family AND same tier).
-- The part is not yet at max tier (Tier 3 in VS1).
-- One of the two selected parts may be currently `installed`; the installed part is uninstalled first, then both are consumed, and the merged part is placed in inventory as `stored`.
+Merge input selection is deterministic: prefer two stored copies; otherwise consume exactly one stored plus one installed copy. The latter clears its slot atomically and puts the upgraded output in inventory. UI never manually uninstalls/merges/reinstalls to execute this command. Unrelated copies and currency are preserved. Two inputs become one output.
 
-### Scavenge Weighting
-Each Scavenge yields exactly one random Tier 1 part. All 5 families have **equal probability (20% each)** in VS1. No duplicate protection exists. Bad luck (e.g., receiving 5 consecutive `fuel_t1` parts) is recoverable because installed duplicates can be merged and excess stored duplicates are harmless.
+Install consumes one stored copy and returns any displaced part to inventory. Uninstall returns the installed copy. Invalid targets/ownership/compatibility return false with no mutation. Scavenge RNG is injectable for tests; production defaults to Math.random and validates a draw in [0,1) before spending.
 
-### Save Triggers
-The save is written to `localStorage` after:
-- Scavenge (part added to inventory)
-- Merge (parts consumed, new part created)
-- Install (part moved from inventory to slot)
-- **Uninstall** (part moved from slot to inventory)
-- Run End (distance, scrap, bestDistance updated)
+## 7. Starting state and persistence
 
-## 7. Starting State (New Save)
+Only missing saves and explicit reset receive 0 Scrap, empty slots, engine_t1 + fuel_t1 in inventory, and bestDistance 0. The player manually installs starter items to learn engineering; a bare-chassis run is permitted. Salvaging damaged saves never invents starter ownership.
 
-When a new save is created (first launch or explicit reset):
-- **Scrap:** 0
-- **Installed Parts:** All 5 slots empty (`null`).
-- **Inventory:** Contains the following starter parts pre-installed for the first run:
-  - `engine_t1` (1×)
-  - `fuel_t1` (1×)
-- **Best Distance:** 0
+Scavenge, merge, install, uninstall and valid run completion queue captured saves. Persistence failure preserves live progress and exposes an error/retry state. See `06_ARCHITECTURE_AND_SAVE_MODEL.md` and the Data Bible for recovery/reset.
 
-**Rationale:** Starting with an empty garage and 0 Scrap would leave the player unable to run at all. Providing two starter parts (engine and fuel) gives a minimally functional vehicle and gives the player a meaningful first run. The player sees: "I ran out of fuel fast; I should scavenge another fuel tank and merge for better capacity."
+## 8. Presentation thresholds and future scope
 
-> These two starter parts are placed in the **inventory** (not pre-installed), so the player must manually slot them. This teaches the install interaction on the very first session.
+Low fuel: fuel/fuelCapacity < 0.20. High heat: heat/maxHeat > 0.80. Critical durability: durability/maxDurability < 0.20. For zero capacities, UI must handle ratios without division by zero. MaxDurability is fixed at run start.
 
-## 8. Progression & Unlocks
-- **Part Progression:** Up to Tier 3 in VS1. Stats scale non-linearly to make merges feel impactful.
-- **Future Automation (Do not implement yet):** Auto-scavenge, auto-merge, auto-run.
-- **Future Environments (Do not implement yet):** Ice roads, deserts.
-- **Future Prestige (Do not implement yet):** Engineering Knowledge points for global upgrades.
-
+VS1 retains one chassis, five families and three tiers. Automation, offline rewards, new environments and prestige remain deferred. This pass adds no gameplay UI or assets.

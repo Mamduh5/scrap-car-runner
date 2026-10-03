@@ -9,10 +9,10 @@ Always use file-reading tools to inspect existing code, interfaces, and state be
 Focus on a single Phase or specific task from `07_VERTICAL_SLICE_BUILD_PLAN.md`. Do not attempt to build the Garage, Run simulation, and Save system in a single prompt.
 
 ## 3. No Placeholder Assets
-Do not insert HTML colored boxes or missing image keys into the game if production art is specified. If an asset from `04_ART_DIRECTION_AND_ASSET_REGISTRY.md` is missing from the `assets/` folder, report it and wait for the asset to be created.
+Do not insert HTML colored boxes or missing image keys into the game if production art is specified. If an asset from `04_ART_DIRECTION_AND_ASSET_REGISTRY.md` is missing from the `public/assets/` folder, report it and wait for the asset to be created.
 
 ## 4. Preserve Working Behavior
-Do not perform unrelated refactors. If tasked with fixing a bug in fuel calculation, do not rewrite the SaveManager.
+Do not perform unrelated refactors. If tasked with fixing a bug in fuel calculation, do not rewrite the SaveRepository.
 
 ## 5. Adhere to the Docs
 The `docs/` folder is the single source of truth. If a feature contradicts `01_MASTER_GAME_DESIGN.md` or `03_GAME_DATA_BIBLE.md`, do not implement it.

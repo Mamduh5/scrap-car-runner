@@ -7,7 +7,7 @@ import { resolve } from 'path';
 // Design decisions:
 //   - Single HTML entry: index.html at repo root
 //   - Logical canvas: 360×640 (portrait) — all scaling done in Phaser config
-//   - Assets served from src/assets/ during dev; copied to dist/ on build
+//   - Editable assets: art/source/; runtime assets: public/assets/ copied by Vite
 //   - No React, no UI framework
 //   - Phaser 4 is bundled normally (ESM)
 // ---------------------------------------------------------------------------
@@ -22,7 +22,7 @@ export default defineConfig({
   build: {
     outDir:       'dist',
     assetsDir:    'assets',
-    sourcemap:    true,
+    sourcemap:    process.env['INTERNAL_SOURCEMAPS'] === '1',
     target:       'es2022',
     rollupOptions: {
       output: {

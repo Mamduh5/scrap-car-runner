@@ -17,27 +17,27 @@ export const SCRAPLAND_HIGHWAY: RoadDefinition = {
     {
       name:          'Outskirts',
       startDistance:    0,
-      endDistance:    500,
+      endDistance:    100,
       loadFactor:     1.0,
       roughness:      0,
     },
     {
       name:          'Cracked Pavement',
-      startDistance:  500,
-      endDistance:   1500,
+      startDistance:  100,
+      endDistance:   300,
       loadFactor:     1.2,
       roughness:      1,
     },
     {
       name:          'Dirt Incline',
-      startDistance: 1500,
-      endDistance:   3000,
+      startDistance: 300,
+      endDistance:   600,
       loadFactor:    1.5,
       roughness:     3,
     },
     {
       name:          'Steep Rocky Pass',
-      startDistance: 3000,
+      startDistance: 600,
       endDistance:   Infinity, // Final segment: no upper bound
       loadFactor:    2.0,
       roughness:     5,

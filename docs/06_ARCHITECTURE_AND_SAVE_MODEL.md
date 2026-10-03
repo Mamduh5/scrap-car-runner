@@ -1,91 +1,72 @@
 # Architecture and Save Model
 
-## 1. Technical Stack
-- **Engine:** Phaser 4 (v4.2.1+). See `docs/10_TECHNOLOGY_DECISION.md` for the rationale for choosing Phaser 4 over Phaser 3.
-- **Language:** TypeScript 5.8.x (`strict: true` + `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`).
-- **Bundler:** Vite 8.
-- **Persistence:** Browser `localStorage` via `StorageAdapter` interface (allows swap to Capacitor Preferences later without touching game logic).
-- **Testing:** Vitest 5 — scoped to `src/domain/`, `src/services/`, `src/data/` only. Phaser scenes are not unit-tested.
+## Layers and composition
 
-## 2. Architecture Philosophy
-Strict separation of concerns. Phaser scenes should act as the "View" and "Controller". The game state and simulation logic should be pure TypeScript objects and functions independent of the rendering loop.
+Phaser presentation lives in `src/game/`. Pure domain functions live in `src/domain/`; definitions in `src/data/`; progress/persistence in `src/services/`; shared types in `src/types/game.ts`. Domain and services must never import Phaser or game modules. Browser lifecycle is a narrow injected EventTarget bridge, independent of Phaser. Tools import the same production formulas.
 
-### Layers:
-1. **State:** Pure data (JSON serializable). Contains the current inventory, scrap, and car build.
-2. **Logic/Simulation:** Pure functions that take State and calculate outcomes (e.g., `calculateVehicleStats(state)`, `tickRun(runState, delta)`).
-3. **Services:** SaveManager, AssetLoader.
-4. **View (Phaser):** Reads from State and Logic to update sprites, bars, and UI text.
+`src/main.ts` constructs exactly one StorageAdapter, SaveRepository and GameStateService. It awaits initialization before constructing Phaser, passes the owner through `game.registry.get('gameState')`, registers lifecycle hooks once, and disposes hooks/game on HMR. HMR waits for the preceding owner's initialization and persistence drain before loading again. BootScene is technical diagnostics only; no gameplay scenes or art are included yet.
 
-## 3. Save Model
-- Saves are triggered automatically on key events: Scavenge, Merge, Install, **Uninstall**, Run End.
-- **Schema:** Defined in `03_GAME_DATA_BIBLE.md`.
-- **Versioning:** Include a `version` integer in the save data. Future updates must include migration functions if the schema changes. The current version constant (`CURRENT_SAVE_VERSION`) is defined in `03_GAME_DATA_BIBLE.md`.
-- **No Phaser Objects:** Never store Phaser Sprites, Text objects, or active Scene data in the save file.
-- **Corruption:** If the save cannot be parsed or has an unrecognized version, discard it and start fresh. See `03_GAME_DATA_BIBLE.md` §Save Loading & Corruption Behavior for the full decision table.
+## State access and readiness
 
-## 4. Simulation Ownership
-The `Run Scene` owns the `RunState` (distance, current fuel, current heat, current durability). `RunState` is **not** persisted in the save file; it is reconstructed at the start of each run from the current `GameState`.
+GameStateService is the sole mutable progress owner. `currentState` is a detached, recursively frozen SaveSnapshot (root, inventory and installed record). The snapshot is cached until a successful mutation; reading each frame does not repeatedly clone it. Existing snapshots remain unchanged after later commands. Vehicle stat snapshots are frozen. UI calls validated commands; it must never mutate saves, inventory or installed records.
 
-```typescript
-interface RunState {
-  distance: number;        // metres accumulated this run
-  fuel: number;            // current fuel (0..fuelCapacity)
-  heat: number;            // current heat (0..maxHeat)
-  durability: number;      // current durability (0..maxDurability)
-  maxDurability: number;   // snapshot from VehicleStats at run start; does not change mid-run
-  failureCause: 'out_of_gas' | 'overheated' | 'breakdown' | 'abandoned' | null;
+`init()` shares one promise across overlapping and repeated calls. Ready state is explicit, not a definite-assignment assertion. Actions/read access before readiness throw. A read/recovery failure rejects init, leaves the service unready and permits a retry; no fresh state silently replaces a storage error. A new-save write failure instead leaves initialized progress available with persistence error status.
+
+Invalid ready-state gameplay operations return false/null without mutation. Programming contract errors such as pre-init calls, invalid RNG/delta and unknown advanceRun tokens throw. During a run, garage actions are blocked. Unsupported-version progress is read-only until explicit reset. Reset failure also blocks commands until its storage operation is retried.
+
+Example for future UI:
+
+```ts
+await state.init();
+const view = state.currentState; // readonly, frozen; reuse until mutation
+const installed = state.installPart('engine_t1', 'engine'); // explicit target
+const persistence = state.persistenceStatus; // saved | pending | error | blocked
+```
+
+## Persistence contracts
+
+StorageAdapter holds raw strings. get returns null only for absent data. Browser access, SecurityError, quota and native rejections propagate. No adapter or repository catch converts a failure into success/missing.
+
+SaveRepository serializes load/recovery, captured saves and reset through one promise queue. Save serialization captures call-time values before waiting, validates semantics and rejects invalid/nonfinite data rather than letting JSON stringify coerce numbers to null. Failed jobs reject their callers but the queue continues, so a later valid write can succeed. One repository/owner per application is required.
+
+GameStateService keeps live progress after a failed write. Its immutable persistenceStatus exposes saved, pending, error (with message), or blocked. A revision protects status from stale completion callbacks. Synchronous actions attach rejection handlers immediately; callers use `flush()` or `retryPersistence()` for explicit durability/error handling. A successful latest snapshot includes prior valid mutations and clears earlier error status.
+
+`flush()` awaits jobs requested before the call; it does not reserve future mutations or guarantee process-close completion. It rejects when the latest requested job fails. Ordinary mutations are the primary persistence mechanism. Visibility-hidden and pagehide hooks pause runs and attempt a flush, catching/reporting failures. Pageshow restores foreground eligibility according to visibility. Listener disposal is idempotent. Async close-time work is best effort; browser/process termination may interrupt queued operations.
+
+Reset is a state operation: invalidate the active token, immediately replace live progress with the canonical new save, block commands, then queue remove + fresh write behind older jobs. Old pending saves cannot resurrect prior progress. If remove/write fails, the live fresh state remains in error and commands stay blocked; retry repeats reset. The recovery backup is retained. Reset is not a transactional storage primitive: a process killed between remove and write may leave no primary key. The canonical next launch handles that as new; native/platform acceptance must test its own storage guarantees.
+
+The asynchronous StorageAdapter remains suitable for a later native adapter without changing domain logic. Native durability, packaging, lifecycle events and process-loss acceptance still require platform work; an interface alone does not prove them.
+
+## Save schema, decoding and migrations
+
+The unchanged v1 schema is in `03_GAME_DATA_BIBLE.md`; `CURRENT_SAVE_VERSION` is defined in `src/types/game.ts`. `saveCodec.ts` constructs canonical data from unknown input. See the Data Bible for numeric limits, ownership salvage and raw backup policy. No prior released schema exists: v1 is the only supported version, and no fake v0 migration is provided. When v2 is introduced, add explicit migrations for every supported released older schema, followed by current semantic decoding. Never infer schema solely because a version is lower.
+
+## Run ownership and completion
+
+RunScene will own ephemeral RunState. It is not saved. `startRun()` returns a session token, frozen vehicle stats and starting state. Only one session may be active. Token identity is the exact frozen object reference issued by this owner; copying its numeric diagnostic ID does not create eligibility.
+
+```ts
+const session = state.startRun();
+if (session) {
+  let run = session.state; // future scene-owned
+  run = state.advanceRun(session.token, run, road, deltaMs / 1000);
+  if (run.failureCause !== null) state.recordRunResult(session.token, run);
 }
 ```
 
-During the Phaser `update(time, delta)` loop, the scene calls the pure simulation function:
-`RunState = advanceSimulation(RunState, VehicleStats, RoadDefinition, delta)`
-The scene then updates the UI gauges based on the new `RunState`.
+Simulation accepts seconds, splits road/failure boundaries analytically, caps accepted foreground intervals to one second and never globally rounds positions. Hidden runs pause; the first resume tick is discarded. Completed or explicitly abandoned results must have finite bounded fields, matching maxDurability and consistent failure thresholds. The owner validates reward/currency bounds and closes eligibility synchronously before any save is queued. Duplicate, unknown, cloned and stale tokens cannot pay. Reset also invalidates eligibility. This is local lifecycle correctness, not anti-cheat or a persisted receipt ledger.
 
-**Formulas:** All simulation formulas are defined in `02_GAMEPLAY_SYSTEMS_AND_PROGRESSION.md` §3. The `advanceSimulation` function must follow those formulas exactly. Do not invent alternative formulas in the implementation.
+## Files and assets
 
-## 5. Directory Structure (Implemented)
-```text
-src/
-  main.ts              # Entry point — creates Phaser.Game only
+- `src/services/save/saveCodec.ts`: canonical constructors, decoder and encoder.
+- `src/services/save/SaveRepository.ts`: raw backup, ordered writes/reset/flush.
+- `src/services/state/GameStateService.ts`: progress, commands, persistence status and run eligibility.
+- `src/services/platform/BrowserLifecycle.ts`: visibility/page events and cleanup.
+- `src/test/storage.ts`: deterministic test-only async storage fixture.
+- `tsconfig.tools.json`: strict Node tools/config checking alongside the source config.
+- `art/source/`: editable production art, excluded from bundling.
+- `public/assets/`: Phaser runtime exports copied by Vite; load as assets/... relative to the app base.
 
-  types/
-    game.ts            # ALL canonical TypeScript types (PartDefinition, ChassisDefinition,
-                       #   VehicleStats, RunState, SaveData, FailureCause, etc.)
+## Multiple owners and release gates
 
-  data/
-    parts.ts           # Static PartDefinition[] — mirrors Data Bible §Parts
-    chassis.ts         # Static ChassisDefinition[] — mirrors Data Bible §Chassis
-    roads.ts           # Static RoadDefinition[] — mirrors Data Bible §Roads
-
-  domain/
-    vehicle/
-      calculateVehicleStats.ts       # Pure: chassis + parts → VehicleStats
-      calculateVehicleStats.test.ts
-    run/
-      simulation.ts                  # Pure: advanceSimulation, createRunState, getActiveSegment
-      simulation.test.ts
-      rewards.ts                     # Pure: calculateRunReward
-    parts/
-      merge.ts                       # Pure: resolveMerge, canMergeInInventory
-      merge.test.ts
-
-  services/
-    storage/
-      StorageAdapter.ts              # Interface + LocalStorageAdapter (VS1 implementation)
-    save/
-      SaveRepository.ts              # Load, save, migrate, validate SaveData
-    state/
-      GameStateService.ts            # Live mutable state wrapper (Scavenge, Merge, Install)
-      GameStateService.test.ts
-
-  game/
-    config/
-      phaserConfig.ts                # Phaser 4 game config (pixelArt, Scale.FIT, 360×640)
-    scenes/
-      BootScene.ts                   # Phase 1 minimal boot; transitions to GarageScene later
-
-  assets/                            # Art assets go here when produced
-                                     # See docs/04_ART_DIRECTION_AND_ASSET_REGISTRY.md
-```
-
-**Boundary rule:** `domain/` and `services/` must NEVER import from `game/`. The Phaser layer (`game/`) may import from `domain/` and `services/`. This keeps simulation logic testable without Phaser.
+Composition prevents duplicate owners within the page and coordinates HMR. Independent tabs/windows/processes remain uncoordinated and can overwrite each other's progress. Use one active instance for current internal VS1. Before public browser distribution, implement and browser-test a robust one-writer ownership/conflict policy (for example Web Locks with clear fallback behavior), rather than a race-prone localStorage pseudo-lock. Native source ownership must be decided when packaging; current android/ios ignore entries are temporary, not permission to omit release-owned source. See `12_SECURITY_AND_TRUST_MODEL.md` for authority/secrecy and future backend triggers.

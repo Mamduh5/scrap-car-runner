@@ -7,7 +7,7 @@
  *
  * Rules:
  *   - Merging is free (cost = 0 Scrap)
- *   - Requires exactly 2 stored parts with the same ID (same family + tier)
+ *   - Requires 2 owned copies (service selects stored/installed inputs atomically)
  *   - The part must not be at max tier (tier 3 in VS1)
  *   - Output: 1 part of tier+1 in the same family
  *   - Merge ID convention: `{family}_t{tier+1}`
@@ -49,7 +49,7 @@ export function resolveMerge(partId: string): MergeResult | MergeFailure {
 
   const outputId  = `${part.family}_t${part.tier + 1}`;
   const outputDef = PARTS_BY_ID.get(outputId);
-  if (outputDef === undefined) {
+  if (outputDef === undefined || outputDef.family !== part.family || outputDef.tier !== part.tier + 1) {
     return { success: false, reason: 'no_output_found' };
   }
 

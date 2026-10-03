@@ -19,7 +19,7 @@
 
 ## 4. Technical Direction
 - **Engine:** Phaser 4 (v4.2.1+) — see `docs/10_TECHNOLOGY_DECISION.md` for rationale.
-- **Language:** TypeScript 5.8.x (strict mode)
+- **Language:** TypeScript (strict mode; locked version in package-lock.json)
 - **Bundler:** Vite 8
 - **Testing:** Vitest 5 (domain/logic only — no Phaser in tests)
 - **Platform:** Browser-first (mobile portrait layout), local save via `localStorage`. Capacitor/Android will come much later.
@@ -53,3 +53,6 @@
 - The save model must be versioned from day one.
 - Only serialize pure game state (JSON). Never serialize Phaser objects or view state.
 - Keep the schema simple to allow for future migrations.
+
+## 10. Foundation contracts
+Use the Node range from package.json and npm run check before handoff. State is service-owned with frozen snapshots. Never swallow storage failures, cast JSON into SaveData, or grant rewards outside run-session completion. See 06_ARCHITECTURE_AND_SAVE_MODEL.md and 12_SECURITY_AND_TRUST_MODEL.md. Art sources: art/source/; runtime: public/assets/. Public browser release requires cross-tab one-writer protection; Android requires native source ownership and device acceptance.

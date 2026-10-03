@@ -5,7 +5,7 @@
  * It must stay in sync with docs/03_GAME_DATA_BIBLE.md.
  *
  * Rule: never import Phaser types here. These types must remain usable
- * in pure Node.js test environments (Vitest, sim-check) without a browser.
+ * in pure Node.js tests and tools/simulate.ts without a browser.
  */
 
 // ---------------------------------------------------------------------------
@@ -150,6 +150,17 @@ export interface SaveData {
  * Write a migration function for every prior version.
  */
 export const CURRENT_SAVE_VERSION = 1 as const;
+
+/** VS1 save keys stay compatible; slot targets need not equal families in future schemas. */
+export type SlotId = PartFamily;
+
+export interface SaveSnapshot {
+  readonly version: number;
+  readonly scrap: number;
+  readonly inventory: readonly string[];
+  readonly installedParts: Readonly<InstalledParts>;
+  readonly bestDistance: number;
+}
 
 export const MAX_TIER = 3 as const;
 

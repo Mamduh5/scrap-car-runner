@@ -71,3 +71,13 @@ describe('calculateVehicleStats', () => {
   });
 
 });
+
+describe('Vehicle numeric safety', () => {
+  it.each([NaN,Infinity,-Infinity])('rejects nonfinite contribution %s', value => {
+    expect(() => calculateVehicleStats({ ...RUSTBUCKET,baseStats:{ ...RUSTBUCKET.baseStats,power:value } },[])).toThrow(RangeError);
+    expect(() => calculateVehicleStats(RUSTBUCKET,[{ id:'test',name:'test',family:'engine',tier:1,stats:{ power:value } }])).toThrow(RangeError);
+  });
+  it('rejects additive overflow rather than returning unsafe simulation stats', () => {
+    expect(() => calculateVehicleStats(RUSTBUCKET,[{ id:'test',name:'test',family:'engine',tier:1,stats:{ power:Number.MAX_VALUE } }])).toThrow(RangeError);
+  });
+});

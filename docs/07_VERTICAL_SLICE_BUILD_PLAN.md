@@ -13,10 +13,10 @@ This is the strict implementation sequence. Do not skip phases. Each phase must 
 - **Goal:** Implement the static data and save manager.
 - **Foundation already in place:**
   - `src/data/parts.ts`, `src/data/chassis.ts`, `src/data/roads.ts` — all VS1 static data.
-  - `src/services/save/SaveRepository.ts` — load/save/migrate/validate.
+  - `src/services/save/SaveRepository.ts` — ordered load/save/reset/flush; semantic saveCodec boundary.
   - `src/services/storage/StorageAdapter.ts` — localStorage abstraction.
-- **Remaining task:** `GameStateService` implemented to handle Scavenge, Merge, Install, Uninstall, and Run End state mutations and triggering saves.
-- **Validation:** `GameStateService.test.ts` passes all edge cases. Game state is completely abstracted from UI.
+- **Implemented:** `GameStateService` to handle Scavenge, Merge, Install, Uninstall, and Run End state mutations and triggering saves.
+- **Validation:** `GameStateService.test.ts` covers ownership, initialization, errors, ordering/reset, commands and run completion. Game state is completely abstracted from UI.
 
 
 ## Phase 3: Garage UI & State Integration (Visuals Only)
@@ -26,12 +26,12 @@ This is the strict implementation sequence. Do not skip phases. Each phase must 
 
 ## Phase 4: Scavenge & Merge Logic
 - **Goal:** Core meta-loop mechanics.
-- **Tasks:** Implement "Scavenge" button logic (deduct scrap, add random T1 part). Implement Merge logic (tap part -> tap duplicate -> upgrade).
+- **Tasks:** Bind Scavenge and Merge UI to the existing validated service commands; do not duplicate ownership or RNG rules.
 - **Validation:** Player can buy parts and merge them up to Tier 3. Data saves correctly.
 
 ## Phase 5: Installation & Stat Calculation
 - **Goal:** Vehicle engineering.
-- **Tasks:** Implement equipping/unequipping parts to chassis slots. Implement `calculateVehicleStats()`.
+- **Tasks:** Bind explicit installation targets/uninstall UI to existing commands and display the production calculateVehicleStats result.
 - **Validation:** Installing parts dynamically updates the total Power, Fuel, Cooling, and Durability.
 
 ## Phase 6: The Run Simulation
@@ -45,5 +45,8 @@ This is the strict implementation sequence. Do not skip phases. Each phase must 
 - **Validation:** Game loops seamlessly from Garage -> Run -> Result -> Garage. Scrap is awarded.
 
 ## Phase 8: Polish & Art Integration
-- **Goal:** Replace any temporary boxes with final pixel art assets defined in `04_ART_DIRECTION_AND_ASSET_REGISTRY.md`. Add smoke/spark particles.
+- **Goal:** Refine integrated production assets defined in `04_ART_DIRECTION_AND_ASSET_REGISTRY.md`; add smoke/spark particles. Required production art must be made before any earlier UI depends on it; temporary boxes are not permitted.
 - **Validation:** The game looks and feels like a complete vertical slice.
+
+## Foundation handoff and release gates
+The hardening pass ends before Phase 3. Boot remains technical text, with no art or gameplay added. The aggregate check verifies source/tools, regression tests, static data, production simulation and build; rendered mobile/touch/device acceptance is separate. Before public browser release: one-writer coordination across tabs. Before Android: native source ownership, adapter/lifecycle and physical-device acceptance. Before monetization: actual provider/store trust/privacy/idempotency requirements.

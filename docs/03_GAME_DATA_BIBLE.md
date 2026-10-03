@@ -10,7 +10,7 @@ type PartFamily = 'engine' | 'fuel' | 'cooling' | 'tires' | 'suspension';
 interface PartDefinition {
   id: string; // e.g., 'engine_t1'
   family: PartFamily;
-  tier: number;
+  tier: 1 | 2 | 3;
   name: string;
   stats: {
     power?: number;
@@ -46,14 +46,14 @@ interface VehicleStats {
 
 interface RoadSegment {
   startDistance: number;
-  endDistance: number; // -1 for infinite
+  endDistance: number; // Infinity only for the final segment (static TS data, never JSON save data)
   name: string;
   loadFactor: number; // Multiplier for heat/fuel
   roughness: number;  // Damage over time modifier
 }
 
 // Increment CURRENT_SAVE_VERSION whenever the schema changes. Migration functions
-// must handle all prior versions. Never read a save without checking this field.
+// must handle all supported released prior versions; v1 is the only released schema now. Never read a save without checking this field.
 const CURRENT_SAVE_VERSION = 1;
 
 interface SaveData {
@@ -108,20 +108,31 @@ interface SaveData {
 
 ### The First Road: Scrapland Highway
 - **ID:** `road_scrapland_highway`
-- **0 - 500m (Outskirts):** LoadFactor: 1.0, Roughness: 0
-- **500 - 1500m (Cracked Pavement):** LoadFactor: 1.2, Roughness: 1
-- **1500 - 3000m (Dirt Incline):** LoadFactor: 1.5, Roughness: 3
-- **3000m+ (Steep Rocky Pass):** LoadFactor: 2.0, Roughness: 5
+- **0 - 100m (Outskirts):** LoadFactor: 1.0, Roughness: 0
+- **100 - 300m (Cracked Pavement):** LoadFactor: 1.2, Roughness: 1
+- **300 - 600m (Dirt Incline):** LoadFactor: 1.5, Roughness: 3
+- **600m+ (Steep Rocky Pass):** LoadFactor: 2.0, Roughness: 5
 
 *Note: Balance values are starting estimates and will require playtesting.*
 
-### Save Loading & Corruption Behavior
+### Save Loading, Decoding and Recovery
+
+The v1 disk schema and primary key `scr_save_v1` remain compatible. Decoder output is always newly constructed canonical data; unknown root/slot fields are removed. Scrap is a nonnegative safe integer. Best distance is finite, nonnegative and at most Number.MAX_SAFE_INTEGER. Inventory retains only known string IDs (including legitimate duplicates). Each of the five installed keys must be null or a known matching-family ID. Known wrong-family entries transfer that exact owned copy to inventory and clear the slot; unknown IDs/types clear only the invalid ownership entry. Missing/malformed fields use zero/empty/null defaults, never invented starter parts.
 
 | Scenario | Behavior |
 |---|---|
-| No save exists | Create a new save using the starting state defined in `02_GAMEPLAY_SYSTEMS_AND_PROGRESSION.md` §7 |
-| Save `version` matches `CURRENT_SAVE_VERSION` | Load and use as-is |
-| Save `version` is lower (older save) | Run migration function(s) for each version step, then load |
-| Save is missing required fields / JSON parse error | Treat as corrupted: discard and create a new save. Log a warning. |
-| Save `version` is higher than `CURRENT_SAVE_VERSION` | Unknown future save: discard and create a new save. Log a warning. |
+| Primary key absent | Create canonical new state with the two starter inventory items; service queues its initial save |
+| Storage read rejects | Initialization fails and may retry; never pretend the save is absent |
+| Canonical v1 | Decode into fresh canonical data; retain valid progress |
+| Damaged/missing-field v1 | Salvage valid fields and known ownership; preserve raw backup before writing repair |
+| Invalid JSON/non-object JSON | Preserve raw backup, then recover empty progress; do not invent ownership |
+| Unsupported/missing version (including 0, 0.5, 2, 99999) | Preserve raw backup and leave primary untouched; progress commands blocked until explicit reset |
+| Backup write fails | Reject initialization; never replace the primary |
+| Repair write fails | Reject initialization; primary/raw backup remain recoverable for retry |
+| Explicit reset | Invalidate active run, replace live progress, serialize remove + canonical new write; retain recovery backup |
 
+Backup key: `scr_save_recovery_v1`. It holds one latest raw damaged/unsupported value, bounded in count rather than an accumulating backup history. A repeated successful recovery load reads the repaired primary and does not overwrite that backup. It is not an export system or a guaranteed cloud backup; quota can prevent backup creation and storage clearing can erase both keys.
+
+Only v1 is currently supported; no known older released schema exists to migrate. Do not accept an arbitrary lower version by casting it. When introducing v2, implement explicit migrations for known supported old versions and revalidate canonical semantics. Unsupported versions remain preserved until a supported implementation or explicit player reset handles them.
+
+Provisional run coefficients are centralized in `src/domain/run/balance.ts`; see gameplay docs for equations and measured builds. The final road end uses Infinity only in static definitions; save JSON contains no Infinity sentinel.

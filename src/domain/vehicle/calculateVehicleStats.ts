@@ -25,6 +25,14 @@ export function calculateVehicleStats(
   chassis: ChassisDefinition,
   parts: readonly PartDefinition[],
 ): VehicleStats {
+  for (const value of Object.values(chassis.baseStats)) {
+    if (!Number.isFinite(value)) throw new RangeError('Invalid chassis contribution');
+  }
+  for (const part of parts) {
+    for (const value of Object.values(part.stats)) {
+      if (!Number.isFinite(value)) throw new RangeError('Invalid part contribution');
+    }
+  }
   let power        = chassis.baseStats.power;
   let fuelCapacity = chassis.baseStats.fuelCapacity;
   let cooling      = chassis.baseStats.cooling;
@@ -40,7 +48,7 @@ export function calculateVehicleStats(
     weight       += part.stats.weight       ?? 0;
   }
 
-  return {
+  const result = {
     power:        Math.max(0, power),
     fuelCapacity: Math.max(0, fuelCapacity),
     cooling:      Math.max(0, cooling),
@@ -48,4 +56,8 @@ export function calculateVehicleStats(
     weight:       Math.max(1, weight), // weight must never be 0 (division in speed formula)
     maxHeat:      Math.max(1, maxHeat),
   };
+  if (Object.values(result).some(value => !Number.isFinite(value) || value > Number.MAX_SAFE_INTEGER)) {
+    throw new RangeError('Vehicle stats overflow');
+  }
+  return result;
 }

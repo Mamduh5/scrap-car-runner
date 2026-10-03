@@ -1,153 +1,69 @@
-/**
- * services/save/SaveRepository.ts
- *
- * Owns all save/load operations. Applies migrations. Handles corruption.
- *
- * Canonical rules: docs/03_GAME_DATA_BIBLE.md §Save Loading & Corruption Behavior
- *
- * Architecture:
- *   StorageAdapter  — raw string I/O (no game knowledge)
- *   SaveRepository  — serialization, versioning, migration (no Phaser)
- *   GameStateService — owns the live GameState; calls SaveRepository
- */
-
-import type { SaveData, InstalledParts } from '@/types/game';
-import { CURRENT_SAVE_VERSION, PART_FAMILIES } from '@/types/game';
+import type { SaveData, SaveSnapshot } from '@/types/game';
 import type { StorageAdapter } from '@/services/storage/StorageAdapter';
+import { createEmptySave, createNewSave, decodeSave, encodeSave } from './saveCodec';
 
-const SAVE_KEY = 'scr_save_v1';
-
-// ---------------------------------------------------------------------------
-// Default (new) save — see docs/02_GAMEPLAY_SYSTEMS_AND_PROGRESSION.md §7
-// ---------------------------------------------------------------------------
-
-function createDefaultInstalledParts(): InstalledParts {
-  return {
-    engine:     null,
-    fuel:       null,
-    cooling:    null,
-    tires:      null,
-    suspension: null,
-  };
+export { createNewSave } from './saveCodec';
+export const SAVE_KEY = 'scr_save_v1';
+export const RECOVERY_KEY = 'scr_save_recovery_v1';
+export interface LoadResult {
+  readonly data: SaveData;
+  readonly status: 'new' | 'loaded' | 'recovered' | 'unsupported';
+  readonly issues: readonly string[];
+}
+export interface SaveStore {
+  load(): Promise<LoadResult>;
+  save(data: SaveSnapshot): Promise<void>;
+  reset(): Promise<void>;
+  flush(): Promise<void>;
 }
 
-export function createNewSave(): SaveData {
-  return {
-    version:        CURRENT_SAVE_VERSION,
-    scrap:          0,
-    inventory:      ['engine_t1', 'fuel_t1'], // Starter parts; player must install manually
-    installedParts: createDefaultInstalledParts(),
-    bestDistance:   0,
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Migrations — add one function per version bump
-// ---------------------------------------------------------------------------
-
-type LegacySave = Record<string, unknown>;
-
-function migrateSave(data: LegacySave, fromVersion: number): SaveData {
-  let save = data;
-  // Example migration template (not needed at version 1):
-  // if (fromVersion < 2) { save = migrateV1toV2(save); }
-  // if (fromVersion < 3) { save = migrateV2toV3(save); }
-  void fromVersion; // suppress unused warning until first migration is needed
-  return save as unknown as SaveData;
-}
-
-// ---------------------------------------------------------------------------
-// Validation — lightweight structural check after load/migration
-// ---------------------------------------------------------------------------
-
-function isValidSave(data: unknown): data is SaveData {
-  if (typeof data !== 'object' || data === null) return false;
-  const d = data as Record<string, unknown>;
-
-  if (typeof d['version'] !== 'number')       return false;
-  if (typeof d['scrap'] !== 'number')         return false;
-  if (!Array.isArray(d['inventory']))         return false;
-  if (typeof d['bestDistance'] !== 'number')  return false;
-  if (typeof d['installedParts'] !== 'object' || d['installedParts'] === null) return false;
-
-  const ip = d['installedParts'] as Record<string, unknown>;
-  for (const family of PART_FAMILIES) {
-    if (!(family in ip)) return false;
-    const v = ip[family];
-    if (v !== null && typeof v !== 'string') return false;
-  }
-
-  return true;
-}
-
-// ---------------------------------------------------------------------------
-// SaveRepository
-// ---------------------------------------------------------------------------
-
-export class SaveRepository {
+/** One ordered stream for load/recovery, writes, reset, and flush. */
+export class SaveRepository implements SaveStore {
+  private tail: Promise<unknown> = Promise.resolve();
+  private latest: Promise<unknown> = Promise.resolve();
+  private unsupported = false;
   constructor(private readonly storage: StorageAdapter) {}
-
-  /**
-   * Load and return SaveData.
-   *
-   * Decision table (docs/03_GAME_DATA_BIBLE.md §Save Loading & Corruption Behavior):
-   *   - No save:          return new save
-   *   - JSON parse error: return new save + warn
-   *   - Version too high: return new save + warn
-   *   - Version lower:    migrate then return
-   *   - Version matches:  return as-is
-   */
-  async load(): Promise<SaveData> {
-    const raw = await this.storage.get(SAVE_KEY);
-    if (raw === null) {
-      return createNewSave();
-    }
-
-    let parsed: unknown;
-    try {
-      parsed = JSON.parse(raw);
-    } catch {
-      console.warn('[Save] Corrupted save (JSON parse error) — starting fresh.');
-      return createNewSave();
-    }
-
-    if (typeof parsed !== 'object' || parsed === null) {
-      console.warn('[Save] Corrupted save (not an object) — starting fresh.');
-      return createNewSave();
-    }
-
-    const d = parsed as Record<string, unknown>;
-    const version = typeof d['version'] === 'number' ? d['version'] : -1;
-
-    if (version > CURRENT_SAVE_VERSION) {
-      console.warn(`[Save] Save version ${version} > current ${CURRENT_SAVE_VERSION} — starting fresh.`);
-      return createNewSave();
-    }
-
-    let data = parsed as LegacySave;
-    if (version < CURRENT_SAVE_VERSION) {
-      data = migrateSave(data, version) as unknown as LegacySave;
-    }
-
-    if (!isValidSave(data)) {
-      console.warn('[Save] Save failed structural validation after migration — starting fresh.');
-      return createNewSave();
-    }
-
-    return data;
+  private enqueue<T>(operation: () => Promise<T>): Promise<T> {
+    const job = this.tail.then(operation);
+    this.latest = job;
+    this.tail = job.catch(() => undefined); // Return job still rejects; next job may proceed.
+    return job;
   }
-
-  /** Serialise and persist the current save state. */
-  async save(data: SaveData): Promise<void> {
-    try {
-      await this.storage.set(SAVE_KEY, JSON.stringify(data));
-    } catch (e) {
-      console.error('[Save] Failed to persist save:', e);
-    }
+  load(): Promise<LoadResult> {
+    return this.enqueue(async () => {
+      const raw = await this.storage.get(SAVE_KEY);
+      if (raw === null) return { data: createNewSave(), status: 'new', issues: [] };
+      let parsed: unknown;
+      try { parsed = JSON.parse(raw); } catch { parsed = null; }
+      const result = decodeSave(parsed);
+      if (result.kind === 'current') return { data: result.data, status: 'loaded', issues: [] };
+      // Bounded latest-recovery copy. Backup MUST succeed before any replacement.
+      await this.storage.set(RECOVERY_KEY, raw);
+      if (result.kind === 'unsupported') {
+        this.unsupported = true;
+        return { data: createEmptySave(), status: 'unsupported', issues: result.issues };
+      }
+      await this.storage.set(SAVE_KEY, encodeSave(result.data));
+      return { data: result.data, status: 'recovered', issues: result.issues };
+    });
   }
-
-  /** Remove all save data (e.g. player resets progress). */
-  async reset(): Promise<void> {
-    await this.storage.remove(SAVE_KEY);
+  save(data: SaveSnapshot): Promise<void> {
+    let raw: string;
+    try { raw = encodeSave(data); }
+    catch (error) { return this.enqueue(async () => { throw error; }); }
+    // Capture now, never when a queued job eventually starts.
+    return this.enqueue(async () => {
+      if (this.unsupported) throw new Error('Unsupported save; explicit reset required');
+      await this.storage.set(SAVE_KEY, raw);
+    });
   }
+  reset(): Promise<void> {
+    const raw = encodeSave(createNewSave());
+    return this.enqueue(async () => {
+      await this.storage.remove(SAVE_KEY);
+      await this.storage.set(SAVE_KEY, raw);
+      this.unsupported = false;
+    });
+  }
+  async flush(): Promise<void> { await this.latest; }
 }

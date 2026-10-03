@@ -63,10 +63,10 @@
 The `Boot` scene is a minimal Phaser preload wrapper:
 1. Display a simple loading indicator (text or progress bar).
 2. Load all assets listed in `04_ART_DIRECTION_AND_ASSET_REGISTRY.md`.
-3. Run `SaveManager.load()` to hydrate the game state.
+3. Consume the already-initialized GameStateService provided by application composition; do not load progress again in a scene.
 4. Transition directly to `GarageScene`.
 
-No gameplay occurs during Boot. It exists only to preload assets and restore save state before any scene is rendered.
+No gameplay occurs during Boot. Application composition hydrates progress before Phaser boots. The current foundation displays technical diagnostics only; asset loading and Garage transition are future work.
 
 ## 8. Garage Slot States
 
@@ -101,5 +101,8 @@ The Result screen always shows Cause, Distance, Rewards, and stat snapshots. The
 The hint lines are suggestions, not mandatory UI text. They improve the diagnosis feedback loop and may be toggled off later.
 
 ## 11. Start Run Readiness
-The "DRIVE" button is always enabled. The player may start a run with no parts installed (bare chassis). This is a valid (if very short) run. The UI does **not** block the player from running with an empty garage.
+Once initialized, foreground, and neither reset/version-blocked nor already running, the "DRIVE" button may start even a bare chassis. The player may start a run with no parts installed (bare chassis). This is a valid run. The UI does **not** block the player from running with an empty garage.
 
+
+## 12. State, persistence and lifecycle integration
+Read cached GameStateService.currentState snapshots. Send installPart(partId, targetSlot) explicitly; service decides compatibility and conservation. Stored + installed merges are atomic, clear the consumed slot and leave output in inventory (prefer two stored inputs when available). Reflect persistenceStatus pending/error/blocked; expose retry and explicit reset for unsupported versions when Settings is built. Do not treat those states as safely saved. Future RunScene uses advanceRun with deltaMs / 1000 and the service-issued token. Hidden runs pause; discard first resume delta. Result callbacks use recordRunResult exactly once, with service idempotency as the guard. Peak heat telemetry remains a future scene responsibility.
