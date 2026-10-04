@@ -8,7 +8,7 @@
     gameplay. The Phaser Scale Manager handles the actual canvas sizing.
   -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#1a1a1a" />
+  <meta name="theme-color" content="#130E14" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -28,19 +28,21 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #1a1a1a;
+      background: #130E14; /* palette ink_0 (src/game/assets/palette.ts) */
       display: flex;
       align-items: center;
       justify-content: center;
       touch-action: none; /* Prevents browser scroll/gesture interfering with game input */
     }
 
-    /* Phaser places its canvas directly inside body. These rules ensure it
-       stays pixel-sharp: no browser-level smoothing. */
+    /* Phaser places its canvas directly inside body. The canvas is sized by Phaser as an exact
+       integer number of device pixels per art pixel (docs/04 §4); these rules guarantee the
+       browser upscales it with nearest-neighbor, never smoothing. `pixelated` is declared last so
+       it wins wherever supported; `crisp-edges` is the fallback for engines without it. */
     canvas {
       display: block;
-      image-rendering: pixelated;
       image-rendering: crisp-edges;
+      image-rendering: pixelated;
     }
   </style>
 </head>

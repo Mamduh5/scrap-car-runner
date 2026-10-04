@@ -15,10 +15,9 @@ export class BootScene extends Phaser.Scene {
 
   preload(): void {
     // Asset loading will be added here in the asset phase when production art is ready.
-    // See docs/04_ART_DIRECTION_AND_ASSET_REGISTRY.md for the full asset list.
-    //
-    // Example (do not add until assets exist):
-    //   this.load.image('spr_chassis_rustbucket', 'assets/sprites/chassis_rustbucket.png');
+    // The asset list, sizes and paths are defined by src/game/assets/assetRegistry.ts (canonical);
+    // load entries whose status is 'technical' or beyond via runtimeFiles()/runtimeUrl().
+    // See docs/04_ART_DIRECTION_AND_ASSET_REGISTRY.md and docs/11_ASSET_PRODUCTION_WORKFLOW.md.
   }
 
   create(): void {
@@ -30,12 +29,13 @@ export class BootScene extends Phaser.Scene {
     const status = state.persistenceStatus.status;
     const diagnostic = status === 'blocked' ? 'Unsupported save preserved; reset required' : 'Persistence: ' + status;
 
+    // The logical canvas is ~180 art pixels wide (see phaserConfig.ts); 8px keeps this diagnostic on-screen.
     this.add.text(width / 2, height / 2, 'Scrap Car Runner\nEngine and state initialized\n' + diagnostic, {
-      fontSize:  '16px',
+      fontSize:  '8px',
       color:     '#cccccc',
       align:     'center',
       fontFamily: 'monospace',
-      wordWrap: { width: width - 32 },
+      wordWrap: { width: width - 16 },
     }).setOrigin(0.5);
 
     // In Phase 3, replace the above with:

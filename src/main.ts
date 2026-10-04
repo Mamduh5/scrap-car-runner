@@ -5,10 +5,12 @@ import { LocalStorageAdapter } from '@/services/storage/StorageAdapter';
 import { SaveRepository } from '@/services/save/SaveRepository';
 import { GameStateService } from '@/services/state/GameStateService';
 import { attachBrowserLifecycle } from '@/services/platform/BrowserLifecycle';
+import { attachPixelViewport } from '@/game/config/viewportController';
 
 const state = new GameStateService(new SaveRepository(new LocalStorageAdapter()));
 let game: Phaser.Game | null = null;
 let disposeLifecycle: (() => void) | null = null;
+let disposeViewport: (() => void) | null = null;
 let disposed = false;
 
 async function boot(): Promise<void> {
@@ -20,6 +22,7 @@ async function boot(): Promise<void> {
   game = new Phaser.Game({ ...phaserConfig, callbacks: {
     preBoot: instance => { instance.registry.set('gameState', state); },
   } });
+  disposeViewport = attachPixelViewport(game, window);
 }
 const bootWork = boot();
 void bootWork.catch((error: unknown) => {
@@ -36,5 +39,6 @@ if (import.meta.hot) import.meta.hot.dispose(() => {
   disposed = true;
   if (import.meta.hot) import.meta.hot.data['persistenceDrain'] = bootWork.then(() => state.flush()).catch(console.error);
   disposeLifecycle?.();
+  disposeViewport?.();
   game?.destroy(true);
 });
