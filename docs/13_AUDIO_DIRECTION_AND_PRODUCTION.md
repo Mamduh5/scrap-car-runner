@@ -36,11 +36,11 @@ Google Flow Music (e.g., Lyria) is the authorized music generation tool.
 
 **Verification Checklist (External Verified Facts - Checked: 2026-10-04):**
 - **Plan Entitlement & Commercial Use:** Flow Music has multiple access/subscription arrangements. Google AI Pro currently explicitly advertises Flow Music commercial-use rights. That does NOT automatically prove that every free/core/standard Flow Music generation carries the same commercial-use entitlement.
-- **Download Capability:** Download -> choose a file format.
+- **Download Capability:** Flow Music provides downloadable generated audio. Available download/export formats should be verified at the time of production. Google's broader data-export mechanisms may use different formats from normal direct-download workflows.
 
 **Scrap Car Runner Production Policy:**
 - **Pre-flight verification:** Before every production-generation batch, record the account/plan entitlement and verify current Google commercial-use terms.
-- **Output Editing:** Generated tracks must be edited. The workflow assumes generations will be trimmed, crossfaded, and mastered to create a seamless loop.
+- **Output Editing:** Generated tracks must be edited. The workflow assumes generations will be trimmed, crossfaded, and mastered to create a seamless loop. The project should preserve the highest-quality source available exactly as received.
 
 **Music Consistency Strategy:**
 Consistency is achieved via explicit controls, NOT by assuming tracks from the same generation session will "carry the vibe":
@@ -55,8 +55,8 @@ Consistency is achieved via explicit controls, NOT by assuming tracks from the s
 2. **Flow Music Prompt:** Generate variants using the canonical template (optionally using the first Golden track as a reference).
 3. **Selection:** Review against pillars and select the best candidate.
 4. **Editing:** Trim, align musical bars, crossfade, and master to create a seamless loop.
-5. **Export:** Export Source Master (WAV).
-6. **Encode:** Encode Runtime Versions (MP3).
+5. **Export:** Export Source Master (WAV or equivalent lossless format).
+6. **Encode:** Encode Runtime Versions (format chosen post-Golden testing).
 7. **In-game QA:** Audition on phone speakers and headphones.
 
 **Reusable Prompt Template:**
@@ -99,31 +99,31 @@ SFX will be handcrafted, synthesized, or sourced from licensed libraries. Flow M
   - Phaser executes playback and handles visibility-hidden pauses automatically.
   - `AudioService` tracks user-configured mutes/volumes and listens to Phaser's `unlocked` event to resume music if playback was requested before Web Audio API unlock.
 - **Mixing Categories:** Master, Music, SFX. Mute semantics are strictly boolean logic layered on top of volume (unmuting restores the exact previous volume). Changes to category volume dynamically update actively playing sounds (including looping SFX like engines).
-- **Format Policy:** **MP3** is chosen as the single runtime format for universal compatibility across web browsers, Android WebView, and older iOS Safari without fallback bloat.
+- **Format Policy:** **PROVISIONAL UNTIL GOLDEN AUDIO RUNTIME TESTING**. The runtime codec will be selected based on actual Golden Audio gapless loop testing across Phaser/browsers/mobile-WebView, rather than theoretical compatibility.
 - **Loudness Policy:** Target consistent relative loudness. Documented target: roughly -14 to -16 LUFS for music, allowing SFX headroom to sit clearly above without clipping the master bus. Final perceptual balance must be judged in-game.
 - **Settings Persistence:** Left in memory for VS1 preparation. Audio preferences must persist to save data before meaningful user-facing release/playtest.
 
 ## 7. File Structure & Formats
 
-**Master Format Policy:**
-- **RAW SOURCE:** Preserve exactly as obtained (e.g., raw MP4/MP3 download from Flow).
+**Source, Master & Runtime Format Policy:**
+- **RAW SOURCE:** Preserve exactly as obtained (raw generation files in their ORIGINAL formats). The actual source format is recorded in provenance.
 - **EDITING SESSION:** Use the DAW/project's appropriate working precision.
-- **PRODUCTION MASTER:** Lossless WAV or equivalent. Avoid unnecessary resampling. Preserve suitable production bit depth.
-- **RUNTIME EXPORT:** Encode separately for game delivery (MP3).
+- **PRODUCTION MASTER:** Create/retain an approved lossless production master after editing, loop preparation and mastering. Avoid unnecessary resampling and destructive transcoding.
+- **RUNTIME EXPORT:** Chosen after Golden Audio runtime testing based on seamless looping, compatibility, quality, filesize, and decoding behavior. Not predetermined.
 
 **Source & Masters:** (Archived, not bundled in game)
 ```text
 art/source/audio/
-  music/ (source files, WAV masters)
-  sfx/ (source files, WAV masters)
+  music/ (raw generation files in original formats, editable session files, approved lossless masters)
+  sfx/ (editable session files, approved lossless masters)
   provenance.json
 ```
 
 **Runtime:** (Bundled)
 ```text
 public/assets/audio/
-  music/ (MP3)
-  sfx/ (MP3)
+  music/ (Provisional until Golden testing)
+  sfx/ (Provisional until Golden testing)
 ```
 
 ## 8. Provenance & Licensing
@@ -134,7 +134,8 @@ Required fields for AI music:
 - `model` (if known)
 - `generationDate`
 - `sourcePrompt` (and reference inputs if used)
-- `originalGeneratedFilename`
+- `sourceFilename` (the original filename)
+- `sourceFormat` (the original format, e.g., MP4/MP3/WAV)
 - `editingPerformed`
 - `licenseTermsReference`
 - `entitlement` (e.g., "Google AI Pro")
@@ -160,9 +161,14 @@ Do NOT mass-produce assets or evaluate music in isolation. Prove the riskiest as
 8. Create `sfx_ui_click`
 9. Create `sfx_run_fail`
 10. Mix all six together in-game
-11. Approve Golden Audio Set
-12. Only then expand production
-
+11. **Golden Audio Codec Test:** Test `bgm_garage` and `bgm_run` in the actual runtime environment (Phaser/browser/mobile WebView) using candidate runtime encodes.
+    - *Evaluate Looping:* no audible gap, no click, no duplicated transient, no obvious timing hiccup, repeated looping remains stable.
+    - *Evaluate Runtime:* Phaser loads reliably, playback starts reliably, browser unlock works, track switching works, background/resume remains correct.
+    - *Evaluate Quality:* no obvious compression artifacts, important mid-range instruments remain clear, mechanical percussion remains clean, phone speaker presentation remains acceptable.
+    - *Evaluate Delivery:* reasonable bundle size, reasonable decode/start latency.
+    - *Outcome:* Declare `CANONICAL_RUNTIME_AUDIO_FORMAT` in `audioRegistry.ts` only after this test.
+12. Approve Golden Audio Set
+13. Only then expand production
 **Approval Gate:**
 - **Music Identity:** Garage and Run sound like the same game; motif is recognizable; not generic; no accidental cyberpunk/chiptune vibes.
 - **Repetition:** Garage survives at least ~10 minutes of repeated listening; Run survives repeated restarts.

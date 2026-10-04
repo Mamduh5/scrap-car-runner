@@ -46,8 +46,14 @@ export const AUDIO_REGISTRY: readonly AudioDefinition[] = [
 
 export const AUDIO_BY_ID: ReadonlyMap<string, AudioDefinition> = new Map(AUDIO_REGISTRY.map(a => [a.id, a]));
 
+/** 
+ * PROVISIONAL UNTIL GOLDEN AUDIO RUNTIME TESTING
+ * The final production codec will be selected based on gapless loop testing.
+ */
+export const CANONICAL_RUNTIME_AUDIO_EXT = '.mp3'; // PROVISIONAL
+
 /** Returns expected runtime relative URLs for a given audio ID. */
 export function runtimeAudioUrls(asset: AudioDefinition): readonly string[] {
   const base = `audio/${asset.category}/${asset.id}`;
-  return [`${base}.mp3`];
+  return [`${base}${CANONICAL_RUNTIME_AUDIO_EXT}`];
 }
