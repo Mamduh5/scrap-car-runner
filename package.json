@@ -15,8 +15,9 @@
     "simulate": "node --import tsx/esm tools/simulate.ts",
     "validate:data": "node --import tsx/esm tools/validate-data.ts",
     "validate:assets": "node --import tsx/esm tools/assets/validateAssets.ts",
+    "validate:audio": "node --import tsx/esm tools/assets/validateAudio.ts",
     "typecheck:tools": "tsc -p tsconfig.tools.json --noEmit",
-    "check": "npm run typecheck && npm run typecheck:tools && npm run test && npm run validate:data && npm run validate:assets && npm run simulate && npm run build"
+    "check": "npm run typecheck && npm run typecheck:tools && npm run test && npm run validate:data && npm run validate:assets && npm run validate:audio && npm run simulate && npm run build"
   },
   "dependencies": {
     "phaser": "^4.2.1"
