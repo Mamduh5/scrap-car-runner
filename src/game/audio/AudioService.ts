@@ -130,13 +130,22 @@ export class AudioService {
    * Sync active instances with current volume settings.
    */
   private updateVolumes(): void {
-    // We only actively manage the music volume stream since SFX are fire-and-forget 
-    // for the most part, except looping SFX which we might track later.
     if (this.activeMusicSound && this.activeMusicId) {
       const def = AUDIO_BY_ID.get(this.activeMusicId);
       if (def) {
-        // Casting is safe enough here since Phaser's BaseSound usually supports volume property
         (this.activeMusicSound as any).volume = this.getMusicEffectiveVolume(def.defaultVolume);
+      }
+    }
+    
+    // Phaser SoundManager tracks all active sounds in this.manager.getAllPlaying()
+    // However, getting them specifically by SFX ID requires checking against registry
+    const allPlaying = this.manager.getAllPlaying();
+    for (const sound of allPlaying) {
+      if (sound === this.activeMusicSound) continue;
+      // It's an SFX
+      const def = AUDIO_BY_ID.get(sound.key);
+      if (def && def.category === 'sfx') {
+        (sound as any).volume = this.getSfxEffectiveVolume(def.defaultVolume);
       }
     }
   }

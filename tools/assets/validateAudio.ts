@@ -20,10 +20,12 @@ for (const asset of AUDIO_REGISTRY) {
   ids.add(asset.id);
 }
 
-// 2. File checks (Allow missing for now as per instructions)
+const isStrict = process.argv.includes('--strict');
+let hasMissing = false;
+
+// 2. File checks
 for (const asset of AUDIO_REGISTRY) {
   const expectedUrls = runtimeAudioUrls(asset);
-  // e.g. assets/audio/music/bgm_garage.ogg
   
   let found = false;
   for (const url of expectedUrls) {
@@ -33,10 +35,14 @@ for (const asset of AUDIO_REGISTRY) {
     }
   }
 
-  // We are in pre-production, so missing files are allowed.
-  // In the future this should throw an error if `found === false`.
   if (!found) {
-    console.warn(`[Warning] Missing audio asset for ${asset.id} (Allowed during VS1 preparation)`);
+    hasMissing = true;
+    if (isStrict) {
+      console.error(`[Error] Missing audio asset for ${asset.id}`);
+      hasErrors = true;
+    } else {
+      console.warn(`[Warning] Missing audio asset for ${asset.id} (Allowed during VS1 preparation)`);
+    }
   }
 }
 
@@ -44,5 +50,9 @@ if (hasErrors) {
   console.error('Audio validation failed.');
   process.exit(1);
 } else {
-  console.log('Audio validation passed (Missing files allowed).');
+  if (hasMissing && !isStrict) {
+    console.log('Audio validation passed (Preparation Mode: Missing files allowed).');
+  } else {
+    console.log('Audio validation passed.');
+  }
 }

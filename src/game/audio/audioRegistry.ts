@@ -46,8 +46,8 @@ export const AUDIO_REGISTRY: readonly AudioDefinition[] = [
 
 export const AUDIO_BY_ID: ReadonlyMap<string, AudioDefinition> = new Map(AUDIO_REGISTRY.map(a => [a.id, a]));
 
-/** Returns expected runtime relative URLs for a given audio ID. OGG first, MP3 fallback. */
+/** Returns expected runtime relative URLs for a given audio ID. */
 export function runtimeAudioUrls(asset: AudioDefinition): readonly string[] {
   const base = `audio/${asset.category}/${asset.id}`;
-  return [`${base}.ogg`, `${base}.mp3`];
+  return [`${base}.mp3`];
 }

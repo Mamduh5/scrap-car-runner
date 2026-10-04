@@ -26,6 +26,7 @@ export default defineConfig({
       'src/domain/**/*.test.ts',
       'src/services/**/*.test.ts',
       'src/data/**/*.test.ts',
+      'src/game/audio/**/*.test.ts',
       'tools/**/*.test.ts',
     ],
     coverage: {
