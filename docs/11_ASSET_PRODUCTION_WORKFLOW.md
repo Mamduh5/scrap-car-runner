@@ -2,50 +2,65 @@
 
 This document defines the canonical strategy for generating, validating, and importing production visual assets for Scrap Car Runner.
 
-## 1. Production Art Strategy (No 3D)
+## 1. AI-Assisted Art Pipeline
 
-**Decision:** The game is exclusively 2D pixel art.
-- **No 3D models** will be used in the final runtime.
-- **No 3D authoring pipeline** (e.g., Blender) is required. The overhead of rendering 3D vehicles into pixel-art sprites outweighs the benefits for this top-down/side-scrolling junkyard aesthetic.
+AI cannot output production-ready pixel art directly. The workflow is strictly quality-gated:
 
-## 2. Recommended Art Workflow & AI Assistance
+1. **Canonical Briefing:** Write a brief utilizing the visual pillars ("chunky handmade scrapyard").
+2. **AI Generation (Concept):** Generate reference material or pseudo-pixel drafts.
+3. **Manual Pixel-Art Cleanup:** The AI output MUST be manually traced/redrawn in Aseprite to align to the 9-ramp master palette (`src/game/assets/palette.ts`).
+4. **Export:** Export as strict indexed/RGB `.png` (no color management chunks).
 
-Because the project leverages AI assistance, the workflow combines generation with strict manual pixel-art cleanup:
+**Forbidden:** Dropping unedited AI outputs into the game.
 
-1. **Concept & Silhouette (AI):** AI image generators (e.g., Midjourney, DALL-E) can be used to ideate scrap vehicle parts and environments.
-2. **Pixel-Art Cleanup (Manual):** AI-generated outputs **must** be manually traced or heavily processed in a dedicated pixel-art tool (e.g., **Aseprite** or **LibreSprite**). AI outputs are never dropped directly into the runtime.
-3. **Palette & Discipline:** The manual cleanup phase enforces the canonical junkyard color palette, eliminates "dirty" sub-pixels, and ensures crisp nearest-neighbor readability on mobile screens.
+## 2. The Golden Reference Set
+
+Before full production begins, a **Golden Set** of assets must be fully produced and approved.
+These assets act as the baseline against which all future assets are measured.
+
+The golden set (defined in `assetRegistry.ts` via the `isGolden()` rule) includes:
+- 1 Chassis (Rustbucket)
+- 1 Set of Tires
+- 1 Part Icon
+- 1 UI Panel (9-slice)
+- 1 Road Segment (Sky, Far, Ground)
+
+No other assets can progress beyond the `planned` state until the Golden Set reaches `approved` status.
 
 ## 3. Asset Source Structure
 
 Assets are strictly separated into *Source* (editable) and *Runtime* (imported by Phaser):
 
-- **Source:** `art/source/` (Contains `.aseprite` files, layers, AI reference images). This folder is *not* packaged by Vite.
-- **Runtime:** `public/assets/` (Contains optimized, flat `.png` files and JSON atlases).
+- **Source:** `art/source/` (Contains `.aseprite`, concept art, palette files).
+- **Runtime:** `public/assets/` (Optimized, flat `.png` files).
 
 ## 4. Animation Strategy
 
-- **Runtime Transforms First:** Simple animations (e.g., wheel rotation, chassis bounce) must be handled via Phaser 4 Tweens and rotations. Do not draw 8 frames of a wheel rotating when a simple `sprite.angle += speed` suffices.
-- **Sprite Sheets:** For complex deformations (smoke, sparks, overheating engine vibrations), export standard horizontal sprite sheets from Aseprite.
+- **Runtime Transforms First:** Simple animations (e.g., wheel rotation, chassis bounce) must be handled via Phaser 4 Tweens.
+- **Sprite Sheets:** For complex deformations (smoke, engine vibrations), export strict horizontal sprite sheets from Aseprite.
 
 ## 5. Shader Strategy
 
 - **Policy:** Shaders are for **optional visual enhancement only**.
-- Core gameplay must never depend on a shader for readability.
-- **Good Candidates:** Heat haze over the radiator, engine smoke tinting, damage flashing.
-- **Avoid:** CRT curvature (wastes mobile screen space), complex normal mapping.
+- Gameplay must never depend on a shader for readability.
 
-## 6. Asset Validation Pipeline
+## 6. Technical Validation (The Gate)
 
-To prevent missing files and dimension mismatches, a custom asset validator should be run before builds.
+No asset enters production without passing the automated technical validator.
 
-- **Check:** Does every Sprite listed in `04_ART_DIRECTION_AND_ASSET_REGISTRY.md` exist in `public/assets/`?
-- **Check:** Are all files exactly `.png` (no `.jpg` or `.webp` for pixel art)?
-- **Check:** Are all sprite sheets cleanly divisible by their frame dimensions?
+Run: `npm run validate:assets`
 
-*(The asset validator tooling will be implemented when actual art production begins.)*
+The validator strictly checks:
+- Exact dimensions against `assetRegistry.ts`.
+- Alpha contracts (e.g., cutout transparency vs opaque).
+- 100% adherence to the master palette.
+- Proper margins and frame counts.
+- 100% asset coverage for all parts and chassis defined in `src/data/`.
 
-## 7. Approval Gate
+## 7. Approval Pipeline
 
-No asset enters `public/assets/` without passing this gate:
-`Generate -> Aseprite Cleanup -> Strict Dimension Check -> Import -> In-Game QA -> Approved`
+Every asset follows this lifecycle in the `assetRegistry.ts`:
+1. `planned` -> Defined, but file does not exist.
+2. `draft` -> File exists, but fails technical checks.
+3. `technical` -> Passes `validate:assets`, ready for visual QA.
+4. `approved` -> Art direction approved, ready for release.

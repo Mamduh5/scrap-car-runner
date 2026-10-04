@@ -1,54 +1,57 @@
-# Art Direction and Asset Registry
+# Art Direction and Visual Identity
 
-## 1. Art Philosophy
-- **Style:** Pixel art, strictly retro.
-- **Scaling:** Nearest-neighbor filtering ONLY. No anti-aliasing.
-- **Palette:** Scrappy, muted metals, rust oranges, oily blacks, bright indicator colors (red for heat/alerts, blue for fuel, green for durability).
-- **Perspective:** Side-scrolling for the run (car drives left-to-right). Garage UI is flat/schematic.
+This document defines exactly what Scrap Car Runner looks like and constraints for creating assets. It acts as the source of truth for both human and AI artists.
 
-## 2. Asset Specifications
-- **Base Resolution:** Art should be authored small (e.g., 32x32 for parts) and scaled up in-engine to remain crisp.
-- **Formats:** PNG with transparency.
+## 1. Visual Identity & Pillars
 
-## 3. Asset Registry (VS1)
+**Identity Statement:** 
+> Chunky handmade scrapyard engineering + cheerful improvised machinery + dusty roadside travel + high-contrast readable mobile silhouettes + mechanical UI built from stamped plates, gauges, and workshop labels.
 
-*Total Assets Required: 32*
+**Visual Pillars:**
+1. **Chunky & Legible:** Pixel details must remain distinct on mobile. No single-pixel noise.
+2. **Improvised & Scrappy:** Cars look patched together with asymmetrical bolts, rust, and exposed machinery.
+3. **High-Contrast Lighting:** Silhouettes must pop against the background (WCAG contrast minimums enforced via the palette).
+4. **Tactile UI:** UI isn't floating glass; it’s stamped metal, greasy paper, and analog gauges.
 
-### Vehicles & Environment
-| ID | Filename | Dimensions | Usage & Animation Notes |
-|---|---|---|---|
-| `spr_chassis_rustbucket` | `chassis_rustbucket.png` | 64x32 | Side view of base car. Wheels separate. |
-| `spr_wheel_base` | `wheel_base.png` | 16x16 | Wheel sprite. Rotates via code based on speed. |
-| `bg_garage` | `bg_garage.png` | 360x640 | Cluttered workbench background. |
-| `bg_road_sky` | `bg_road_sky.png` | 360x320 | Parallax background layer 1 (static/slow). |
-| `bg_road_ground` | `bg_road_ground.png` | 360x320 | Parallax background layer 2 (fast scrolling floor). |
+## 2. Forbidden Visuals (What NOT to do)
 
-### UI & Icons
-| ID | Filename | Dimensions | Usage & Animation Notes |
-|---|---|---|---|
-| `icon_scrap` | `icon_scrap.png` | 16x16 | Currency icon (a pile of bolts/gears). |
-| `icon_stat_power` | `icon_power.png` | 16x16 | Engine/lightning bolt icon. |
-| `icon_stat_fuel` | `icon_fuel.png` | 16x16 | Gas drop icon. |
-| `icon_stat_cooling` | `icon_cooling.png` | 16x16 | Snowflake/fan icon. |
-| `icon_stat_durability` | `icon_durability.png` | 16x16 | Shield/wrench icon. |
-| `icon_stat_weight` | `icon_weight.png` | 16x16 | Anvil icon. |
-| `icon_stat_speed` | `icon_speed.png` | 16x16 | Speedometer icon. Used on Run screen "Current Speed" readout. |
-| `btn_scavenge` | `btn_scavenge.png` | 96x32 | Button for buying parts. |
-| `btn_drive` | `btn_drive.png` | 96x32 | Button to start run. |
-| `ui_panel` | `ui_panel.png` | 48x48 base | Base 9-slice border for UI containers. Authored at 48x48 with 8px borders on all sides. Scaled via 9-slice at runtime. |
+To maintain consistency, the following are **STRICTLY FORBIDDEN**:
+- ❌ Generic cyberpunk (no neon glow/lasers).
+- ❌ Realistic automotive photography or car-manufacturer styling.
+- ❌ Muddy brown-on-brown environments (use the defined palette ramps for contrast).
+- ❌ Glossy modern SaaS / smooth vector UI.
+- ❌ Dirty AI-generated pseudo-pixel textures with anti-aliasing.
+- ❌ Inconsistent perspectives (e.g., mixing top-down parts with side-view cars).
 
-### Parts (15 Total)
-*Naming convention: `part_[family]_t[tier].png`. Size: 32x32.*
-- `part_engine_t1.png`, `part_engine_t2.png`, `part_engine_t3.png`
-- `part_fuel_t1.png`, `part_fuel_t2.png`, `part_fuel_t3.png`
-- `part_cooling_t1.png`, `part_cooling_t2.png`, `part_cooling_t3.png`
-- `part_tires_t1.png`, `part_tires_t2.png`, `part_tires_t3.png`
-- `part_suspension_t1.png`, `part_suspension_t2.png`, `part_suspension_t3.png`
+## 3. Pixel-Art Resolution Philosophy
 
-### Effects (Code Driven / Simple Sprites)
-*These are particle/animation sprites managed in code. They are not included in the 32 count above.*
-- **Smoke particle** (`fx_smoke.png`, 8x8): White/grey/black tint based on heat severity.
-- **Spark particle** (`fx_spark.png`, 4x4): Yellow/orange. Used at critical durability.
-- **Merge flash** (`fx_merge.png`, 32x32): Simple sparkle frame. Plays once on merge completion.
+We use strict integer scaling (`Phaser.Scale.NONE` with computed zoom based on DPR and safe area).
 
-*Effect sprites are simple single-frame or 2–4 frame strips. They are considered secondary and may be implemented as Phaser particle emitters with a solid color if art is not yet ready, since they are not primary UI or gameplay assets.*
+- **UI Icons (Parts/Stats):** Authored at **32x32**.
+- **Chassis Base:** Authored at **128x64** bounding box (leaves room for attachments).
+- **Wheels/Tires:** Authored at **32x32** (for visibility against the dusty road).
+- **Backgrounds:** Authored at **360x320** (tiled horizontally).
+- **Anti-aliasing:** ABSOLUTELY NONE. Strict nearest-neighbor rendering.
+- **Palette:** Assets must STRICTLY use colors from the 9-ramp master palette (`src/game/assets/palette.ts`).
+
+## 4. Camera and Presentation Angle
+
+- **Game/Road View:** Pure **Side View**. The car faces and travels right.
+- **Garage View:** Same side view for the car to reuse assets, but UI overlays heavily to present the "workshop" feel.
+- **UI Parts:** Orthographic/flat presentation for inventory icons.
+
+## 5. Installed-Part Visual Philosophy
+
+**Strategy: Selective Visible Upgrades**
+Fully visualizing every tier of every part creates a combinatorial explosion. Therefore:
+- **Tires:** Fully visible. Equipping tires changes the wheel sprites.
+- **Engine/Cooling/Fuel/Suspension:** Visualized primarily in the Engineering UI as detailed 32x32 icons.
+- **Chassis:** Defines the base `veh_[name]_body` sprite.
+
+## 6. Asset Registry
+
+The source of truth for asset requirements is no longer this markdown file.
+It has been moved to a machine-readable TypeScript registry:
+`src/game/assets/assetRegistry.ts`
+
+This registry enforces naming, dimensions, alpha contracts, and binds assets directly to game data (`src/data/`). Run `npm run validate:assets` to verify coverage.
