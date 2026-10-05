@@ -144,15 +144,41 @@ Required fields for AI music:
 Maintain raw source files alongside the edited master for future remastering. Do not overwrite raw Flow output.
 
 ## 9. Audio Validation
-Current tool: `tools/assets/validateAudio.ts`. It presently checks existence/duplicate IDs, resolves the wrong runtime root and enables missing-file failure only through an explicit strict option. It does not automatically switch when Golden production begins, validate provenance/audio content or prove decoding/loops. VAL-02 owns path repair and honest staged enforcement; do not treat current preparation success as production approval.
+The executable, read-only gate is `tools/assets/validateAudio.ts`. Its CLI adapts the independently callable `validateAudio()` core and does not run when imported. File access is injected for controlled tests. Registry `runtimeAudioUrls()` returns URLs relative to `public/assets/`; the filesystem adapter joins them to that root, so `audio/music/bgm_garage.mp3` resolves to `public/assets/audio/music/bgm_garage.mp3`. The former `public/audio/` location is not accepted.
 
-Required validation stages:
-- **Preparation:** Report missing production files honestly while checking available contract/input integrity. Passing preparation does not prove production audio exists or is approved.
-- **Golden-stage:** Enforce the six Golden entries in §10, appropriate provenance/export validity and actual files under `public/assets/audio/`. Missing/invalid Golden inputs fail; the remaining seven are not prematurely required.
-- **Full VS1:** Enforce all 13 required VS1 entries in `audioRegistry.ts`, with appropriate provenance/export checks. Optional/future scope must not silently become required.
-- **Runtime/platform proof:** Browser listening/codec/unlock/loop proof and later native/WebView proof remain separate from file validation. Full file validation alone establishes neither sonic nor device approval.
+### Implemented commands and stages
 
-VAL-02 owns stage-selection/report/API details. A preparation pass MUST NOT be representable as production approval. Golden-stage validation does not finalize the codec or replace integrated mix/listening approval. Do not create fake files to satisfy a gate.
+| Stage | Command | Required presence and meaning |
+|---|---|---|
+| Preparation (default) | `npm run validate:audio` | Registry/provenance integrity and all present audio exports. Absent required VS1 entries are warnings; no produced audio and `[]` provenance are allowed. Output explicitly says PREPARATION ONLY. |
+| Golden | `npm run validate:audio:golden` | Required VS1 entries with canonical `golden` metadata: the exact six in §10. Other future batches may be absent. Present exports must have valid source/provenance records. |
+| Full VS1 | `npm run validate:audio:full` | Every `required && scope === 'vs1'` entry (currently 13), with applicable file/provenance checks. Absent optional/future entries do not become requirements. |
+
+Equivalent syntax is `--stage preparation|golden|full`. `--golden` and the compatibility alias `--strict` select Golden and Full respectively; there is no automatic stage switch. `--root <project root>` selects the filesystem root without replacing canonical registry metadata. Invalid/unknown/conflicting options fail with usage; `--help` exits 0 without validation. Reports state stage, root, scope, enforced presence, per-entry result, provenance approval recorded/pending, errors/warnings and pass/fail. Exit 0 means only the requested technical stage passed; failed checks, invalid arguments or filesystem errors exit 1. Ordinary `npm run check` uses preparation.
+
+### File and tree checks
+
+All stages check registry IDs/category prefixes, roles, scope/required/loop metadata, volume/instance ranges and duplicate IDs/paths. Golden membership is represented once in executable data, by minimal per-entry registry metadata and `isGoldenAudio()`; the documentation checklist remains the production authority.
+
+Present registered files must be nonempty. For the current provisional `.mp3` URL, the dependency-free structural check verifies an optional ID3v2.2/2.3/2.4 envelope (size/flags/footer bounds), followed by a recognized complete first MPEG Layer III frame. It detects obvious wrong containers, invalid headers, metadata-only inputs and a truncated first frame. It does **not** decode payloads or audit every frame. Free-format MP3 frame sizing and other extensions are explicitly unsupported by this structural inspector; extending it requires evidence when delivery changes. These implementation limits neither finalize the codec nor prove gapless playback.
+
+Only the exact `public/assets/audio/` tree is scanned. Unexpected runtime exports (including a wrong-extension alternative or source/master placed there), unsafe paths and duplicate file listings fail. Literal `.gitkeep` placeholders are exempt, consistent with the visual gate. Visual categories are outside audio ownership. No stage creates exports or changes approval.
+
+### Provenance and retained-source checks
+
+`provenance.json` must be a JSON array. Records need unique registered string IDs. For music in the current AI workflow, §8 fields `tool`, `sourcePrompt`, `sourceFilename`, `sourceFormat`, `editingPerformed`, `licenseTermsReference` and `entitlement` must be nonempty strings; `generationDate` must be a real `YYYY-MM-DD` date. `model` is optional when unknown and must be nonempty when supplied. `approvalDate`, when supplied, must be a real date; absent/null explicitly reports pending provenance approval. Approved AI music still requires its approval date under §8. Technical validation does not grant listening approval or force a pending record to invent one.
+
+For sourced/synthesized SFX, the shared local record needs `id`, `tool`, `sourceFilename`, `sourceFormat`, `editingPerformed` and `licenseTermsReference`. It does not invent a generation prompt/account entitlement for non-AI SFX. Optional music-related fields and dates are checked if supplied. Reference-input details, when used, remain recorded with the prompt/source information as §8 requires; the gate cannot establish which references were actually used.
+
+Every supplied record's `sourceFilename` is a safe path relative to `art/source/audio/<music|sfx>/`, and that retained original/source file must exist and be nonempty. `sourceFormat` describes the original, not the runtime extension: a WAV/MP4 source is separate from an MP3 runtime encode. No transcoding or raw replacement occurs. The current provenance schema supplies no master/session filenames, so retained editable sessions and approved lossless masters remain production-review evidence rather than an invented filename check.
+
+For any present runtime export, missing provenance is a warning in Preparation (entry result `attention`, no technical asset pass), and an error in Golden/Full. Malformed supplied records/JSON and missing referenced source files fail every stage. A missing provenance file can be reported during zero-production preparation; production cannot pass a present export without its record. Selected missing runtime assets fail by their presence requirement even before records exist.
+
+These are structural checks, not proof of commercial rights, actual source format/content, authenticity of dates/notes or human approval. Nonempty license/entitlement references do not assert legal truth.
+
+### Remaining production/platform proof
+
+File validation cannot establish decoding in Phaser, seamless loops, loudness/clipping, musical quality, repetition fatigue, engine pitch quality or phone/headphone mix. Browser listening/codec/unlock/loop proof remains AUD-03/05/07; native/WebView delivery remains AND-04. Golden/Full file success does not finalize `.mp3` or replace integrated mix/listening approval. A preparation pass MUST NOT be representable as production approval. Do not create fake files to satisfy a gate.
 
 ## 10. Golden Audio Set (Production Order)
 Do NOT mass-produce assets or evaluate music in isolation. Prove the riskiest assumptions early:

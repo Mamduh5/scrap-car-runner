@@ -19,6 +19,8 @@
     "validate:assets:full": "node --import tsx/esm tools/assets/validateAssets.ts --stage full",
     "validate:assets:release": "node --import tsx/esm tools/assets/validateAssets.ts --stage release",
     "validate:audio": "node --import tsx/esm tools/assets/validateAudio.ts",
+    "validate:audio:golden": "node --import tsx/esm tools/assets/validateAudio.ts --stage golden",
+    "validate:audio:full": "node --import tsx/esm tools/assets/validateAudio.ts --stage full",
     "typecheck:tools": "tsc -p tsconfig.tools.json --noEmit",
     "check": "npm run typecheck && npm run typecheck:tools && npm run test && npm run validate:data && npm run validate:assets && npm run validate:audio && npm run simulate && npm run build"
   },

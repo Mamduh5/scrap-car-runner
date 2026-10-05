@@ -26,12 +26,16 @@ Development: port 8080. Preview: `npm run preview`, port 8081. Build output: `di
 | `npm run validate:assets:golden` | Required Golden visual technical gate, derived from registry membership |
 | `npm run validate:assets:full` | All required visual exports: presence and technical validity |
 | `npm run validate:assets:release` | Full visual gate plus recorded approval, locked palette and canonical GPL |
-| `npm run validate:audio` | Current audio preparation gate; path/staging repair remains VAL-02 |
+| `npm run validate:audio` | Preparation: registry/provenance and present audio checks; reports missing future audio |
+| `npm run validate:audio:golden` | Required six-entry Golden audio file/provenance gate |
+| `npm run validate:audio:full` | All required VS1 audio file/provenance gate |
 | `npm run simulate` | Production-formula balance scenarios; provisional tuning |
 | `npm run build` | Source typecheck and Vite production bundle |
 | `npm run check` | Eight steps: source/tools checks, tests, data, visual preparation, audio preparation, simulation, build; stops on failure |
 
 A green development check does not mean production art exists or is approved. For phase production use `npm run validate:assets -- --stage production --phase proof_a` (choose a registered phase). Visual gates are read-only; full technical success does not grant visual/in-game approval. See [asset workflow](docs/11_ASSET_PRODUCTION_WORKFLOW.md#6-technical-validation-the-gate) for scope, palette staging and options.
+
+Audio validation owns `public/assets/audio/` and follows the provisional registered extension. It checks basic file structure and D13 provenance/source records; success does not establish decoding, listening, looping, licensing or platform approval. See [audio validation](docs/13_AUDIO_DIRECTION_AND_PRODUCTION.md#9-audio-validation).
 
 These gates do not replace browser, touch, Android-device or lifecycle acceptance. Production source maps are disabled by default. For internal diagnostics only, set `INTERNAL_SOURCEMAPS=1` before building; do not publish that diagnostic artifact accidentally.
 
