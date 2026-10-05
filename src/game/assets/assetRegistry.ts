@@ -177,16 +177,16 @@ const familyPhase = (family: PartFamily): AssetPhase => (family === 'engine' ? '
 
 const vehicles: readonly AssetDefinition[] = [
   // Body: 112x56 canvas shared by every overlay so layers register by drawing in place.
-  image('veh_rustbucket_body', 'vehicles', 112, 56, { phase: 'proof_a', status: 'technical', binds: [{ type: 'chassis', id: CHASSIS_ID }] }),
+  image('veh_rustbucket_body', 'vehicles', 112, 56, { phase: 'proof_a', status: 'visual', binds: [{ type: 'chassis', id: CHASSIS_ID }] }),
   // Overlays for the four body-mounted families (tires are the wheel sheets below).
   ...(['engine', 'fuel', 'cooling', 'suspension'] as const).flatMap(family => TIERS.map(tier =>
     image('veh_rustbucket_ov_' + family + '_t' + tier, 'vehicles', 112, 56, {
-      phase: familyPhase(family), status: family === 'engine' ? 'technical' : 'planned', family,
+      phase: familyPhase(family), status: family === 'engine' ? 'visual' : 'planned', family,
       binds: [{ type: 'chassis', id: CHASSIS_ID }, part(family, tier)],
     }))),
   // Authored 4-frame wheel cycles (no code rotation of low-resolution wheels).
   ...TIERS.map(tier => sheet('veh_wheel_tires_t' + tier, 'vehicles', 24, 24, 4, {
-    phase: tier === 1 ? 'proof_a' : 'parts', status: tier === 1 ? 'technical' : 'planned', family: 'tires', binds: [part('tires', tier)],
+    phase: tier === 1 ? 'proof_a' : 'parts', status: tier === 1 ? 'visual' : 'planned', family: 'tires', binds: [part('tires', tier)],
   })),
   sheet('veh_wheel_bare', 'vehicles', 24, 24, 4, { phase: 'hero' }),
   image('veh_shadow', 'vehicles', 112, 8, { phase: 'hero', alpha: 'soft' }),
@@ -195,7 +195,7 @@ const vehicles: readonly AssetDefinition[] = [
 
 const parts: readonly AssetDefinition[] = PART_FAMILIES.flatMap(family => TIERS.map(tier =>
   image('part_' + family + '_t' + tier, 'parts', 24, 24, {
-    phase: familyPhase(family), status: family === 'engine' ? 'technical' : 'planned', margin: 1, family, binds: [part(family, tier)],
+    phase: familyPhase(family), status: family === 'engine' ? 'visual' : 'planned', margin: 1, family, binds: [part(family, tier)],
   })));
 if (TIERS.length !== MAX_TIER) throw new Error('assetRegistry TIERS must match MAX_TIER');
 

@@ -33,6 +33,15 @@ Assets are strictly separated into *Source* (editable) and *Runtime* (imported b
 - **Source:** `art/source/` (Contains `.aseprite`, concept art, palette files).
 - **Runtime:** `public/assets/<category>/<id>.png`, plus `<id>.xml` for bitmap fonts. Use registry `runtimeFiles()` / `runtimeUrl()`; sheet exports are one horizontal strip with registered frames and no margin/spacing. Audio has separate ownership under `public/assets/audio/` (D13).
 
+### ART-01 Source Workflow Exception (Owner Accepted — 2026-10-05)
+
+The owner reviewed the ART-01 Golden benchmark (`proof_a` — 8 assets) and explicitly accepted its source-authoring deviation:
+- **Authoring method:** Hand-authored procedural TypeScript source pipeline (`art/source/golden/art01/*.ts`).
+- **AI content:** Zero AI-generated visual content was used.
+- **Accepted editable source:** Procedural `.ts` code serves as the accepted editable production source for this batch because it delivers deterministic palette mapping, exact cutout alpha, reproducible exports, and mathematical overlay registration.
+- **Scope of exception:** This owner decision applies to **ART-01 only**. It does NOT waive future source/editability requirements globally or establish a policy replacing Aseprite for future visual batches. Future visual tasks choose their authoring method based on asset requirements, D11, the Golden visual benchmark, and production evidence.
+
+
 ## 4. Animation Strategy
 
 - **Runtime Transforms:** Chassis bounce may use Phaser transforms/tweens. Wheels use the registered authored four-frame cycles; do not rotate low-resolution wheel textures in code.
