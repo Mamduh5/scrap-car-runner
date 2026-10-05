@@ -20,7 +20,7 @@ package-lock.json is authoritative for exact dependency resolution. package.json
 
 Keep the strict source options. Separate tsconfig.tools.json checks tools and Vite/Vitest configs with Node types without weakening the browser source config. skipLibCheck remains enabled because Phaser 4.2.1's declarations have upstream errors under full library checking; it does not skip checking our source/tests. Do not claim that TypeScript validates untrusted JSON: saveCodec performs runtime semantic decoding.
 
-npm run check combines source checking, tooling checking, regression tests, data integrity, production simulation and build. Automated checks are separate from rendered browser/touch/device acceptance. No dependency upgrade was needed to solve this foundation task; Node typings are the only dependency addition.
+`npm run check` currently invokes eight steps from `package.json`: source checking, tooling checking, regression tests, data integrity, visual validation, audio validation, production simulation and build. Invocation alone does not prove the visual/audio gates work: D14 assigns executable/staged visual validation to VAL-01 and audio path/staging repair to VAL-02. A preparation pass is not production-content approval. Automated checks are separate from rendered browser/touch/device acceptance. No dependency upgrade was needed to solve this foundation task; Node typings are the only dependency addition.
 
 ## Persistence and platform
 

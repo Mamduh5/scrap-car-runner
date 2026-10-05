@@ -1,6 +1,6 @@
 # Vertical Slice Build Plan (VS1)
 
-This is the strict implementation sequence. Do not skip phases. Each phase must be stable before moving to the next.
+These phases describe VS1 integration areas. [D14](14_IMPLEMENTATION_AND_PROJECT_MANAGEMENT_PLAN.md) is authoritative for execution sequencing, readiness, dependencies and status; phase headings do not override its backlog. Domain simulation, rewards and state commands already exist. Bind presentation to those owners rather than rebuilding them.
 
 ## Phase 1: Project Foundation ✅ COMPLETE
 - **Goal:** Setup the build environment and production-grade technical foundation.
@@ -31,22 +31,28 @@ This is the strict implementation sequence. Do not skip phases. Each phase must 
 
 ## Phase 5: Installation & Stat Calculation
 - **Goal:** Vehicle engineering.
-- **Tasks:** Bind explicit installation targets/uninstall UI to existing commands and display the production calculateVehicleStats result.
+- **Tasks:** Bind explicit installation targets/uninstall UI to existing commands and display `GameStateService.currentVehicleStats`. Garage does not calculate authoritative `VehicleStats`; the service uses the existing domain calculator.
 - **Validation:** Installing parts dynamically updates the total Power, Fuel, Cooling, and Durability.
 
 ## Phase 6: The Run Simulation
 - **Goal:** The core moment-to-moment loop.
-- **Tasks:** Create `RunScene`. Implement the logic tick that consumes fuel, increases heat, and takes damage based on distance and `RoadSegment`. Update UI gauges.
+- **Tasks:** Create production `RunScene` around the original session returned by `GameStateService.startRun()`. The service calculates frozen stats and initial state; RunScene owns evolving ephemeral RunState and calls `advanceRun(originalToken, state, road, deltaMs / 1000)`. Existing domain simulation advances fuel, heat, durability, terrain and failure. Bind movement/gauges to that state; do not implement duplicate formulas or a moving-car shell. Stop stepping terminal states; hidden runs pause and the first resume delta is discarded.
 - **Validation:** Car "drives", stats deplete accurately based on formulas.
 
 ## Phase 7: Failure & Result Flow
 - **Goal:** Complete the loop.
-- **Tasks:** Detect failure conditions (Fuel 0, Heat Max, Durability 0). Show Result Modal. Calculate Scrap reward. Return to Garage.
+- **Tasks:** Consume the simulator’s terminal cause, then call `GameStateService.recordRunResult(originalToken, terminalState)`. The service validates the result, calculates rewards, consumes eligibility and updates progress/persistence. Show diagnosis, reward and record changes from the successful settled transition; show rejection if settlement fails. Return to Garage. Explicit quit uses the documented abandoned result. RunScene does not independently calculate/award rewards or own saved progress.
 - **Validation:** Game loops seamlessly from Garage -> Run -> Result -> Garage. Scrap is awarded.
 
 ## Phase 8: Polish & Art Integration
-- **Goal:** Refine integrated production assets defined in `04_ART_DIRECTION_AND_ASSET_REGISTRY.md`; add smoke/spark particles. Required production art must be made before any earlier UI depends on it; temporary boxes are not permitted.
+- **Goal:** Refine integrated production assets defined in `assetRegistry.ts` under D04 art direction; add registered smoke/spark effects. Required production art must be made before any earlier UI depends on it; temporary boxes are not permitted.
 - **Validation:** The game looks and feels like a complete vertical slice.
 
 ## Foundation handoff and release gates
 The hardening pass ends before Phase 3. Boot remains technical text, with no art or gameplay added. The aggregate check verifies source/tools, regression tests, static data, production simulation and build; rendered mobile/touch/device acceptance is separate. Before public browser release: one-writer coordination across tabs. Before Android: native source ownership, adapter/lifecycle and physical-device acceptance. Before monetization: actual provider/store trust/privacy/idempotency requirements.
+
+## Production inputs and parallel audio track
+
+D14’s executable validators, production typography and exact 22-entry Golden visual approval precede dependent scene work. Required registered batches must exist and pass their applicable approval gates before presentation consumes them. GAR-01 additionally needs D05’s installed-slot owner decision. Real Garage and Run integration may overlap once each has its own inputs; D14 determines readiness.
+
+Golden Audio production and browser codec/unlock proof are VS1 tracks under D13, alongside visual/scene work. Full 13-entry audio and integrated mix/device acceptance are required before presentation-complete VS1; native/WebView codec confirmation waits for Android. First scene bindings do not require final audio polish. Persist audio preferences before meaningful user-facing audio-enabled playtests. Automated preparation passes do not establish production-content or human approval.

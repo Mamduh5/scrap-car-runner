@@ -7,6 +7,7 @@ This document outlines the planned expansion of the game AFTER Vertical Slice 1 
 ## Stage 1: Vertical Slice 1 (Current)
 - Core loop, 5 part families, 3 tiers, 1 road, basic saving.
 - Goal: Prove the fun of the engineering/diagnosis loop.
+- **VS1 audio track:** D13 governs Golden Audio production and browser codec/unlock proof during VS1. Full production audio and integrated listening/device acceptance precede presentation-complete VS1 (D14 M3). Native/WebView codec confirmation remains later Android work; it does not block browser-stage sonic approval.
 
 ## Stage 2: Depth & Build Variety
 - **More Tiers:** Expand parts up to Tier 5.
@@ -27,6 +28,6 @@ This document outlines the planned expansion of the game AFTER Vertical Slice 1 
 - **Engineering Knowledge:** A system where eventually retiring a maxed-out chassis grants a permanent global currency (Knowledge Points) to upgrade baseline garage efficiency (e.g., cheaper Scavenge costs, base stat multipliers).
 
 ## Stage 6: Commercial Polish
-- Audio and Sound Effects.
+- Any additional commercial audio polish builds on the required VS1 audio already produced and accepted under D13; audio production does not begin at this stage.
 - Capacitor wrapper for native Android/iOS builds.
 - Rewarded ads (e.g., watch an ad for a free Tier 3 part or double run rewards) - strictly optional, no forced interstitials.

@@ -99,7 +99,7 @@ SFX will be handcrafted, synthesized, or sourced from licensed libraries. Flow M
   - Phaser executes playback and handles visibility-hidden pauses automatically.
   - `AudioService` tracks user-configured mutes/volumes and listens to Phaser's `unlocked` event to resume music if playback was requested before Web Audio API unlock.
 - **Mixing Categories:** Master, Music, SFX. Mute semantics are strictly boolean logic layered on top of volume (unmuting restores the exact previous volume). Changes to category volume dynamically update actively playing sounds (including looping SFX like engines).
-- **Format Policy:** **PROVISIONAL UNTIL GOLDEN AUDIO RUNTIME TESTING**. The runtime codec will be selected based on actual Golden Audio gapless loop testing across Phaser/browsers/mobile-WebView, rather than theoretical compatibility.
+- **Format Policy:** **PROVISIONAL UNTIL GOLDEN AUDIO RUNTIME TESTING**. Select a browser-stage runtime encode through actual Golden Audio gapless loop testing in Phaser on desktop and physical mobile browsers. Native/WebView delivery stays provisional until Android testing (D14 AND-04); browser sonic approval may unlock VS1 production without claiming final cross-platform codec approval. The current `.mp3` extension in `audioRegistry.ts` is provisional, not canonical delivery evidence.
 - **Loudness Policy:** Target consistent relative loudness. Documented target: roughly -14 to -16 LUFS for music, allowing SFX headroom to sit clearly above without clipping the master bus. Final perceptual balance must be judged in-game.
 - **Settings Persistence:** Left in memory for VS1 preparation. Audio preferences must persist to save data before meaningful user-facing release/playtest.
 
@@ -109,7 +109,7 @@ SFX will be handcrafted, synthesized, or sourced from licensed libraries. Flow M
 - **RAW SOURCE:** Preserve exactly as obtained (raw generation files in their ORIGINAL formats). The actual source format is recorded in provenance.
 - **EDITING SESSION:** Use the DAW/project's appropriate working precision.
 - **PRODUCTION MASTER:** Create/retain an approved lossless production master after editing, loop preparation and mastering. Avoid unnecessary resampling and destructive transcoding.
-- **RUNTIME EXPORT:** Chosen after Golden Audio runtime testing based on seamless looping, compatibility, quality, filesize, and decoding behavior. Not predetermined.
+- **RUNTIME EXPORT:** Browser-stage choice follows Golden browser testing of seamless looping, compatibility, quality, filesize and decoding. Native/WebView suitability is confirmed later; retain masters for re-encoding if necessary. No codec is predetermined.
 
 **Source & Masters:** (Archived, not bundled in game)
 ```text
@@ -144,9 +144,15 @@ Required fields for AI music:
 Maintain raw source files alongside the edited master for future remastering. Do not overwrite raw Flow output.
 
 ## 9. Audio Validation
-Controlled by `tools/assets/validateAudio.ts`.
-- **Preparation Mode:** Missing required audio files trigger a warning but allow the build to pass.
-- **Strict Mode:** Missing required audio files will explicitly fail validation. (Enabled automatically once Golden Audio production begins; do not create fake files to pass this).
+Current tool: `tools/assets/validateAudio.ts`. It presently checks existence/duplicate IDs, resolves the wrong runtime root and enables missing-file failure only through an explicit strict option. It does not automatically switch when Golden production begins, validate provenance/audio content or prove decoding/loops. VAL-02 owns path repair and honest staged enforcement; do not treat current preparation success as production approval.
+
+Required validation stages:
+- **Preparation:** Report missing production files honestly while checking available contract/input integrity. Passing preparation does not prove production audio exists or is approved.
+- **Golden-stage:** Enforce the six Golden entries in §10, appropriate provenance/export validity and actual files under `public/assets/audio/`. Missing/invalid Golden inputs fail; the remaining seven are not prematurely required.
+- **Full VS1:** Enforce all 13 required VS1 entries in `audioRegistry.ts`, with appropriate provenance/export checks. Optional/future scope must not silently become required.
+- **Runtime/platform proof:** Browser listening/codec/unlock/loop proof and later native/WebView proof remain separate from file validation. Full file validation alone establishes neither sonic nor device approval.
+
+VAL-02 owns stage-selection/report/API details. A preparation pass MUST NOT be representable as production approval. Golden-stage validation does not finalize the codec or replace integrated mix/listening approval. Do not create fake files to satisfy a gate.
 
 ## 10. Golden Audio Set (Production Order)
 Do NOT mass-produce assets or evaluate music in isolation. Prove the riskiest assumptions early:
@@ -161,14 +167,14 @@ Do NOT mass-produce assets or evaluate music in isolation. Prove the riskiest as
 8. Create `sfx_ui_click`
 9. Create `sfx_run_fail`
 10. Mix all six together in-game
-11. **Golden Audio Codec Test:** Test `bgm_garage` and `bgm_run` in the actual runtime environment (Phaser/browser/mobile WebView) using candidate runtime encodes.
+11. **Golden Browser Audio Codec Test:** Test candidate encodes of `bgm_garage` and `bgm_run` in actual Phaser playback on desktop and physical mobile browsers during VS1. Candidate export auditions may begin before full scene mix integration; final Golden approval still needs all six in the real loop. Native/WebView codec confirmation waits for Android (AND-04).
     - *Evaluate Looping:* no audible gap, no click, no duplicated transient, no obvious timing hiccup, repeated looping remains stable.
     - *Evaluate Runtime:* Phaser loads reliably, playback starts reliably, browser unlock works, track switching works, background/resume remains correct.
     - *Evaluate Quality:* no obvious compression artifacts, important mid-range instruments remain clear, mechanical percussion remains clean, phone speaker presentation remains acceptable.
     - *Evaluate Delivery:* reasonable bundle size, reasonable decode/start latency.
-    - *Outcome:* Declare `CANONICAL_RUNTIME_AUDIO_FORMAT` in `audioRegistry.ts` only after this test.
-12. Approve Golden Audio Set
-13. Only then expand production
+    - *Outcome:* Record the supported browser-stage encode and its evidence; the existing registry field is `CANONICAL_RUNTIME_AUDIO_EXT`. Future audio tasks may update delivery contracts after proof. Keep native delivery explicitly provisional until WebView acceptance; do not invent a second registry constant or claim final cross-platform approval from browser testing.
+12. Approve the browser-stage Golden Audio Set after integrated six-entry mix, listening and mobile-browser proof, retaining native delivery uncertainty.
+13. Only then expand to the remaining seven required VS1 SFX; full 13-entry audio and integrated mix/device acceptance precede presentation-complete VS1 (D14 M3). Native delivery approval remains AND-04.
 **Approval Gate:**
 - **Music Identity:** Garage and Run sound like the same game; motif is recognizable; not generic; no accidental cyberpunk/chiptune vibes.
 - **Repetition:** Garage survives at least ~10 minutes of repeated listening; Run survives repeated restarts.

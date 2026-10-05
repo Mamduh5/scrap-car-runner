@@ -7,13 +7,13 @@
 | Current Implementation Batch | DOC-01, VAL-01, VAL-02, VAL-03 |
 | Project Management | Milestone-Based Kanban |
 | Sprint Policy | No formal sprints |
-| Last Reviewed | 2026-10-04 |
+| Last Reviewed | 2026-10-05 |
 
 **Purpose:** This document is the execution source of truth for implementation sequencing, task status, dependencies, milestone gates, and project management.
 
 **Authority:** This document does not replace canonical gameplay, data, architecture, art, typography, audio, save, or security contracts. Those remain governed by their designated source-of-truth documents and registries. When a contract changes, update the owning source first and then update this execution plan as necessary.
 
-**Baseline planning report:** [Project Managament.md](../Project%20Managament.md). The root original is retained as the historical audit/planning artifact; D14 is the maintained execution plan going forward.
+**Baseline planning history:** The former root planning report has been removed. Its dated evidence is preserved in §§1–8 below; D14 is the maintained execution plan. No external root-history file is required to follow this plan.
 
 ## How to Maintain This Plan
 
@@ -47,13 +47,14 @@ Never mark a task DONE because code merely compiles, tests alone pass for work r
 |---|---|
 | Current Milestone | M0 — Production Gates & Golden Visual Proofs; IN PROGRESS |
 | Current Batch | DOC-01 + VAL-01 + VAL-02 + VAL-03 |
-| Ready Tasks | DOC-01, VAL-01, VAL-02, VAL-03 |
+| Ready Tasks | VAL-01, VAL-02, VAL-03 |
+| Completed Tasks | DOC-01 — documentation contracts reconciled on 2026-10-05 |
 | In Progress Tasks | None |
 | Validation Tasks | None |
-| Blocked Tasks | None for Batch 1 |
-| Immediate Next Gate | Truthful production validators and reconciled contracts |
+| Blocked Tasks | None for Batch 1; GAR-01 remains BACKLOG / not READY pending owner slot-tap decision and presentation inputs |
+| Immediate Next Gate | VAL-01/02/03 acceptance: truthful production validators and viewport-test discovery |
 
-M0 is IN PROGRESS as the current execution milestone; no backlog implementation task has started. This documentation transfer does not begin or complete DOC-01 or VAL-01/02/03. Later tasks remain BACKLOG until their dependencies, inputs and Definition of Ready are satisfied; later decision gates are not fabricated active blockers for Batch 1.
+M0 remains IN PROGRESS. DOC-01 is DONE: existing canonical contracts were reconciled without changing source, tooling, tests, assets or product decisions. VAL-01/02/03 remain READY and have not started. D05 explicitly contains the unresolved installed-slot gesture as OWNER DECISION REQUIRED; GAR-01 remains BACKLOG / not READY until the owner resolves it and its other inputs pass §13. This later readiness gate does not block validator implementation.
 
 The first batch is bounded corrective production work. After it passes its gate, proceed to production typography proof and Golden visual production, with parallel Golden audio production where its preflight and readiness conditions are met.
 
@@ -61,7 +62,7 @@ The first batch is bounded corrective production work. After it passes its gate,
 
 **The repository is ready for bounded production work. Its immediate needs are trustworthy asset gates, production typography, and Golden visual content—not another architecture audit.**
 
-**Historical baseline — 2026-10-04:** Sections 1–8 retain the evidence and classifications from the audit that produced the original planning report. They are dated baseline observations, not newly executed checks or a guarantee of the current repository inventory. The execution snapshot and backlog statuses are initialized from that source report.
+**Historical baseline — 2026-10-04:** Sections 1–8 retain the evidence and classifications from the audit that produced the original planning report. They are dated baseline observations, not newly executed checks or a guarantee of the current repository inventory. The initial execution snapshot and backlog came from that source report; the current snapshot/statuses are maintained separately as tasks complete.
 
 That baseline audit was read-only. No files were created, edited, deleted, or committed during the audit. No art or audio was generated.
 
@@ -163,19 +164,19 @@ The document labels below are also the backlog’s source references.
 | Product vision | [D01 — Master Design](01_MASTER_GAME_DESIGN.md) | CURRENT CANONICAL | Engineering and diagnosis define the product |
 | Mechanics and progression | [D02 — Gameplay](02_GAMEPLAY_SYSTEMS_AND_PROGRESSION.md) | CURRENT CANONICAL | Numerical tuning explicitly provisional |
 | Content and save semantics | [D03 — Data Bible](03_GAME_DATA_BIBLE.md) | CURRENT CANONICAL | IDs, values, recovery and ownership |
-| Visual identity | [D04 — Art Direction](04_ART_DIRECTION_AND_ASSET_REGISTRY.md) | PARTIALLY STALE | Dimensions and installed-part policy disagree with registry |
+| Visual identity | [D04 — Art Direction](04_ART_DIRECTION_AND_ASSET_REGISTRY.md) | CURRENT CANONICAL | DOC-01 reconciled dimensions, overlays and wheel policy to AR; visual identity unchanged |
 | Visual asset requirements | [AR — Asset Registry](../src/game/assets/assetRegistry.ts#L95) | CURRENT CANONICAL | Explicitly delegated authority for required assets |
 | Palette | [PAL — Palette](../src/game/assets/palette.ts#L15) | PROVISIONAL | 58 colors; lock after Golden approval |
 | Typography | [TY — Typography](../src/ui/theme/typography.ts#L43) | CURRENT CONTRACT; PARTIAL IMPLEMENTATION | Families and roles exist; production rendering remains unfinished |
-| UI/UX | [D05 — Screen Layouts](05_UI_UX_AND_SCREEN_LAYOUTS.md) | CURRENT CANONICAL | Installed-slot tap behavior needs reconciliation |
+| UI/UX | [D05 — Screen Layouts](05_UI_UX_AND_SCREEN_LAYOUTS.md) | CURRENT CANONICAL | Installed-slot tap is explicitly OWNER DECISION REQUIRED in D05; GAR-01 not READY |
 | Ownership and saving | [D06 — Architecture/Save](06_ARCHITECTURE_AND_SAVE_MODEL.md) | CURRENT CANONICAL | Strongly supported by implementation |
-| VS1 sequencing | [D07 — Build Plan](07_VERTICAL_SLICE_BUILD_PLAN.md) | PARTIALLY STALE | Simulation/rewards exist; Golden and audio dependencies omitted |
-| AI workflow | [D08 — Workflow Rules](08_AI_CODEX_WORKFLOW_RULES.md) | CURRENT CANONICAL | Needs explicit evidence-based change procedure |
-| Expansion | [D09 — Roadmap](09_EXPANSION_ROADMAP.md) | CURRENT SUPPORTING; PARTIALLY STALE | Expansion is deferred; audio timing superseded by D13 |
-| Stack and platform gates | [D10 — Technology](10_TECHNOLOGY_DECISION.md) | CURRENT CANONICAL; SMALL STALE DETAILS | Exact versions agree; aggregate-check description is outdated |
-| Art production | [D11 — Asset Workflow](11_ASSET_PRODUCTION_WORKFLOW.md) | PARTIALLY STALE | Golden summary and status lifecycle understate registry |
+| VS1 integration | [D07 — Build Plan](07_VERTICAL_SLICE_BUILD_PLAN.md) | CURRENT SUPPORTING | Existing domain/service bindings and production inputs clarified; D14 owns sequencing |
+| AI workflow | [D08 — Workflow Rules](08_AI_CODEX_WORKFLOW_RULES.md) | CURRENT CANONICAL | D14 evidence-based change procedure and task authority referenced |
+| Expansion | [D09 — Roadmap](09_EXPANSION_ROADMAP.md) | CURRENT SUPPORTING | Expansion deferred; D13 VS1 audio timing explicit |
+| Stack and platform gates | [D10 — Technology](10_TECHNOLOGY_DECISION.md) | CURRENT CANONICAL | Aggregate-check steps reconciled to manifest; gate implementation limits explicit |
+| Art production | [D11 — Asset Workflow](11_ASSET_PRODUCTION_WORKFLOW.md) | CURRENT CANONICAL | Exact Golden scope, six statuses, staged validation and stale tooling contained |
 | Trust and release | [D12 — Security/Trust](12_SECURITY_AND_TRUST_MODEL.md) | CURRENT CANONICAL | Local correctness does not establish anti-cheat |
-| Audio | [D13 — Audio Direction](13_AUDIO_DIRECTION_AND_PRODUCTION.md) | CURRENT CANONICAL; PROVISIONAL DELIVERY | Sonic policy is clear; codec remains unproven |
+| Audio | [D13 — Audio Direction](13_AUDIO_DIRECTION_AND_PRODUCTION.md) | CURRENT CANONICAL; PROVISIONAL DELIVERY | Sonic policy unchanged; browser/native codec approval stages explicit and delivery still provisional |
 | Audio requirements | [AU — Audio Registry](../src/game/audio/audioRegistry.ts#L20) | CURRENT CANONICAL | 13 required VS1 entries; `.mp3` explicitly provisional |
 | Repository overview | [README](../README.md#L17) | CURRENT SUPPORTING; PARTIALLY STALE | Says six aggregate gates; manifest now lists eight |
 
@@ -251,6 +252,8 @@ Important untested production boundaries include scene navigation, actual input,
 
 ## 5. Confirmed Contradictions / Stale Material
 
+The table records the **2026-10-04 baseline findings**, including earlier prose that DOC-01 has now reconciled. Read the resolution record below for current documentation; implementation gaps remain assigned to their existing tasks.
+
 | Classification | Evidence | Consequence |
 |---|---|---|
 | **CONFIRMED CONTRADICTION: visual command does not validate** | Manifest invokes `tools/assets/validateAssets.ts`; that module exports functions but never calls them. Its `--release` invocation exited 0 with no report. Direct invocation produced 173 release errors. [Validator](../tools/assets/validateAssets.ts#L349) | Repair the CLI before accepting any visual gate. |
@@ -277,6 +280,22 @@ Two additional limits must remain explicit:
 - `UI_TEXT_PAIRS` exists but has no consumer/test. Declaring contrast pairs does not enforce them.
 
 The starter performing worse than the bare chassis is **a documented provisional tradeoff**, not an undisclosed contradiction. External music-entitlement claims were not independently reverified during this repository review; production preflight must do that when generation begins.
+
+### DOC-01 reconciliation record — 2026-10-05
+
+| Baseline conflict | Current resolution / owning evidence |
+|---|---|
+| Art dimensions and installed visuals | D04 now defers exact dimensions to AR and requires registered body overlays plus authored wheel cycles; no registry/art scope changed. |
+| Golden summary and approval lifecycle | D11 represents all 22 `proof_*` entries (including both fonts and all Engine tiers), links the exact registry-derived §21 checklist, and preserves all six `ASSET_STATUSES`. Technical success is separate from visual/in-game/final approval. |
+| Typography / viewport assumptions | D04/D05 distinguish browser CSS QA targets, DPR/device pixels and logical AP canvas. D05 preserves actual TY role names and font identities, documents `font_display`/`font_body` mapping, and flags legacy sizes/wraps for TYPO-01/02 proof. TY code remains unchanged. |
+| Scene/domain/run ownership | D05/D07 bind to GS commands, `currentVehicleStats`, original service-issued session, existing simulation and service settlement; scenes own presentation and evolving ephemeral state, not saved progress or rewards. |
+| Audio timing / delivery / gates | D07/D09/D13 put Golden/browser proof in VS1 and full audio before M3; browser encode approval can unlock production while native/WebView confirmation waits for AND-04. Raw originals and lossless masters are preserved; `.mp3` remains provisional. D11/D13 require honest preparation/stage/full reports; VAL-01/02 still own implementation. |
+| Stale visual/tool references | D11 §8 redirects absent visual-acceptance references to D04/D11/D14 and identifies the real validator/palette module. Missing palette/export/contact-sheet commands are explicitly unavailable/future work. Source comments/messages remain unchanged for later tooling tasks. |
+| Installed-slot tap | **OWNER DECISION REQUIRED** in D05 §8. Commands establish conservation, not a gesture. Owner must resolve details versus uninstall, MAX-tier behavior and selected-part targeting before GAR-01 is READY. This does not block DOC-01 or VAL work. |
+| Workflow and aggregate-check wording | D08 references D14 task sequencing and evidence-based change control. D10 accurately describes eight manifest steps and their current limits. README’s older six-step summary remains a documented supporting-source limit outside this task’s history-link-only README scope. |
+| Root history | Absent root planning report is no longer linked or claimed available; baseline evidence remains in this plan. |
+
+Documentation consistency checks passed for DOC-01; no new visual/audio/product decision or asset approval was made. Its original human gate applies only to affected decisions: existing identities/contracts were preserved, and the unresolved player interaction stays with the owner. The implementation defects listed above are not claimed fixed by documentation changes.
 
 ## 6. Previous Planning Critique Verification
 
@@ -539,7 +558,7 @@ Priorities: **P0** immediate critical path; **P1** required for VS1; **P2** late
 
 | ID | Status | Priority | Task | Goal | Evidence | Depends On | Dependency Type | Parallel With | Source of Truth | Scope | Do Not Touch | Acceptance | Automated Validation | Human Validation | Risk | Size |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| DOC-01 | READY | P0 | Reconcile production contracts | Remove proven instruction conflicts | §5 findings | None | Hard before affected execution | VAL work | D00–13, AR/AU | Correct dimensions, overlays, Golden/status summaries, phase ownership, slot interaction, references and codec-stage wording | Product identity, unrelated expansion | One consistent production contract; unresolved owner choices explicit | Reference/contract comparison | VISUAL for affected decisions | MEDIUM | MEDIUM |
+| DOC-01 | DONE | P0 | Reconcile production contracts | Remove proven instruction conflicts | §5 findings | None | Hard before affected execution | VAL work | D00–13, AR/AU | Correct dimensions, overlays, Golden/status summaries, phase ownership, slot interaction, references and codec-stage wording | Product identity, unrelated expansion | One consistent production contract; unresolved owner choices explicit | Reference/contract comparison; documentation searches; diff check | VISUAL for affected decisions (none changed; slot choice explicitly pending) | MEDIUM | MEDIUM |
 | VAL-01 | READY | P0 | Make visual gates executable | End false-success validation | CLI no-op; no validator tests | None | Hard for visual acceptance | VAL-02/03, DOC-01 | AR, PAL, D11, AV | CLI/report/exit codes; stage presence gates; asset-specific status recording; visual/audio tree ownership; focused PNG/palette/gate regressions | Art scope, gameplay | Real invocation rejects invalid/missing stage inputs; full release enforces required assets and locked palette | T, U, positive/negative CLI cases | NONE | MEDIUM | MEDIUM |
 | VAL-02 | READY | P0 | Repair audio production gate | Validate the actual runtime tree honestly | Wrong root; opt-in strict; existence-only | None | Hard for audio acceptance | VAL-01/03, DOC-01 | D13, AU | Correct root; explicit preparation/Golden/full stages; Golden membership; required/scope semantics; provenance and invalid-file checks appropriate to chosen exports | Codec finalization, asset creation | Correct-path files found; missing stage assets fail; full gate requires 13; preparation cannot masquerade as production acceptance | T, U, CLI path/stage cases | NONE | MEDIUM | MEDIUM |
 | VAL-03 | READY | P0 | Discover existing viewport tests | Restore existing mathematical coverage | Excluded test glob | None | Hard for viewport gate | VAL-01/02 | VP, Vitest config | Include pure viewport tests | Phaser scene test rewrites | Existing suite discovered and executed by standard test command | T, U | NONE | LOW | SMALL |
@@ -642,14 +661,14 @@ The runtime registry has **89 entries: 86 required and three optional**.
 | TYPO-01 — font portion of `proof_b`, two | `font_display`; `font_body` |
 | ART-03 — `proof_c`, seven | `env_garage_wall`; `env_garage_lift`; `env_sky_outskirts`; `env_far_junkyard`; `env_road_asphalt`; `prop_scrap_pile_a`; `fx_puff` |
 
-Production uses registry dimensions and alpha/color/frame contracts. For example, body/overlays are 112×56, part icons and wheel frames are 24×24, and Garage wall is 216×427.
+Production uses AR’s exact dimensions and alpha/color/frame contracts. This table is an execution snapshot derived from AR, not a second asset authority; resolve registered exports through AR and review policy through D04/D11.
 
 Typography proof:
 
 - Preserve Silkscreen/VT323 identity and semantic roles.
 - Produce/load the registered bitmap fonts and map cache keys correctly.
 - Inspect headings, buttons, prices, long part names, numeric counters, percentages, warnings, causes and wrapped hints.
-- Inspect 360×640, 390×844 and tall/fractional-DPR cases.
+- Inspect 360×640 and 390×844 CSS browser viewports plus tall/fractional-DPR cases; lay out in the actual flexible AP canvas and safe rectangle, not those browser dimensions.
 - Use real plate/inset/background combinations.
 - Correct sizes or wrapping only when rendering proves a problem.
 
@@ -727,7 +746,7 @@ Required distinctions:
 
 **Preference timing:** persist master/music/SFX mute and volume before meaningful user-facing audio-enabled playtests. Introduce explicit migration for existing v1 progress; do not silently append fields the current codec discards.
 
-**Platform approval:** browser-stage audio approval can unlock VS1 sonic production, but must explicitly retain native delivery uncertainty. D13’s browser/WebView wording needs this staged clarification. Do not claim a final cross-platform codec before actual WebView testing or introduce an early wrapper merely to close that claim.
+**Platform approval:** D13 now explicitly separates browser-stage approval, which can unlock VS1 sonic production, from later native/WebView delivery confirmation. Retain native uncertainty until AND-04. Do not claim a final cross-platform codec before actual WebView testing or introduce an early wrapper merely to close that claim.
 
 ## 23. Garage Production Plan
 
@@ -746,7 +765,7 @@ Important contracts:
 - Handle unbounded inventory with scrolling/grouping; do not introduce inventory tetris.
 - Permit bare-chassis runs.
 - Reflect command rejection truthfully.
-- Resolve installed-slot detail/uninstall behavior before implementation.
+- **OWNER DECISION REQUIRED:** resolve D05 §8 installed-slot detail/uninstall gesture, MAX-tier behavior and selected-part targeting before GAR-01 becomes READY. GAR-01 stays BACKLOG until this owner decision and other dependencies are satisfied.
 
 New saves start with **zero Scrap** and two uninstalled starter parts. Therefore, M1 can prove starter engineering, but **natural acquisition/merge comprehension requires the rewarded run loop**. Test fixtures may exercise funded branches; they cannot establish real progression acceptance.
 
@@ -898,7 +917,7 @@ Preference alone is insufficient. A failing rendered proof or playtest is suffic
 
 **Exact task IDs: DOC-01, VAL-01, VAL-02, VAL-03.**
 
-This is bounded corrective production work, not another general planning/audit phase. All four tasks are READY; this documentation transfer does not start them.
+This is bounded corrective production work, not another general planning/audit phase. DOC-01 is DONE; VAL-01/02/03 remain READY and unstarted. Only documentation reconciliation was executed in DOC-01; the batch gate remains open.
 
 Why now:
 
@@ -957,7 +976,7 @@ This batch excludes gameplay implementation, asset generation, codec finalizatio
 
 | Decision / unknown | Classification | When it matters |
 |---|---|---|
-| Installed-slot tap: details versus immediate uninstall | **BLOCKS LATER — GAR-01** | Resolve in DOC-01 before Garage readiness |
+| Installed-slot tap: details versus immediate uninstall | **OWNER DECISION REQUIRED — BLOCKS LATER, GAR-01** | Explicitly contained by DOC-01 in D05 §8; owner resolves gesture/MAX/targeting before GAR-01 readiness |
 | Typography sizes/wrapping on actual AP canvas | **CAN BE RESOLVED BY VISUAL PROOF** | TYPO-01/02 |
 | Palette and overlay composition quality | **CAN BE RESOLVED BY VISUAL PROOF** | Golden review |
 | Current music generation entitlement/terms | **BLOCKS NOW for production generation** | AUD-01 preflight; does not block code/art work |
@@ -978,8 +997,8 @@ No unresolved product decision blocks the first validation-repair batch.
 
 ## 34. Final Readiness
 
-### READY TO BEGIN IMPLEMENTATION
+### READY FOR VALIDATOR IMPLEMENTATION
 
-Begin **DOC-01, VAL-01, VAL-02 and VAL-03**, then proceed directly to production fonts and the exact Golden visual set.
+**DOC-01 is DONE. VAL-01, VAL-02 and VAL-03 are the immediate next READY tasks**; none was started here. After their applicable gates, assess readiness for production fonts and the exact Golden visual set under §13.
 
-The architecture supports the intended loop. Remaining uncertainty should now be resolved through real assets, real scene integration, listening, playtesting and devices. The plan is maintained here as execution progresses; no backlog implementation task has begun at this initialization.
+The architecture supports the intended loop. Remaining uncertainty should now be resolved through real assets, real scene integration, listening, playtesting and devices. The plan is maintained here as execution progresses. M0 remains IN PROGRESS; no milestone or later task was completed by documentation reconciliation.
