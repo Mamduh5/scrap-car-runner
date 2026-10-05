@@ -46,17 +46,17 @@ Never mark a task DONE because code merely compiles, tests alone pass for work r
 | Field | Current state |
 |---|---|
 | Current Milestone | M0 — Production Gates & Golden Visual Proofs; IN PROGRESS |
-| Current Batch | DOC-01 + VAL-01 + VAL-02 + VAL-03 + ART-01 — COMPLETE; ART-02 in VALIDATION |
+| Current Batch | DOC-01 + VAL-01 + VAL-02 + VAL-03 + ART-01 + ART-02 — COMPLETE |
 | Ready Tasks | ART-03 |
-| Completed Tasks | DOC-01 — documentation reconciled; VAL-01 — visual gates; VAL-02 — audio gates; VAL-03 — viewport discovery verified; ART-01 — Golden vehicle/engine ladder (2026-10-05) |
+| Completed Tasks | DOC-01 — documentation reconciled; VAL-01 — visual gates; VAL-02 — audio gates; VAL-03 — viewport discovery verified; ART-01 — Golden vehicle/engine ladder (2026-10-05); ART-02 — Golden UI samples (2026-10-05) |
 | In Progress Tasks | None |
-| Validation Tasks | ART-02 — Golden UI samples (technically complete; awaiting owner visual review) |
+| Validation Tasks | None |
 | Blocked Tasks | None for Batch 1/ART-01/02; GAR-01 remains BACKLOG / not READY pending owner slot-tap decision and presentation inputs; TYPO-01 remains BACKLOG pending licensed font inputs |
-| Immediate Next Gate | Owner visual review of ART-02; production typography / remaining Golden visual proofs (ART-03); assessment in §34 |
+| Immediate Next Gate | Production typography (TYPO-01) / remaining Golden visual proofs (ART-03); assessment in §34 |
 
-M0 remains IN PROGRESS. DOC-01 is DONE: existing canonical contracts were reconciled without changing source, tooling, tests, assets or product decisions. VAL-01 is DONE: the visual CLI now executes preparation, Golden, phase production, full technical and release gates with truthful reports/exit codes and focused regressions. VAL-02 is DONE: correct audio root, explicit preparation/Golden/full stages, structural provenance/source/file checks and regression evidence. VAL-03 is DONE: the existing pure viewport suite runs under the standard test command, with all previous test files preserved. ART-01 is DONE: all eight `proof_a` assets produced, technical gate passed, and explicit OWNER APPROVAL recorded as the Golden visual benchmark. Eight ART-01 assets advanced to `visual` registry status. ART-02 is in VALIDATION: all five non-font `proof_b` assets (`icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame`) are produced, pass technical validation, and are recorded as `technical` in the registry, awaiting owner visual review. D05 explicitly contains the unresolved installed-slot gesture as OWNER DECISION REQUIRED; GAR-01 remains BACKLOG / not READY until the owner resolves it and its other inputs pass §13.
+M0 remains IN PROGRESS. DOC-01 is DONE: existing canonical contracts were reconciled without changing source, tooling, tests, assets or product decisions. VAL-01 is DONE: the visual CLI now executes preparation, Golden, phase production, full technical and release gates with truthful reports/exit codes and focused regressions. VAL-02 is DONE: correct audio root, explicit preparation/Golden/full stages, structural provenance/source/file checks and regression evidence. VAL-03 is DONE: the existing pure viewport suite runs under the standard test command, with all previous test files preserved. ART-01 is DONE: all eight `proof_a` assets produced, technical gate passed, and explicit OWNER APPROVAL recorded as the Golden visual benchmark. Eight ART-01 assets advanced to `visual` registry status. ART-02 is DONE: all five non-font `proof_b` assets (`icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame`) produced, passed technical validation, and explicit OWNER APPROVAL recorded for the Golden UI benchmark and revised workshop button. Five ART-02 assets advanced to `visual` registry status. Note on `proof_b`: the ART-02 non-font scope is technically complete and visually approved, but the overall `proof_b` bundle remains incomplete, blocked by missing TYPO-01 font inputs (`font_display`, `font_body`). D05 explicitly contains the unresolved installed-slot gesture as OWNER DECISION REQUIRED; GAR-01 remains BACKLOG / not READY until the owner resolves it and its other inputs pass §13.
 
-ART-01 is complete; ART-02 is in VALIDATION; ART-03 remains READY. M0 still requires owner approval of ART-02, production typography (TYPO-01), the remaining Golden visual proofs (ART-03), VIS-01 in-game proof, palette lock, and final Golden approval (ART-04).
+ART-01 and ART-02 are complete; ART-03 remains READY. M0 still requires production typography (TYPO-01), the remaining Golden visual proofs (ART-03), VIS-01 in-game proof, palette lock, and final Golden approval (ART-04).
 
 ### VAL-01 implementation evidence — 2026-10-05
 
@@ -128,7 +128,22 @@ ART-01 completed the eight required `proof_a` assets, passed all technical gate 
 | Test suite | All 13 test files / 248 tests passed |
 | Owner decision | APPROVED — accepted as the Golden visual benchmark for future production |
 
-ART-01 is DONE. M0 remains IN PROGRESS. ART-02 and ART-03 are READY.
+ART-01 is DONE.
+
+### ART-02 implementation evidence — 2026-10-05
+
+| Check | Current result |
+|---|---|
+| Required assets | 5 non-font `proof_b` exports present: `icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame` |
+| Source method | Hand-authored procedural TypeScript pipeline (`art/source/golden/art02/`); no AI visual generation |
+| Workflow exception | Owner accepted procedural source as editable source for ART-02 only (D11 §3 note) |
+| Style reference | Established and documented in `art/source/golden/art02/STYLE_REFERENCE.md` (including UI hierarchy and refined workshop button) |
+| Technical validation | Non-font `proof_b` assets passed technical validation; full `proof_b` gate reports only expected missing `font_display` and `font_body` (TYPO-01) |
+| Registry lifecycle | 5 ART-02 assets advanced to `visual` status (awaiting VIS-01 in-game runtime proof before `ingame`/`approved`) |
+| Test suite | All 13 test files / 248 tests passed |
+| Owner decision | APPROVED — accepted as the Golden UI benchmark for future production; button refinement accepted |
+
+ART-01 and ART-02 are DONE. M0 remains IN PROGRESS. ART-03 is READY.
 
 ## 1. Repository Intake Evidence
 
@@ -636,7 +651,7 @@ Priorities: **P0** immediate critical path; **P1** required for VS1; **P2** late
 | VAL-03 | DONE | P0 | Discover existing viewport tests | Restore existing mathematical coverage | Excluded test glob | None | Hard for viewport gate | VAL-01/02 | VP, Vitest config | Include pure viewport tests | Phaser scene test rewrites | Existing suite discovered and executed by standard test command | T, U | NONE | LOW | SMALL |
 | TYPO-01 | BACKLOG | P0 | Production font/rendering foundation | Render existing typography in AP coordinates | No bitmap fonts; cache-key mismatch | VAL-01; DOC-01 font contract | Hard for typography proof | ART-01/02/03, AUD-01 | TY, AR fonts, D04/05 | `font_display`, `font_body`, editable/licensed sources, XML/PNG exports, renderer/key mapping, explicit sizing/wrap behavior | Font identity/role redesign | Fonts load reliably; intended renderer used; actual logical widths respected | T, AV-stage; focused renderer checks | VISUAL | HIGH | MEDIUM |
 | ART-01 | DONE | P0 | Golden vehicle/engine ladder | Prove vehicle silhouette and progression | Eight `proof_a` entries produced; technical gate passed; owner visual approval recorded | VAL-01 | Hard for Golden approval | TYPO-01, ART-02/03, AUD | D04, D11, AR | Exact eight entries in §21 | Non-Golden production | Clean source/exports; T1–T3 readable; overlay registration and wheel cycle work; owner approval recorded | AV-stage | VISUAL | HIGH | MEDIUM |
-| ART-02 | VALIDATION | P0 | Golden UI samples | Prove tactile controls | Five non-font `proof_b` entries produced; technical gate passed; awaiting owner visual review | VAL-01 | Hard for Golden approval | ART-01/03, TYPO-01 | D04/05/11, AR | Scrap/fuel icons, plate, primary button, slot frames | Remaining UI batch | Frame states, slicing and text/background combinations work | AV-stage | VISUAL | HIGH | MEDIUM |
+| ART-02 | DONE | P0 | Golden UI samples | Prove tactile controls | Five non-font `proof_b` entries produced; technical gate passed; owner visual approval recorded | VAL-01 | Hard for Golden approval | ART-01/03, TYPO-01 | D04/05/11, AR | Scrap/fuel icons, plate, primary button, slot frames | Remaining UI batch | Frame states, slicing, text/background combinations work; owner approval recorded | AV-stage | VISUAL | HIGH | MEDIUM |
 | ART-03 | READY | P0 | Golden Garage/road/effect samples | Prove scene coherence | Seven `proof_c` entries | VAL-01 | Hard for Golden approval | ART-01/02, TYPO-01 | D04/11, AR | Exact seven entries in §21 | Remaining terrain/props | Composition, tiling, vehicle contrast and puff treatment work | AV-stage | VISUAL | HIGH | MEDIUM |
 | VIS-01 | BACKLOG | P0 | Production loading and retained proof view | Exercise real exports through Phaser | Boot preload empty; proof scene inactive | Technical inputs from ART-01/02/03 and TYPO-01 | Hard for rendered approval | AUD-03 after inputs | AR, VP, D05/06 | Registry-driven images/sheets/fonts, errors, development-only proof navigation and resize behavior | Progress ownership, fake gameplay | Correct keys/frames/fonts load; failures visible; reusable production loader | T, U where meaningful, AV-stage | VISUAL | MEDIUM | MEDIUM |
 | TYPO-02 | BACKLOG | P0 | Typography visual acceptance | Prove readability on production backgrounds | Current proof insufficient | TYPO-01, VIS-01, technical ART-02/03 | Hard for Golden approval | AUD proof | TY, D05, VP | §21 samples at target viewports; narrow demonstrated corrections | New font/branding system | Hierarchy, numbers, wrapping and labels accepted at real size | T, AV-stage | VISUAL; DEVICE spot-check | HIGH | MEDIUM |
@@ -1069,23 +1084,26 @@ No unresolved product decision blocks the first validation-repair batch.
 
 ## 34. Final Readiness
 
-### ART-01 COMPLETE; ART-02 IN VALIDATION — READY FOR OWNER VISUAL REVIEW
+### ART-01 AND ART-02 COMPLETE — ART-03 READY
 
-**DOC-01, VAL-01, VAL-02, VAL-03 and ART-01 are DONE. ART-02 is in VALIDATION. M0 remains IN PROGRESS.**
+**DOC-01, VAL-01, VAL-02, VAL-03, ART-01 and ART-02 are DONE. ART-03 is READY. M0 remains IN PROGRESS.**
 
 ART-02 established the Golden UI visual grammar for Scrap Car Runner:
 - All five non-font `proof_b` visual assets produced and validated (`icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame`).
-- Hand-authored procedural TypeScript source recorded with `WORKFLOW DEVIATION — OWNER ACKNOWLEDGEMENT REQUIRED` (D11 Aseprite expectation); no AI-generated visual content was used.
-- Technical validation passed; 5 ART-02 assets recorded as `technical` in registry lifecycle.
-- UI reference documented in `art/source/golden/art02/STYLE_REFERENCE.md`.
-- ART-02 transitioned to **VALIDATION** awaiting owner visual review.
+- Refined `ui_button_primary` accepted by owner as tactile scrapyard workshop control.
+- Hand-authored procedural TypeScript source recorded with owner acceptance for ART-02 only (D11 §3 note); zero AI-generated visual content used.
+- Technical validation passed; 5 ART-02 assets advanced to `visual` in registry lifecycle.
+- UI reference documented in `art/source/golden/art02/STYLE_REFERENCE.md` (establishing durable UI hierarchy: heavy structural `ui_panel_plate` vs lighter repeated `ui_slot_frame`).
+- Owner visual review passed; ART-02 transitioned to **DONE**.
+- Truthful `proof_b` note: ART-02 non-font scope is technically complete and visually approved, but the overall `proof_b` gate remains incomplete, blocked by missing TYPO-01 font inputs (`font_display`, `font_body`).
 
 Readiness reassessment under §13:
-- **ART-02:** Technically complete and in **VALIDATION** pending owner visual review.
-- **ART-03:** Named hard dependency VAL-01 is DONE; visual benchmark (ART-01) is approved and established. Remains **READY**.
+- **ART-01:** Visual benchmark approved; **DONE**.
+- **ART-02:** Golden UI benchmark approved; **DONE**.
+- **ART-03:** Named hard dependency VAL-01 is DONE; visual benchmark (ART-01) and UI benchmark (ART-02) are approved and established. Remains **READY**.
 - **TYPO-01:** Named dependencies are DONE, but retained licensed production font inputs are not yet evidenced in the repository. Remains **BACKLOG** until production font files are provided.
-- **VIS-01:** Hard dependency requires technical inputs from ART-01/02/03 and TYPO-01. ART-01 is complete, but remaining inputs (ART-03, TYPO-01) are not yet complete. Remains **BACKLOG**.
+- **VIS-01:** Hard dependency requires technical inputs from ART-01/02/03 and TYPO-01. ART-01 and ART-02 are complete, but remaining inputs (ART-03, TYPO-01) are not yet complete. Remains **BACKLOG**.
 - **TYPO-02, ART-04 and non-Golden art:** Require completion of remaining Golden batches, typography proof, and in-game proof; remain **BACKLOG**.
 - **AUD-01/02:** Source/licensing and entitlement preflight remain unevidenced; remain **BACKLOG**.
 
-M0 remains IN PROGRESS. No non-Golden task was started and no unevidenced status transition was made. Remaining M0 acceptance requires owner approval of ART-02, typography proof, the remaining 7 Golden visual assets (ART-03), in-game proof (VIS-01), palette lock, and final Golden approval (ART-04).
+M0 remains IN PROGRESS. No non-Golden task was started and no unevidenced status transition was made. Remaining M0 acceptance requires production typography (TYPO-01), the remaining 7 Golden visual assets (ART-03), in-game proof (VIS-01), palette lock, and final Golden approval (ART-04).

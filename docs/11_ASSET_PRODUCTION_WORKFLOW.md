@@ -41,6 +41,14 @@ The owner reviewed the ART-01 Golden benchmark (`proof_a` — 8 assets) and expl
 - **Accepted editable source:** Procedural `.ts` code serves as the accepted editable production source for this batch because it delivers deterministic palette mapping, exact cutout alpha, reproducible exports, and mathematical overlay registration.
 - **Scope of exception:** This owner decision applies to **ART-01 only**. It does NOT waive future source/editability requirements globally or establish a policy replacing Aseprite for future visual batches. Future visual tasks choose their authoring method based on asset requirements, D11, the Golden visual benchmark, and production evidence.
 
+### ART-02 Source Workflow Exception (Owner Accepted — 2026-10-05)
+
+The owner reviewed the ART-02 Golden UI benchmark (non-font `proof_b` — 5 assets: `icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame`) and explicitly accepted its source-authoring deviation:
+- **Authoring method:** Hand-authored procedural TypeScript pixel-art source pipeline (`art/source/golden/art02/*.ts`).
+- **AI content:** Zero AI-generated visual content was used.
+- **Accepted editable source:** Procedural `.ts` code serves as the accepted editable production source for this batch because it delivers deterministic palette mapping, exact binary alpha, precise nine-slice construction, reproducible exports, and predictable state/frame generation.
+- **Scope of exception:** This owner decision applies to **ART-02 only**. It does NOT create a universal policy replacing Aseprite, modify the previously recorded ART-01-only exception, automatically authorize ART-03 or future batches to use the same workflow, or waive future editable-source requirements. Future batches must still follow D11 or receive their own explicit owner acknowledgement where necessary.
+
 
 ## 4. Animation Strategy
 
