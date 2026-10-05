@@ -193,9 +193,11 @@ export function validateRegistry(registry: readonly AssetDefinition[], gameData:
   const goldenApproved = golden.filter(a => a.status === 'approved').length;
   if (goldenApproved < golden.length) {
     for (const a of registry) {
-      // Explicit ART-03R owner instruction permits this optional cloud at technical only.
-      const cloudTechnical = a.id === 'env_clouds_strip' && a.phase === 'polish' && !a.required && a.status === 'technical';
-      if (!isGolden(a) && a.status !== 'planned' && !cloudTechnical) {
+      // Owner authorized technical review and then visual acceptance for this optional cloud only.
+      const cloudReview = a.id === 'env_clouds_strip' && a.phase === 'polish' && !a.required
+        && a.kind === 'image' && a.size.w === 384 && a.size.h === 96 && a.alpha === 'cutout' && a.tileX === true
+        && (a.status === 'technical' || a.status === 'visual');
+      if (!isGolden(a) && a.status !== 'planned' && !cloudReview) {
         err('golden-gate', 'status is "' + a.status + '" but ' + (golden.length - goldenApproved) + ' of ' + golden.length + ' golden reference assets are not approved yet', a.id);
       }
     }

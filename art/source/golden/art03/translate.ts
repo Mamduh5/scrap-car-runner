@@ -44,7 +44,7 @@ function save(id:string,p:Raster):void {
   writeFileSync(new URL(`pixels/${id}.json`,here),JSON.stringify(gridOf(id,p),null,2)+'\n');
 }
 
-// Owner review replaces the former flat-band mapping with authored adjacent-ramp transitions.
+// The owner-authorized sky-only RGB ramp is defined by skyRamp.ts; no sky master is sampled.
 save('env_sky_outskirts',drawSky());
 
 const far=trace(load('far'),[0,0,2048,768],256,96,['steel_2','steel_3','sky_outskirts_1','sky_outskirts_2'],true,true);

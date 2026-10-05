@@ -24,7 +24,7 @@ Golden membership is defined solely by `isGolden()` in [assetRegistry.ts](../src
 - **`proof_b` — seven:** Scrap and Fuel-stat icons; plate panel; primary button (normal, pressed, disabled); slot frame (idle, selected, valid target, blocked/disabled); both registered bitmap fonts `font_display` and `font_body`. Sheet states are frames within entries, not additional Golden assets.
 - **`proof_c` — seven:** Garage wall and lift; Outskirts sky, Junkyard far layer and Asphalt road; Scrap pile A; Puff effect sheet. These cover Garage composition, road layers/tiling and effect motion.
 
-No other assets can progress beyond the `planned` state until the Golden Set reaches `approved` status.
+No other assets can progress beyond `planned` until the Golden Set reaches `approved`, except the explicitly owner-authorized optional ART-03R cloud review described below.
 
 ## 3. Asset Source Structure
 
@@ -49,6 +49,35 @@ The owner reviewed the ART-02 Golden UI benchmark (non-font `proof_b` — 5 asse
 - **Accepted editable source:** Procedural `.ts` code serves as the accepted editable production source for this batch because it delivers deterministic palette mapping, exact binary alpha, precise nine-slice construction, reproducible exports, and predictable state/frame generation.
 - **Scope of exception:** This owner decision applies to **ART-02 only**. It does NOT create a universal policy replacing Aseprite, modify the previously recorded ART-01-only exception, automatically authorize ART-03 or future batches to use the same workflow, or waive future editable-source requirements. Future batches must still follow D11 or receive their own explicit owner acknowledgement where necessary.
 
+
+### ART-03R Golden Run Visual Approval (Owner Accepted — 2026-10-05)
+
+The owner explicitly accepts the current six Run-side assets as the **Golden Run
+environment visual benchmark**: `env_sky_outskirts`, `env_clouds_strip`,
+`env_far_junkyard`, `env_road_asphalt`, `prop_scrap_pile_a`, `fx_puff`. Exactly these
+entries advance from `technical` to `visual` under §7. They are not `ingame` or
+`approved`; VIS-01 still owns real Phaser evidence. Garage wall/lift remain
+planned/absent, ART-03 overall is IN PROGRESS, and M0 is IN PROGRESS.
+
+- **Retained editable source:** Six explicit pixel grids plus the maintained
+  TypeScript codec/recipes in `art/source/golden/art03/`. Four reference-led
+  imagegen masters and their exact prompts remain for translation provenance.
+  No unedited generation is a runtime export. The original non-Aseprite source
+  deviation is documented; separate workflow acknowledgement remains pending.
+  Visual approval does not create an ART-03 or global source-method waiver.
+- **Cloud contract:** Existing optional ID/path, 384×96, cutout alpha, `tileX: true`,
+  polish phase. Explicit owner authorization allows only this contract at
+  `technical` or `visual` before full Golden approval; other non-Golden entries
+  remain gated. It remains outside the 22 required Golden entries.
+- **Sky contract:** Only `env_sky_outskirts` uses the owner-authorized reference RGB
+  row ramp in [skyRamp.ts](../src/game/assets/skyRamp.ts). Its 16×300 opaque tile
+  contract remains intact. Other art keeps palette/grayscale rules; arbitrary RGB
+  is not generally permitted and the master palette remains provisional.
+- **Approval evidence:** [Owner record](../art/source/golden/art03/owner-approval.json)
+  seals the six accepted runtime exports, editable grids, eight approved references
+  and compact final proofs. Current technical evidence is
+  [validation.json](../art/source/golden/art03/validation.json); current cloud/hash
+  evidence is [cloud-review.json](../art/source/golden/art03/cloud-review.json).
 
 ## 4. Animation Strategy
 
@@ -80,7 +109,7 @@ Equivalent stage syntax is `--stage preparation|golden|production|full|release`.
 
 All stages preserve registry/data coverage and reject unexpected files, malformed PNGs, wrong dimensions/frames, alpha/margin violations, forbidden color-management chunks and invalid supported bitmap-font metadata. Present optional exports are validated; absent optional entries are not required. Any asset recorded as `technical` or later must retain its exports even outside the selected presence batch. A partial font PNG/XML pair fails. No stage changes registry status or creates assets.
 
-Palette colors come from `palette.ts`. A provisional palette may still change through Golden review; it is not automatically locked by technical success. Provisional off-palette draft pixels are warnings **only during preparation**, reported as `attention`, not a technical pass. Golden/phase/full/release production checks reject off-palette pixels; recorded technical-or-later exports and locked-palette preparation also reject them. Registered grayscale assets are checked for grayscale instead of palette membership. Fully transparent pixels do not produce color violations; registered soft alpha is respected.
+Palette colors come from `palette.ts`. A provisional palette may still change through Golden review; it is not automatically locked by technical success. Provisional off-palette draft pixels are warnings **only during preparation**, reported as `attention`, not a technical pass. Golden/phase/full/release production checks reject off-palette pixels; recorded technical-or-later exports and locked-palette preparation also reject them. Registered grayscale assets are checked for grayscale instead of palette membership. The narrowly registered ART-03R sky-ramp checks each pixel against its declared reference row color; it does not bypass color validation for other assets. Fully transparent pixels do not produce color violations; registered soft alpha is respected.
 
 An existing `art/palette/scrap-master.gpl` is compared with `palette.ts` `renderGpl()` in every stage; stale text fails. Release also requires that export to exist. Other stages do not require the absent export. The gate does not generate it; palette export automation remains future tooling.
 
@@ -101,7 +130,7 @@ Automated checks cannot judge artistic quality, actual glyph readability, seamle
 5. `ingame`: Real Phaser loading, frames/fonts, composition/motion and viewport behavior proved.
 6. `approved`: Required technical, visual and in-game evidence accepted by the owner; final asset approval recorded truthfully.
 
-Do not collapse file creation, technical validation, visual review, in-game proof and final approval. The palette remains provisional until Golden approval; full production approval requires its lock. D14 §21 governs batch sequencing, and every non-Golden entry stays `planned` until all 22 Golden entries are `approved`.
+Do not collapse file creation, technical validation, visual review, in-game proof and final approval. The palette remains provisional until Golden approval; full production approval requires its lock. D14 §21 governs batch sequencing, and every non-Golden entry stays `planned` until all 22 Golden entries are `approved`, except the bounded optional ART-03R cloud technical/visual authorization above.
 
 ## 8. Stale source/tool references
 

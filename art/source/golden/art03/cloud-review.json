@@ -1,5 +1,6 @@
 {
-  "scope": "ART-03R cloud-only correction; all six Run assets technical; owner visual review pending",
+  "scope": "ART-03R accepted Golden Run benchmark; six assets visual; no in-game/final approval",
+  "ownerApproval": "art/source/golden/art03/owner-approval.json",
   "authorization": "Owner approved 256x48 -> 384x96 on 2026-10-05",
   "reference": {
     "path": "art/reference/art03_run/clouds_strip_reference.png",
@@ -15,7 +16,7 @@
     "tileX": true,
     "required": false,
     "phase": "polish",
-    "status": "technical"
+    "status": "visual"
   },
   "measurements": {
     "edgeMismatches": 0,
@@ -56,56 +57,147 @@
   },
   "preserved": [
     {
-      "sha256": "0536ccca95aaf5fbcba043676ae4c94350361ad4885c28bee7c2fdd5fb266cea",
-      "path": "art/source/golden/art03\\pixels\\prop_scrap_pile_a.json",
-      "unchanged": true
-    },
-    {
-      "sha256": "8c21012b62bf90e34acfbfe4dd00f2797dc4e0902e5768d15cdf87f5e3198e08",
-      "path": "art/source/golden/art03\\pixels\\fx_puff.json",
-      "unchanged": true
-    },
-    {
-      "sha256": "e871e5487769a99565d356736dc0eb9546745444accff93b518324247e686e21",
-      "path": "art/source/golden/art03\\pixels\\env_sky_outskirts.json",
-      "unchanged": true
-    },
-    {
-      "sha256": "7f46c15998e2a2f439bea6e11a2dd5088b459b830625b088da8d5011ada82fff",
-      "path": "art/source/golden/art03\\pixels\\env_road_asphalt.json",
-      "unchanged": true
-    },
-    {
-      "sha256": "e3ab8473448edc396169510a0de07fe0d7e7a47ce6d397e3785c89544256a0c5",
-      "path": "art/source/golden/art03\\pixels\\env_far_junkyard.json",
-      "unchanged": true
-    },
-    {
-      "sha256": "8f87f74504d9a3f0e7d79afcbf7a2b27ab50be2d34d60593ff49bd3a864f989c",
-      "path": "public/assets\\props\\prop_scrap_pile_a.png",
-      "unchanged": true
-    },
-    {
-      "sha256": "ab5e8e817a16274e9d9f4d621c58f971e88fa6b540d85db1356848be037dc5c2",
-      "path": "public/assets\\effects\\fx_puff.png",
-      "unchanged": true
-    },
-    {
-      "sha256": "4220cd96250a5df62acdad533bc071234c14e7a4b183c77b07535027d02858a4",
-      "path": "public/assets\\environments\\env_far_junkyard.png",
-      "unchanged": true
-    },
-    {
-      "sha256": "52af231a32857eb848ea152c2400ee5b2024bedf9273b2c711fd3f7608e2962f",
-      "path": "public/assets\\environments\\env_road_asphalt.png",
-      "unchanged": true
-    },
-    {
+      "path": "public/assets/environments/env_sky_outskirts.png",
       "sha256": "f9a2b8ad140537f7a5266d9252898abcdb7b793af9c1a2faa26970deb974f7d8",
-      "path": "public/assets\\environments\\env_sky_outskirts.png",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/pixels/env_sky_outskirts.json",
+      "sha256": "e871e5487769a99565d356736dc0eb9546745444accff93b518324247e686e21",
+      "unchanged": true
+    },
+    {
+      "path": "public/assets/environments/env_clouds_strip.png",
+      "sha256": "ddf6c2bafe6e2a8d05a1f8327d08df739c21239ce02a13ff1abf4cc05ea7ac17",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/pixels/env_clouds_strip.json",
+      "sha256": "951706b8e116e81c119da4fda4a068fbeb35ad20fb52f74867ee027ff9d53227",
+      "unchanged": true
+    },
+    {
+      "path": "public/assets/environments/env_far_junkyard.png",
+      "sha256": "4220cd96250a5df62acdad533bc071234c14e7a4b183c77b07535027d02858a4",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/pixels/env_far_junkyard.json",
+      "sha256": "e3ab8473448edc396169510a0de07fe0d7e7a47ce6d397e3785c89544256a0c5",
+      "unchanged": true
+    },
+    {
+      "path": "public/assets/environments/env_road_asphalt.png",
+      "sha256": "52af231a32857eb848ea152c2400ee5b2024bedf9273b2c711fd3f7608e2962f",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/pixels/env_road_asphalt.json",
+      "sha256": "7f46c15998e2a2f439bea6e11a2dd5088b459b830625b088da8d5011ada82fff",
+      "unchanged": true
+    },
+    {
+      "path": "public/assets/props/prop_scrap_pile_a.png",
+      "sha256": "8f87f74504d9a3f0e7d79afcbf7a2b27ab50be2d34d60593ff49bd3a864f989c",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/pixels/prop_scrap_pile_a.json",
+      "sha256": "0536ccca95aaf5fbcba043676ae4c94350361ad4885c28bee7c2fdd5fb266cea",
+      "unchanged": true
+    },
+    {
+      "path": "public/assets/effects/fx_puff.png",
+      "sha256": "ab5e8e817a16274e9d9f4d621c58f971e88fa6b540d85db1356848be037dc5c2",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/pixels/fx_puff.json",
+      "sha256": "8c21012b62bf90e34acfbfe4dd00f2797dc4e0902e5768d15cdf87f5e3198e08",
       "unchanged": true
     }
   ],
-  "otherRuntimeChanges": [],
-  "visualReview": "216 AP primary: broad low bank and thin streaks, substantial quiet sky, clear far and Rustbucket focus. Four 216 AP offset panels show high/low banks and wrap. 768 AP proof intentionally exposes the full 384 AP repeat; no shorter subperiod. Owner approval remains pending."
+  "referenceAndPreviewIntegrity": [
+    {
+      "path": "art/reference/art03_run/clouds_strip_reference.png",
+      "sha256": "65d11a66a2dbbcdde80fa5f335cf6db543faf46e62bb66ab8d04a78f08f02a23",
+      "unchanged": true
+    },
+    {
+      "path": "art/reference/art03_run/far_junkyard_reference.png",
+      "sha256": "7b74fb225d21408b0e8abfb2c28ab961e69acbb219c6161a68c3bd2f75d04020",
+      "unchanged": true
+    },
+    {
+      "path": "art/reference/art03_run/puff_reference.png",
+      "sha256": "3dfaadb3ecdfc9d98c4f7e8a61d29533ae3a3d269e4c88713f415a5106565ff3",
+      "unchanged": true
+    },
+    {
+      "path": "art/reference/art03_run/road_ground_reference.png",
+      "sha256": "c83671f0af734a99e0d5ce8045971bdd76255541b2101ba8c023792dfec9a243",
+      "unchanged": true
+    },
+    {
+      "path": "art/reference/art03_run/scrap_pile_reference.png",
+      "sha256": "73c62cbb7a629f30ef288b08a2fa42e267755c93eeabb82b3063d0b51d4e80ee",
+      "unchanged": true
+    },
+    {
+      "path": "art/reference/art03_run/sky_base_reference.png",
+      "sha256": "590321965132c265bc5079b16aabf6c1adfa3b43de6e757917f6f3d0fd637467",
+      "unchanged": true
+    },
+    {
+      "path": "art/reference/art03_run/sky_composite_reference.png",
+      "sha256": "94897ee29d88f54483e8029cb3cbbc64d30b0d88b863a764d5404c1d39e69791",
+      "unchanged": true
+    },
+    {
+      "path": "art/reference/art03_run/terrain_progression_reference.png",
+      "sha256": "c3fcfc2d23b83c8235ec2bacdc2d525ae285eeafacaa81f38d921a16ffee9661",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/preview/run_1x.png",
+      "sha256": "9aafeedc75837da68d4831c291a64685cd49f66cc6cffe79b063f301d9f52008",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/preview/run_216_1x.png",
+      "sha256": "81b9fcad0402b03f245e3a7c5e8eb28d607a22d944252706ef8ca8dab49a5847",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/preview/run_max_1x.png",
+      "sha256": "2b0cde10c02a834beabe396fc84e9f4d068904a2e6eca550ca879b4e4a19e0c5",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/preview/run_wide_1x.png",
+      "sha256": "830a2d23060895dd1f2d5783b26de15aa178244515e5cfedda49150bc5534cf4",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/preview/asset_contact_1x.png",
+      "sha256": "7683e1cc9b358ca6b7d2a38208cf3c120698ffef8c371ad99d91b3a1b443598f",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/preview/background_216_1x.png",
+      "sha256": "6c8192c7011635321714900e892535e890a2688c6a150213f54d594a6a90819a",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/preview/run_scroll_contact_1x.png",
+      "sha256": "28c29cd39ae4db9498d6c4fb3778f168207757fb5bc57a6cd606dd4d0cfc8562",
+      "unchanged": true
+    },
+    {
+      "path": "art/source/golden/art03/preview/cloud_tile_repeat_1x.png",
+      "sha256": "094fba1d2eb263e0cd2a8046118c5b64714078d96860409ebe33c7bd42410cd8",
+      "unchanged": true
+    }
+  ],
+  "visualReview": "Owner accepted the current six Run assets as the Golden Run environment benchmark on 2026-10-05. Primary 216 AP and 768 AP repetition proof retained byte-identical; actual Phaser proof remains VIS-01."
 }

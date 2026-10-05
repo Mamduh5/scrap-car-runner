@@ -1,109 +1,92 @@
-# ART-03R layered Run sky candidate
+# ART-03R Golden Run environment benchmark
 
-READY FOR OWNER VISUAL REVIEW. The composition's road, far junkyard, scrap pile,
-puff and approved Rustbucket are retained unchanged. Garage is not started.
+**OWNER VISUALLY APPROVED — 2026-10-05.** Exactly six Run assets are `visual`:
+`env_sky_outskirts`, optional `env_clouds_strip`, `env_far_junkyard`,
+`env_road_asphalt`, `prop_scrap_pile_a`, `fx_puff`. No in-game or final approval is
+claimed. Garage wall/lift remain planned and absent; ART-03 and M0 are IN PROGRESS.
 
-## Current visual authority
+## Authority and retained source
 
-- `art/reference/art03_run/sky_base_reference.png`: atmosphere, value/color progression and quiet space.
-- `art/reference/art03_run/clouds_strip_reference.png`: asymmetric banks, horizontal streaks, sparse density.
-- `art/reference/art03_run/sky_composite_reference.png`: layered composition only; never cropped into runtime art.
-- `art/reference/art03_run/far_junkyard_reference.png`: the retained far-junkyard language.
+All eight approved references remain in `art/reference/art03_run/`: road/ground,
+far junkyard, scrap pile, terrain progression, puff, base sky, cloud strip and sky
+composite. The composite is composition authority, never a baked runtime sprite.
 
-The old monolithic sky and ordered-dither recipe are superseded. Existing road,
-prop, puff and terrain references continue to apply to their unchanged KEEP assets.
+`pixels/*.json` are the six maintained editable production grids. `pixels.ts`
+exports strict RGBA PNGs; palette symbols apply to objects/clouds, grayscale to
+puff, and sky-only RGB hex symbols to the base sky. The sky's Unicode symbols
+allow its 183-color ramp without changing the 64-color object/UI palette.
 
-## Source and rebuild
+Four CURRENT masters remain: `masters/road.png`, `far.png`, `prop.png`, `puff.png`.
+They are consumed by `translate.ts` and retained generation provenance. Exact
+original prompts for these four masters remain in `prompts.json`. The road master
+is already cropped to 1448x784; provenance retains the crop and original hash.
+Unused padding and rejected source iterations are not build dependencies.
 
-Production sources remain the explicit per-pixel grids in `pixels/*.json`. Each row
-is one art-pixel row. Symbols map to canonical palette names (or grayscale effect
-values); the sky alone also permits RGB hex colors. Its additional symbols are
-single Unicode characters because the reference ramp needs more than 64 colors.
-The grid codec validates those literals as sky-only; technical validation checks
-every sky pixel against its declared row ramp. Ordinary builds retain grid edits.
+`sky.ts` / `refine-sky.ts` use the approved anchors in
+`src/game/assets/skyRamp.ts`. `translate-clouds.ts` samples complete bank/streak
+crops from the original cloud reference, never a previously exported cloud tile.
+Retranslation scripts deliberately replace grids; ordinary builds retain edits.
+The initial imagegen/master translation and non-Aseprite workflow are documented;
+separate source-workflow acknowledgement remains pending, without invalidating or
+expanding the owner's explicit visual acceptance. This is not a global exemption.
+
+## Contracts
+
+Sky: existing 16x300 opaque horizontal tile, proof_c, required. The owner explicitly
+authorized its `sky-ramp` color mode; every pixel is checked against the declared
+reference row ramp. The exception applies only to `env_sky_outskirts` atmosphere.
+
+Clouds: owner-approved 384x96 image at
+`public/assets/environments/env_clouds_strip.png`, cutout alpha 0/255, horizontal
+tiling, optional (`required: false`), existing polish phase. The bounded Golden-gate
+exception permits this ID/contract at technical or visual; it permits no in-game
+or final promotion. Golden membership remains the 22 required proof entries.
+
+## Reproduction and read-only checks
+
+From the repository root:
 
 ```powershell
 node --import tsx/esm art/source/golden/art03/build.ts
 node --import tsx/esm art/source/golden/art03/validate-run.ts
+node --import tsx/esm art/source/golden/art03/review-clouds.ts
 npx tsc -p art/source/golden/art03/tsconfig.json --noEmit
 npm run validate:assets -- --stage production --phase proof_c
 ```
 
-`refine-sky.ts` deliberately regenerates only the sky from `sky.ts` and the
-reference-measured anchors in `src/game/assets/skyRamp.ts`. `translate-clouds.ts`
-deliberately regenerates only clouds from their reference: whole-cell mask tracing,
-two existing pale sky palette colors, binary alpha, removal of disconnected tiny
-flecks, and an empty-air seam. Run those only for deliberate retranslation.
-`translate.ts` is the historical KEEP master translation recipe; ordinary sky
-corrections never run it. No new image generation was used for this correction.
+Build reads the six grids and approved ART-01 body/engine/wheel exports. It can
+reproduce missing Run exports and the compact proof set; existing exports that
+differ from the grids fail rather than silently replacing accepted artwork. No
+Garage files are written. Validation compares all runtime bytes to encoded grids.
+The evidence tools update JSON only; they need no temporary or rejected snapshots.
+No art or retained preview was regenerated during the hygiene/approval task.
 
-## Contracts and authorized exceptions
+## Compact final proof set
 
-On 2026-10-05 the owner explicitly answered **Allow a sky-only RGB ramp**. The
-sky retains its 16x300, opaque, horizontal tile, proof_c, required and technical
-contracts. Only its color mode becomes `sky-ramp`. Five measured reference anchors
-produce 183 distinct RGB colors with a maximum adjacent-row channel step of 2;
-there are no dither strips, checker patterns, cloud pixels or alpha blending.
-The 64-color master palette and all other production color rules remain intact.
+All eight retained previews are the owner's existing accepted pixels:
 
-Owner approved the optional cloud dimension correction **256x48 -> 384x96** on
-2026-10-05. `env_clouds_strip` uses the new 384x96 image, `cutout` alpha (0/255 only),
-`tileX: true`, `polish`, `required: false` contract and runtime path
-`public/assets/environments/env_clouds_strip.png`. Its owner-authorized technical
-review is a narrowly checked Golden-gate exception: this optional ID may reach
-technical, but visual/ingame/approved and other non-Golden assets remain gated.
-Optional/required counts and the seven required proof_c IDs are unchanged.
+- `preview/run_216_1x.png`: primary 216x288 AP Run composite.
+- `preview/run_1x.png`: minimum 180x288 AP composition.
+- `preview/run_max_1x.png`: maximum 216x427 AP bleed.
+- `preview/run_wide_1x.png`: 768x288 AP repetition proof.
+- `preview/run_scroll_contact_1x.png`: four 216 AP offsets and wheel/puff frames.
+- `preview/background_216_1x.png`: sky + clouds + far, without foreground/vehicle.
+- `preview/cloud_tile_repeat_1x.png`: two full 384 AP cloud repeats and empty joins.
+- `preview/asset_contact_1x.png`: far, road, prop and puff export inspection.
 
-## Layer stack and review
+Stack: sky -> clouds -> far -> road -> props/Rustbucket/effects. Static offset
+approximations are review-only, not production parallax. These PNGs establish the
+accepted visual benchmark, not Phaser/browser/device loading or motion evidence.
 
-Back to front: base sky -> cloud strip -> existing far junkyard -> road -> props,
-Rustbucket and effects. Nothing is baked into a combined runtime background.
-The sky is fixed and horizon anchored. Static scroll proofs give clouds a slower
-offset than far scenery; those are review approximations, not gameplay rates.
+## Approval and evidence
 
-`preview/run_216_1x.png` (216x288 AP) is the **primary owner review evidence**.
-`run_216_4x.png` is its nearest-neighbor enlargement. `run_1x.png` is 180x288;
-`run_wide_1x.png` is the 768x288 AP two-tile repetition proof.
-`run_max_1x.png` checks 216x427 bleed. All enlarged proofs use nearest neighbor.
-`background_layers_1x.png` omits foreground and vehicle. Two-tile cloud proofs
-and 32-tile sky proofs expose joins. Before/after is rejected sky left, layered
-sky right. Vehicle registration remains 112x56, wheel centers (26,44)/(86,44).
+`owner-approval.json` records the explicit owner decision and seals SHA-256 hashes
+for all six runtime exports, six editable grids, eight references and eight proofs.
+`cloud-review.json` verifies those retained hashes and measures the approved cloud
+contract, bank bounds, binary alpha and full 384 AP period. `validation.json`
+records all six technical passes. Full proof_c still fails only for absent Garage
+wall/lift (two errors, 66 future warnings); no Garage exports are fabricated.
 
-The former 256x48 cloud candidate was **rejected by the owner** for tiny motifs,
-compressed heights and wallpaper repetition. It was never used as a sampling
-input for this rebuild. Two complete bank crops and two thin streak crops from
-`clouds_strip_reference.png` were traced into the new grid, removing disconnected
-resampling flecks and keeping binary edges. The main bank occupies 128x25 pixels
-at rows 51-75; the secondary bank is 96x23 at rows 10-32. Their sizes and vertical
-positions differ, with asymmetric horizontal spacing and 92.23% empty pixels.
-
-The primary 216 AP view shows a broad low bank, thin streaks, readable distant
-silhouettes and Rustbucket as the highest-contrast focal object. Four 216 AP
-scroll/contact panels check different cloud offsets, including wrap. The 768 AP
-proof intentionally shows the full 384 AP tile repeat; no smaller repeat exists.
-No normal 216 AP viewport spans a full tile. Empty-air tile boundaries have no
-edge mismatch. These are PNG review composites, not owner or in-game approval.
-
-## Evidence and remaining acceptance
-
-`cloud-review.json` is the current cloud correction evidence: contract, measured
-bank bounds, repeat/seam results, all ten KEEP grid/export hash comparisons
-(including improved sky), and zero other runtime changes. `review-clouds.ts`
-regenerates it from the OS temporary pre-correction snapshot (or the directory
-passed as its first argument). `cloud_before_after_216_1x.png` compares the rejected
-cloud layer on the left to this rebuild on the right at maximum runtime width.
-
-`sky-review.json` / `review-sky.ts` retain historical sky-correction evidence from
-before the owner rejected the 256x48 cloud output; they are superseded for clouds
-by `cloud-review.json` and must not be treated as acceptance of that rejected art.
-
-`validation.json` records all six Run asset passes, including optional clouds.
-Full production/proof_c remains expected exit 1 only for missing Garage wall/lift:
-two errors and 66 future-asset warnings. No Garage assets are fabricated.
-
-Historical masters/prompts retain the original reference translation provenance.
-The initial non-Aseprite batch workflow acknowledgement remains pending; this
-color authorization is not visual approval. All six Run entries are technical,
-never visual/ingame/approved. Owner review and later VIS-01 Phaser proof remain.
-ART-01/02 are DONE, ART-03R owner review is pending, Garage is planned/unstarted,
-ART-03 overall is incomplete, and M0 is IN PROGRESS.
+ART-01/02 are DONE. ART-03R Run visual review is complete; overall ART-03 remains
+incomplete. VIS-01, source-workflow acknowledgement and final Golden approval are
+separate remaining evidence. No broader non-Golden batch is authorized.

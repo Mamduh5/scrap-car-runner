@@ -4,7 +4,7 @@
 |---|---|
 | Status | CURRENT EXECUTION PLAN |
 | Current Milestone | M0 — Production Gates & Golden Visual Proofs |
-| Current Implementation Batch | ART-03R Run production candidate — technical pass; owner visual review pending |
+| Current Implementation Batch | ART-03R Golden Run benchmark — owner visually approved; six assets visual |
 | Project Management | Milestone-Based Kanban |
 | Sprint Policy | No formal sprints |
 | Last Reviewed | 2026-10-05 |
@@ -49,14 +49,14 @@ Never mark a task DONE because code merely compiles, tests alone pass for work r
 | Current Batch | DOC-01 + VAL-01 + VAL-02 + VAL-03 + ART-01 + ART-02 — COMPLETE |
 | Ready Tasks | None in the authorized ART-03R Run-only scope |
 | Completed Tasks | DOC-01 — documentation reconciled; VAL-01 — visual gates; VAL-02 — audio gates; VAL-03 — viewport discovery verified; ART-01 — Golden vehicle/engine ladder (2026-10-05); ART-02 — Golden UI samples (2026-10-05) |
-| In Progress Tasks | ART-03 overall — six Run exports technical (including optional clouds); Garage remainder unstarted |
-| Validation Tasks | ART-03R Run subset — owner visual review and source-workflow acknowledgement pending |
+| In Progress Tasks | ART-03 overall — six Run exports visually approved (including optional clouds); Garage remainder unstarted |
+| Validation Tasks | ART-03R Run visual review complete; source-workflow acknowledgement and VIS-01 evidence remain separate |
 | Blocked Tasks | None for Batch 1/ART-01/02; GAR-01 remains BACKLOG / not READY pending owner slot-tap decision and presentation inputs; TYPO-01 remains BACKLOG pending licensed font inputs |
 | Immediate Next Gate | Production typography (TYPO-01) / remaining Golden visual proofs (ART-03); assessment in §34 |
 
 M0 remains IN PROGRESS. DOC-01 is DONE: existing canonical contracts were reconciled without changing source, tooling, tests, assets or product decisions. VAL-01 is DONE: the visual CLI now executes preparation, Golden, phase production, full technical and release gates with truthful reports/exit codes and focused regressions. VAL-02 is DONE: correct audio root, explicit preparation/Golden/full stages, structural provenance/source/file checks and regression evidence. VAL-03 is DONE: the existing pure viewport suite runs under the standard test command, with all previous test files preserved. ART-01 is DONE: all eight `proof_a` assets produced, technical gate passed, and explicit OWNER APPROVAL recorded as the Golden visual benchmark. Eight ART-01 assets advanced to `visual` registry status. ART-02 is DONE: all five non-font `proof_b` assets (`icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame`) produced, passed technical validation, and explicit OWNER APPROVAL recorded for the Golden UI benchmark and revised workshop button. Five ART-02 assets advanced to `visual` registry status. Note on `proof_b`: the ART-02 non-font scope is technically complete and visually approved, but the overall `proof_b` bundle remains incomplete, blocked by missing TYPO-01 font inputs (`font_display`, `font_body`). D05 explicitly contains the unresolved installed-slot gesture as OWNER DECISION REQUIRED; GAR-01 remains BACKLOG / not READY until the owner resolves it and its other inputs pass §13.
 
-ART-01 and ART-02 are complete; ART-03 is IN PROGRESS and remains incomplete. ART-03R has six technically valid Run production candidates (including optional clouds) awaiting owner visual review; Garage remains planned and absent. M0 still requires production typography (TYPO-01), remaining ART-03 production/acceptance, VIS-01 in-game proof, palette lock, and final Golden approval (ART-04).
+ART-01 and ART-02 are complete; ART-03 is IN PROGRESS and remains incomplete. ART-03R has six owner-visually-approved Run assets (including optional clouds), recorded at visual; Garage remains planned and absent. M0 still requires production typography (TYPO-01), remaining ART-03 production/acceptance, VIS-01 in-game proof, palette lock, and final Golden approval (ART-04).
 
 ### VAL-01 implementation evidence — 2026-10-05
 
@@ -145,56 +145,34 @@ ART-01 is DONE.
 
 ART-01 and ART-02 are DONE. M0 remains IN PROGRESS. ART-03 is READY.
 
-### ART-03R Run production evidence — 2026-10-05
+### ART-03R Golden Run approval and hygiene evidence — 2026-10-05
 
-The current owner-supplied references in `art/reference/art03_run/` are the visual authority; the three new sky references govern the layered-sky correction.
-Intake confirmed no active rejected ART-03 source/runtime files and all seven `proof_c`
-entries at `planned`. The existing staged reference additions were preserved.
+The owner explicitly approved the current six Run assets as the Golden Run
+environment visual benchmark. Exactly `env_sky_outskirts`, optional
+`env_clouds_strip`, `env_far_junkyard`, `env_road_asphalt`, `prop_scrap_pile_a` and
+`fx_puff` are `visual`. This records actual owner acceptance, not automatic
+approval from tests. No entry advances to `ingame` or `approved`.
 
 | Check | Current result |
 |---|---|
-| Run production scope | `env_sky_outskirts`, optional `env_clouds_strip`, `env_far_junkyard`, `env_road_asphalt`, `prop_scrap_pile_a`, `fx_puff` |
-| Source and previews | Retained imagegen reference translations, exact prompts, controlled pixel cleanup, editable explicit pixel grids and 1×/nearest-neighbor composites in `art/source/golden/art03/` |
-| Workflow | **WORKFLOW DEVIATION — OWNER ACKNOWLEDGEMENT REQUIRED**; non-Aseprite workflow is pending acceptance, not covered by ART-01/02 exceptions |
-| Run technical gate | All six Run per-entry checks passed, including optional polish clouds during production/proof_c; source/export identity, level road contact and matching horizontal tile edge columns passed; `validation.json` records exact evidence |
-| Full `proof_c` | Expected exit 1: exactly two missing-required errors for `env_garage_wall` and `env_garage_lift`; 66 future-asset warnings |
-| Preparation | Exit 0; 19 technical passes including optional clouds, 0 errors / 68 future-asset warnings; preparation does not prove complete production |
-| Tests / typechecks | 13 files / 250 tests passed; source, tools and dedicated ART-03R source typechecks passed |
-| Production build | Passed; existing large Phaser chunk warning remains |
-| Registry | Six Run entries `technical` (including optional clouds); Garage entries still `planned`; all ART-01/02 statuses and exports unchanged |
-| Acceptance remaining | Owner visual review, this batch's workflow acknowledgement, later Phaser/in-game proof; Garage production was not begun |
+| Owner visual decision | Accepted current six Run assets as Golden Run environment benchmark; `art/source/golden/art03/owner-approval.json` records immutable pixel/source/reference/proof hashes |
+| Runtime/source identity | Six explicit grids reproduce current PNG bytes in memory; no art or retained preview regenerated during hygiene |
+| References | All eight approved files under `art/reference/art03_run/` retained; base sky, clouds and composite are separate current authorities |
+| Current masters | Road (already cropped), far, prop and puff consumed by retained translation recipe/provenance; obsolete source iterations excluded |
+| Source workflow | Maintained explicit grids and controlled imagegen/master translation documented; non-Aseprite workflow acknowledgement remains separately pending, without a general waiver |
+| Cloud contract | Owner-approved 384×96 / cutout / tileX / optional / polish; bounded technical/visual exception only, no Golden membership change |
+| Sky exception | Only Outskirts base atmosphere uses the owner-authorized RGB row ramp; 16×300 / opaque / tileX retained; other palette rules and provisional master unchanged |
+| Final evidence | Primary 216 AP Run, minimum 180 AP, maximum 216×427 AP, 768 AP repetition, scroll/frame contact, background-only, cloud-repeat and asset contact proofs retained byte-identical |
+| Run technical gate | Six per-entry passes; `validation.json` and `cloud-review.json` record current results and sealed approval integrity |
+| Full proof_c | Expected failure only for absent Garage wall/lift: two errors, 66 future warnings |
+| Tests / typechecks | 13 files / 250 tests; source, tools and dedicated ART-03 source typechecks pass |
+| Registry and task status | Six Run entries visual; Garage planned/not started; ART-03 overall IN PROGRESS / incomplete; M0 IN PROGRESS |
+| Remaining acceptance | Separate source-workflow acknowledgement, VIS-01 loading/motion/viewport evidence, palette lock and final Golden approval; Garage production not begun |
 
-Owner layered-sky continuation (2026-10-05): composition is accepted; road, far
-junkyard, scrap pile and puff remain KEEP. New `sky_base_reference.png`,
-`clouds_strip_reference.png` and `sky_composite_reference.png` supersede the old
-monolithic sky direction. The owner explicitly authorized **Allow a sky-only RGB
-ramp**, resolving the four-color band/dither constraint while retaining sky size,
-opaque alpha and tiling. The 64-color object/UI palette is unchanged. A separate
-256x48 binary-cutout `env_clouds_strip` remains optional and polish-phase; the
-explicit owner instruction permits its technical review before final Golden
-approval, with no visual/ingame/approved promotion. Six Run technical checks pass.
-All four KEEP pixel grids/runtime PNGs remain byte-identical, road proof changes
-are zero, and other runtime assets are unchanged. Sky/cloud seams have zero edge
-mismatches; rebuilt clouds have no subperiod below 384 pixels. New layered, background-only
-and repetition previews plus `sky-review.json` retain evidence. Tests: 13 files /
-250 passed. Owner visual review and original batch workflow acknowledgement remain
-pending; Garage remains planned/unstarted.
-
-Owner cloud-contract continuation (2026-10-05): the 256x48 cloud output was
-visually rejected. Owner approved **384x96**, retaining the ID/path, cutout alpha,
-horizontal tile, optional status and polish phase. The new grid traces distinct
-large bank/streak crops from the original cloud reference, never the rejected
-export. `preview/run_216_1x.png` is the primary 216 AP review view;
-`run_wide_1x.png` is a 768 AP repetition proof. `cloud-review.json` records 92.23%
-empty pixels, 128x25 and 96x23 bank bounds at different heights, zero seam errors,
-and exact preservation of all five KEEP grids/exports including the improved
-RGB sky. All six assets remain technical; owner review is pending. Garage was
-not started. Historical 256x48 cloud visual claims are superseded by this record.
-
-The wide and scroll composites expose tiling and frame relationships with the approved
-ART-01 Rustbucket at actual art-pixel scale. They are PNG review evidence, not Phaser,
-mobile-browser or physical-device acceptance. Palette and asset contracts are unchanged.
-ART-03 overall is IN PROGRESS / incomplete; M0 is IN PROGRESS. No non-Golden art was started.
+Obsolete comparisons and duplicate enlargements were removed after repairing
+source/provenance references. Current production exports, editable grids, four
+masters, all approved creative references and retained proof PNGs are unchanged.
+No new canonical task ID, Garage art, or broader non-Golden batch was created.
 
 ## 1. Repository Intake Evidence
 
@@ -703,7 +681,7 @@ Priorities: **P0** immediate critical path; **P1** required for VS1; **P2** late
 | TYPO-01 | BACKLOG | P0 | Production font/rendering foundation | Render existing typography in AP coordinates | No bitmap fonts; cache-key mismatch | VAL-01; DOC-01 font contract | Hard for typography proof | ART-01/02/03, AUD-01 | TY, AR fonts, D04/05 | `font_display`, `font_body`, editable/licensed sources, XML/PNG exports, renderer/key mapping, explicit sizing/wrap behavior | Font identity/role redesign | Fonts load reliably; intended renderer used; actual logical widths respected | T, AV-stage; focused renderer checks | VISUAL | HIGH | MEDIUM |
 | ART-01 | DONE | P0 | Golden vehicle/engine ladder | Prove vehicle silhouette and progression | Eight `proof_a` entries produced; technical gate passed; owner visual approval recorded | VAL-01 | Hard for Golden approval | TYPO-01, ART-02/03, AUD | D04, D11, AR | Exact eight entries in §21 | Non-Golden production | Clean source/exports; T1–T3 readable; overlay registration and wheel cycle work; owner approval recorded | AV-stage | VISUAL | HIGH | MEDIUM |
 | ART-02 | DONE | P0 | Golden UI samples | Prove tactile controls | Five non-font `proof_b` entries produced; technical gate passed; owner visual approval recorded | VAL-01 | Hard for Golden approval | ART-01/03, TYPO-01 | D04/05/11, AR | Scrap/fuel icons, plate, primary button, slot frames | Remaining UI batch | Frame states, slicing, text/background combinations work; owner approval recorded | AV-stage | VISUAL | HIGH | MEDIUM |
-| ART-03 | IN PROGRESS | P0 | Golden Garage/road/effect samples | Prove scene coherence | ART-03R: six Run entries technical (including optional clouds); owner review pending; two Garage entries planned/absent | VAL-01 | Hard for Golden approval | ART-01/02, TYPO-01 | D04/11, AR | Exact seven entries in §21 | Remaining terrain/props | Composition, tiling, vehicle contrast and puff treatment work | AV-stage | VISUAL | HIGH | MEDIUM |
+| ART-03 | IN PROGRESS | P0 | Golden Garage/road/effect samples | Prove scene coherence | ART-03R: six Run entries visual (including optional clouds); owner visual approval recorded; two Garage entries planned/absent | VAL-01 | Hard for Golden approval | ART-01/02, TYPO-01 | D04/11, AR | Exact seven entries in §21 | Remaining terrain/props | Composition, tiling, vehicle contrast and puff treatment work | AV-stage | VISUAL | HIGH | MEDIUM |
 | VIS-01 | BACKLOG | P0 | Production loading and retained proof view | Exercise real exports through Phaser | Boot preload empty; proof scene inactive | Technical inputs from ART-01/02/03 and TYPO-01 | Hard for rendered approval | AUD-03 after inputs | AR, VP, D05/06 | Registry-driven images/sheets/fonts, errors, development-only proof navigation and resize behavior | Progress ownership, fake gameplay | Correct keys/frames/fonts load; failures visible; reusable production loader | T, U where meaningful, AV-stage | VISUAL | MEDIUM | MEDIUM |
 | TYPO-02 | BACKLOG | P0 | Typography visual acceptance | Prove readability on production backgrounds | Current proof insufficient | TYPO-01, VIS-01, technical ART-02/03 | Hard for Golden approval | AUD proof | TY, D05, VP | §21 samples at target viewports; narrow demonstrated corrections | New font/branding system | Hierarchy, numbers, wrapping and labels accepted at real size | T, AV-stage | VISUAL; DEVICE spot-check | HIGH | MEDIUM |
 | ART-04 | BACKLOG | P0 | Approve exact Golden visual set | Unlock controlled expansion | 0/22 approved | ART-01/02/03, TYPO-02, VIS-01 | Hard for all non-Golden art | Audio track | AR, PAL, D04/11 | All 22; composition review; palette lock and truthful statuses | Additional art families | Owner accepts every Golden entry; locked palette passes gate | AV-stage with locked palette | VISUAL | HIGH | SMALL |
@@ -829,7 +807,7 @@ Font and art production can overlap. Final typography and Golden approval are in
 
 Optional entries are `veh_rustbucket_wrecked`, `env_garage_fg`, and `env_clouds_strip`. They are outside the mandatory critical path. Include them only through an explicit bounded polish decision.
 
-All batches follow editable source → technical export → visual review → actual Phaser integration → approval. Non-Golden entries cannot advance beyond `planned` before all 22 Golden entries are approved, except the explicit ART-03R owner authorization for optional `env_clouds_strip` at `technical` only.
+All batches follow editable source → technical export → visual review → actual Phaser integration → approval. Non-Golden entries cannot advance beyond `planned` before all 22 Golden entries are approved, except the explicit ART-03R owner authorization for optional `env_clouds_strip` at `technical` or `visual` only.
 
 ## 22. Audio Production Plan
 
@@ -1135,9 +1113,9 @@ No unresolved product decision blocks the first validation-repair batch.
 
 ## 34. Final Readiness
 
-### ART-01 AND ART-02 COMPLETE — ART-03R RUN CANDIDATE IN REVIEW
+### ART-01 AND ART-02 COMPLETE — ART-03R GOLDEN RUN VISUALLY APPROVED
 
-**DOC-01, VAL-01, VAL-02, VAL-03, ART-01 and ART-02 are DONE. ART-03 is IN PROGRESS: six Run candidates are technical (including optional clouds) and await owner review; Garage remains unstarted. M0 remains IN PROGRESS.**
+**DOC-01, VAL-01, VAL-02, VAL-03, ART-01 and ART-02 are DONE. ART-03 is IN PROGRESS: six Run assets are visual (including optional clouds), accepted as the Golden Run benchmark; Garage remains unstarted. M0 remains IN PROGRESS.**
 
 ART-02 established the Golden UI visual grammar for Scrap Car Runner:
 - All five non-font `proof_b` visual assets produced and validated (`icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame`).
@@ -1151,10 +1129,10 @@ ART-02 established the Golden UI visual grammar for Scrap Car Runner:
 Readiness reassessment under §13:
 - **ART-01:** Visual benchmark approved; **DONE**.
 - **ART-02:** Golden UI benchmark approved; **DONE**.
-- **ART-03:** Six Run candidates (including optional clouds) passed technical checks under ART-03R; their visual review and non-Aseprite workflow acknowledgement remain pending. Two Garage entries remain planned/absent and were not touched. Overall **IN PROGRESS**, not DONE.
+- **ART-03:** Six Run assets (including optional clouds) passed technical checks and owner visual review under ART-03R, and are recorded at visual. Separate non-Aseprite workflow acknowledgement and VIS-01 in-game proof remain pending. Two Garage entries remain planned/absent and were not touched. Overall **IN PROGRESS**, not DONE.
 - **TYPO-01:** Named dependencies are DONE, but retained licensed production font inputs are not yet evidenced in the repository. Remains **BACKLOG** until production font files are provided.
 - **VIS-01:** Hard dependency requires technical inputs from ART-01/02/03 and TYPO-01. ART-01 and ART-02 are complete, but remaining inputs (ART-03, TYPO-01) are not yet complete. Remains **BACKLOG**.
 - **TYPO-02, ART-04 and non-Golden art:** Require completion of remaining Golden batches, typography proof, and in-game proof; remain **BACKLOG**.
 - **AUD-01/02:** Source/licensing and entitlement preflight remain unevidenced; remain **BACKLOG**.
 
-M0 remains IN PROGRESS. No non-Golden task was started and no unevidenced status transition was made. Remaining M0 acceptance requires production typography (TYPO-01), Garage-side ART-03 production and all remaining ART-03 acceptance, in-game proof (VIS-01), palette lock, and final Golden approval (ART-04).
+M0 remains IN PROGRESS. No broader non-Golden task was started; the optional cloud has only its explicit bounded owner authorization. All recorded status transitions have named evidence. Remaining M0 acceptance requires production typography (TYPO-01), Garage-side ART-03 production and all remaining ART-03 acceptance, in-game proof (VIS-01), palette lock, and final Golden approval (ART-04).

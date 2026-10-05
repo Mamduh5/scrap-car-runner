@@ -1,11 +1,11 @@
 {
   "batch": "ART-03R",
   "date": "2026-10-05",
-  "result": "READY FOR OWNER VISUAL REVIEW",
+  "result": "OWNER VISUALLY APPROVED \u2014 GOLDEN RUN ENVIRONMENT BENCHMARK",
   "sourceMethod": "Built-in image_gen reference-led source translation, TypeScript material palette mapping and localized pixel cleanup, maintained explicit pixel grids",
   "workflow": "WORKFLOW DEVIATION \u2014 OWNER ACKNOWLEDGEMENT REQUIRED",
   "ownerWorkflowAcknowledgement": "pending",
-  "ownerVisualApproval": "pending",
+  "ownerVisualApproval": "accepted 2026-10-05; exactly six Run-side assets at visual",
   "inGameProof": "not performed",
   "garageScope": "untouched; planned and absent",
   "palette": "64-color master unchanged and provisional; owner-authorized sky-only reference RGB ramp",
@@ -60,10 +60,6 @@
       "path": "art/source/golden/art02/preview/contact_ui_samples.png"
     },
     {
-      "sha256": "c23bfba3c0c99056d8b8a79c6cf6bad0af5250d2ee3a89aeda6a8d41b6825693",
-      "path": "art/source/golden/art03/masters/raw/road.png"
-    },
-    {
       "sha256": "09977975435702a1485d39f0d1796f9b6348e8d44efdee3afc1401016ef39652",
       "path": "art/source/golden/art03/masters/far.png"
     },
@@ -74,10 +70,6 @@
     {
       "sha256": "7d3b403f2fafa8e0f9d13ad0fbf7f899b605518105e756a4abe815d132a4da27",
       "path": "art/source/golden/art03/masters/puff.png"
-    },
-    {
-      "sha256": "fd3edd8f35fbeb4f44e252a9ca64bd0474d430de3ce03d2e0465f60eff2161d5",
-      "path": "art/source/golden/art03/masters/sky.png"
     },
     {
       "path": "art/source/golden/art03/masters/road.png",
@@ -99,32 +91,25 @@
   "runtimeSource": "art/source/golden/art03/pixels/*.json",
   "technicalEvidence": "art/source/golden/art03/validation.json",
   "ownerReview": {
-    "composition": "accepted",
-    "keep": [
-      "env_road_asphalt",
+    "composition": "accepted as Golden Run environment benchmark",
+    "assets": [
+      "env_sky_outskirts",
+      "env_clouds_strip",
       "env_far_junkyard",
+      "env_road_asphalt",
       "prop_scrap_pile_a",
       "fx_puff"
     ],
-    "refine": [
-      "env_sky_outskirts",
-      "env_clouds_strip"
-    ],
-    "skyCorrection": "Improved sky RGB ramp retained byte-identical; clouds rebuilt at approved 384x96 contract",
-    "status": "Owner visual review pending; six Run entries technical",
-    "roadMasterCrop": "302 unused top rows removed; sampling offset adjusted; KEEP source/export hashes unchanged",
-    "evidence": "art/source/golden/art03/cloud-review.json"
+    "status": "six assets visual; no ingame/approved promotion",
+    "date": "2026-10-05",
+    "evidence": "art/source/golden/art03/owner-approval.json",
+    "technicalEvidence": "art/source/golden/art03/validation.json",
+    "sourceWorkflowAcknowledgement": "pending separately"
   },
-  "historicalSupersededSkyInputs": [
-    {
-      "sha256": "004e4daab7d3cf09269e93f4fc47e8fb4aa2aab6305fe0ae634f11eb49fe5b39",
-      "path": "art/reference/art03_run/sky_reference.png"
-    }
-  ],
   "layeredSkyCorrection": {
     "date": "2026-10-05",
     "authorization": "Owner response: Allow a sky-only RGB ramp",
-    "method": "Base reference mean RGB anchors; cloud whole-cell mask trace and localized silhouette cleanup; maintained editable pixel grids",
+    "method": "Reference-measured sky RGB anchors; original-reference cloud bank/streak crops; maintained explicit pixel grids",
     "newImageGeneration": false,
     "layers": [
       "env_sky_outskirts",
@@ -132,7 +117,7 @@
       "env_far_junkyard"
     ],
     "cloudsOptional": true,
-    "evidence": "art/source/golden/art03/sky-review.json"
+    "evidence": "art/source/golden/art03/owner-approval.json"
   },
   "cloudContractCorrection": {
     "date": "2026-10-05",
@@ -147,7 +132,7 @@
     "tileX": true,
     "required": false,
     "phase": "polish",
-    "status": "technical",
+    "status": "visual",
     "source": "art/reference/art03_run/clouds_strip_reference.png",
     "referenceCrops": [
       [
@@ -182,6 +167,39 @@
     ],
     "evidence": "art/source/golden/art03/cloud-review.json",
     "primaryPreview": "art/source/golden/art03/preview/run_216_1x.png",
-    "ownerVisualApproval": "pending"
-  }
+    "ownerVisualApproval": "accepted 2026-10-05"
+  },
+  "roadMasterCrop": {
+    "master": "art/source/golden/art03/masters/road.png",
+    "dimensions": [
+      1448,
+      784
+    ],
+    "removedUnusedTopRows": 302,
+    "originalGenerationSha256": "c23bfba3c0c99056d8b8a79c6cf6bad0af5250d2ee3a89aeda6a8d41b6825693",
+    "retention": "Current cropped master retained; unused original padding archive not needed by the current recipe"
+  },
+  "currentMasterClassification": [
+    {
+      "path": "art/source/golden/art03/masters/road.png",
+      "classification": "CURRENT",
+      "reason": "Consumed by translate.ts and retained generation provenance"
+    },
+    {
+      "path": "art/source/golden/art03/masters/far.png",
+      "classification": "CURRENT",
+      "reason": "Consumed by translate.ts and retained generation provenance"
+    },
+    {
+      "path": "art/source/golden/art03/masters/prop.png",
+      "classification": "CURRENT",
+      "reason": "Consumed by translate.ts and retained generation provenance"
+    },
+    {
+      "path": "art/source/golden/art03/masters/puff.png",
+      "classification": "CURRENT",
+      "reason": "Consumed by translate.ts and retained generation provenance"
+    }
+  ],
+  "approvalRecord": "art/source/golden/art03/owner-approval.json"
 }

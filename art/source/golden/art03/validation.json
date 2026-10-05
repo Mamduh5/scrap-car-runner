@@ -1,10 +1,10 @@
 {
-  "scope": "ART-03R Run only; no visual/in-game/owner approval",
+  "scope": "ART-03R Run technical checks; owner visual approval recorded separately; no in-game/final approval",
   "runPassed": true,
   "runAssets": [
     {
       "assetId": "env_sky_outskirts",
-      "status": "technical",
+      "status": "visual",
       "files": [
         "environments/env_sky_outskirts.png"
       ],
@@ -14,7 +14,7 @@
     },
     {
       "assetId": "env_far_junkyard",
-      "status": "technical",
+      "status": "visual",
       "files": [
         "environments/env_far_junkyard.png"
       ],
@@ -24,7 +24,7 @@
     },
     {
       "assetId": "env_road_asphalt",
-      "status": "technical",
+      "status": "visual",
       "files": [
         "environments/env_road_asphalt.png"
       ],
@@ -34,7 +34,7 @@
     },
     {
       "assetId": "env_clouds_strip",
-      "status": "technical",
+      "status": "visual",
       "files": [
         "environments/env_clouds_strip.png"
       ],
@@ -44,7 +44,7 @@
     },
     {
       "assetId": "prop_scrap_pile_a",
-      "status": "technical",
+      "status": "visual",
       "files": [
         "props/prop_scrap_pile_a.png"
       ],
@@ -54,7 +54,7 @@
     },
     {
       "assetId": "fx_puff",
-      "status": "technical",
+      "status": "visual",
       "files": [
         "effects/fx_puff.png"
       ],
@@ -165,8 +165,8 @@
     "byStatus": {
       "planned": 70,
       "draft": 0,
-      "technical": 6,
-      "visual": 13,
+      "technical": 0,
+      "visual": 19,
       "ingame": 0,
       "approved": 0
     },

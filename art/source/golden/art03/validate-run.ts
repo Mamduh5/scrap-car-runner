@@ -33,7 +33,7 @@ const runAssets=report.assets.filter(a=>ids.includes(a.assetId));
 // palette, file-hygiene or other asset error still fails Run acceptance.
 const remainingErrors=report.issues.filter(i=>i.severity==='error'&&!(i.code==='missing-required'&&['env_garage_wall','env_garage_lift'].includes(i.assetId??'')));
 const runPassed=runAssets.length===6&&runAssets.every(a=>a.result==='passed')&&remainingErrors.length===0&&extraErrors.length===0;
-const evidence={scope:'ART-03R Run only; no visual/in-game/owner approval',runPassed,runAssets,measurements,extraErrors,
+const evidence={scope:'ART-03R Run technical checks; owner visual approval recorded separately; no in-game/final approval',runPassed,runAssets,measurements,extraErrors,
   proofC:{passed:report.ok,errors:report.errorCount,warnings:report.warningCount,issues:report.issues.filter(i=>i.severity==='error')},
   fullRegistrySummary:report.summary};
 writeFileSync(resolve(here,'validation.json'),JSON.stringify(evidence,null,2)+'\n');

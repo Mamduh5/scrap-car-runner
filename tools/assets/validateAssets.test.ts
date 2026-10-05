@@ -122,16 +122,18 @@ describe('registered export checks', () => {
     expect(codes(check({ [runtimeFiles(sky)[0]!]: encodePng(16,300,corrupted) }, { registry: [sky] }))).toContain('sky-ramp-mismatch');
     expect(codes(check({ [file]: encodePng(4,4,pixels(4,4,[64,193,252])) }))).toContain('off-palette');
   });
-  it('permits only the optional cloud technical review exception to the Golden gate', () => {
+  it('permits only the owner-authorized optional cloud technical/visual exception to the Golden gate', () => {
     const sky = ASSET_REGISTRY.find(a => a.id === 'env_sky_outskirts')!;
     const cloud = ASSET_REGISTRY.find(a => a.id === 'env_clouds_strip')!;
-    expect(cloud).toMatchObject({kind:'image',size:{w:384,h:96},alpha:'cutout',tileX:true,required:false,phase:'polish',status:'technical'});
+    expect(cloud).toMatchObject({kind:'image',size:{w:384,h:96},alpha:'cutout',tileX:true,required:false,phase:'polish',status:'visual'});
     expect(runtimeFiles(cloud)).toEqual(['environments/env_clouds_strip.png']);
     const oldSize = encodePng(256,48,new Uint8Array(256*48*4));
     expect(codes(check({[runtimeFiles(cloud)[0]!]:oldSize},{registry:[cloud]}))).toContain('wrong-size');
     const gate = (asset: AssetDefinition) => codes(check({}, { registry: [sky,asset],mode:'preparation' }));
     expect(gate(cloud)).not.toContain('golden-gate');
-    for(const status of ['draft','visual','ingame','approved'] as const) expect(gate({...cloud,status})).toContain('golden-gate');
+    expect(gate({...cloud,status:'technical'})).not.toContain('golden-gate');
+    for(const status of ['draft','ingame','approved'] as const) expect(gate({...cloud,status})).toContain('golden-gate');
+    expect(gate({...cloud,kind:'image',size:{w:256,h:48}})).toContain('golden-gate');
     expect(gate({...cloud,required:true})).toContain('golden-gate');
     expect(gate({...cloud,id:'env_other_cloud'})).toContain('golden-gate');
   });

@@ -243,22 +243,22 @@ const environments: readonly AssetDefinition[] = [
   image('env_garage_lift', 'environments', 136, 20, { phase: 'proof_c' }),
   image('env_garage_fg', 'environments', 216, 64, { phase: 'polish', required: false }),
   // Run: opaque base sky, optional cloud cutout, far silhouettes and road tiles.
-  image('env_sky_outskirts', 'environments', 16, 300, { phase: 'proof_c', status: 'technical', alpha: 'opaque', color: 'sky-ramp', tileX: true, layer: 'sky', binds: [seg(0)] }),
+  image('env_sky_outskirts', 'environments', 16, 300, { phase: 'proof_c', status: 'visual', alpha: 'opaque', color: 'sky-ramp', tileX: true, layer: 'sky', binds: [seg(0)] }),
   image('env_sky_cracked', 'environments', 16, 300, { phase: 'road', alpha: 'opaque', tileX: true, layer: 'sky', binds: [seg(1)] }),
   image('env_sky_dirt', 'environments', 16, 300, { phase: 'road', alpha: 'opaque', tileX: true, layer: 'sky', binds: [seg(2)] }),
   image('env_sky_rocky', 'environments', 16, 300, { phase: 'road', alpha: 'opaque', tileX: true, layer: 'sky', binds: [seg(3)] }),
-  image('env_far_junkyard', 'environments', 256, 96, { phase: 'proof_c', status: 'technical', tileX: true, layer: 'far', binds: [seg(0), seg(1)] }),
+  image('env_far_junkyard', 'environments', 256, 96, { phase: 'proof_c', status: 'visual', tileX: true, layer: 'far', binds: [seg(0), seg(1)] }),
   image('env_far_dunes', 'environments', 256, 96, { phase: 'road', tileX: true, layer: 'far', binds: [seg(2)] }),
   image('env_far_cliffs', 'environments', 256, 96, { phase: 'road', tileX: true, layer: 'far', binds: [seg(3)] }),
-  image('env_road_asphalt', 'environments', 64, 48, { phase: 'proof_c', status: 'technical', alpha: 'opaque', tileX: true, layer: 'ground', binds: [seg(0)] }),
+  image('env_road_asphalt', 'environments', 64, 48, { phase: 'proof_c', status: 'visual', alpha: 'opaque', tileX: true, layer: 'ground', binds: [seg(0)] }),
   image('env_road_cracked', 'environments', 64, 48, { phase: 'road', alpha: 'opaque', tileX: true, layer: 'ground', binds: [seg(1)] }),
   image('env_road_dirt', 'environments', 64, 48, { phase: 'road', alpha: 'opaque', tileX: true, layer: 'ground', binds: [seg(2)] }),
   image('env_road_rock', 'environments', 64, 48, { phase: 'road', alpha: 'opaque', tileX: true, layer: 'ground', binds: [seg(3)] }),
-  image('env_clouds_strip', 'environments', 384, 96, { phase: 'polish', status: 'technical', required: false, tileX: true }),
+  image('env_clouds_strip', 'environments', 384, 96, { phase: 'polish', status: 'visual', required: false, tileX: true }),
 ];
 
 const props: readonly AssetDefinition[] = [
-  image('prop_scrap_pile_a', 'props', 48, 32, { phase: 'proof_c', status: 'technical' }),
+  image('prop_scrap_pile_a', 'props', 48, 32, { phase: 'proof_c', status: 'visual' }),
   image('prop_scrap_pile_b', 'props', 40, 24, { phase: 'road' }),
   image('prop_tire_stack', 'props', 24, 24, { phase: 'road' }),
   image('prop_barrel', 'props', 16, 24, { phase: 'road' }),
@@ -274,7 +274,7 @@ const props: readonly AssetDefinition[] = [
 
 const effects: readonly AssetDefinition[] = [
   // Grayscale + soft alpha: tinted at runtime (white steam, grey exhaust, black smoke).
-  sheet('fx_puff', 'effects', 16, 16, 4, { phase: 'proof_c', status: 'technical', alpha: 'soft', color: 'grayscale' }),
+  sheet('fx_puff', 'effects', 16, 16, 4, { phase: 'proof_c', status: 'visual', alpha: 'soft', color: 'grayscale' }),
   sheet('fx_spark', 'effects', 8, 8, 4, { phase: 'fx', alpha: 'binary' }),
   sheet('fx_merge_burst', 'effects', 32, 32, 6, { phase: 'fx', alpha: 'binary' }),
   sheet('fx_dust', 'effects', 16, 16, 4, { phase: 'fx', alpha: 'soft', color: 'grayscale' }),
