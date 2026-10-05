@@ -200,8 +200,8 @@ const parts: readonly AssetDefinition[] = PART_FAMILIES.flatMap(family => TIERS.
 if (TIERS.length !== MAX_TIER) throw new Error('assetRegistry TIERS must match MAX_TIER');
 
 const icons: readonly AssetDefinition[] = [
-  image('icon_scrap', 'icons', 16, 16, { phase: 'proof_b', margin: 1 }),
-  image('icon_stat_fuel', 'icons', 16, 16, { phase: 'proof_b', margin: 1 }),
+  image('icon_scrap', 'icons', 16, 16, { phase: 'proof_b', status: 'technical', margin: 1 }),
+  image('icon_stat_fuel', 'icons', 16, 16, { phase: 'proof_b', status: 'technical', margin: 1 }),
   image('icon_stat_power', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_stat_cooling', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_stat_heat', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
@@ -213,14 +213,14 @@ const icons: readonly AssetDefinition[] = [
 ];
 
 const ui: readonly AssetDefinition[] = [
-  image('ui_panel_plate', 'ui', 32, 32, { phase: 'proof_b', alpha: 'binary', nineSlice: nine(8) }),
+  image('ui_panel_plate', 'ui', 32, 32, { phase: 'proof_b', status: 'technical', alpha: 'binary', nineSlice: nine(8) }),
   image('ui_panel_inset', 'ui', 16, 16, { phase: 'ui', alpha: 'binary', nineSlice: nine(4) }),
   image('ui_panel_note', 'ui', 24, 24, { phase: 'ui', alpha: 'binary', nineSlice: nine(6) }),
   // Button frames: 0 normal, 1 pressed, 2 disabled.
-  sheet('ui_button_primary', 'ui', 24, 24, 3, { phase: 'proof_b', alpha: 'binary', nineSlice: nine(8) }),
+  sheet('ui_button_primary', 'ui', 24, 24, 3, { phase: 'proof_b', status: 'technical', alpha: 'binary', nineSlice: nine(8) }),
   sheet('ui_button_secondary', 'ui', 24, 24, 3, { phase: 'ui', alpha: 'binary', nineSlice: nine(8) }),
   // Slot frames: 0 idle, 1 selected, 2 valid target, 3 blocked/disabled.
-  sheet('ui_slot_frame', 'ui', 30, 30, 4, { phase: 'proof_b', alpha: 'binary' }),
+  sheet('ui_slot_frame', 'ui', 30, 30, 4, { phase: 'proof_b', status: 'technical', alpha: 'binary' }),
   // Tier pips: frame n lights n pips.
   sheet('ui_tier_pips', 'ui', 15, 5, 3, { phase: 'ui', alpha: 'binary' }),
   image('ui_badge_max', 'ui', 17, 9, { phase: 'ui', alpha: 'binary' }),

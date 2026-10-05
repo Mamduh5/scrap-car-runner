@@ -1,0 +1,30 @@
+{
+  "batch": "ART-02",
+  "phase": "proof_b",
+  "assets": [
+    "icon_scrap",
+    "icon_stat_fuel",
+    "ui_panel_plate",
+    "ui_button_primary",
+    "ui_slot_frame"
+  ],
+  "source": "hand-authored procedural TypeScript pipeline",
+  "source_files": [
+    "art/source/golden/art02/canvas.ts",
+    "art/source/golden/art02/icons.ts",
+    "art/source/golden/art02/ui.ts",
+    "art/source/golden/art02/build.ts"
+  ],
+  "output_files": [
+    "public/assets/icons/icon_scrap.png",
+    "public/assets/icons/icon_stat_fuel.png",
+    "public/assets/ui/ui_panel_plate.png",
+    "public/assets/ui/ui_button_primary.png",
+    "public/assets/ui/ui_slot_frame.png"
+  ],
+  "tools": ["TypeScript", "Antigravity IDE", "Node.js"],
+  "ai_generation_used": false,
+  "aseprite_used": false,
+  "workflow_status": "WORKFLOW DEVIATION — OWNER ACKNOWLEDGEMENT REQUIRED",
+  "notes": "WORKFLOW DEVIATION — OWNER ACKNOWLEDGEMENT REQUIRED. D11 expects Aseprite source for all final art. Due to environment tooling constraints (no graphical Aseprite editor in headless CLI), ART-02 was hand-authored using a procedural TypeScript pixel-art pipeline (identical in structure to the accepted ART-01 pipeline). This achieves 100% deterministic palette indexing, exact cutout/binary alpha compliance, exact mathematical nine-slice alignment, and reproducible exports with zero anti-aliasing. No AI image generation was used."
+}
