@@ -14,6 +14,7 @@ import {
 } from '../../src/game/assets/assetRegistry';
 import type { AssetDefinition, AssetStatus, AssetPhase } from '../../src/game/assets/assetRegistry';
 import { CHROMA_KEY_HEX, hexToRgb, PALETTE, PALETTE_STATUS, MAX_PALETTE_COLORS, renderGpl } from '../../src/game/assets/palette';
+import { outskirtsSkyRow } from '../../src/game/assets/skyRamp';
 import { PARTS } from '../../src/data/parts';
 import { CHASSIS_LIST } from '../../src/data/chassis';
 import { ROADS } from '../../src/data/roads';
@@ -182,6 +183,7 @@ export function validateRegistry(registry: readonly AssetDefinition[], gameData:
       const n = a.nineSlice;
       if (n.left + n.right >= fs.w || n.top + n.bottom >= fs.h) err('registry-nineslice', 'nine-slice borders leave no centre', a.id);
     }
+    if (a.color === 'sky-ramp' && !(a.id === 'env_sky_outskirts' && a.category === 'environments' && a.kind === 'image' && a.size.w === 16 && a.size.h === 300 && a.alpha === 'opaque' && a.tileX === true && a.layer === 'sky')) err('registry-sky-ramp', 'sky-ramp is restricted to the registered opaque 16x300 Outskirts sky', a.id);
     if (a.kind === 'bitmap_font' && a.color !== 'grayscale') err('registry-font-color', 'bitmap fonts must be grayscale (tinted at runtime)', a.id);
     if (a.layer !== undefined && a.category !== 'environments') err('registry-layer', 'layer only applies to environments', a.id);
   }
@@ -191,7 +193,9 @@ export function validateRegistry(registry: readonly AssetDefinition[], gameData:
   const goldenApproved = golden.filter(a => a.status === 'approved').length;
   if (goldenApproved < golden.length) {
     for (const a of registry) {
-      if (!isGolden(a) && a.status !== 'planned') {
+      // Explicit ART-03R owner instruction permits this optional cloud at technical only.
+      const cloudTechnical = a.id === 'env_clouds_strip' && a.phase === 'polish' && !a.required && a.status === 'technical';
+      if (!isGolden(a) && a.status !== 'planned' && !cloudTechnical) {
         err('golden-gate', 'status is "' + a.status + '" but ' + (golden.length - goldenApproved) + ' of ' + golden.length + ' golden reference assets are not approved yet', a.id);
       }
     }
@@ -325,12 +329,16 @@ function inspectPng(asset: AssetDefinition, bytes: Uint8Array, paletteRgb: Reado
   for (let i = 0; i < png.rgba.length; i += 4) {
     if (png.rgba[i + 3] === 0) continue;
     const r = png.rgba[i]!, g = png.rgba[i + 1]!, b = png.rgba[i + 2]!;
-    const bad = asset.color === 'grayscale' ? !(r === g && g === b) : !paletteRgb.has((r << 16) | (g << 8) | b);
+    const row = asset.color === 'sky-ramp' ? outskirtsSkyRow(Math.floor(i / 4 / png.width)) : null;
+    const bad = row !== null ? r !== row[0] || g !== row[1] || b !== row[2]
+      : asset.color === 'grayscale' ? !(r === g && g === b) : !paletteRgb.has((r << 16) | (g << 8) | b);
     if (bad) { offenderCount++; const h = hex6(r, g, b); offenders.set(h, (offenders.get(h) ?? 0) + 1); }
   }
   if (offenderCount > 0) {
     const sample = [...offenders.entries()].sort((a, b) => b[1] - a[1]).slice(0, 4).map(([h, n]) => h + '×' + n).join(', ');
-    out.push(asset.color === 'grayscale'
+    out.push(asset.color === 'sky-ramp'
+      ? { code: 'sky-ramp-mismatch', message: offenderCount + ' pixels differ from the authorized reference row ramp' }
+      : asset.color === 'grayscale'
       ? { code: 'not-grayscale', message: offenderCount + ' coloured pixels in a tintable grayscale asset (' + sample + ')' }
       : { code: 'off-palette', message: offenderCount + ' pixels (' + offenders.size + ' colours) outside the master palette, e.g. ' + sample, paletteRelated: true });
   }

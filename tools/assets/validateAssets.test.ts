@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { crc32, deflateSync } from 'node:zlib';
-import { ASSET_REGISTRY, isGolden, runtimeFiles } from '../../src/game/assets/assetRegistry';
+import { ASSET_REGISTRY, ASSET_STATUSES, isGolden, runtimeFiles } from '../../src/game/assets/assetRegistry';
 import type { AssetDefinition, BitmapFontAsset, ImageAsset, SpritesheetAsset } from '../../src/game/assets/assetRegistry';
 import { MAX_PALETTE_COLORS, PALETTE, PALETTE_STATUS, renderGpl } from '../../src/game/assets/palette';
 import { PARTS } from '../../src/data/parts';
@@ -15,6 +15,11 @@ import { formatAssetReport, memoryFs, nodeFs, parseVisualArgs, runVisualCli, val
 import type { AssetFs, PaletteInput, ValidateInput } from './validateAssets';
 
 const palette: PaletteInput = { colors: PALETTE, status: PALETTE_STATUS, maxColors: MAX_PALETTE_COLORS };
+// Empty-filesystem expectations follow recorded retention requirements as production advances.
+// Planned future entries warn in preparation; technical-or-later entries must retain files.
+const retained = ASSET_REGISTRY.filter(a => ASSET_STATUSES.indexOf(a.status) >= ASSET_STATUSES.indexOf('technical'));
+const retainedRequired = retained.filter(a => a.required).length;
+const plannedGolden = ASSET_REGISTRY.filter(a => a.required && isGolden(a) && !retained.includes(a)).length;
 const image: ImageAsset = { id: 'icon_probe', category: 'icons', scope: 'vs1', phase: 'proof_b', status: 'draft', required: true,
   kind: 'image', size: { w: 4, h: 4 }, alpha: 'binary', color: 'palette', margin: 1, binds: [] };
 const file = runtimeFiles(image)[0]!;
@@ -42,10 +47,10 @@ afterEach(() => { for (const root of directories.splice(0)) rmSync(root, { recur
 describe('visual stage enforcement', () => {
   it('executes registry/data/palette checks in preparation and reports missing required exports', () => {
     const report = canonical('preparation');
-    expect(report.ok).toBe(false); // Fails because 13 technical assets are missing in empty fs
+    expect(report.ok).toBe(false); // Recorded technical-or-later assets are absent from empty fs.
     expect(report.summary).toMatchObject({ registered: 89, required: 86, optional: 3, missing: 86, selectedRequired: 0, technicalPassed: 0 });
-    expect(report.errorCount).toBe(13); // 13 technical assets missing
-    expect(report.warningCount).toBe(73); // 73 planned assets missing
+    expect(report.errorCount).toBe(retained.length);
+    expect(report.warningCount).toBe(86 - retainedRequired);
     expect(report.assets.filter(asset => asset.result === 'missing')).toHaveLength(89);
     expect(formatAssetReport(report, '.')).toContain('FAILED');
   });
@@ -54,24 +59,24 @@ describe('visual stage enforcement', () => {
     const expected = ASSET_REGISTRY.filter(asset => asset.required && isGolden(asset)).map(asset => asset.id).sort();
     expect(expected).toHaveLength(22);
     expect(report.assets.filter(asset => asset.presenceRequired).map(asset => asset.assetId).sort()).toEqual(expected);
-    expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(9); // 13 are missing-file because they are technical
-    expect(report.issues.filter(issue => issue.code === 'missing-file')).toHaveLength(13);
-    expect(report.errorCount).toBe(22);
+    expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(plannedGolden);
+    expect(report.issues.filter(issue => issue.code === 'missing-file')).toHaveLength(retained.length);
+    expect(report.errorCount).toBe(22 + retained.length - retainedRequired);
     expect(report.warningCount).toBe(64);
   });
   it('enforces a chosen phase while retaining full registry integrity', () => {
     const report = canonical('production', { phase: 'proof_a' });
     expect(report.summary.selectedRequired).toBe(8);
-    expect(report.errorCount).toBe(13);
+    expect(report.errorCount).toBe(retained.length);
     expect(report.assets.filter(asset => asset.presenceRequired).every(asset => asset.assetId.startsWith('veh_') || asset.assetId.startsWith('part_engine_'))).toBe(true);
     const duplicate = { ...image, status: 'draft' } as ImageAsset;
     expect(codes(check({}, { mode: 'golden', registry: [image, duplicate] }))).toContain('registry-duplicate-id');
   });
   it('full requires canonical required entries; release additionally requires approval and palette lock', () => {
-    expect(canonical('strict').errorCount).toBe(86);
+    expect(canonical('strict').errorCount).toBe(86 + retained.length - retainedRequired);
     const report = canonical('release');
-    expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(73);
-    expect(report.issues.filter(issue => issue.code === 'missing-file')).toHaveLength(13);
+    expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(86 - retainedRequired);
+    expect(report.issues.filter(issue => issue.code === 'missing-file')).toHaveLength(retained.length);
     expect(report.issues.filter(issue => issue.code === 'not-approved')).toHaveLength(86);
     expect(codes(report)).toContain('palette-not-locked');
   });
@@ -106,6 +111,30 @@ describe('visual stage enforcement', () => {
 });
 
 describe('registered export checks', () => {
+  it('restricts the owner sky ramp and rejects pixel corruption without weakening other palettes', () => {
+    const sky = ASSET_REGISTRY.find(a => a.id === 'env_sky_outskirts')!;
+    const actual = nodeFs(resolve('public/assets')).read(runtimeFiles(sky)[0]!);
+    expect(actual).toBeDefined();
+    expect(check({ [runtimeFiles(sky)[0]!]: actual! }, { registry: [sky] }).ok).toBe(true);
+    const rogue = { ...image, color: 'sky-ramp' } as ImageAsset;
+    expect(codes(check({ [file]: png() }, { registry: [rogue] }))).toContain('registry-sky-ramp');
+    const corrupted = new Uint8Array(16 * 300 * 4).fill(255);
+    expect(codes(check({ [runtimeFiles(sky)[0]!]: encodePng(16,300,corrupted) }, { registry: [sky] }))).toContain('sky-ramp-mismatch');
+    expect(codes(check({ [file]: encodePng(4,4,pixels(4,4,[64,193,252])) }))).toContain('off-palette');
+  });
+  it('permits only the optional cloud technical review exception to the Golden gate', () => {
+    const sky = ASSET_REGISTRY.find(a => a.id === 'env_sky_outskirts')!;
+    const cloud = ASSET_REGISTRY.find(a => a.id === 'env_clouds_strip')!;
+    expect(cloud).toMatchObject({kind:'image',size:{w:384,h:96},alpha:'cutout',tileX:true,required:false,phase:'polish',status:'technical'});
+    expect(runtimeFiles(cloud)).toEqual(['environments/env_clouds_strip.png']);
+    const oldSize = encodePng(256,48,new Uint8Array(256*48*4));
+    expect(codes(check({[runtimeFiles(cloud)[0]!]:oldSize},{registry:[cloud]}))).toContain('wrong-size');
+    const gate = (asset: AssetDefinition) => codes(check({}, { registry: [sky,asset],mode:'preparation' }));
+    expect(gate(cloud)).not.toContain('golden-gate');
+    for(const status of ['draft','visual','ingame','approved'] as const) expect(gate({...cloud,status})).toContain('golden-gate');
+    expect(gate({...cloud,required:true})).toContain('golden-gate');
+    expect(gate({...cloud,id:'env_other_cloud'})).toContain('golden-gate');
+  });
   it.each(['preparation', 'golden', 'strict', 'release'] as const)('rejects malformed existing draft PNGs in %s', mode => {
     expect(codes(check({ [file]: Buffer.from('not a png') }, { mode }))).toContain('png-invalid');
     expect(check({ [file]: Buffer.from('not a png') }, { mode }).ok).toBe(false);

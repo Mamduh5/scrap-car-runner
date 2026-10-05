@@ -1,0 +1,120 @@
+{
+  "scope": "ART-03R layered sky only; owner review pending",
+  "beforeAfter": "Left: rejected ordered-dither sky; right: new reference RGB sky plus cloud overlay",
+  "authorization": "Owner explicitly allowed a sky-only RGB ramp on 2026-10-05; 16x300, opaque alpha and tile contract retained",
+  "references": [
+    "sky_base_reference.png",
+    "clouds_strip_reference.png",
+    "sky_composite_reference.png",
+    "far_junkyard_reference.png"
+  ],
+  "sky": {
+    "width": 16,
+    "height": 300,
+    "repetitions": 32,
+    "skyEdgeMismatches": 0,
+    "skyNonuniformRows": 0,
+    "maxSkyChannelStep": 2,
+    "anchors": [
+      {
+        "at": 0,
+        "rgb": [
+          64,
+          193,
+          252
+        ]
+      },
+      {
+        "at": 0.25,
+        "rgb": [
+          68,
+          195,
+          253
+        ]
+      },
+      {
+        "at": 0.5,
+        "rgb": [
+          95,
+          209,
+          253
+        ]
+      },
+      {
+        "at": 0.75,
+        "rgb": [
+          155,
+          235,
+          246
+        ]
+      },
+      {
+        "at": 1,
+        "rgb": [
+          241,
+          251,
+          222
+        ]
+      }
+    ]
+  },
+  "clouds": {
+    "width": 256,
+    "height": 48,
+    "repetitions": 3,
+    "cloudEdgeMismatches": 0,
+    "cloudSmallestPeriod": 256,
+    "opaqueCloudPixels": 1963,
+    "emptyPixels": 10325,
+    "alpha": [
+      0,
+      255
+    ],
+    "seam": "four fully transparent columns at each boundary; empty-air join"
+  },
+  "preserved": [
+    {
+      "sha256": "8f87f74504d9a3f0e7d79afcbf7a2b27ab50be2d34d60593ff49bd3a864f989c",
+      "path": "public/assets\\props\\prop_scrap_pile_a.png",
+      "unchanged": true
+    },
+    {
+      "sha256": "0536ccca95aaf5fbcba043676ae4c94350361ad4885c28bee7c2fdd5fb266cea",
+      "path": "art/source/golden/art03\\pixels\\prop_scrap_pile_a.json",
+      "unchanged": true
+    },
+    {
+      "sha256": "8c21012b62bf90e34acfbfe4dd00f2797dc4e0902e5768d15cdf87f5e3198e08",
+      "path": "art/source/golden/art03\\pixels\\fx_puff.json",
+      "unchanged": true
+    },
+    {
+      "sha256": "7f46c15998e2a2f439bea6e11a2dd5088b459b830625b088da8d5011ada82fff",
+      "path": "art/source/golden/art03\\pixels\\env_road_asphalt.json",
+      "unchanged": true
+    },
+    {
+      "sha256": "e3ab8473448edc396169510a0de07fe0d7e7a47ce6d397e3785c89544256a0c5",
+      "path": "art/source/golden/art03\\pixels\\env_far_junkyard.json",
+      "unchanged": true
+    },
+    {
+      "sha256": "ab5e8e817a16274e9d9f4d621c58f971e88fa6b540d85db1356848be037dc5c2",
+      "path": "public/assets\\effects\\fx_puff.png",
+      "unchanged": true
+    },
+    {
+      "sha256": "52af231a32857eb848ea152c2400ee5b2024bedf9273b2c711fd3f7608e2962f",
+      "path": "public/assets\\environments\\env_road_asphalt.png",
+      "unchanged": true
+    },
+    {
+      "sha256": "4220cd96250a5df62acdad533bc071234c14e7a4b183c77b07535027d02858a4",
+      "path": "public/assets\\environments\\env_far_junkyard.png",
+      "unchanged": true
+    }
+  ],
+  "changedRoadPixels": 0,
+  "otherRuntimeChanges": [],
+  "visualReview": "Standard/wide/background-only and repeated-cloud previews inspected at 1x; calm atmosphere, sparse horizontal cloud banks, readable far and primary Rustbucket focus. Full 256px repetition remains visible in wide proof; no shorter subperiod. Owner approval pending."
+}

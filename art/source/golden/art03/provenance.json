@@ -1,0 +1,187 @@
+{
+  "batch": "ART-03R",
+  "date": "2026-10-05",
+  "result": "READY FOR OWNER VISUAL REVIEW",
+  "sourceMethod": "Built-in image_gen reference-led source translation, TypeScript material palette mapping and localized pixel cleanup, maintained explicit pixel grids",
+  "workflow": "WORKFLOW DEVIATION \u2014 OWNER ACKNOWLEDGEMENT REQUIRED",
+  "ownerWorkflowAcknowledgement": "pending",
+  "ownerVisualApproval": "pending",
+  "inGameProof": "not performed",
+  "garageScope": "untouched; planned and absent",
+  "palette": "64-color master unchanged and provisional; owner-authorized sky-only reference RGB ramp",
+  "prompts": "art/source/golden/art03/prompts.json",
+  "inputs": [
+    {
+      "sha256": "c83671f0af734a99e0d5ce8045971bdd76255541b2101ba8c023792dfec9a243",
+      "path": "art/reference/art03_run/road_ground_reference.png"
+    },
+    {
+      "sha256": "7b74fb225d21408b0e8abfb2c28ab961e69acbb219c6161a68c3bd2f75d04020",
+      "path": "art/reference/art03_run/far_junkyard_reference.png"
+    },
+    {
+      "sha256": "73c62cbb7a629f30ef288b08a2fa42e267755c93eeabb82b3063d0b51d4e80ee",
+      "path": "art/reference/art03_run/scrap_pile_reference.png"
+    },
+    {
+      "sha256": "c3fcfc2d23b83c8235ec2bacdc2d525ae285eeafacaa81f38d921a16ffee9661",
+      "path": "art/reference/art03_run/terrain_progression_reference.png"
+    },
+    {
+      "sha256": "3dfaadb3ecdfc9d98c4f7e8a61d29533ae3a3d269e4c88713f415a5106565ff3",
+      "path": "art/reference/art03_run/puff_reference.png"
+    },
+    {
+      "sha256": "ae642e78b2496c1a542f70b381010018d701e1810ebfc17dcb6606ca6ab96c9f",
+      "path": "art/source/golden/art01/STYLE_REFERENCE.md"
+    },
+    {
+      "sha256": "5f003a5ee62477bd73098d38776ddf84c605c000aa0198ffe058ef0ec933a3ab",
+      "path": "art/source/golden/art02/STYLE_REFERENCE.md"
+    },
+    {
+      "sha256": "217e21dc233f309153ffd60962d19f668336bae5b16c313bf8b668e332ca9850",
+      "path": "public/assets/vehicles/veh_rustbucket_body.png"
+    },
+    {
+      "sha256": "10a09a9b6d6b18da75e8fe7085a0c2f25b2c0647d76c3e53ea24297d1d752d1c",
+      "path": "public/assets/vehicles/veh_rustbucket_ov_engine_t1.png"
+    },
+    {
+      "sha256": "131d7896fdffbaf571501963701481142c59808a4c8331dc2b9b9ca21c6b87c2",
+      "path": "public/assets/vehicles/veh_wheel_tires_t1.png"
+    },
+    {
+      "sha256": "b5888f82103ad946c56c2b72474f6e006c3cc01e6a2dafd9f3d64446ba02cf9d",
+      "path": "art/source/golden/art01/preview/contact_vehicle_ladder.png"
+    },
+    {
+      "sha256": "5b836d157f5fdfa92a946bec8c5bde66abf755ee4349926d3eb4987ef6cf85d2",
+      "path": "art/source/golden/art02/preview/contact_ui_samples.png"
+    },
+    {
+      "sha256": "c23bfba3c0c99056d8b8a79c6cf6bad0af5250d2ee3a89aeda6a8d41b6825693",
+      "path": "art/source/golden/art03/masters/raw/road.png"
+    },
+    {
+      "sha256": "09977975435702a1485d39f0d1796f9b6348e8d44efdee3afc1401016ef39652",
+      "path": "art/source/golden/art03/masters/far.png"
+    },
+    {
+      "sha256": "872e73f124872379e9f302677dc1cb31f6829601112d11ebe47218f7e0208d46",
+      "path": "art/source/golden/art03/masters/prop.png"
+    },
+    {
+      "sha256": "7d3b403f2fafa8e0f9d13ad0fbf7f899b605518105e756a4abe815d132a4da27",
+      "path": "art/source/golden/art03/masters/puff.png"
+    },
+    {
+      "sha256": "fd3edd8f35fbeb4f44e252a9ca64bd0474d430de3ce03d2e0465f60eff2161d5",
+      "path": "art/source/golden/art03/masters/sky.png"
+    },
+    {
+      "path": "art/source/golden/art03/masters/road.png",
+      "sha256": "2451c60b2621d4991c52bbc2b534d21bc494e5e7fba415a2dbb896ae7dab3a99"
+    },
+    {
+      "path": "art/reference/art03_run/sky_base_reference.png",
+      "sha256": "590321965132c265bc5079b16aabf6c1adfa3b43de6e757917f6f3d0fd637467"
+    },
+    {
+      "path": "art/reference/art03_run/clouds_strip_reference.png",
+      "sha256": "65d11a66a2dbbcdde80fa5f335cf6db543faf46e62bb66ab8d04a78f08f02a23"
+    },
+    {
+      "path": "art/reference/art03_run/sky_composite_reference.png",
+      "sha256": "94897ee29d88f54483e8029cb3cbbc64d30b0d88b863a764d5404c1d39e69791"
+    }
+  ],
+  "runtimeSource": "art/source/golden/art03/pixels/*.json",
+  "technicalEvidence": "art/source/golden/art03/validation.json",
+  "ownerReview": {
+    "composition": "accepted",
+    "keep": [
+      "env_road_asphalt",
+      "env_far_junkyard",
+      "prop_scrap_pile_a",
+      "fx_puff"
+    ],
+    "refine": [
+      "env_sky_outskirts",
+      "env_clouds_strip"
+    ],
+    "skyCorrection": "Improved sky RGB ramp retained byte-identical; clouds rebuilt at approved 384x96 contract",
+    "status": "Owner visual review pending; six Run entries technical",
+    "roadMasterCrop": "302 unused top rows removed; sampling offset adjusted; KEEP source/export hashes unchanged",
+    "evidence": "art/source/golden/art03/cloud-review.json"
+  },
+  "historicalSupersededSkyInputs": [
+    {
+      "sha256": "004e4daab7d3cf09269e93f4fc47e8fb4aa2aab6305fe0ae634f11eb49fe5b39",
+      "path": "art/reference/art03_run/sky_reference.png"
+    }
+  ],
+  "layeredSkyCorrection": {
+    "date": "2026-10-05",
+    "authorization": "Owner response: Allow a sky-only RGB ramp",
+    "method": "Base reference mean RGB anchors; cloud whole-cell mask trace and localized silhouette cleanup; maintained editable pixel grids",
+    "newImageGeneration": false,
+    "layers": [
+      "env_sky_outskirts",
+      "env_clouds_strip",
+      "env_far_junkyard"
+    ],
+    "cloudsOptional": true,
+    "evidence": "art/source/golden/art03/sky-review.json"
+  },
+  "cloudContractCorrection": {
+    "date": "2026-10-05",
+    "authorization": "Owner approved 256x48 -> 384x96 after rejecting the small repeated cloud candidate",
+    "assetId": "env_clouds_strip",
+    "runtimePath": "public/assets/environments/env_clouds_strip.png",
+    "dimensions": [
+      384,
+      96
+    ],
+    "alpha": "cutout",
+    "tileX": true,
+    "required": false,
+    "phase": "polish",
+    "status": "technical",
+    "source": "art/reference/art03_run/clouds_strip_reference.png",
+    "referenceCrops": [
+      [
+        1480,
+        300,
+        400,
+        125
+      ],
+      [
+        450,
+        389,
+        360,
+        103
+      ],
+      [
+        390,
+        378,
+        225,
+        14
+      ],
+      [
+        1250,
+        390,
+        290,
+        14
+      ]
+    ],
+    "rejectedPixelsUsed": false,
+    "palette": [
+      "sky_outskirts_2",
+      "sky_outskirts_3"
+    ],
+    "evidence": "art/source/golden/art03/cloud-review.json",
+    "primaryPreview": "art/source/golden/art03/preview/run_216_1x.png",
+    "ownerVisualApproval": "pending"
+  }
+}

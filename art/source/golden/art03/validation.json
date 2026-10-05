@@ -1,0 +1,183 @@
+{
+  "scope": "ART-03R Run only; no visual/in-game/owner approval",
+  "runPassed": true,
+  "runAssets": [
+    {
+      "assetId": "env_sky_outskirts",
+      "status": "technical",
+      "files": [
+        "environments/env_sky_outskirts.png"
+      ],
+      "selected": true,
+      "presenceRequired": true,
+      "result": "passed"
+    },
+    {
+      "assetId": "env_far_junkyard",
+      "status": "technical",
+      "files": [
+        "environments/env_far_junkyard.png"
+      ],
+      "selected": true,
+      "presenceRequired": true,
+      "result": "passed"
+    },
+    {
+      "assetId": "env_road_asphalt",
+      "status": "technical",
+      "files": [
+        "environments/env_road_asphalt.png"
+      ],
+      "selected": true,
+      "presenceRequired": true,
+      "result": "passed"
+    },
+    {
+      "assetId": "env_clouds_strip",
+      "status": "technical",
+      "files": [
+        "environments/env_clouds_strip.png"
+      ],
+      "selected": false,
+      "presenceRequired": false,
+      "result": "passed"
+    },
+    {
+      "assetId": "prop_scrap_pile_a",
+      "status": "technical",
+      "files": [
+        "props/prop_scrap_pile_a.png"
+      ],
+      "selected": true,
+      "presenceRequired": true,
+      "result": "passed"
+    },
+    {
+      "assetId": "fx_puff",
+      "status": "technical",
+      "files": [
+        "effects/fx_puff.png"
+      ],
+      "selected": true,
+      "presenceRequired": true,
+      "result": "passed"
+    }
+  ],
+  "measurements": [
+    {
+      "id": "env_sky_outskirts",
+      "width": 16,
+      "height": 300,
+      "visibleColors": 183,
+      "alpha": [
+        255
+      ],
+      "sha256": "f9a2b8ad140537f7a5266d9252898abcdb7b793af9c1a2faa26970deb974f7d8"
+    },
+    {
+      "id": "env_clouds_strip",
+      "width": 384,
+      "height": 96,
+      "visibleColors": 2,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "ddf6c2bafe6e2a8d05a1f8327d08df739c21239ce02a13ff1abf4cc05ea7ac17"
+    },
+    {
+      "id": "env_far_junkyard",
+      "width": 256,
+      "height": 96,
+      "visibleColors": 3,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "4220cd96250a5df62acdad533bc071234c14e7a4b183c77b07535027d02858a4"
+    },
+    {
+      "id": "env_road_asphalt",
+      "width": 64,
+      "height": 48,
+      "visibleColors": 9,
+      "alpha": [
+        255
+      ],
+      "sha256": "52af231a32857eb848ea152c2400ee5b2024bedf9273b2c711fd3f7608e2962f"
+    },
+    {
+      "id": "prop_scrap_pile_a",
+      "width": 48,
+      "height": 32,
+      "visibleColors": 14,
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "8f87f74504d9a3f0e7d79afcbf7a2b27ab50be2d34d60593ff49bd3a864f989c"
+    },
+    {
+      "id": "fx_puff",
+      "width": 64,
+      "height": 16,
+      "visibleColors": 4,
+      "alpha": [
+        0,
+        153,
+        255
+      ],
+      "sha256": "ab5e8e817a16274e9d9f4d621c58f971e88fa6b540d85db1356848be037dc5c2"
+    }
+  ],
+  "extraErrors": [],
+  "proofC": {
+    "passed": false,
+    "errors": 2,
+    "warnings": 66,
+    "issues": [
+      {
+        "assetId": "env_garage_wall",
+        "severity": "error",
+        "code": "missing-required",
+        "message": "required for production/proof_c: environments/env_garage_wall.png"
+      },
+      {
+        "assetId": "env_garage_lift",
+        "severity": "error",
+        "code": "missing-required",
+        "message": "required for production/proof_c: environments/env_garage_lift.png"
+      }
+    ]
+  },
+  "fullRegistrySummary": {
+    "registered": 89,
+    "required": 86,
+    "optional": 3,
+    "present": 18,
+    "missing": 68,
+    "invalid": 2,
+    "unexpected": 0,
+    "selectedRequired": 7,
+    "technicalPassed": 19,
+    "goldenTotal": 22,
+    "goldenApproved": 0,
+    "byStatus": {
+      "planned": 70,
+      "draft": 0,
+      "technical": 6,
+      "visual": 13,
+      "ingame": 0,
+      "approved": 0
+    },
+    "missingByPhase": {
+      "parts": 23,
+      "hero": 2,
+      "ui": 17,
+      "proof_b": 2,
+      "proof_c": 2,
+      "road": 19,
+      "fx": 3
+    }
+  }
+}

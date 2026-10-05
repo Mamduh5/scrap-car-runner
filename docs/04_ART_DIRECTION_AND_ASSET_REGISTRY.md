@@ -31,6 +31,7 @@ We use strict integer scaling (`Phaser.Scale.NONE` with computed zoom based on D
 - **Asset dimensions:** Author each registered image/sheet to its own registry contract. Body and overlays share a registration canvas; part icons, stat icons and wheel frames have distinct sizes. Environments have asset-specific dimensions and tiling rules, not one universal background size. Read `size`, `frame`, `frames`, `tileX` and `expectedFileSize()` in the registry; do not derive export dimensions from browser QA sizes.
 - **Anti-aliasing:** ABSOLUTELY NONE. Strict nearest-neighbor rendering.
 - **Color/alpha:** Follow each entry’s `color` and `alpha` contracts. Palette-mode assets use [palette.ts](../src/game/assets/palette.ts); grayscale assets (including fonts and selected effects) are tinted at runtime. Soft alpha is permitted only where registered. The palette remains provisional until Golden approval.
+  - **ART-03R sky exception (owner-authorized 2026-10-05):** `env_sky_outskirts` alone uses the reference RGB row ramp declared in [skyRamp.ts](../src/game/assets/skyRamp.ts). Its size, opaque alpha and tiling remain unchanged; object/UI palette rules remain intact. The optional cloud strip retains canonical palette colors and cutout alpha.
 
 ## 4. Camera and Presentation Angle
 

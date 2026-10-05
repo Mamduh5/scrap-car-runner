@@ -1,0 +1,111 @@
+{
+  "scope": "ART-03R cloud-only correction; all six Run assets technical; owner visual review pending",
+  "authorization": "Owner approved 256x48 -> 384x96 on 2026-10-05",
+  "reference": {
+    "path": "art/reference/art03_run/clouds_strip_reference.png",
+    "sha256": "65d11a66a2dbbcdde80fa5f335cf6db543faf46e62bb66ab8d04a78f08f02a23"
+  },
+  "source": "Original reference bank/streak crops -> maintained explicit pixel grid. Rejected 256x48 pixels are never sampled.",
+  "contract": {
+    "id": "env_clouds_strip",
+    "path": "public/assets/environments/env_clouds_strip.png",
+    "width": 384,
+    "height": 96,
+    "alpha": "cutout",
+    "tileX": true,
+    "required": false,
+    "phase": "polish",
+    "status": "technical"
+  },
+  "measurements": {
+    "edgeMismatches": 0,
+    "semiTransparentPixels": 0,
+    "visiblePixels": 2863,
+    "emptyPixels": 34001,
+    "emptyPercent": 92.23,
+    "smallestPeriod": 384,
+    "banks": [
+      {
+        "left": 18,
+        "right": 145,
+        "top": 51,
+        "bottom": 75,
+        "width": 128,
+        "height": 25
+      },
+      {
+        "left": 264,
+        "right": 359,
+        "top": 10,
+        "bottom": 32,
+        "width": 96,
+        "height": 23
+      }
+    ],
+    "seam": "Empty air: all pixels in both boundary columns transparent"
+  },
+  "primaryPreview": {
+    "path": "preview/run_216_1x.png",
+    "width": 216,
+    "height": 288
+  },
+  "wideProof": {
+    "path": "preview/run_wide_1x.png",
+    "width": 768,
+    "height": 288
+  },
+  "preserved": [
+    {
+      "sha256": "0536ccca95aaf5fbcba043676ae4c94350361ad4885c28bee7c2fdd5fb266cea",
+      "path": "art/source/golden/art03\\pixels\\prop_scrap_pile_a.json",
+      "unchanged": true
+    },
+    {
+      "sha256": "8c21012b62bf90e34acfbfe4dd00f2797dc4e0902e5768d15cdf87f5e3198e08",
+      "path": "art/source/golden/art03\\pixels\\fx_puff.json",
+      "unchanged": true
+    },
+    {
+      "sha256": "e871e5487769a99565d356736dc0eb9546745444accff93b518324247e686e21",
+      "path": "art/source/golden/art03\\pixels\\env_sky_outskirts.json",
+      "unchanged": true
+    },
+    {
+      "sha256": "7f46c15998e2a2f439bea6e11a2dd5088b459b830625b088da8d5011ada82fff",
+      "path": "art/source/golden/art03\\pixels\\env_road_asphalt.json",
+      "unchanged": true
+    },
+    {
+      "sha256": "e3ab8473448edc396169510a0de07fe0d7e7a47ce6d397e3785c89544256a0c5",
+      "path": "art/source/golden/art03\\pixels\\env_far_junkyard.json",
+      "unchanged": true
+    },
+    {
+      "sha256": "8f87f74504d9a3f0e7d79afcbf7a2b27ab50be2d34d60593ff49bd3a864f989c",
+      "path": "public/assets\\props\\prop_scrap_pile_a.png",
+      "unchanged": true
+    },
+    {
+      "sha256": "ab5e8e817a16274e9d9f4d621c58f971e88fa6b540d85db1356848be037dc5c2",
+      "path": "public/assets\\effects\\fx_puff.png",
+      "unchanged": true
+    },
+    {
+      "sha256": "4220cd96250a5df62acdad533bc071234c14e7a4b183c77b07535027d02858a4",
+      "path": "public/assets\\environments\\env_far_junkyard.png",
+      "unchanged": true
+    },
+    {
+      "sha256": "52af231a32857eb848ea152c2400ee5b2024bedf9273b2c711fd3f7608e2962f",
+      "path": "public/assets\\environments\\env_road_asphalt.png",
+      "unchanged": true
+    },
+    {
+      "sha256": "f9a2b8ad140537f7a5266d9252898abcdb7b793af9c1a2faa26970deb974f7d8",
+      "path": "public/assets\\environments\\env_sky_outskirts.png",
+      "unchanged": true
+    }
+  ],
+  "otherRuntimeChanges": [],
+  "visualReview": "216 AP primary: broad low bank and thin streaks, substantial quiet sky, clear far and Rustbucket focus. Four 216 AP offset panels show high/low banks and wrap. 768 AP proof intentionally exposes the full 384 AP repeat; no shorter subperiod. Owner approval remains pending."
+}
