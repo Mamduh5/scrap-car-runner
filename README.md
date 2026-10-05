@@ -22,9 +22,16 @@ Development: port 8080. Preview: `npm run preview`, port 8081. Build output: `di
 | `npm run typecheck:tools` | Tools, their tests and Vite/Vitest configs with Node types |
 | `npm run test` | Domain, state, save/storage, lifecycle and tooling regression tests |
 | `npm run validate:data` | Static numeric, range and reference invariants |
+| `npm run validate:assets` | Preparation: registry/data/palette and present visual files; reports missing future art |
+| `npm run validate:assets:golden` | Required Golden visual technical gate, derived from registry membership |
+| `npm run validate:assets:full` | All required visual exports: presence and technical validity |
+| `npm run validate:assets:release` | Full visual gate plus recorded approval, locked palette and canonical GPL |
+| `npm run validate:audio` | Current audio preparation gate; path/staging repair remains VAL-02 |
 | `npm run simulate` | Production-formula balance scenarios; provisional tuning |
 | `npm run build` | Source typecheck and Vite production bundle |
-| `npm run check` | All six gates in that order; stops on failure |
+| `npm run check` | Eight steps: source/tools checks, tests, data, visual preparation, audio preparation, simulation, build; stops on failure |
+
+A green development check does not mean production art exists or is approved. For phase production use `npm run validate:assets -- --stage production --phase proof_a` (choose a registered phase). Visual gates are read-only; full technical success does not grant visual/in-game approval. See [asset workflow](docs/11_ASSET_PRODUCTION_WORKFLOW.md#6-technical-validation-the-gate) for scope, palette staging and options.
 
 These gates do not replace browser, touch, Android-device or lifecycle acceptance. Production source maps are disabled by default. For internal diagnostics only, set `INTERNAL_SOURCEMAPS=1` before building; do not publish that diagnostic artifact accidentally.
 

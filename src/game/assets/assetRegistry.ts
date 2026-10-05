@@ -5,14 +5,14 @@
  * far through the approval gate it is. docs/04 explains the art; this file lists the assets.
  * Documentation must reference it, never copy per-asset tables (that is how drift starts).
  *
- * Consumers: tools/validate-assets.ts (technical validation), tools/contact-sheet.ts (review
- * sheets), and — later — the BootScene loader (load assets whose status is `technical` or beyond).
+ * Consumers: tools/assets/validateAssets.ts (technical gates), and — later — the BootScene
+ * loader (load assets whose status is `technical` or beyond). Contact-sheet automation is future work.
  *
  * Conventions (enforced by tools/assets/validateAssets.ts):
  *   - `id` === Phaser texture key === file stem. No second naming scheme.
  *   - Runtime file: public/assets/<category>/<id>.png  (+ <id>.xml for bitmap fonts).
  *   - Spritesheets are ONE horizontal strip, no margin/spacing: width = frame.w * frames.
- *   - `status` is the approval-gate position; see docs/13_VISUAL_QUALITY_AND_ART_ACCEPTANCE.md.
+ *   - `status` is the approval-gate position; see docs/11_ASSET_PRODUCTION_WORKFLOW.md.
  *   - Subjective art notes do NOT belong here; they belong in docs/04.
  */
 
@@ -28,7 +28,7 @@ export const CATEGORY_PREFIX: Readonly<Record<AssetCategory, string>> = {
   environments: 'env_', props: 'prop_', effects: 'fx_',
 };
 
-/** Approval gate, in order. See docs/13. */
+/** Approval gate, in order. See docs/11. */
 export const ASSET_STATUSES = ['planned', 'draft', 'technical', 'visual', 'ingame', 'approved'] as const;
 export type AssetStatus = (typeof ASSET_STATUSES)[number];
 

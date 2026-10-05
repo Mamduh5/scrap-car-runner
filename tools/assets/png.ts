@@ -50,16 +50,23 @@ export function decodePng(input: Uint8Array): DecodedPng {
     const data = input.subarray(dataStart, dataEnd);
     if (crc32(input.subarray(offset + 4, dataEnd)) !== readU32(input, dataEnd)) throw new PngError('CRC mismatch in chunk ' + type);
     chunkTypes.push(type);
+    if (!sawIhdr && type !== 'IHDR') throw new PngError('IHDR must be the first chunk');
 
     if (type === 'IHDR') {
+      if (sawIhdr) throw new PngError('duplicate IHDR');
       if (length !== 13) throw new PngError('bad IHDR length');
+      if (data[10] !== 0) throw new PngError('unsupported compression method ' + data[10]);
+      if (data[11] !== 0) throw new PngError('unsupported filter method ' + data[11]);
       width = readU32(data, 0); height = readU32(data, 4);
       bitDepth = data[8]!; colorType = data[9]!; interlace = data[12]!;
       sawIhdr = true;
     } else if (type === 'PLTE') palette = data;
     else if (type === 'tRNS') trns = data;
     else if (type === 'IDAT') idat.push(data);
-    else if (type === 'IEND') sawIend = true;
+    else if (type === 'IEND') {
+      if (length !== 0) throw new PngError('bad IEND length');
+      sawIend = true;
+    } else if ((type.charCodeAt(0) & 0x20) === 0) throw new PngError('unsupported critical chunk ' + type);
     offset = dataEnd + 4;
   }
 
@@ -70,6 +77,7 @@ export function decodePng(input: Uint8Array): DecodedPng {
   const channels = CHANNELS[colorType];
   if (channels === undefined) throw new PngError('unsupported colour type ' + colorType);
   if (colorType === 3 && palette === null) throw new PngError('indexed PNG without PLTE');
+  if (trns !== null && ((colorType === 0 && trns.length !== 2) || (colorType === 2 && trns.length !== 6) || colorType === 4 || colorType === 6)) throw new PngError('invalid tRNS for colour type ' + colorType);
   if (width === 0 || height === 0 || width > 16384 || height > 16384) throw new PngError('invalid dimensions ' + width + 'x' + height);
 
   let raw: Uint8Array;
@@ -104,12 +112,18 @@ export function decodePng(input: Uint8Array): DecodedPng {
     }
   }
 
+  const transparentGray = trns !== null && colorType === 0 ? (trns[0]! << 8) | trns[1]! : -1;
+  const transparentRgb = trns !== null && colorType === 2
+    ? [(trns[0]! << 8) | trns[1]!, (trns[2]! << 8) | trns[3]!, (trns[4]! << 8) | trns[5]!] : null;
   const rgba = new Uint8Array(width * height * 4);
   for (let i = 0; i < width * height; i++) {
     const s = i * channels, d = i * 4;
     switch (colorType) {
-      case 0: rgba[d] = rgba[d + 1] = rgba[d + 2] = pix[s]!; rgba[d + 3] = 255; break;
-      case 2: rgba[d] = pix[s]!; rgba[d + 1] = pix[s + 1]!; rgba[d + 2] = pix[s + 2]!; rgba[d + 3] = 255; break;
+      case 0: rgba[d] = rgba[d + 1] = rgba[d + 2] = pix[s]!; rgba[d + 3] = pix[s] === transparentGray ? 0 : 255; break;
+      case 2:
+        rgba[d] = pix[s]!; rgba[d + 1] = pix[s + 1]!; rgba[d + 2] = pix[s + 2]!;
+        rgba[d + 3] = transparentRgb !== null && pix[s] === transparentRgb[0] && pix[s + 1] === transparentRgb[1] && pix[s + 2] === transparentRgb[2] ? 0 : 255;
+        break;
       case 3: {
         const idx = pix[s]!;
         rgba[d] = palette![idx * 3] ?? 0; rgba[d + 1] = palette![idx * 3 + 1] ?? 0; rgba[d + 2] = palette![idx * 3 + 2] ?? 0;

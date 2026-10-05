@@ -47,17 +47,29 @@ Assets are strictly separated into *Source* (editable) and *Runtime* (imported b
 
 No asset reaches `technical` without asset-specific technical evidence, and technical success does not mean art approval.
 
-Current tool: `tools/assets/validateAssets.ts`. The registered `npm run validate:assets` command currently does not invoke validation; VAL-01 owns its repair. Do not use a zero exit from that command as production evidence until VAL-01 acceptance passes.
+The executable, read-only gate is `tools/assets/validateAssets.ts`. CLI parsing/reporting wraps the same injected-file-access `validateAssets()` core used by tests and programmatic callers. Reports identify stage, root, scope, enforced presence, missing inputs, per-entry technical results/recorded status, errors and warnings. Exit 0 means the requested scope passed; exit 1 means invalid arguments, failed checks or filesystem errors. `--help` prints usage without running validation.
 
-The technical contract covers registry integrity/data coverage, exact image/sheet dimensions, per-entry alpha/color/margin/frame contracts, palette membership for palette-mode assets and bitmap font files. Grayscale/soft-alpha exceptions are explicit registry contracts, not permission to weaken other entries. Automated checks do not judge artistic quality, contrast in composition or actual Phaser rendering.
+### Commands and implemented stages
 
-### Staged validation expectations (VAL-01 implementation)
+| Stage | Command | Enforced contract |
+|---|---|---|
+| Preparation (default) | `npm run validate:assets` | Full registry/data/palette integrity and present-file checks. Missing planned/draft future assets are reported as warnings. This pass does not establish production presence or approval. |
+| Golden | `npm run validate:assets:golden` | Presence and technical validity of required entries derived from `isGolden()` (currently 22), plus full registry integrity and all present visual exports. Unselected future batches may remain absent. |
+| Phase production | `npm run validate:assets -- --stage production --phase proof_a` | Presence for required entries in one registered phase. Replace `proof_a` with the actual phase from `ASSET_PHASES`. This does not override the Golden approval gate. |
+| Full technical | `npm run validate:assets:full` | Presence and technical validity of every required registered visual entry (currently 86). This does not grant or replace visual/in-game/final approval. |
+| Release | `npm run validate:assets:release` | Full technical requirements, every required entry recorded as `approved`, locked palette and canonical GPL export. Existing approval records are checked, never granted. |
 
-- **Preparation:** Check available contract/input integrity and report missing production files honestly. A preparation pass neither proves asset presence nor advances asset approval.
-- **Stage-specific production:** Enforce required inputs for the selected production batch, including exact Golden membership where applicable, while preserving full registry/data integrity. Missing/invalid stage inputs fail; unrelated future batches remain outside that stage’s presence requirement.
-- **Full/release:** Enforce the complete required registry set, applicable approval statuses and locked palette. Optional entries do not silently become required.
+Equivalent stage syntax is `--stage preparation|golden|production|full|release`. The programmatic API retains `strict` for full technical mode; supported CLI aliases `--allow-missing`, `--golden`, `--strict` and `--release` select one corresponding stage. Unknown/repeated/conflicting options, unknown phases and invalid stage/phase combinations fail. `--root <project root>` selects the root for `public/assets/` and `art/palette/` without changing canonical registry/data; it is useful for controlled filesystem checks. Ordinary `npm run check` uses preparation, not release.
 
-These are acceptance contracts; VAL-01 owns command/report/staging details. Reports must state the scope proven. A preparation pass MUST NOT be representable as production approval.
+All stages preserve registry/data coverage and reject unexpected files, malformed PNGs, wrong dimensions/frames, alpha/margin violations, forbidden color-management chunks and invalid supported bitmap-font metadata. Present optional exports are validated; absent optional entries are not required. Any asset recorded as `technical` or later must retain its exports even outside the selected presence batch. A partial font PNG/XML pair fails. No stage changes registry status or creates assets.
+
+Palette colors come from `palette.ts`. A provisional palette may still change through Golden review; it is not automatically locked by technical success. Provisional off-palette draft pixels are warnings **only during preparation**, reported as `attention`, not a technical pass. Golden/phase/full/release production checks reject off-palette pixels; recorded technical-or-later exports and locked-palette preparation also reject them. Registered grayscale assets are checked for grayscale instead of palette membership. Fully transparent pixels do not produce color violations; registered soft alpha is respected.
+
+An existing `art/palette/scrap-master.gpl` is compared with `palette.ts` `renderGpl()` in every stage; stale text fails. Release also requires that export to exist. Other stages do not require the absent export. The gate does not generate it; palette export automation remains future tooling.
+
+The visual gate validates registry category exports and rejects unknown root/category paths. The exact top-level `audio/` directory is delegated to audio validation and not traversed by the visual filesystem adapter; there is no general unknown-file ignore rule. Only literal `.gitkeep` placeholders are exempt from file hygiene. VAL-02 still owns audio enforcement.
+
+Automated checks cannot judge artistic quality, actual glyph readability, seamless visual tiling or Phaser composition/motion. Bitmap-font checks establish the PNG/XML pair, referenced page, atlas size and glyph presence; real loading/rendering remains TYPO/VIS work. A preparation pass MUST NOT be representable as production approval. Asset-specific results are read-only evidence, not lifecycle promotion.
 
 ## 7. Approval Pipeline
 
@@ -76,6 +88,6 @@ Do not collapse file creation, technical validation, visual review, in-game proo
 
 ## 8. Stale source/tool references
 
-There is no `docs/13_VISUAL_QUALITY_AND_ART_ACCEPTANCE.md`; D13 is audio direction. Visual identity is D04, approval lifecycle is this document, and execution/proof requirements are D14. Legacy references in registry/validator/palette comments do not establish another visual contract.
+There is no `docs/13_VISUAL_QUALITY_AND_ART_ACCEPTANCE.md`; D13 is audio direction. Visual identity is D04, approval lifecycle is this document, and execution/proof requirements are D14. VAL-01 corrected the registry/validator/palette references. D04 §6’s no-op-command wording records the pre-VAL-01 limitation; the executable commands/stages above supersede that tooling statement without changing art direction.
 
-`tools/validate-assets.ts`, `tools/contact-sheet.ts`, `tools/write-palette.ts`, the `assets:palette` package script and `art/palette/scrap-master.gpl` are absent. The real visual validator module is `tools/assets/validateAssets.ts`; `palette.ts` defines colors and provides `renderGpl()`, but no export CLI exists. Contact-sheet/export automation is future tooling, not a usable current command. VAL-01 owns necessary gate/palette tooling and correction of stale tool/comment references within its scope. DOC-01 does not create those tools or edit source comments.
+`tools/validate-assets.ts`, `tools/contact-sheet.ts`, `tools/write-palette.ts` and the `assets:palette` package script are absent. The actual visual gate is `tools/assets/validateAssets.ts`; `palette.ts` supplies canonical GPL text through `renderGpl()`, but no export CLI exists. Contact-sheet/export automation remains future tooling. No production assets or palette export were generated by VAL-01.

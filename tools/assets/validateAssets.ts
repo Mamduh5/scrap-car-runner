@@ -1,29 +1,22 @@
 /**
- * tools/assets/validateAssets.ts — production asset validator (pure; file access is injected).
- *
- * Validates the runtime asset tree (public/assets) against the canonical registry
- * (src/game/assets/assetRegistry.ts) and the master palette. It checks TECHNICAL correctness only
- * — dimensions, alpha contract, framing margin, palette membership, file hygiene, registry/game-data
- * coverage and the approval-gate rules. It never judges artistic quality (docs/13 does that).
- *
- * Modes
- *   preparation (default, --allow-missing): absent files are fine while art does not exist yet,
- *       but anything that DOES exist must be valid, and registry/palette errors always fail.
- *   strict (--strict): every required asset must exist and be valid.
- *   release (--release): strict + every required asset `approved` + palette `locked`.
- *
- * Severity rule: an asset at status `technical` or beyond is always held to full technical
- * validation (so an approved asset can never silently regress). Earlier statuses (`draft`) only
- * produce warnings for their own problems, unless --strict.
+ * Visual technical gate over the canonical registry; file access is injected.
+ * Preparation permits missing planned/draft assets, not malformed present files.
+ * Golden/production enforce required selected entries; strict enforces all required entries.
+ * Release additionally requires final approval and a locked palette. No stage mutates status.
+ * Review/approval policy: docs/04 and docs/11. Audio is delegated to VAL-02.
  */
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
-import { join, relative, sep } from 'node:path';
+import { join, relative, resolve, sep } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import type { ChassisDefinition, PartDefinition, RoadDefinition } from '../../src/types/game';
 import {
-  ASSET_CATEGORIES, ASSET_PHASES, ASSET_STATUSES, CATEGORY_PREFIX, expectedFileSize, frameSize, isGolden, runtimeFiles,
+  ASSET_REGISTRY, ASSET_CATEGORIES, ASSET_PHASES, ASSET_STATUSES, CATEGORY_PREFIX, expectedFileSize, frameSize, isGolden, runtimeFiles,
 } from '../../src/game/assets/assetRegistry';
-import type { AssetDefinition, AssetStatus } from '../../src/game/assets/assetRegistry';
-import { CHROMA_KEY_HEX, hexToRgb } from '../../src/game/assets/palette';
+import type { AssetDefinition, AssetStatus, AssetPhase } from '../../src/game/assets/assetRegistry';
+import { CHROMA_KEY_HEX, hexToRgb, PALETTE, PALETTE_STATUS, MAX_PALETTE_COLORS, renderGpl } from '../../src/game/assets/palette';
+import { PARTS } from '../../src/data/parts';
+import { CHASSIS_LIST } from '../../src/data/chassis';
+import { ROADS } from '../../src/data/roads';
 import { decodePng, FORBIDDEN_COLOR_CHUNKS, PngError } from './png';
 import type { DecodedPng } from './png';
 
@@ -50,7 +43,8 @@ export function nodeFs(root: string): AssetFs {
     if (!existsSync(dir)) return [];
     return readdirSync(dir).flatMap(name => {
       const full = join(dir, name);
-      return statSync(full).isDirectory() ? walk(full) : [relative(root, full).split(sep).join('/')];
+      if (!statSync(full).isDirectory()) return [relative(root, full).split(sep).join('/')];
+      return dir === root && name === 'audio' ? [] : walk(full);
     });
   };
   return {
@@ -73,7 +67,8 @@ export interface GameDataRefs {
   readonly roads: readonly RoadDefinition[];
 }
 
-export type ValidationMode = 'preparation' | 'strict' | 'release';
+export type ValidationMode = 'preparation' | 'golden' | 'production' | 'strict' | 'release';
+const VALIDATION_MODES: readonly ValidationMode[] = ['preparation', 'golden', 'production', 'strict', 'release'];
 
 export interface ValidateInput {
   readonly registry: readonly AssetDefinition[];
@@ -81,6 +76,8 @@ export interface ValidateInput {
   readonly palette: PaletteInput;
   readonly gameData?: GameDataRefs;
   readonly mode?: ValidationMode;
+  /** Required only for production; presence is enforced for required entries in this phase. */
+  readonly phase?: AssetPhase;
   /** Expected vs committed .gpl text; omitted = skip the check. */
   readonly gpl?: { readonly expected: string; readonly actual: string | undefined };
 }
@@ -101,14 +98,27 @@ export interface AssetSummary {
   readonly missing: number;
   readonly invalid: number;
   readonly unexpected: number;
+  readonly selectedRequired: number;
+  readonly technicalPassed: number;
   readonly goldenTotal: number;
   readonly goldenApproved: number;
   readonly byStatus: Readonly<Record<AssetStatus, number>>;
   readonly missingByPhase: Readonly<Record<string, number>>;
 }
 
+export interface AssetResult {
+  readonly assetId: string;
+  readonly status: AssetStatus;
+  readonly files: readonly string[];
+  readonly selected: boolean;
+  readonly presenceRequired: boolean;
+  readonly result: 'missing' | 'invalid' | 'attention' | 'passed';
+}
+
 export interface AssetReport {
   readonly mode: ValidationMode;
+  readonly phase?: AssetPhase;
+  readonly assets: readonly AssetResult[];
   readonly summary: AssetSummary;
   readonly issues: readonly AssetIssue[];
   readonly errorCount: number;
@@ -348,15 +358,18 @@ function inspectFontXml(asset: AssetDefinition, xml: string, png: DecodedPng | n
 
 export function validateAssets(input: ValidateInput): AssetReport {
   const mode = input.mode ?? 'preparation';
-  const strict = mode !== 'preparation';
   const issues: AssetIssue[] = [];
-  const push = (i: AssetIssue): void => { issues.push(i); };
-
-  issues.push(...validatePalette(input.palette));
-  issues.push(...validateRegistry(input.registry, input.gameData));
+  const assets: AssetResult[] = [];
+  if (!VALIDATION_MODES.includes(mode)) issues.push({ severity: 'error', code: 'validation-mode', message: 'unknown validation mode: ' + String(mode) });
+  if (mode === 'production' ? input.phase === undefined || !ASSET_PHASES.includes(input.phase) : input.phase !== undefined) {
+    issues.push({ severity: 'error', code: 'validation-phase', message: 'production requires one registered phase; other stages do not accept a phase' });
+  }
+  const selected = (asset: AssetDefinition): boolean => mode === 'golden' ? isGolden(asset)
+    : mode === 'production' ? asset.phase === input.phase : true;
+  issues.push(...validatePalette(input.palette), ...validateRegistry(input.registry, input.gameData));
   if (input.gpl !== undefined) {
-    if (input.gpl.actual === undefined) push({ severity: 'error', code: 'palette-gpl-missing', message: 'art/palette/scrap-master.gpl is missing; run `npm run assets:palette`' });
-    else if (input.gpl.actual.replace(/\r\n/g, '\n') !== input.gpl.expected) push({ severity: 'error', code: 'palette-gpl-stale', message: 'art/palette/scrap-master.gpl is out of date; run `npm run assets:palette`' });
+    if (input.gpl.actual === undefined) issues.push({ severity: mode === 'preparation' ? 'warning' : 'error', code: 'palette-gpl-missing', message: 'art/palette/scrap-master.gpl is missing; export canonical text with palette.ts renderGpl()' });
+    else if (input.gpl.actual.replace(/\r\n/g, '\n') !== input.gpl.expected) issues.push({ severity: 'error', code: 'palette-gpl-stale', message: 'art/palette/scrap-master.gpl differs from palette.ts renderGpl(); regenerate the canonical export' });
   }
 
   const paletteRgb = new Set<number>();
@@ -365,82 +378,189 @@ export function validateAssets(input: ValidateInput): AssetReport {
   }
   const paletteLocked = input.palette.status === 'locked';
   const technicalRank = ASSET_STATUSES.indexOf('technical');
-
   const expectedFiles = new Set<string>();
   const byStatus = Object.fromEntries(ASSET_STATUSES.map(s => [s, 0])) as Record<AssetStatus, number>;
   const missingByPhase: Record<string, number> = {};
   let required = 0, present = 0, missing = 0, invalid = 0;
 
   for (const asset of input.registry) {
-    byStatus[asset.status]++;
+    if (ASSET_STATUSES.includes(asset.status)) byStatus[asset.status]++;
     const files = runtimeFiles(asset);
     files.forEach(f => expectedFiles.add(f));
     const rank = ASSET_STATUSES.indexOf(asset.status);
-    const enforced = strict || rank >= technicalRank;
-    const have = files.filter(f => input.fs.read(f) !== undefined);
+    const presenceRequired = asset.required && mode !== 'preparation' && selected(asset);
+    // Read each export once so summary and content checks describe the same captured input.
+    const contents = files.map(file => ({ file, bytes: input.fs.read(file) }));
+    const have = contents.filter((entry): entry is { file: string; bytes: Uint8Array } => entry.bytes !== undefined);
     const complete = have.length === files.length;
-    let assetErrors = 0;
-    const report = (i: AssetIssue): void => { push(i); if (i.severity === 'error') assetErrors++; };
     const tag = { assetId: asset.id };
+    const report = (finding: AssetIssue): void => { issues.push({ ...tag, ...finding }); };
 
     if (asset.required) {
       required++;
-      if (complete) present++; else { missing++; missingByPhase[asset.phase] = (missingByPhase[asset.phase] ?? 0) + 1; }
+      if (complete) present++;
+      else { missing++; missingByPhase[asset.phase] = (missingByPhase[asset.phase] ?? 0) + 1; }
     }
-
     if (have.length > 0 && asset.status === 'planned') {
-      report({ severity: 'error', code: 'status-mismatch', ...tag, message: 'runtime file exists but status is "planned"; set status to "draft" (or beyond) in the registry' });
+      report({ severity: 'error', code: 'status-mismatch', message: 'runtime file exists but status is "planned"; record this asset as "draft" (or the evidenced later status) in the registry' });
     }
     if (!complete) {
-      const absent = files.filter(f => !have.includes(f));
-      if (rank >= technicalRank) report({ severity: 'error', code: 'missing-file', ...tag, message: 'status is "' + asset.status + '" but file(s) missing: ' + absent.join(', ') });
-      else if (strict && asset.required) report({ severity: 'error', code: 'missing-required', ...tag, message: 'required asset missing: ' + absent.join(', ') });
-      else if (have.length > 0) report({ severity: enforced ? 'error' : 'warning', code: 'incomplete-files', ...tag, message: 'only some files present; missing: ' + absent.join(', ') });
+      const absent = contents.filter(entry => entry.bytes === undefined).map(entry => entry.file);
+      if (rank >= technicalRank) report({ severity: 'error', code: 'missing-file', message: 'status is "' + asset.status + '" but file(s) missing: ' + absent.join(', ') });
+      else if (presenceRequired) report({ severity: 'error', code: 'missing-required', message: 'required for ' + mode + (input.phase === undefined ? '' : '/' + input.phase) + ': ' + absent.join(', ') });
+      else if (have.length > 0) report({ severity: 'error', code: 'incomplete-files', message: 'partial asset export; missing: ' + absent.join(', ') });
+      else if (asset.required) report({ severity: 'warning', code: 'missing-future', message: 'not produced (presence not enforced by this stage): ' + absent.join(', ') });
     }
-
-    for (const file of have) {
-      const bytes = input.fs.read(file)!;
+    for (const { file, bytes } of have) {
       if (file.endsWith('.png')) {
-        for (const f of inspectPng(asset, bytes, paletteRgb)) {
-          const hard = enforced && (f.paletteRelated !== true || paletteLocked);
-          report({ severity: hard ? 'error' : 'warning', code: f.code, ...tag, file, message: f.message });
+        for (const finding of inspectPng(asset, bytes, paletteRgb)) {
+          // Palette review may warn during preparation while provisional, but never supply
+          // technical success for an off-palette production export. Lock timing is unchanged.
+          const provisionalReview = finding.paletteRelated === true && !paletteLocked && mode === 'preparation' && rank < technicalRank;
+          report({ severity: provisionalReview ? 'warning' : 'error', code: finding.code, file, message: finding.message });
         }
       } else if (file.endsWith('.xml') && asset.kind === 'bitmap_font') {
         let png: DecodedPng | null = null;
-        try { const pb = input.fs.read(files[0]!); png = pb === undefined ? null : decodePng(pb); } catch { png = null; }
-        for (const f of inspectFontXml(asset, Buffer.from(bytes).toString('utf8'), png)) {
-          report({ severity: enforced ? 'error' : 'warning', code: f.code, ...tag, file, message: f.message });
+        try { const pb = contents[0]?.bytes; png = pb === undefined ? null : decodePng(pb); } catch { png = null; }
+        for (const finding of inspectFontXml(asset, Buffer.from(bytes).toString('utf8'), png)) {
+          report({ severity: 'error', code: finding.code, file, message: finding.message });
         }
       }
     }
-    if (assetErrors > 0) invalid++;
-
     if (mode === 'release' && asset.required && asset.status !== 'approved') {
-      push({ severity: 'error', code: 'not-approved', ...tag, message: 'release requires status "approved", found "' + asset.status + '"' });
+      report({ severity: 'error', code: 'not-approved', message: 'release requires status "approved", found "' + asset.status + '"' });
     }
+    const ownIssues = issues.filter(issue => issue.assetId === asset.id);
+    if (ownIssues.some(issue => issue.severity === 'error')) invalid++;
+    const result: AssetResult['result'] = !complete ? 'missing' : ownIssues.some(issue => issue.severity === 'error') ? 'invalid'
+      : ownIssues.length > 0 ? 'attention' : 'passed';
+    assets.push({ assetId: asset.id, status: asset.status, files, selected: selected(asset), presenceRequired, result });
   }
-
   if (input.registry.some(a => a.status === 'approved') && !paletteLocked) {
-    push({ severity: 'error', code: 'palette-not-locked', message: 'assets are approved but the palette is still "provisional"; lock it in src/game/assets/palette.ts at golden-set approval' });
+    issues.push({ severity: 'error', code: 'palette-not-locked', message: 'approved assets require a locked palette; lock only at Golden-set approval' });
+  } else if (mode === 'release' && !paletteLocked) {
+    issues.push({ severity: 'error', code: 'palette-not-locked', message: 'release requires a locked palette' });
   }
-  if (mode === 'release' && !paletteLocked) push({ severity: 'error', code: 'palette-not-locked', message: 'release requires a locked palette' });
 
   let unexpected = 0;
+  const seenFiles = new Set<string>();
   for (const file of input.fs.list()) {
-    if (expectedFiles.has(file) || file.endsWith('.gitkeep')) continue;
+    // Only this named tree is delegated. Unknown directories/root files remain errors.
+    if (file.startsWith('audio/')) continue;
+    if (seenFiles.has(file)) {
+      issues.push({ severity: 'error', code: 'duplicate-file', file, message: 'runtime file is listed more than once' });
+      continue;
+    }
+    seenFiles.add(file);
+    if (expectedFiles.has(file) || file.split('/').at(-1) === '.gitkeep') continue;
     unexpected++;
     const isSource = SOURCE_EXTENSIONS.some(ext => file.toLowerCase().endsWith(ext));
-    push({ severity: 'error', code: isSource ? 'source-in-runtime' : 'unexpected-file', file,
-      message: isSource ? 'editable source file in the runtime tree; keep it under art/source/' : 'file is not in the asset registry (rename it to the registered id or register it)' });
+    issues.push({ severity: 'error', code: isSource ? 'source-in-runtime' : 'unexpected-file', file,
+      message: isSource ? 'editable source in runtime tree; keep it under art/source/' : 'not registered as a visual export; use the registered category/id path (audio/ is separately owned)' });
   }
-
-  const golden = input.registry.filter(a => a.required && isGolden(a));
+  const golden = input.registry.filter(isGolden);
   const errorCount = issues.filter(i => i.severity === 'error').length;
   return {
-    mode, issues, errorCount, warningCount: issues.length - errorCount, ok: errorCount === 0,
+    mode, ...(input.phase === undefined ? {} : { phase: input.phase }), assets, issues,
+    errorCount, warningCount: issues.length - errorCount, ok: errorCount === 0,
     summary: {
       registered: input.registry.length, required, optional: input.registry.length - required, present, missing, invalid, unexpected,
+      selectedRequired: assets.filter(a => a.presenceRequired).length,
+      technicalPassed: assets.filter(a => a.result === 'passed').length,
       goldenTotal: golden.length, goldenApproved: golden.filter(a => a.status === 'approved').length, byStatus, missingByPhase,
     },
   };
+}
+
+// ------------------------------------------------------------------ CLI (read-only adapter)
+
+export const VISUAL_USAGE = 'Usage: npm run validate:assets -- [--stage preparation|golden|production|full|release] [--phase <registered phase>] [--root <project root>]\n'
+  + 'Aliases: --allow-missing (preparation), --golden, --strict (full), --release. Default: preparation.\n'
+  + 'Production requires --phase; other stages reject it. Technical validation never grants visual/in-game approval.';
+
+export interface VisualCliOptions { readonly mode: ValidationMode; readonly root: string; readonly phase?: AssetPhase; readonly help: boolean }
+export function parseVisualArgs(args: readonly string[], cwd: string): VisualCliOptions {
+  let mode: ValidationMode = 'preparation', chosen = false, phase: AssetPhase | undefined, root = cwd, rootChosen = false, help = false;
+  const stages: Readonly<Record<string, ValidationMode>> = { preparation: 'preparation', golden: 'golden', production: 'production', full: 'strict', release: 'release' };
+  const aliases: Readonly<Record<string, ValidationMode>> = { '--allow-missing': 'preparation', '--golden': 'golden', '--strict': 'strict', '--release': 'release' };
+  const choose = (value: ValidationMode): ValidationMode => {
+    if (chosen) throw new Error('choose exactly one validation stage');
+    chosen = true; return value;
+  };
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i]!;
+    if (arg === '--help') { help = true; continue; }
+    if (arg === '--stage' || arg === '--phase' || arg === '--root') {
+      const value = args[++i];
+      if (value === undefined || value.startsWith('--')) throw new Error('missing value for ' + arg);
+      if (arg === '--stage') {
+        const stage = stages[value];
+        if (stage === undefined) throw new Error('unknown stage: ' + value);
+        mode = choose(stage);
+      } else if (arg === '--phase') {
+        if (phase !== undefined || !ASSET_PHASES.includes(value as AssetPhase)) throw new Error('invalid or repeated phase: ' + value);
+        phase = value as AssetPhase;
+      } else {
+        if (rootChosen) throw new Error('repeated --root');
+        root = resolve(cwd, value); rootChosen = true;
+      }
+    } else if (aliases[arg] !== undefined) mode = choose(aliases[arg]!);
+    else throw new Error('unknown option: ' + arg);
+  }
+  if (!help && (mode === 'production' ? phase === undefined : phase !== undefined)) throw new Error('--phase is required for production and forbidden for other stages');
+  return { mode, root, help, ...(phase === undefined ? {} : { phase }) };
+}
+
+export function formatAssetReport(report: AssetReport, root: string): string {
+  const stage = report.mode === 'strict' ? 'full' : report.mode;
+  const s = report.summary;
+  const lines = [
+    'Visual Asset Validation — TECHNICAL CHECKS ONLY',
+    'Stage: ' + stage + (report.phase === undefined ? '' : ' / ' + report.phase),
+    'Root: ' + join(root, 'public', 'assets'),
+    'Scope: ' + (report.mode === 'preparation' ? 'registry/data/palette integrity and all present visual files; future presence allowed'
+      : report.mode === 'golden' ? 'required Golden entries derived from isGolden(); all present visual files'
+      : report.mode === 'production' ? 'required entries in selected registry phase; all present visual files'
+      : 'all required visual entries; all present visual files' + (report.mode === 'release' ? '; final statuses and locked palette' : '')),
+    'Missing files: ' + (report.mode === 'preparation' ? 'planned/draft future assets allowed; reported below'
+      : 'selected required assets fail; unselected planned/draft future assets may be absent'),
+    'Registry: ' + s.registered + ' entries; ' + s.required + ' required; ' + s.optional + ' optional; ' + s.goldenTotal + ' Golden',
+    'Required present: ' + s.present + '; missing: ' + s.missing + '; presence enforced: ' + s.selectedRequired,
+    'Technical passes: ' + s.technicalPassed + '; errors: ' + report.errorCount + '; warnings: ' + report.warningCount,
+    'Tree ownership: visual categories and unknown runtime paths checked; audio/ delegated to audio validation.',
+  ];
+  for (const asset of report.assets) {
+    if (asset.selected) lines.push('ASSET ' + asset.assetId + ': ' + asset.result + '; recorded status=' + asset.status + '; ' + asset.files.join(', '));
+  }
+  for (const issue of report.issues) lines.push(issue.severity.toUpperCase() + ' [' + issue.code + '] '
+    + (issue.assetId === undefined ? '' : issue.assetId + ': ') + (issue.file === undefined ? '' : issue.file + ': ') + issue.message);
+  lines.push(report.ok ? 'PASS — ' + (report.mode === 'preparation' ? 'PREPARATION ONLY; production presence/approval not established'
+    : report.mode === 'release' ? 'release contract checks passed; recorded approvals verified, none granted'
+    : 'selected technical gate passed; no visual/in-game/final approval granted') : 'FAILED — ' + stage + ' gate');
+  return lines.join('\n');
+}
+
+export function runVisualCli(args: readonly string[], write: (message: string) => void = console.log, cwd = process.cwd()): number {
+  try {
+    const options = parseVisualArgs(args, cwd);
+    if (options.help) { write(VISUAL_USAGE); return 0; }
+    const gplPath = join(options.root, 'art', 'palette', 'scrap-master.gpl');
+    const report = validateAssets({
+      registry: ASSET_REGISTRY, fs: nodeFs(join(options.root, 'public', 'assets')),
+      palette: { colors: PALETTE, status: PALETTE_STATUS, maxColors: MAX_PALETTE_COLORS },
+      gameData: { parts: PARTS, chassis: CHASSIS_LIST, roads: ROADS }, mode: options.mode,
+      ...(options.phase === undefined ? {} : { phase: options.phase }),
+      ...(existsSync(gplPath) || options.mode === 'release' ? { gpl: { expected: renderGpl(), actual: existsSync(gplPath) ? readFileSync(gplPath, 'utf8') : undefined } } : {}),
+    });
+    write(formatAssetReport(report, options.root));
+    return report.ok ? 0 : 1;
+  } catch (error: unknown) {
+    write('FAILED — visual validation: ' + (error instanceof Error ? error.message : String(error)) + '\n' + VISUAL_USAGE);
+    return 1;
+  }
+}
+
+// Importing the core stays side-effect free; invoking the documented module executes the gate.
+if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  process.exitCode = runVisualCli(process.argv.slice(2));
 }
