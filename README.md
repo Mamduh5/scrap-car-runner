@@ -59,6 +59,7 @@ Assets: editable sources in `art/source/`; Phaser runtime exports in `public/ass
 | [Technology](docs/10_TECHNOLOGY_DECISION.md) | Locked stack and release gates |
 | [Asset workflow](docs/11_ASSET_PRODUCTION_WORKFLOW.md) | Editable/runtime asset pipeline |
 | [Security/trust](docs/12_SECURITY_AND_TRUST_MODEL.md) | Local authority and future trust changes |
+| [Implementation and project management](docs/14_IMPLEMENTATION_AND_PROJECT_MANAGEMENT_PLAN.md) | Implementation sequencing, milestones, backlog and project-management workflow |
 
 ## Current limits
 
