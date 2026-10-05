@@ -42,18 +42,20 @@ afterEach(() => { for (const root of directories.splice(0)) rmSync(root, { recur
 describe('visual stage enforcement', () => {
   it('executes registry/data/palette checks in preparation and reports missing required exports', () => {
     const report = canonical('preparation');
-    expect(report.ok).toBe(true);
+    expect(report.ok).toBe(false); // Fails because 8 technical assets are missing in empty fs
     expect(report.summary).toMatchObject({ registered: 89, required: 86, optional: 3, missing: 86, selectedRequired: 0, technicalPassed: 0 });
-    expect(report.warningCount).toBe(86);
-    expect(report.assets.every(asset => asset.result === 'missing')).toBe(true);
-    expect(formatAssetReport(report, '.')).toContain('PREPARATION ONLY; production presence/approval not established');
+    expect(report.errorCount).toBe(8); // 8 technical assets missing
+    expect(report.warningCount).toBe(78); // 78 planned assets missing
+    expect(report.assets.filter(asset => asset.result === 'missing')).toHaveLength(89);
+    expect(formatAssetReport(report, '.')).toContain('FAILED');
   });
   it('derives the Golden gate from registry metadata without requiring later batches', () => {
     const report = canonical('golden');
     const expected = ASSET_REGISTRY.filter(asset => asset.required && isGolden(asset)).map(asset => asset.id).sort();
     expect(expected).toHaveLength(22);
     expect(report.assets.filter(asset => asset.presenceRequired).map(asset => asset.assetId).sort()).toEqual(expected);
-    expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(22);
+    expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(14); // 8 are missing-file because they are technical
+    expect(report.issues.filter(issue => issue.code === 'missing-file')).toHaveLength(8);
     expect(report.errorCount).toBe(22);
     expect(report.warningCount).toBe(64);
   });
@@ -68,7 +70,8 @@ describe('visual stage enforcement', () => {
   it('full requires canonical required entries; release additionally requires approval and palette lock', () => {
     expect(canonical('strict').errorCount).toBe(86);
     const report = canonical('release');
-    expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(86);
+    expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(78);
+    expect(report.issues.filter(issue => issue.code === 'missing-file')).toHaveLength(8);
     expect(report.issues.filter(issue => issue.code === 'not-approved')).toHaveLength(86);
     expect(codes(report)).toContain('palette-not-locked');
   });
@@ -236,8 +239,8 @@ describe('visual CLI', () => {
   });
   it('runs canonical core checks and reports actionable stage failures', () => {
     const root = temporaryRoot(), output: string[] = [];
-    expect(runVisualCli([], message => output.push(message), root)).toBe(0);
-    expect(output.join('')).toContain('missing: 86'); expect(output.join('')).toContain('PREPARATION ONLY');
+    expect(runVisualCli([], message => output.push(message), root)).toBe(1); // 1 because 8 technical assets missing
+    expect(output.join('')).toContain('missing: 86'); expect(output.join('')).toContain('FAILED');
     output.length = 0;
     expect(runVisualCli(['--golden'], message => output.push(message), root)).toBe(1);
     expect(output.join('')).toContain('presence enforced: 22');
@@ -253,7 +256,7 @@ describe('visual CLI', () => {
     const invoke = (args: string[]) => spawnSync(process.execPath, ['--import', 'tsx/esm', tool, '--root', root, ...args],
       { cwd: resolve(import.meta.dirname, '../..'), encoding: 'utf8', timeout: 15000 });
     const prepare = invoke(['--stage', 'preparation']);
-    expect(prepare.error).toBeUndefined(); expect(prepare.status).toBe(0); expect(prepare.stdout).toContain('PREPARATION ONLY');
+    expect(prepare.error).toBeUndefined(); expect(prepare.status).toBe(1); expect(prepare.stdout).toContain('FAILED');
     const release = invoke(['--release']);
     expect(release.status).toBe(1); expect(release.stdout).toContain('missing-required'); expect(release.stdout).toContain('FAILED — release gate');
     const invalid = invoke(['--stage', 'typo']);

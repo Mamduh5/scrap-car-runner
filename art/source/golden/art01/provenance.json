@@ -1,0 +1,7 @@
+{
+  "source": "hand-authored procedural TypeScript",
+  "tools": ["TypeScript", "Antigravity IDE"],
+  "ai_generation_used": false,
+  "aseprite_used": false,
+  "notes": "WORKFLOW DEVIATION — OWNER ACKNOWLEDGEMENT REQUIRED. D11 expects Aseprite source for all final art. The previous agent implemented the assets using hand-authored procedural TypeScript pixel rendering instead of Aseprite to overcome tooling limitations while still producing pixel-perfect, palette-compliant results. The 'editable source' is the .ts files in this directory. No AI image generation was used."
+}
