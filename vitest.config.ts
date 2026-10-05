@@ -27,6 +27,7 @@ export default defineConfig({
       'src/services/**/*.test.ts',
       'src/data/**/*.test.ts',
       'src/game/audio/**/*.test.ts',
+      'src/game/config/pixelViewport.test.ts', // Pure viewport math; Phaser controllers/scenes stay outside this gate.
       'tools/**/*.test.ts',
     ],
     coverage: {
