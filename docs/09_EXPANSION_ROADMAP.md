@@ -2,10 +2,10 @@
 
 This document outlines the planned expansion of the game AFTER Vertical Slice 1 (VS1) is fully complete and polished.
 
-*Do NOT implement these features during VS1.*
+*Stages 2 onward are future expansion, not VS1 implementation requirements. Stage 1 records the approved VS1 direction.*
 
 ## Stage 1: Vertical Slice 1 (Current)
-- Core loop, 5 part families, 3 tiers, 1 road, basic saving.
+- Continuous auto-drive with automatic fuel-limited reset/refill/retry, physical checkpoints, player-selected Progress/Push or earlier-checkpoint Farm, repeat Scrap and one-time first-clear bonuses; five part families, three tiers, one road and saving. Merge Board, Inventory and Equipped Parts are distinct; only equipped parts affect the car.
 - Goal: Prove the fun of the engineering/diagnosis loop.
 - **VS1 audio track:** D13 governs Golden Audio production and browser codec/unlock proof during VS1. Full production audio and integrated listening/device acceptance precede presentation-complete VS1 (D14 M3). Native/WebView codec confirmation remains later Android work; it does not block browser-stage sonic approval.
 
@@ -15,12 +15,13 @@ This document outlines the planned expansion of the game AFTER Vertical Slice 1 
 - **Part Specializations:** Instead of a linear Tier 3 engine, offer a choice: A Tier 3 "Turbo Engine" (High Power, High Heat) vs. Tier 3 "Eco Engine" (Moderate Power, High Fuel Efficiency).
 - **New Chassis:** Unlock a "Heavy Truck" (more slots, higher weight) and "Speedster" (fewer slots, low weight, high base speed).
 
-## Stage 3: Automation (The Idle Transition)
-- **Auto-Scavenge:** Pay a premium to automatically buy parts over time.
-- **Auto-Merge:** Unlockable garage module that automatically merges T1 and T2 parts.
-- **Auto-Run:** Allow the car to automatically restart runs to farm Scrap while the player focuses on garage engineering.
+## Stage 3: Automating learned manual workflows
+**Most automation should originate from a manual workflow the player first understands.** Manual acquisition -> later auto-acquisition; manual merging -> later auto-merge; manual sorting/movement -> later sorting automation. Progression automates repetitive low-level work so the game increasingly plays parts of itself, not merely a passive multiplier. Exact unlocks, pricing and behavior are TBD; no automation implementation is required in VS1.
+
+Continuous auto-drive and automatic retry are the primary VS1 model, not an Auto-Run feature deferred to this stage. Later offline/non-visible calculation builds on authoritative mathematical/stateful progression independent of rendering; exact formula/cap remains open.
 
 ## Stage 4: Environments & Hazards
+- **Checkpoint landmarks:** Fuel stations, guard posts, outposts and other meaningful locations may follow the VS1 Scrap Pile landmark type. These examples are not new VS1 requirements. Earlier unlocked farming remains selectable; new discovery must not be required for continued Scrap production.
 - **New Roads:** "Glacier Pass" (Extreme Cooling buff, but high traction loss/durability drain). "Desert Highway" (High Heat generation).
 - Players must swap their builds (e.g., removing radiators on Glacier Pass to save weight) depending on the environment.
 

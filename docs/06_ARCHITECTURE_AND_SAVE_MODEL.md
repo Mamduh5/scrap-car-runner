@@ -1,5 +1,22 @@
 # Architecture and Save Model
 
+## Approved continuous simulation and local rendering (2026-10-06)
+Authoritative game/world simulation is independent of visible road rendering and scene navigation. Domain/services track checkpoint progression/unlocks, selected Progress/Push or Farm target, fuel/attempt state, equipped vehicle stats and rewards/first-clear eligibility. The continuous road is ongoing idle production/progression represented by the Rustbucket.
+
+Fuel reaching zero stops the attempt; reset/refill/retry follows its selected/current checkpoint route automatically. A target that cannot be completed likewise retries automatically. No player launch, mandatory result dismissal or Garage return per attempt. Repeat successes grant normal Scrap; first clear grants its bonus once. Preserve validated state ownership, idempotent reward transitions, numeric safety and persistence error visibility while adapting the current discrete-session API. Do not merely wire repeated old distance/minimum completion payouts into a new scene.
+
+Phaser retains/renders only content around the current visible region. Far-behind road content despawns/recycles; nearby/current content renders; incoming nearby content activates as needed; far-future content is not rendered yet. Removing passed graphics never removes checkpoint, reward or progression state. No complicated streaming implementation is chosen here.
+
+Continuous attempts/repeats must be representable mathematically/statefully without simulating every visual frame. This supports later non-visible/offline calculation. Rendering is never the authoritative clock or reward owner. Exact offline formula/cap and background progression policy remain open; current hidden-tab pausing does not grant catch-up and is an existing limitation, not a final offline model.
+
+## Part state and future persistence adaptation
+Track Merge Board, Inventory and Equipped Parts distinctly. Only equipped entries plus chassis base produce vehicle stats and installed visuals. A merge cannot implicitly consume/change equipment; explicit equip/unequip must conserve copies across locations. Board geometry/capacity/expansion, Inventory capacity and move/equip UX remain TBD. Applying an explicit equipped change during an attempt needs a resolved timing/safety policy; no implementation is chosen here.
+
+The unchanged v1 save has Inventory and installedParts but no board/checkpoint/intent/first-clear fields. Future authorized adaptation must decide the schema and explicit supported-v1 migration, preserve owned parts/currency, prevent duplicate first-clear/repeat settlement and retain recovery/reset/one-writer safeguards. Do not add fields or bump the version in this documentation pass. Persistence scope for attempt progress/process loss remains an implementation decision; no guaranteed active-attempt recovery is claimed.
+
+## Existing foundation contracts — implementation snapshot
+The sections below describe unchanged runtime/storage behavior. Existing discrete session ownership, terminal settlement and foreground stepping are not instructions for the approved continuous integration. General layering, frozen snapshots, serialized writes, salvage, visible failures and release safeguards remain valid.
+
 ## Layers and composition
 
 Phaser presentation lives in `src/game/`. Pure domain functions live in `src/domain/`; definitions in `src/data/`; progress/persistence in `src/services/`; shared types in `src/types/game.ts`. Domain and services must never import Phaser or game modules. Browser lifecycle is a narrow injected EventTarget bridge, independent of Phaser. Tools import the same production formulas.
@@ -12,9 +29,9 @@ GameStateService is the sole mutable progress owner. `currentState` is a detache
 
 `init()` shares one promise across overlapping and repeated calls. Ready state is explicit, not a definite-assignment assertion. Actions/read access before readiness throw. A read/recovery failure rejects init, leaves the service unready and permits a retry; no fresh state silently replaces a storage error. A new-save write failure instead leaves initialized progress available with persistence error status.
 
-Invalid ready-state gameplay operations return false/null without mutation. Programming contract errors such as pre-init calls, invalid RNG/delta and unknown advanceRun tokens throw. During a run, garage actions are blocked. Unsupported-version progress is read-only until explicit reset. Reset failure also blocks commands until its storage operation is retried.
+Invalid ready-state gameplay operations return false/null without mutation. Programming contract errors such as pre-init calls, invalid RNG/delta and unknown advanceRun tokens throw. Current implementation blocks garage actions during an active run; this must be reconciled with continuous engineering and must not become an indefinite product restriction. Unsupported-version progress is read-only until explicit reset. Reset failure also blocks commands until its storage operation is retried.
 
-Example for future UI:
+Existing command example (not a complete continuous integration contract):
 
 ```ts
 await state.init();
@@ -41,14 +58,14 @@ The asynchronous StorageAdapter remains suitable for a later native adapter with
 
 The unchanged v1 schema is in `03_GAME_DATA_BIBLE.md`; `CURRENT_SAVE_VERSION` is defined in `src/types/game.ts`. `saveCodec.ts` constructs canonical data from unknown input. See the Data Bible for numeric limits, ownership salvage and raw backup policy. No prior released schema exists: v1 is the only supported version, and no fake v0 migration is provided. When v2 is introduced, add explicit migrations for every supported released older schema, followed by current semantic decoding. Never infer schema solely because a version is lower.
 
-## Run ownership and completion
+## Existing discrete-run ownership and completion (requires adaptation)
 
-RunScene will own ephemeral RunState. It is not saved. `startRun()` returns a session token, frozen vehicle stats and starting state. Only one session may be active. Token identity is the exact frozen object reference issued by this owner; copying its numeric diagnostic ID does not create eligibility.
+The existing discrete-run contract assigns ephemeral RunState to the scene. It is not saved. `startRun()` returns a session token, frozen vehicle stats and starting state. Only one session may be active. Token identity is the exact frozen object reference issued by this owner; copying its numeric diagnostic ID does not create eligibility.
 
 ```ts
 const session = state.startRun();
 if (session) {
-  let run = session.state; // future scene-owned
+  let run = session.state; // existing discrete-run contract
   run = state.advanceRun(session.token, run, road, deltaMs / 1000);
   if (run.failureCause !== null) state.recordRunResult(session.token, run);
 }

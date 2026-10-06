@@ -5,59 +5,24 @@
 - **Logical art-pixel canvas:** Flexible, with a centred 180×288 safe rectangle and a 216×427 maximum, governed by [pixelViewport.ts](../src/game/config/pixelViewport.ts). Integer device-pixel scaling is applied by `viewportController.ts`.
 - Anchor critical UI to the safe rectangle and re-anchor on Phaser resize; backgrounds may bleed into the flexible area. Typography sizes and wrapping require rendered proof on this canvas, not a universal 360-wide layout.
 
-## 2. Screen Flow
-`Boot` -> `Garage Scene` <-> `Run Scene` -> `Result Modal` (Over Garage or Run)
+## 2. Screen responsibilities and continuous flow
+`Boot` -> focused Garage home, with navigation to the Run view and major engineering systems. The Run represents continuous auto-drive/automatic attempts, not a sequence gated by a mandatory Result modal and Garage return. Entering/leaving a view is not launching/settling an attempt. Exact Merge/Inventory layout and checkpoint-selection controls remain undecided.
 
-## 3. Garage & Engineering Screen
-**Top Bar:**
-- Current Scrap amount.
-- Settings button (audio toggle, reset save).
+## 3. Garage home/build overview
+Garage focuses on the Rustbucket/current equipped build, five equipped family representations, important vehicle information, Scrap and navigation/settings. Merge, Inventory management and Scavenge need not be permanently embedded in home. Do not prescribe a bottom inventory grid, fixed merge-board geometry, or required DRIVE button. This is a responsibility correction, not a Garage art/layout redesign; Garage-side ART-03 is unfinished separately from approved ART-03R Run visuals.
 
-**Middle Area (The Chassis):**
-- Visual representation of the car.
-- 5 distinct slotted areas with labels: [Engine] [Fuel] [Cooling] [Tires] [Suspension].
-- Installed-slot tap behavior requires the owner decision below; do not assume details or immediate uninstall.
+## 4. Run view
+Show the auto-driving Rustbucket, relevant distance/progression and selected Progress/Push or Farm target, fuel/attempt information and useful vehicle telemetry. Recognizable checkpoint landmarks belong to the road; a Scrap Pile can serve as the first VS1 type. Parallax, nearby terrain and state-driven smoke/sputter/spark feedback use the approved Run visual direction. Render only local visible content; recycled visuals do not discard authoritative progression (D06).
 
-**Bottom Area (Inventory & Actions):**
-- Scrollable list or grid of uninstalled parts.
-- "Scavenge Part (10 Scrap)" button.
-- "DRIVE" button (Big, prominent).
+Fuel depletes during attempts. At zero fuel, stop/reset/refill on the selected/current route and automatically retry without a player launch action. Keep automatic cycle feedback readable. Gauge thresholds in D02 §10 are existing provisional baselines; zero-capacity ratios must be safe.
 
-**Interactions (VS1):**
-- **Install:** Tap a part in inventory -> Tap a valid chassis slot.
-- **Uninstall:** An explicit uninstall command returns the part to inventory through `GameStateService.uninstallPart(targetSlot)`. Its UI trigger awaits the installed-slot decision below.
-- **Merge:** Tap a part -> If a duplicate exists, a "Merge" button appears. Tap to combine into the next tier.
+## 5. Rewards and optional diagnostics
+Repeat clears continue awarding normal Scrap; a first-clear bonus is one-time and may award parts. Present authoritative reward/first-clear transitions, never independently calculate currency in UI. A mandatory terminal Result screen is no longer the primary flow. Useful heat/durability/bottleneck diagnostics and improvement hints may remain without gating retries behind dismissal or Garage return. Exact notification/history presentation remains open; preserve existing typography roles including `resultCause`.
 
-## 4. Run Screen
-**Top Area (Telemetry):**
-- Large Distance Counter (e.g., "1,240 m").
-- Current Speed.
-- Pause/Quit button.
+## 6. Three part locations and equipment feedback
+Display **Merge Board**, **Inventory** and **Equipped Parts** as distinct concepts. Board and stored parts do not affect stats or installed visuals. The equipped Engine, Fuel Tank, Radiator/Cooling, Tires and Suspension are the sole installed contributions to the Rustbucket. Engine T1/T2 on board with T3 equipped must display/use T3.
 
-**Middle Area (Action):**
-- Side-scrolling view of the car driving on the road.
-- Parallax background.
-- Visual effects: Smoke if Heat > 80%, sputtering if Fuel < 20%, sparks if Durability < 20%.
-
-**Bottom Area (Gauges):**
-- **Fuel Bar:** Blue. Empties over time based on consumption.
-- **Heat Bar:** Red. Fills up over time based on load vs cooling.
-- **Durability Bar:** Green. Empties over time based on road roughness.
-
-## 5. Result Screen (Modal)
-- **Header:** "Run Ended!"
-- **Cause:** Prominent red text (e.g., "ENGINE OVERHEATED").
-- **Stats:**
-  - Distance Reached: X m (Highlight if New Record).
-  - Peak Heat: X%.
-  - Remaining Fuel: X%.
-  - Remaining Durability: X%.
-- **Rewards:** "Earned X Scrap".
-- **Action:** "Return to Garage" button.
-
-## 6. Feedback & Warnings
-- **Toasts:** Use brief floating text for errors (e.g., "Not enough Scrap!").
-- **Gauges:** Flash red when nearing critical failure thresholds (see `02_GAMEPLAY_SYSTEMS_AND_PROGRESSION.md` §8).
+Merging never implicitly modifies equipment. Feedback and future state binding must not copy the existing stored+installed fallback that clears a slot. Explicit equip/unequip commands conserve ownership and validate family compatibility; exact move/equip UX is undecided. Empty, equipped, selected-target and max-tier states should remain distinguishable where relevant, without deciding an unapproved gesture. Preserve max-tier merge rejection and clear invalid-action feedback.
 
 ## 7. Boot Scene
 The `Boot` scene is a minimal Phaser preload wrapper:
@@ -68,50 +33,24 @@ The `Boot` scene is a minimal Phaser preload wrapper:
 
 No gameplay occurs during Boot. Application composition hydrates progress before Phaser boots. The current foundation displays technical diagnostics only; asset loading and Garage transition are future work.
 
-## 8. Garage Slot States
+## 8. OWNER DECISION REQUIRED — installed-slot and move/equip UX
+Existing service commands establish conservation and compatibility, not a product gesture. Before GAR-01 becomes READY, the owner must resolve default installed-slot tap behavior, access to details/uninstall, MAX-tier behavior and occupied-slot targeting. Board/Inventory layout and exact movement/equipping UX remain undecided. Do not carry forward earlier mandatory tap-to-install or automatic merge/equipment changes as locked rules.
 
-Each chassis slot must visually distinguish the following states:
+GAR-01 remains BACKLOG / not READY until applicable decisions and inputs are resolved. This does not block existing typography/visual proof work. Reject wrong-family targets visibly with no mutation.
 
-| State | Visual |
-|---|---|
-| `empty` | Slot outline with a family icon (e.g., engine icon placeholder). Tapping an empty slot while a part is selected installs the part. |
-| `installed` | Shows the part sprite + part name. Tap behavior awaits the owner decision below. |
-| `selected_target` | Highlighted outline (gold). The player has tapped a part in inventory and can now tap an empty slot to install it. |
-| `max_tier` | Slot has a small "MAX" badge; no merge is available. Tap/details/uninstall behavior awaits the same owner decision. |
+## 9. Player intent and controls
+Allow deliberate Progress/Push or repeated Farm of an earlier unlocked/reachable checkpoint. Do not always choose the highest unlocked target. Exact checkpoint selection UI, pause/control surface and navigation details remain open. Leaving the Run view or stopping pushing is not a quit-for-distance-payout flow. If explicit pause is retained, it must control authoritative simulation rather than merely freeze graphics; lifecycle/background handling follows D06. No obsolete abandoned-run payout is mandated.
 
-### OWNER DECISION REQUIRED — INSTALLED SLOT TAP
+## 10. Diagnostic states
+Fuel exhaustion communicates the automatic refill/retry cycle. Heat/cooling and durability/tire/suspension weaknesses can explain a missed target and useful build improvement. Exact handling/presentation remains to be settled; do not infer a mandatory terminal failure modal. Existing audio/typography semantic IDs may be reused without locking the old flow.
 
-Earlier wording conflicted: §3 said tap shows installed-part details, while §3 uninstall and §8 installed state said tap immediately uninstalls; MAX-tier tap also said details. D02/D06 and `GameStateService` define valid install/swap/uninstall commands, but do not select a player-facing gesture. Codex cannot infer that product choice from command availability.
-
-Before GAR-01 becomes READY, the owner must decide the default installed-slot tap action and how details and uninstall are reached, including MAX-tier parts and occupied-slot targeting while an inventory part is selected. This affects selection, detail presentation, uninstall feedback and accidental removal. Installation/swap conservation and max-tier merge rejection remain service-owned. GAR-01 remains BACKLOG / not READY until this decision and its other dependencies are satisfied; DOC-01 and VAL-01/02/03 are not blocked.
-
-**Incompatible part targeting:** If the player selects a part in inventory and then taps a slot of the wrong family (e.g., select a Fuel part, tap the Engine slot), show a toast: "Wrong slot type." No state change occurs.
-
-## 9. Pause / Quit Behavior
-- Pause is reached via the Pause/Quit button on the Run screen.
-- While paused: the simulation tick is halted; gauges are frozen; the background music (if any) stops.
-- Options shown: **"Resume"** and **"Quit Run"**.
-- **"Quit Run"** triggers the normal result flow at the current distance. Full distance-based Scrap reward is awarded (see `02_GAMEPLAY_SYSTEMS_AND_PROGRESSION.md` §4). The failure cause is shown as "Run Abandoned".
-
-## 10. Result Screen Variants
-
-The Result screen always shows Cause, Distance, Rewards, and stat snapshots. The **Cause** line varies:
-
-| Failure Cause | Cause Text | Sub-line Hint |
-|---|---|---|
-| `Fuel <= 0` | ENGINE STALLED | "Tip: Install or upgrade your Fuel Tank." |
-| `Heat >= MaxHeat` | ENGINE OVERHEATED | "Tip: Install or upgrade your Radiator." |
-| `Durability <= 0` | BREAKDOWN | "Tip: Install Tires or Suspension for more HP." |
-| Run abandoned (quit) | RUN ABANDONED | — |
-
-The hint lines are suggestions, not mandatory UI text. They improve the diagnosis feedback loop and may be toggled off later.
-
-## 11. Start Run Readiness
-Once initialized, foreground, and neither reset/version-blocked nor already running, the "DRIVE" button may start even a bare chassis. The player may start a run with no parts installed (bare chassis). This is a valid run. The UI does **not** block the player from running with an empty garage.
-
+## 11. Readiness
+Respect initialization, unsupported-save/reset blocking, persistence errors and simulation ownership. Bare chassis remains permitted. Once eligible, automatic attempts must not require per-attempt DRIVE/Start Run interaction. Readiness and explicit equipment-change timing need future service adaptation; the current active-run command block cannot indefinitely prevent engineering in a continuous game.
 
 ## 12. State, persistence and lifecycle integration
-Read cached GameStateService.currentState snapshots. Send installPart(partId, targetSlot) explicitly; service decides compatibility and conservation. Stored + installed merges are atomic, clear the consumed slot and leave output in inventory (prefer two stored inputs when available). Reflect persistenceStatus pending/error/blocked; expose retry and explicit reset for unsupported versions when Settings is built. Do not treat those states as safely saved. Garage requests `startRun()`; the service calculates frozen vehicle stats and issues the original token plus initial RunState. Display `currentVehicleStats` in Garage; do not calculate authoritative stats there. Future RunScene owns evolving ephemeral RunState and calls `advanceRun(originalToken, runState, road, deltaMs / 1000)`, which delegates to existing domain simulation. Hidden runs pause; discard first resume delta. Terminal callbacks settle through `recordRunResult(originalToken, terminalState)`; the service validates completion, calculates rewards, consumes eligibility and updates progress. Present reward/record changes from the successful settled transition; do not independently award rewards or mutate saves. Show settlement rejection; service idempotency guards repeated callbacks. Peak heat telemetry remains a future scene responsibility.
+Read frozen service snapshots and authoritative vehicle stats. Submit validated commands; never mutate saves or award rewards in scenes. Continuous attempt scheduling, target intent, checkpoint eligibility and reward settlement belong to domain/services independent of whichever view is open. Save status must show pending/error/blocked honestly and offer retry/explicit reset when Settings is built. Future integration must adapt v1/discrete-run commands and conserve all three part locations (D03/D06/D14).
+
+Current `startRun` / `advanceRun` / `recordRunResult` APIs and ephemeral RunState are an existing foundation snapshot, not the new scene contract. Current hidden-tab pausing and resume-delta discard grant no catch-up; later mathematical offline calculation must not rely on rendering every frame. Exact offline rules remain open. Useful telemetry can be collected without becoming a scene-owned reward authority.
 
 ## 13. Typography input contract
 

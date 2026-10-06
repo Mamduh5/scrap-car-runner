@@ -11,6 +11,9 @@
 - **Small Scope:** Keep the initial scope small but robust. Build a vertical slice that can be expanded, not rewritten.
 - **No Overengineering:** Do not build complex backend, multiplayer, or 3D physics architectures. Keep it simple and focused on the core loop.
 
+## Approved idle design rule
+The primary VS1 cycle is continuous auto-drive, fuel-limited automatic reset/refill/retry and physical checkpoints with Progress/Push or player-selected earlier-checkpoint Farm. Most automation should originate from a manual workflow the player first understands (acquisition, merging, sorting/movement); continuous driving/retry is baseline, while later automation unlocks remain open. Merge Board, Inventory and Equipped Parts are separate; only Equipped Parts affect active stats/installed visuals. Board geometry/capacity and surrounding exact balance/UX remain undecided (D01/D02). Current discrete-run code is a foundation requiring adaptation, not a competing design authority.
+
 ## 3. Vertical-Slice Philosophy (VS1)
 - Must implement exactly ONE complete gameplay loop.
 - Must use real game systems and production-intent assets.
@@ -55,4 +58,4 @@
 - Keep the schema simple to allow for future migrations.
 
 ## 10. Foundation contracts
-Use the Node range from package.json and npm run check before handoff. State is service-owned with frozen snapshots. Never swallow storage failures, cast JSON into SaveData, or grant rewards outside run-session completion. See 06_ARCHITECTURE_AND_SAVE_MODEL.md and 12_SECURITY_AND_TRUST_MODEL.md. Art sources: art/source/; runtime: public/assets/. Public browser release requires cross-tab one-writer protection; Android requires native source ownership and device acceptance.
+Use the Node range from package.json and npm run check before handoff. State is service-owned with frozen snapshots. Never swallow storage failures, cast JSON into SaveData, or grant rewards outside validated authoritative transitions (repeat checkpoint clear and one-time first clear in the approved target model). See 06_ARCHITECTURE_AND_SAVE_MODEL.md and 12_SECURITY_AND_TRUST_MODEL.md. Art sources: art/source/; runtime: public/assets/. Public browser release requires cross-tab one-writer protection; Android requires native source ownership and device acceptance.

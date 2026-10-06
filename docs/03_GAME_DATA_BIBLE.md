@@ -1,8 +1,15 @@
 # Game Data Bible
 
-This document defines the data schemas and initial content for Vertical Slice 1 (VS1).
+This document records existing VS1 content and the unchanged v1 disk contract, alongside the owner-approved continuous idle direction (2026-10-06). Existing numerical content is a provisional foundation snapshot, not locked checkpoint balance. No runtime schema or save version changes in this documentation task.
 
-## 1. Data Schemas
+## Approved conceptual data direction (pending implementation)
+Track three distinct owned-part locations: **Merge Board** (active work area), **Inventory** (stored off-board/unequipped parts), and **Equipped Parts** (Engine, Fuel Tank, Radiator/Cooling, Tires, Suspension). Only equipped entries plus chassis base affect active stats and installed visuals; board/inventory parts contribute nothing and merging must not consume/modify equipped parts implicitly.
+
+Continuous state must represent physical checkpoint progression/unlocks, selected Progress/Push or Farm target, fuel/attempt state, equipped stats and reward/first-clear state independently of graphics. A Scrap Pile can be the first VS1 checkpoint type. Each checkpoint conceptually has repeatable Scrap and a one-time first-clear bonus (possibly parts). Farther normally pays more per successful clear, but not necessarily more Scrap/time; earlier unlocked checkpoint farming remains player-selected.
+
+This is a conceptual contract, not a new TypeScript/save schema. Board shape/dimensions/capacity/expansion, exact Inventory capacity, reward values/drop tables, fuel values, checkpoint distances, offline formula/cap, automation unlocks, selection UI and acquisition probabilities/economy remain TBD. Later schema work must conserve ownership, first-clear eligibility and selected intent and migrate known v1 saves explicitly; do not invent fields or increment the version here.
+
+## 1. Existing implementation data schemas (v1)
 
 ```typescript
 type PartFamily = 'engine' | 'fuel' | 'cooling' | 'tires' | 'suspension';
@@ -59,7 +66,7 @@ const CURRENT_SAVE_VERSION = 1;
 interface SaveData {
   version: number;                              // Must equal CURRENT_SAVE_VERSION
   scrap: number;                                // Current Scrap balance (integer, >= 0)
-  inventory: string[];                          // Array of part IDs (e.g., ['engine_t1', 'fuel_t1']). Unbounded in VS1. May contain duplicates.
+  inventory: string[];                          // Array of part IDs (e.g., ['engine_t1', 'fuel_t1']). Currently unbounded; future capacity TBD. May contain duplicates. No Merge Board field in v1.
   installedParts: Record<PartFamily, string | null>; // null = slot is empty
   bestDistance: number;                         // metres (float, >= 0)
 }
@@ -101,19 +108,19 @@ interface SaveData {
 - `suspension_t2`: Stiff Shocks (Tier 2) - Durability: +30
 - `suspension_t3`: Heavy Duty Leaf (Tier 3) - Durability: +70
 
-### Economy
+### Existing provisional economy (requires continuous-model adaptation)
 - **Scavenge Cost:** 10 Scrap (Gives 1 random Tier 1 part).
-- **Run Reward:** 5 Scrap guaranteed + 1 Scrap per 10m driven.
+- **Existing discrete-run reward (superseded design):** 5 Scrap guaranteed + 1 Scrap per 10m driven. This unchanged runtime formula is not the future checkpoint payout; repeat Scrap and first-clear bonuses require future implementation and balance.
 - **Merge Cost:** 0 (Free).
 
-### The First Road: Scrapland Highway
+### Existing provisional road segments: Scrapland Highway
 - **ID:** `road_scrapland_highway`
 - **0 - 100m (Outskirts):** LoadFactor: 1.0, Roughness: 0
 - **100 - 300m (Cracked Pavement):** LoadFactor: 1.2, Roughness: 1
 - **300 - 600m (Dirt Incline):** LoadFactor: 1.5, Roughness: 3
 - **600m+ (Steep Rocky Pass):** LoadFactor: 2.0, Roughness: 5
 
-*Note: Balance values are starting estimates and will require playtesting.*
+*Note: Existing balance values are starting estimates, not approved exact fuel numbers, checkpoint distances or acquisition economy. Terrain boundaries are not checkpoint placements.*
 
 ### Save Loading, Decoding and Recovery
 
@@ -135,4 +142,4 @@ Backup key: `scr_save_recovery_v1`. It holds one latest raw damaged/unsupported 
 
 Only v1 is currently supported; no known older released schema exists to migrate. Do not accept an arbitrary lower version by casting it. When introducing v2, implement explicit migrations for known supported old versions and revalidate canonical semantics. Unsupported versions remain preserved until a supported implementation or explicit player reset handles them.
 
-Provisional run coefficients are centralized in `src/domain/run/balance.ts`; see gameplay docs for equations and measured builds. The final road end uses Infinity only in static definitions; save JSON contains no Infinity sentinel.
+Provisional run coefficients are centralized in `src/domain/run/balance.ts`; see D02 §10 for existing-runtime equations and measured builds, not continuous checkpoint balance. The final road end uses Infinity only in static definitions; save JSON contains no Infinity sentinel.

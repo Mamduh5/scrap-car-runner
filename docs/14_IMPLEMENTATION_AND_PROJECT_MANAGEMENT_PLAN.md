@@ -7,13 +7,26 @@
 | Current Implementation Batch | ART-03R Golden Run benchmark — owner visually approved; six assets visual |
 | Project Management | Milestone-Based Kanban |
 | Sprint Policy | No formal sprints |
-| Last Reviewed | 2026-10-05 |
+| Last Reviewed | 2026-10-06 |
 
 **Purpose:** This document is the execution source of truth for implementation sequencing, task status, dependencies, milestone gates, and project management.
 
 **Authority:** This document does not replace canonical gameplay, data, architecture, art, typography, audio, save, or security contracts. Those remain governed by their designated source-of-truth documents and registries. When a contract changes, update the owning source first and then update this execution plan as necessary.
 
 **Baseline planning history:** The former root planning report has been removed. Its dated evidence is preserved in §§1–8 below; D14 is the maintained execution plan. No external root-history file is required to follow this plan.
+
+## Owner-approved continuous idle correction — 2026-10-06
+D01/D02/D03/D05/D06 now govern continuous auto-drive, fuel-limited automatic reset/refill/retry, physical checkpoints, repeat Scrap plus a one-time first-clear bonus, and player-selected Progress/Push or earlier-checkpoint Farm. Farther normally rewards more per successful clear, not necessarily more Scrap/time. No required per-attempt Start Run, terminal result screen, Garage return, one-terminal-run/one-payout rule or forced highest-checkpoint farming.
+
+Merge Board, Inventory and Equipped Parts are distinct. Only explicitly equipped parts affect active stats/installed visuals; merges cannot implicitly consume/change equipment. Garage home is a focused build overview with navigation; Merge/Inventory layout, board geometry/capacity/expansion and exact Inventory capacity remain open. Most automation must originate from learned manual acquisition, merging or sorting/movement; automatic driving/retry is already baseline, while later automation unlocks remain TBD.
+
+Simulation/progression/target/fuel/rewards are authoritative domain/service state independent of nearby visible road rendering. Passed visuals recycle/despawn without losing progression; distant future content is not rendered. Later mathematical/stateful offline calculation must not require every frame; exact formula/cap stays open.
+
+**Documentation only:** No runtime/save/asset changes or implementation task completion. Sections 1–8 and the DOC-01 record retain dated audit/history, including obsolete discrete-run observations; they do not override this correction. Existing session APIs, distance/minimum payouts, equipped-input merge fallback and v1's missing board/checkpoint state require future adaptation. Preserve numeric safety, copy conservation, idempotency, storage recovery/error visibility and release safeguards.
+
+**Status protection:** M0 remains IN PROGRESS. ART-03R Run benchmark remains owner-approved/visual with unchanged exports, references and lifecycle states; Garage ART-03 remains unfinished. TYPO/VIS/art/audio and all other task statuses are unchanged. This correction starts neither gameplay implementation nor merge-board redesign.
+
+**Future readiness:** GAR-01/02 and RUN-01/02/RES-01 must resolve applicable owner decisions and command/schema adaptation under the existing Definition of Ready before implementation. Do not bind new UI directly to obsolete semantics. D02/D03/D05/D06 supply the open decisions; §33 maps their consequences. No new task is declared DONE or READY here.
 
 ## How to Maintain This Plan
 
@@ -51,7 +64,7 @@ Never mark a task DONE because code merely compiles, tests alone pass for work r
 | Completed Tasks | DOC-01 — documentation reconciled; VAL-01 — visual gates; VAL-02 — audio gates; VAL-03 — viewport discovery verified; ART-01 — Golden vehicle/engine ladder (2026-10-05); ART-02 — Golden UI samples (2026-10-05) |
 | In Progress Tasks | ART-03 overall — six Run exports visually approved (including optional clouds); Garage remainder unstarted |
 | Validation Tasks | ART-03R Run visual review complete; source-workflow acknowledgement and VIS-01 evidence remain separate |
-| Blocked Tasks | None for Batch 1/ART-01/02; GAR-01 remains BACKLOG / not READY pending owner slot-tap decision and presentation inputs; TYPO-01 remains BACKLOG pending licensed font inputs |
+| Blocked Tasks | None for Batch 1/ART-01/02; GAR-01 remains BACKLOG / not READY pending owner slot/move/equip decisions, applicable state adaptation and presentation inputs; future GAR/RUN dependencies updated in §18; TYPO-01 remains BACKLOG pending licensed font inputs |
 | Immediate Next Gate | Production typography (TYPO-01) / remaining Golden visual proofs (ART-03); assessment in §34 |
 
 M0 remains IN PROGRESS. DOC-01 is DONE: existing canonical contracts were reconciled without changing source, tooling, tests, assets or product decisions. VAL-01 is DONE: the visual CLI now executes preparation, Golden, phase production, full technical and release gates with truthful reports/exit codes and focused regressions. VAL-02 is DONE: correct audio root, explicit preparation/Golden/full stages, structural provenance/source/file checks and regression evidence. VAL-03 is DONE: the existing pure viewport suite runs under the standard test command, with all previous test files preserved. ART-01 is DONE: all eight `proof_a` assets produced, technical gate passed, and explicit OWNER APPROVAL recorded as the Golden visual benchmark. Eight ART-01 assets advanced to `visual` registry status. ART-02 is DONE: all five non-font `proof_b` assets (`icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame`) produced, passed technical validation, and explicit OWNER APPROVAL recorded for the Golden UI benchmark and revised workshop button. Five ART-02 assets advanced to `visual` registry status. Note on `proof_b`: the ART-02 non-font scope is technically complete and visually approved, but the overall `proof_b` bundle remains incomplete, blocked by missing TYPO-01 font inputs (`font_display`, `font_body`). D05 explicitly contains the unresolved installed-slot gesture as OWNER DECISION REQUIRED; GAR-01 remains BACKLOG / not READY until the owner resolves it and its other inputs pass §13.
@@ -589,8 +602,8 @@ Milestone status uses only `NOT STARTED`, `IN PROGRESS`, `VALIDATION`, `BLOCKED`
 | Milestone | Status | Goal | Entry conditions | Required tasks | Exit criteria | Human approval? | Next unlocked work |
 |---|---|---|---|---|---|---|---|
 | **M0 — Production Gates & Golden Visual Proofs** | IN PROGRESS | Trustworthy gates and approved presentation baseline | Current checkout | DOC-01, VAL-01/02/03, TYPO-01/02, ART-01/02/03/04, VIS-01 | Exact 22 Golden assets approved; typography proven; palette locked; gates execute correctly | VISUAL | Non-Golden art and production scenes |
-| **M1 — Garage Engineering Ready** | NOT STARTED | Real inventory/install/stat interactions | M0; required Garage assets | ART-05/06/08/09/10/11, GAR-01/02/03 | Valid loaded saves render; starter installation works; commands and rejection feedback work | VISUAL, PLAYTEST | Complete run loop |
-| **M2 — Playable Vertical Slice** | NOT STARTED | Engineer → run → diagnose → reward → improve | Required road/HUD assets and service contracts | ART-07/12, RUN-01/02, RES-01, PLAY-01/02; SAVE-01 before meaningful external playtest | Earned Scrap funds acquisition; merges/installations affect subsequent runs; failure/quit settle once; return loop works | PLAYTEST | Balance and integrated presentation proof |
+| **M1 — Garage Engineering Ready** | NOT STARTED | Focused Garage overview and explicit equipment/part-location interactions | M0; required Garage assets | ART-05/06/08/09/10/11, GAR-01/02/03 | Valid loaded saves render; starter installation works; commands and rejection feedback work | VISUAL, PLAYTEST | Complete run loop |
+| **M2 — Playable Vertical Slice** | NOT STARTED | Continuous attempts/checkpoints → repeat rewards → engineer → improve/push/farm | Required road/HUD assets and service contracts | ART-07/12, RUN-01/02, RES-01, PLAY-01/02; SAVE-01 before meaningful external playtest | Repeat Scrap funds acquisition; first-clear bonus settles once; automatic fuel reset/refill/retry works; earlier farm selection persists; merges preserve equipment and explicit equip improves capability | PLAYTEST | Balance and integrated presentation proof |
 | **M3 — Presentation-Complete VS1** | NOT STARTED | Coherent complete VS1 with required art/audio | Playable loop | ART-13/14, AUD-01…07, BAL-01, QA-01/02, VS-01 | All 86 required visual entries and 13 audio entries accepted; complete touch/layout/audio/diagnosis proof | VISUAL, AUDIO, PLAYTEST, DEVICE | V1 scope and release hardening |
 | **M4 — V1 Feature/Content Complete** | NOT STARTED | Freeze the actual release product | Accepted VS1; owner scope decision | V1-01…06 | Approved feature/content list complete; save/options behavior accepted; public-browser ownership gate satisfied where applicable | PLAYTEST, DEVICE | Android integration |
 | **M5 — Android Integration Complete** | NOT STARTED | Proven native delivery | V1 baseline frozen | AND-01…05 | Owned native source; build/install works; storage/lifecycle/rendering/audio accepted; native codec decision proven | DEVICE, AUDIO | Release services |
@@ -623,7 +636,7 @@ Working validation + reconciled contracts
     → rendered typography/Golden approval
     → required Garage/vehicle/part/UI/terrain batches
     → Garage commands + real RunScene integration
-    → terminal settlement + diagnosis + return
+    → checkpoint settlement + automatic retry + useful diagnostics
     → earned-Scrap acquisition/merge/improvement loop
     → core-loop playtest
 ```
@@ -641,9 +654,9 @@ Audio masters/SFX/browser codec experiments run alongside this path. Audio prefe
 | Golden art | Exact registry requirements and trustworthy technical gate | Typography iteration during production | Music/SFX production |
 | Golden visual approval | Complete technical set, font rendering and composite proof | None | Browser audio proof |
 | Non-Golden art | All Golden assets approved | Scene feedback before final approval | Separate UI, part, terrain and effects batches |
-| Garage | Required approved assets and resolved slot interaction | Final audio polish | Run implementation |
-| Run | Approved minimum assets; existing session/simulation contract | Garage navigation needed for complete-loop approval | Garage interactions |
-| Result | Real terminal state and successful service settlement | Final decorative treatment | Audio event integration |
+| Garage | Required approved assets; resolved slot/move/equip and applicable part-state contracts | Final audio polish | Run implementation |
+| Run | Approved minimum assets; resolved checkpoint/fuel/reward contracts and continuous domain/service/save adaptation | Garage navigation needed for complete-loop approval | Garage interactions |
+| Checkpoint feedback/diagnosis | Real continuous attempt/clear state and authoritative idempotent reward settlement | Final decorative treatment | Audio event integration |
 | Audio runtime | Valid Golden exports and service lifecycle corrections | Real scenes for final mix approval | Scene development |
 | Audio codec | Actual browser playback proof | Native WebView remains later | Source-master production |
 | Balance | Real loop and comprehension observations | Final presentation polish | Simulation analysis |
@@ -690,7 +703,7 @@ Priorities: **P0** immediate critical path; **P1** required for VS1; **P2** late
 | AUD-03 | BACKLOG | P1 | Browser codec/unlock proof | Select viable browser delivery candidates | `.mp3` provisional; no runtime proof | VAL-02, AUD-01/02, VIS-01 | Hard for browser audio integration | Garage/Run work | D13, AU, AudioService | Candidate encodes in actual Phaser; looping, unlock, switching, resume, latency/size | Native approval claim | Repeated playback accepted on desktop and physical mobile browser; native limitation explicit | AA-stage; playback assertions where useful | AUDIO, DEVICE | HIGH | MEDIUM |
 | ART-05 | BACKLOG | P1 | Bare vehicle completion | Support legitimate empty builds | Two `hero` entries | ART-04 | Hard for complete vehicle presentation | Other art batches | AR, D02/04 | `veh_wheel_bare`, `veh_shadow` | Optional wreck sprite | Bare chassis presents correctly in Garage and Run | AV-stage | VISUAL | MEDIUM | SMALL |
 | ART-06 | BACKLOG | P1 | Garage UI expansion | Support engineering controls | Eleven entries, §21 | ART-04 | Hard for GAR-01/02/03 | Part/road batches | AR, D05 | Exact Garage UI batch | Run UI, domain commands | Controls, badges and icons accepted at target size | AV-stage | VISUAL | MEDIUM | MEDIUM |
-| ART-07 | BACKLOG | P1 | Run/Result UI expansion | Support telemetry and diagnosis | Six entries, §21 | ART-04 | Hard for RUN-01 | Garage/part/road batches | AR, D05 | Exact Run/Result UI batch | Simulation | Gauges, pause icon, stamps readable | AV-stage | VISUAL | MEDIUM | MEDIUM |
+| ART-07 | BACKLOG | P1 | Run/checkpoint feedback UI expansion | Support telemetry and diagnosis | Six entries, §21 | ART-04 | Hard for RUN-01 | Garage/part/road batches | AR, D05 | Exact registered Run/feedback UI batch | Simulation | Gauges, pause icon, stamps readable | AV-stage | VISUAL | MEDIUM | MEDIUM |
 | ART-08 | BACKLOG | P1 | Fuel family batch | Complete fuel ownership visuals | Three icons + three overlays | ART-04 | Hard for complete Garage | Other family batches | AR, D03/04 | Fuel T1–T3 icons/overlays | Other families | Tier ladder and installed registration accepted | AV-stage | VISUAL | MEDIUM | MEDIUM |
 | ART-09 | BACKLOG | P1 | Cooling family batch | Complete cooling visuals | Three icons + three overlays | ART-04 | Hard for complete Garage | Other family batches | AR, D03/04 | Cooling T1–T3 icons/overlays | Other families | Readable progression and registration | AV-stage | VISUAL | MEDIUM | MEDIUM |
 | ART-10 | BACKLOG | P1 | Suspension family batch | Complete suspension visuals | Three icons + three overlays | ART-04 | Hard for complete Garage | Other family batches | AR, D03/04 | Suspension T1–T3 icons/overlays | Other families | Readable progression and registration | AV-stage | VISUAL | MEDIUM | MEDIUM |
@@ -698,20 +711,20 @@ Priorities: **P0** immediate critical path; **P1** required for VS1; **P2** late
 | ART-12 | BACKLOG | P1 | Remaining terrain layers | Match all simulated segments visually | Eight `road` layer entries | ART-04 | Hard for unrestricted production runs | Garage/part work | AR, D03/04 | Three skies, two far layers, three ground bands | New roads | Every segment has correct layers and clean transitions | AV-stage | VISUAL | MEDIUM | MEDIUM |
 | ART-13 | BACKLOG | P1 | Road prop expansion | Complete roadside vocabulary | Eleven remaining props | ART-04 | Hard for M3, soft for playable loop | Gameplay/audio | AR, D04 | Exact remaining props in §21 | Hazards/new mechanics | Props coherent, readable and appropriately composed | AV-stage | VISUAL | MEDIUM | MEDIUM |
 | ART-14 | BACKLOG | P1 | Remaining effects | Complete merge/run feedback | Three `fx` entries | ART-04 | Hard for M3, soft for first loop | Gameplay/audio | AR, D04/05 | Spark, merge burst, dust | Gameplay formulas | Effects reinforce state without obscuring gauges | AV-stage | VISUAL | MEDIUM | MEDIUM |
-| GAR-01 | BACKLOG | P1 | Garage inventory/install/stat increment | Make engineering usable | GS commands exist; no scene | VIS-01, ART-04/05/06/08/09/10/11; slot decision | Hard | RUN work with separate files | D02/03/05/06, GS | Loaded snapshots, inventory scrolling, five slots, install/swap/uninstall, current stats, readiness feedback | RNG, merge/save internals | Starter and valid loaded builds work; copies conserved; stats visibly update | T, U, C | VISUAL, PLAYTEST | HIGH | MEDIUM |
-| GAR-02 | BACKLOG | P1 | Acquisition and merge interaction | Bind meta-loop mechanics | `scavenge()` and atomic `merge()` exist | GAR-01 | Hard | RUN work | D02/05, GS | Cost/eligibility, selected part, stored/installed merge feedback, max tier, rejection toasts | Command implementations | Earned Scrap buys parts; merges reflect service result and slot clearing | T, U, C | PLAYTEST | MEDIUM | MEDIUM |
+| GAR-01 | BACKLOG | P1 | Garage overview/equipment increment | Make the equipped build understandable | GS commands exist; active-run block needs adaptation | VIS-01, ART-04/05/06/08/09/10/11; slot/move/equip decisions; applicable three-location command/save adaptation | Hard | RUN work with separate files | D02/03/05/06, GS | Focused home, Scrap, equipped Rustbucket/five slots, key stats, navigation, explicit equip/unequip feedback and readiness | Board/layout invention, RNG | Loaded/starter builds work; only equipment changes stats/visuals; copies conserved; continuous driving does not indefinitely block engineering | T, U, C | VISUAL, PLAYTEST | HIGH | MEDIUM |
+| GAR-02 | BACKLOG | P1 | Manual acquisition and merge interaction | Teach manual work before later automation | Current commands lack three locations; equipped-input merge fallback conflicts | GAR-01; separately resolved board/movement and acquisition contracts; three-location command/save adaptation | Hard | RUN work | D02/03/05/06, GS | Authorized manual acquisition/merge, distinct board/storage/equipment, max tier, rejection feedback, copy conservation | Invented geometry/capacity/economy, automation unlocks | Repeated checkpoint Scrap buys parts under approved economy; merging never implicitly changes/consumes equipment | T, U, C | PLAYTEST | MEDIUM | MEDIUM |
 | GAR-03 | BACKLOG | P1 | Persistence/recovery/reset presentation | Make durability status understandable | GS exposes pending/error/blocked/retry/reset | GAR-01 | Hard for player-facing acceptance | RUN; SAVE-01 with distinct ownership | D03/05/06/12, SAVE/GS | Status display, retry, unsupported-save explanation, explicit reset confirmation, settings container | Queue/recovery semantics | Failures are visible; retry/reset behave truthfully; unsupported raw data preserved until reset | T, U, C | PLAYTEST | HIGH | MEDIUM |
-| RUN-01 | BACKLOG | P1 | First real RunScene increment | Deliver actual auto-drive and terminal loop | Session, simulation and rewards exist | VIS-01, vehicle assets, ART-07/12 | Hard; Garage integration soft until loop review | GAR-01/02 | D02/05/06, GS/SIM | Original session binding, real ticking, distance-driven presentation, terrain, gauges, terminal stop, service settlement, minimum real diagnosis/return | Domain formulas, save ownership | Real state determines movement/depletion; terminal result pays once; cause and return visible | T, U, C | VISUAL, PLAYTEST | HIGH | MEDIUM |
-| RUN-02 | BACKLOG | P1 | Pause/quit/lifecycle/warnings | Complete run controls | Background contract exists; UI absent | RUN-01 | Hard | RES-01 in separate module | D02/05/06, GS | Explicit pause/resume, quit as abandoned, first-resume handling, threshold feedback, effect binding and cleanup | Offline progression | Pause freezes run; hiding grants no catch-up; quit settles normally; warnings reflect real ratios | T, U, C | PLAYTEST, DEVICE | HIGH | MEDIUM |
-| RES-01 | BACKLOG | P1 | Complete diagnosis experience | Teach the next engineering decision | D01 diagnosis pillar; D05 result contract | RUN-01; RUN-02 for all variants | Hard for M2 | Audio integration | D01/02/05, GS/SIM | Cause, relevant pressure, final fuel/durability, scene-owned peak heat, reward, record, actionable hint and return | New reward owner, saved run telemetry | Player can explain failure and identify a sensible next change; settlement rejection is visible | T, U, C | PLAYTEST, VISUAL | HIGH | MEDIUM |
+| RUN-01 | BACKLOG | P1 | Continuous RunScene and attempt cycle | Deliver auto-drive/checkpoints/automatic retry | Existing session/simulation/rewards need adaptation | VIS-01, vehicle assets, ART-07/12; resolved checkpoint/fuel/reward/reset and target contracts; domain/service/save adaptation | Hard; Garage navigation soft until loop review | GAR-01/02 | D02/03/05/06, GS/SIM | Authoritative attempt/clear settlement; fuel stop/reset/refill/retry; physical landmarks; player-selected push/farm; bounded nearby rendering | Invented balance/offline formula, scene-owned saves/rewards, ART-03R redo | Automatic attempts without manual launch/result/Garage gates; earlier unlocked farming retained; repeat Scrap and first-clear bonus settle idempotently; recycling preserves state | T, U, C | VISUAL, PLAYTEST | HIGH | MEDIUM |
+| RUN-02 | BACKLOG | P1 | Continuous controls/lifecycle/warnings | Complete intent and lifecycle behavior | Existing hidden-tab policy; selection/control policy unresolved | RUN-01; resolved checkpoint-selection/pause/background contracts | Hard | RES-01 in separate module | D02/05/06, GS | Selected push/farm intent, approved controls, foreground/resume safety, threshold effects and cleanup independent of navigation | Offline formula/cap invention, quit-distance payout | Player stops pushing and farms earlier; view changes do not settle attempts; lifecycle follows resolved policy; warnings reflect state; auto-retry remains automatic | T, U, C | PLAYTEST, DEVICE | HIGH | MEDIUM |
+| RES-01 | BACKLOG | P1 | Checkpoint feedback and useful diagnosis | Teach improvement during continuous production | D01 diagnosis pillar; D05 removes mandatory terminal results | RUN-01; RUN-02 for applicable states | Hard for M2 | Audio integration | D01/02/05/06, GS/SIM | Clear/repeat/first-clear feedback, relevant bottlenecks/hints, authoritative reward/record changes, settlement rejection | Mandatory result/return gate, scene reward ownership | Player understands retry/bottleneck, repeat reward versus one-time bonus and next improvement without dismissing results per attempt | T, U, C | PLAYTEST, VISUAL | HIGH | MEDIUM |
 | SAVE-01 | BACKLOG | P1 | Persist audio preferences safely | Meet meaningful playtest requirement | D13 requires persistence; v1 has no options | Preference contract from D13 | Hard before meaningful audio-enabled external playtest | Scene work; serialized SAVE ownership | D03/06/13, SAVE/GS | Master/music/SFX mute and volume, defaults, explicit known-v1 migration, validated service commands, restore on launch | Progress loss, queue rewrite, active-run persistence | Existing progress survives; preferences restore; unsupported future saves remain protected | T, U, C | PLAYTEST | HIGH | MEDIUM |
 | AUD-04 | BACKLOG | P1 | Production audio ownership/integration | Exercise Golden audio through real scenes | Service uncomposed; missing engine controls/disposal | AUD-03, real scenes; SAVE-01 for settings | Hard for integrated proof | RES/QA with separate files | D05/06/13, AU, AudioService | Single composition owner, loaders, category volume APIs, real instance limits, engine rate/stop ownership, pause/scene transitions, listener disposal, saved options | Speculative crossfades/multi-loop system | No leaked engine/music; limits are simultaneous; unlock/mute/resume and scene transitions work | T, U, C, AA-stage | AUDIO, DEVICE | HIGH | MEDIUM |
 | AUD-05 | BACKLOG | P1 | Golden in-game mix approval | Approve all six together | D13 explicitly requires integrated mix | AUD-04, RUN/RES/GAR loop | Hard before audio expansion | Visual QA | D13, AU | Music pair + four SFX in real interactions and repeated runs | Remaining production before approval | Identity, repetition, engine, feedback and mix accepted; native delivery remains explicitly provisional | AA-stage | AUDIO, PLAYTEST, DEVICE | HIGH | MEDIUM |
 | AUD-06 | BACKLOG | P1 | Remaining seven SFX | Complete required VS1 sound roles | AU has seven non-Golden entries | AUD-05 | Hard for M3 | Art/presentation QA | D13, AU | Error, install, uninstall, three warnings, Scrap tick | New audio roles | Provenance and role distinctions accepted; correct event binding | AA-full, T/U for bindings | AUDIO | MEDIUM | MEDIUM |
 | AUD-07 | BACKLOG | P1 | Full VS1 mix/device acceptance | Prove complete soundscape | No real mix evidence | AUD-06, full scene integration | Hard for M3 | QA-01 | D13, AU | All 13, repetition, warnings, engine range, phone/headphone listening, background/resume | Native codec signoff | Feedback stays audible and tolerable across repeated play; no clipping/leaks | AA-full, relevant U | AUDIO, DEVICE, PLAYTEST | HIGH | MEDIUM |
 | PLAY-01 | BACKLOG | P1 | Engineering comprehension checkpoint | Find interaction confusion early | D01/05 engineering loop | GAR-01; GAR-02/RUN-01 for earned acquisition | Hard for final interaction acceptance | Run development | D01/02/05 | Starter installation first; acquisition/merge once naturally funded | Balance redesign from fixture-only observations | Observations distinguish install comprehension from funded meta-loop comprehension | Relevant U | PLAYTEST | HIGH | SMALL |
-| PLAY-02 | BACKLOG | P1 | Core-loop comprehension checkpoint | Prove diagnosis → improvement | Core loop absent | RUN-02, RES-01, GAR-02/03; SAVE-01 when external audio playtest | Hard for balance acceptance | Presentation production | D01/02/05 | First failure, reward, next change, second run | Premature expansion | Players explain failure/reward/next action; subsequent change has understandable effects | C | PLAYTEST | HIGH | MEDIUM |
-| BAL-01 | BACKLOG | P1 | Evidence-based balance iteration | Improve progression and teaching | Provisional baselines; starter/bare reversal | PLAY-02 | Hard for VS1 acceptance | Final art/audio QA | D02/03, balance.ts, simulator | Build bands, failure pressures, acquisition cadence, quit-reward behavior; smallest proven numeric changes | New economy systems | Mathematical safety retained; human progression feels beneficial and understandable | T/U, data gate, simulator | PLAYTEST | HIGH | MEDIUM |
+| PLAY-02 | BACKLOG | P1 | Continuous-loop comprehension checkpoint | Prove improvement and deliberate farming | Continuous loop not implemented | RUN-02, RES-01, GAR-02/03; SAVE-01 when external audio playtest | Hard for balance acceptance | Presentation production | D01/02/05 | Fuel depletion/automatic retry, repeated Scrap, first-clear bonus, earlier farm selection, explicit equipped improvement and rate comparison | Premature expansion | Players explain automatic attempts, push/farm, per-clear versus per-time rewards and why board merges do not change the car | C | PLAYTEST | HIGH | MEDIUM |
+| BAL-01 | BACKLOG | P1 | Evidence-based checkpoint balance | Improve progression and farm choices | Discrete-run measurements are historical; exact target values open | PLAY-02; approved checkpoint/acquisition/fuel balance scope | Hard for VS1 acceptance | Final art/audio QA | D02/03, balance.ts, simulator | Per-clear reward, clear/cycle time, effective Scrap/time, fuel/reset and bottleneck pressures, acquisition cadence; smallest proven numeric changes | Invented final economy/offline rules | Farther normally pays more per clear without forced best-per-time farming; repeats sustain economy; upgrades change capability/rate understandably; math safety retained | T/U, data gate, adapted simulator | PLAYTEST | HIGH | MEDIUM |
 | QA-01 | BACKLOG | P1 | Rendered mobile-size acceptance | Prove density/readability/scaling | Math exists; real content absent | Integrated scenes/assets | Hard for M3 | AUD-07 | D00/04/05, VP/TY | 360×640, 390×844, tall/fractional-DPR sizes, resizing, touch targets and inventory density | Engine change without evidence | Critical content fits; text and pixels remain readable; controls usable | C; existing viewport U | VISUAL, PLAYTEST | HIGH | MEDIUM |
 | QA-02 | BACKLOG | P1 | Physical mobile-browser acceptance | Prove actual phone behavior | No physical acceptance evidence | Playable integrated build | Hard for M3 | Owner listening sessions | D02/05/06/10/13 | DPR, touch, browser bars, unlock, background/resume, storage, performance | Native packaging | Target phones pass real-loop acceptance; failures recorded and repaired | Relevant C | DEVICE, AUDIO, PLAYTEST | HIGH | MEDIUM |
 | VS-01 | BACKLOG | P1 | Presentation-complete VS1 review | Close the full required slice | Current missing implementation/content | All required M3 tasks | Hard | None | D00–06, D11–13, AR/AU | Required content, complete loop, technical/human evidence and remaining limits | Expansion/release implementation | 86 required visuals and 13 audio entries accepted; loop/save/settings/mobile proof complete | C, AV-release, AA-full | VISUAL, AUDIO, PLAYTEST, DEVICE | HIGH | SMALL |
@@ -739,7 +752,7 @@ Retrieve current official platform/provider requirements when these tasks become
 |---|---|---|---|---|---|---|---|
 | **AND-01 / P2 / Native ownership and platform contract** | BACKLOG | Prepare native work; current ignore rules exclude all Android/iOS | V1 baseline / HARD / store briefing | D06/10/12; owned source/config, selective generated ignores, package identity, device/support matrix | Native code before contract | Reproducible ownership/setup plan accepted; configuration review; **NONE** | MEDIUM / SMALL |
 | **AND-02 / P2 / Capacitor Android integration** | BACKLOG | Produce installable native app; wrapper absent | AND-01 / HARD / store assets | D10 and current official Capacitor/Android docs; wrapper, local assets/fonts, build/config and necessary permissions | Gameplay rewrite, unrelated services | Clean setup builds and installs; web C plus native build; **DEVICE** | HIGH / MEDIUM |
-| **AND-03 / P2 / Native storage/lifecycle binding** | BACKLOG | Preserve existing save/run semantics on device | AND-02, V1-04 / HARD / codec work | D02/03/06/12; adapter decision, lifecycle bridge, kill/relaunch/reset behavior | New offline rewards or implicit unfinished-run rewards | Process-loss and storage failures accepted; U/native checks; **DEVICE/PLAYTEST** | HIGH / MEDIUM |
+| **AND-03 / P2 / Native storage/lifecycle binding** | BACKLOG | Preserve approved continuous save/attempt semantics on device | AND-02, V1-04 / HARD / codec work | D02/03/06/12; adapter decision, lifecycle bridge, kill/relaunch/reset behavior | New offline rewards or implicit unfinished-run rewards | Process-loss and storage failures accepted; U/native checks; **DEVICE/PLAYTEST** | HIGH / MEDIUM |
 | **AND-04 / P2 / Native audio delivery decision** | BACKLOG | Prove actual WebView loops and finalize delivery format | AND-02, Golden/full audio masters / HARD / AND-03 | D13/AU; actual candidate decoding, looping, unlock, resume and export regeneration if required | Assumed MP3 guarantee | Native evidence supports canonical format; AA-full and native checks; **AUDIO/DEVICE** | HIGH / MEDIUM |
 | **AND-05 / P2 / Native usability/performance acceptance** | BACKLOG | Prove shipping behavior beyond browser-size QA | AND-02/03/04 / HARD / store preparation | D00/05/10; safe areas, touch, resize, graphics recovery, memory/performance and long sessions | Engine migration without measured cause | Target release-device matrix passes; native build and **DEVICE/PLAYTEST** | HIGH / MEDIUM |
 | **MON-01 / P3 / Commercial strategy gate** | BACKLOG | Select monetization or close it as unnecessary; D09 suggests optional rewarded ads | Accepted product / HARD for service implementation / store preparation | D09/12; owner decision on optional ads and any separately approved purchases | Automatic IAP/analytics addition | Strategy and trust boundary accepted; decision review; **PLAYTEST** if incentives change | HIGH / SMALL |
@@ -796,7 +809,7 @@ Font and art production can overlap. Final typography and Golden approval are in
 |---|---|---|---|
 | ART-05 — Hero, two | `veh_wheel_bare`, `veh_shadow` | Golden approved; technical and rendered approval | Yes, legitimate bare builds |
 | ART-06 — Garage UI, eleven | `icon_stat_power`, `icon_stat_cooling`, `icon_stat_durability`, `icon_stat_weight`, `icon_ui_settings`; `ui_panel_inset`, `ui_panel_note`, `ui_button_secondary`, `ui_tier_pips`, `ui_badge_max`, `ui_badge_merge` | Golden approved; slicing/frame/text QA | Yes |
-| ART-07 — Run/Result UI, six | `icon_stat_heat`, `icon_stat_speed`, `icon_ui_pause`; `ui_gauge_frame`, `ui_gauge_fill`, `ui_stamp_frame` | Golden approved; telemetry/stamp QA | Yes for Run |
+| ART-07 — Run/checkpoint feedback UI, six | `icon_stat_heat`, `icon_stat_speed`, `icon_ui_pause`; `ui_gauge_frame`, `ui_gauge_fill`, `ui_stamp_frame` | Golden approved; telemetry/stamp QA | Yes for Run |
 | ART-08 — Fuel, six | `part_fuel_t1…t3`, `veh_rustbucket_ov_fuel_t1…t3` | Golden approved; family contact-sheet/composite approval | Yes |
 | ART-09 — Cooling, six | `part_cooling_t1…t3`, `veh_rustbucket_ov_cooling_t1…t3` | Same | Yes |
 | ART-10 — Suspension, six | `part_suspension_t1…t3`, `veh_rustbucket_ov_suspension_t1…t3` | Same | Yes |
@@ -831,7 +844,7 @@ Sequence:
 5. Approve Garage and Run as a pair.
 6. Produce the four Golden SFX.
 7. Test candidate encodes in actual Phaser/browser playback.
-8. Integrate all six into the real Garage/Run/Result loop.
+8. Integrate all six into the real Garage/continuous Run/checkpoint feedback loop; failure SFX can communicate bottlenecks without requiring terminal results.
 9. Approve identity, repetition, engine range, interaction feedback and mix.
 10. Produce the remaining seven required SFX.
 11. Complete full mix and phone/headphone acceptance.
@@ -865,68 +878,43 @@ Required distinctions:
 **Platform approval:** D13 now explicitly separates browser-stage approval, which can unlock VS1 sonic production, from later native/WebView delivery confirmation. Retain native uncertainty until AND-04. Do not claim a final cross-platform codec before actual WebView testing or introduce an early wrapper merely to close that claim.
 
 ## 23. Garage Production Plan
+Three coherent production increments, with statuses retained in §18:
 
-Three coherent production increments:
+1. **GAR-01 — Home/build overview and equipment:** Frozen loaded snapshots, currency, equipped Rustbucket/five slots, key stats and navigation; explicit equip/unequip feedback after applicable owner decisions and command adaptation.
+2. **GAR-02 — Manual acquisition and merge:** Integrate separately resolved work/storage interactions; conserve Merge Board / Inventory / Equipped Parts, max-tier handling and clear errors. Board redesign and exact screen layout are not decided here.
+3. **GAR-03 — Save/settings presentation:** Pending/error/blocked status, retry, explicit reset and later persisted audio options.
 
-1. **GAR-01 — Inventory and engineering:** loaded snapshots, currency, vehicle composition, five slots, selection, installation/swap/uninstall, current stat feedback and readiness.
-2. **GAR-02 — Acquisition and merge:** service-backed purchase and atomic merge, copy counts, max-tier handling and clear rejection feedback.
-3. **GAR-03 — Save/settings presentation:** pending/error/blocked status, retry, explicit reset, and the settings container later bound to persisted audio options.
+Only equipped parts change active stats and installed visuals. Never use the installed-input merge fallback; merging cannot implicitly clear/change an equipped slot. Bare chassis remains valid. Adapt the current blanket active-run engineering block so driving coexists with improvements; equipment-change application timing remains open.
 
-Important contracts:
+**OWNER DECISION REQUIRED:** D05 §8 slot gesture, MAX-tier/targeting behavior and applicable move/equip contracts gate GAR-01. Applicable board, acquisition and ownership decisions gate GAR-02; no geometry/capacity is chosen here.
 
-- Render frozen snapshots; never mutate them.
-- Use explicit `installPart(partId, targetSlot)`.
-- Let the service choose merge inputs.
-- If a stored+installed merge clears a slot, explain that visible result.
-- Handle unbounded inventory with scrolling/grouping; do not introduce inventory tetris.
-- Permit bare-chassis runs.
-- Reflect command rejection truthfully.
-- **OWNER DECISION REQUIRED:** resolve D05 §8 installed-slot detail/uninstall gesture, MAX-tier behavior and selected-part targeting before GAR-01 becomes READY. GAR-01 stays BACKLOG until this owner decision and other dependencies are satisfied.
+Current v1 new saves have zero Scrap and two stored starter parts. M1 can prove starter engineering; naturally funded acquisition/merge comprehension needs M2's repeated checkpoint Scrap. Fixture checks do not prove real progression acceptance; the M1/M2 close-timing maintenance note remains open.
 
-New saves start with **zero Scrap** and two uninstalled starter parts. Therefore, M1 can prove starter engineering, but **natural acquisition/merge comprehension requires the rewarded run loop**. Test fixtures may exercise funded branches; they cannot establish real progression acceptance.
+## 24. Continuous Run / Checkpoint Feedback Production Plan
+Adapt existing domain/service/save owners before scene integration; do not repeatedly pay the old minimum/distance completion reward:
 
-## 24. Run / Result Production Plan
+- Automatic auto-drive and fuel-limited attempts; fuel-zero stop/reset/refill/retry on the selected/current checkpoint route.
+- Physical landmark progression; Scrap Pile can be the first VS1 checkpoint type.
+- Selected Progress/Push or intentional Farm of an earlier unlocked/reachable route; no forced highest target.
+- Repeat successful-clear Scrap and first-clear bonus once, with idempotent authoritative settlement and visible errors.
+- Real vehicle/fuel/diagnostic state tied only to equipment, with resolved equipment-change timing.
+- Simulation independent of navigation and local road rendering; recycle passed visuals/activate incoming nearby content without erasing state.
+- Useful nonblocking clear/reward/bottleneck feedback; no per-attempt launch, mandatory result dismissal or Garage return.
 
-The smallest real Run increment includes:
+Resolve applicable §33 fuel/reward/checkpoint/reset/selection and persistence contracts before implementation; do not invent numbers/UI. Preserve numeric safety, state ownership, recovery and duplicate-callback protections. Later non-visible/offline calculation must be possible mathematically/statefully without every frame; exact rules remain deferred. Current hidden-tab pausing is an implementation snapshot, not final offline design.
 
-- The original service-issued session and token.
-- `advanceRun(..., deltaMs / 1000)`.
-- Real terrain selection.
-- Distance-driven vehicle/road presentation.
-- Fuel, heat and durability gauges from actual state.
-- Terminal simulation stop.
-- `recordRunResult()` settlement.
-- Visible cause, reward, diagnosis and return.
-
-No moving-car shell precedes simulation integration.
-
-Additional production increments complete pause/quit, thresholds, effects and diagnosis polish. They extend working code.
-
-Result requirements:
-
-- Failure cause and relevant pressure.
-- Distance and new-record status.
-- Reward from the settled state transition.
-- Remaining fuel/durability.
-- Peak heat collected by the scene, because `RunState` has no peak field.
-- An understandable improvement suggestion.
-- Clear return to Garage.
-- Visible handling if settlement is rejected.
-
-Explicit quit creates an `abandoned` terminal result and receives the documented distance reward. Hiding or process death does not settle a run.
-
-Scenes must dispose input/audio/lifecycle subscriptions they own. Repeated callbacks remain harmless through the service token guard.
+Dispose owned input/audio/lifecycle subscriptions. ART-03R visuals/references/lifecycle states remain unchanged; no new asset batch or Run art redo is implied.
 
 ## 25. Playtest Plan
 
 | Uncertainty | Earliest useful checkpoint | Questions |
 |---|---|---|
 | Installation comprehension | GAR-01 | Can a player identify slots, install starter parts and understand changed values? |
-| Acquisition/merge comprehension | GAR-02 plus first settled runs | Do cost, duplicates, installed-input consumption and max tier make sense? |
-| Core-loop comprehension | RUN/RES loop | Why did the car fail? What was earned? What should change next? |
+| Acquisition/merge comprehension | GAR-02 plus repeat checkpoint clears | Do acquisition, distinct locations, manual merging, explicit equipment and max tier make sense? |
+| Core-loop comprehension | Continuous RUN/RES feedback | Why did the attempt retry? What reward repeated or paid only once? What should change next? |
 | Progression | Several improvement/run cycles | Does an engineering change produce understandable capability gains? |
 | Balance teaching | First starter and bare-build comparison | Does the game teach sensible engineering, or reward removing useful-looking parts? |
-| Reward incentives | Pause/quit available | Does rapid abandonment overshadow driving and diagnosis? |
+| Farming incentives | Checkpoint selection/repeats available | Can an earlier target yield better Scrap/time despite lower per-clear reward? Can improvements change that choice? |
 | Presentation coherence | Golden composites; again at M3 | Do visuals and sound feel like one game? |
 | Audio tolerance | Golden pair/SFX, then real loop | Is repetition tolerable? Are merge and failure feedback appropriately distinct? |
 | Mobile usability | Every usable scene increment | Can players read, target, scroll and recover from errors? |
@@ -941,7 +929,7 @@ Use observation rather than explaining the game during the attempt. Record speci
 | Terrain boundary behavior | Whether improvement feels beneficial |
 | Representative and pathological builds | Whether runs are boring or frustrating |
 | Reward and safe-integer boundaries | Whether acquisition cadence feels satisfying |
-| Currency recovery paths | Whether quitting incentives undermine the loop |
+| Currency recovery paths | Whether repeat farming sustains the economy without discovery |
 | Partition/stall invariants | Whether high-power failures teach the intended tradeoff |
 
 The 2026-10-04 baseline simulator run recorded:
@@ -983,7 +971,7 @@ Probability and impact below are planning judgments, not measured failure rates.
 | Narrow portrait UI becomes crowded | HIGH | HIGH | GAR-01, QA-01 | Safe-rectangle layouts, scrolling and real touch review | UI |
 | Starter/bare tradeoff teaches the wrong lesson | MEDIUM | HIGH | PLAY-02 | Observe actual player reasoning before tuning | Gameplay / owner |
 | Diagnosis fails to suggest useful improvement | MEDIUM | HIGH | RES-01 playtest | Cause, pressure, snapshot and next-action testing | Gameplay/UI |
-| Quit rewards displace the intended loop | MEDIUM | HIGH | RUN-02/BAL-01 | Evaluate actual behavior; preserve soft-lock protection while correcting proven incentives | Gameplay |
+| Obsolete terminal payouts or forced highest farming undermine idle choices | MEDIUM | HIGH | RUN-01/PLAY-02/BAL-01 | Adapt settlement to successful repeats/first clears; preserve deliberate earlier targets and sustainable acquisition | Gameplay |
 | Audio loops/engine become fatiguing | MEDIUM | HIGH | AUD-01/02/05 | Repetition and rate-range listening | Audio / owner |
 | Codec works in browser but fails in WebView | MEDIUM | HIGH | AUD-03; AND-04 closes it | Preserve masters; keep platform approval explicit | Audio/native |
 | Save/options migration damages ownership | MEDIUM | HIGH | SAVE-01 | Explicit v1 migration and recovery regressions | Persistence |
@@ -1012,7 +1000,7 @@ Probability and impact below are planning judgments, not measured failure rates.
 
 ## 30. Change-Control Rule
 
-A canonical decision may change when direct implementation or validation evidence demonstrates a meaningful correctness, UX, visual, audio, performance, platform, production-cost, maintainability or contract problem.
+An explicit owner-approved direction may update canonical design before implementation, as recorded in the 2026-10-06 correction; unresolved details remain owner decisions. Otherwise, a canonical decision may change when direct implementation or validation evidence demonstrates a meaningful correctness, UX, visual, audio, performance, platform, production-cost, maintainability or contract problem.
 
 Use:
 
@@ -1075,7 +1063,7 @@ This batch excludes gameplay implementation, asset generation, codec finalizatio
 ## 32. What Must NOT Be Worked On Yet
 
 - Additional tiers, families, chassis or roads without V1 scope approval.
-- Prestige, automation and offline progression.
+- Prestige, later workflow automation and final offline formulas; baseline continuous auto-drive/retry belongs in VS1.
 - Unique item instances or repeated-slot architecture.
 - Accounts, cloud saves, leaderboards or speculative backend interfaces.
 - Purchases, ads or analytics before the commercial decision.
@@ -1092,6 +1080,14 @@ This batch excludes gameplay implementation, asset generation, codec finalizatio
 
 | Decision / unknown | Classification | When it matters |
 |---|---|---|
+| Merge-board dimensions/shape, capacity, expansion and exact Inventory capacity | **OWNER DECISION REQUIRED — affected future GAR/state work** | Separate board design; do not choose 3x3, 4x4, finite, expandable or tilemap-like geometry here |
+| Board/Inventory move/equip UX and equipment application timing | **OWNER DECISION REQUIRED — GAR/RUN integration** | Engineering coexists with auto-drive; resolve safe explicit equipment changes before readiness |
+| Exact checkpoint Scrap, first-clear parts/drop tables and acquisition probabilities/economy | **OWNER DECISION REQUIRED / BALANCE — affected GAR-02/RUN-01** | Repeat Scrap and one-time bonus fixed conceptually; values/destinations TBD |
+| Exact fuel values/formulas, checkpoint distances and route reset/refill details | **OWNER DECISION REQUIRED / BALANCE — RUN-01** | Automatic fuel-cycle retry fixed; exact mechanics/numbers TBD |
+| Checkpoint-selection UI and target/control transitions | **OWNER DECISION REQUIRED — RUN-01/02** | Preserve earlier unlocked farming and push/farm choice; no forced highest target |
+| Continuous part/checkpoint/intent/first-clear schema and migration; attempt persistence | **FUTURE IMPLEMENTATION CONTRACT — applicable GAR/RUN readiness** | D03/D06; preserve v1 ownership/recovery, resolve migration and validated commands before scene binding |
+| Exact offline formula/cap and non-visible calculation policy | **OPEN / DEFERRED** | Support mathematical/stateful repeats; hidden-tab pausing is not final offline design |
+| Exact later automation unlocks | **OPEN / DEFERRED** | Most automation follows manual work; driving/retry is VS1 baseline |
 | Installed-slot tap: details versus immediate uninstall | **OWNER DECISION REQUIRED — BLOCKS LATER, GAR-01** | Explicitly contained by DOC-01 in D05 §8; owner resolves gesture/MAX/targeting before GAR-01 readiness |
 | Typography sizes/wrapping on actual AP canvas | **CAN BE RESOLVED BY VISUAL PROOF** | TYPO-01/02 |
 | Palette and overlay composition quality | **CAN BE RESOLVED BY VISUAL PROOF** | Golden review |
@@ -1100,7 +1096,7 @@ This batch excludes gameplay implementation, asset generation, codec finalizatio
 | One engine loop survives required rate range | **CAN BE RESOLVED BY AUDIO PROOF** | AUD-02/05 |
 | Browser runtime encode choice | **CAN BE RESOLVED BY AUDIO PROOF** | AUD-03 |
 | Native runtime codec suitability | **CAN BE RESOLVED DURING ANDROID/RELEASE WORK** | AND-04 |
-| Starter/bare tradeoff, quit incentives, progression cadence | **CAN BE RESOLVED BY PLAYTEST** | PLAY-02/BAL-01 |
+| Starter/bare tradeoff, repeat-farming rates, progression cadence | **CAN BE RESOLVED BY PLAYTEST** | PLAY-02/BAL-01 |
 | Exact V1 feature/content boundary | **BLOCKS LATER** | V1-01 after accepted VS1 |
 | Public-browser ownership/fallback policy | **BLOCKS LATER** | Before public browser distribution |
 | Native source ownership, storage adapter and device matrix | **CAN BE RESOLVED DURING ANDROID/RELEASE WORK** | AND-01/03 |
@@ -1109,7 +1105,7 @@ This batch excludes gameplay implementation, asset generation, codec finalizatio
 | Store audience, pricing, territories and disclosure requirements | **CAN BE RESOLVED DURING ANDROID/RELEASE WORK** | Store preparation |
 | Optional visual polish | **BLOCKS LATER only if included** | Explicit post-critical-path decision |
 
-No unresolved product decision blocks the first validation-repair batch.
+The original validation-repair batch is complete. Newly recorded decisions gate applicable future gameplay readiness, not retained art/typography/validator evidence. Owner-approved direction authorizes this documentation correction; unresolved details remain open.
 
 ## 34. Final Readiness
 
@@ -1136,3 +1132,5 @@ Readiness reassessment under §13:
 - **AUD-01/02:** Source/licensing and entitlement preflight remain unevidenced; remain **BACKLOG**.
 
 M0 remains IN PROGRESS. No broader non-Golden task was started; the optional cloud has only its explicit bounded owner authorization. All recorded status transitions have named evidence. Remaining M0 acceptance requires production typography (TYPO-01), Garage-side ART-03 production and all remaining ART-03 acceptance, in-game proof (VIS-01), palette lock, and final Golden approval (ART-04).
+
+The 2026-10-06 correction updates design and future implementation scope only. Statuses remain intact; applicable GAR/RUN readiness follows the updated dependencies in §§18, 23, 24 and 33. No gameplay or merge-board redesign was started.
