@@ -12,7 +12,8 @@ This document outlines the planned expansion of the game AFTER Vertical Slice 1 
 ## Stage 2: Depth & Build Variety
 - **More Tiers:** Expand parts up to Tier 5.
 - **New Part Families:** Add Transmission (modifies Power curve) and Armor (mitigates specific damage types).
-- **Part Specializations:** Instead of a linear Tier 3 engine, offer a choice: A Tier 3 "Turbo Engine" (High Power, High Heat) vs. Tier 3 "Eco Engine" (Moderate Power, High Fuel Efficiency).
+- **Core specialization philosophy:** Family + Type/Specialization + Tier + Tradeoffs + Compatibility is now a core design contract (D01/D02), not merely optional late variety. Future catalog expansion implements it only within separately approved scope: Engine speed/torque/balanced roles, terrain-specific Tires, obstacle-specific Suspension and Engine/Radiator interactions. Fuel Tank types remain unapproved. Names/catalog/stats/unlocks are open; no examples become production definitions.
+- **Alternative useful builds:** Type suitability can beat raw tier. Retain push/farm alternatives in Inventory; no preset slots or automatic swapping are chosen. Merge/type-evolution and acquisition/pool/rate/targeting/shop rules remain explicit future decisions.
 - **New Chassis:** Unlock a "Heavy Truck" (more slots, higher weight) and "Speedster" (fewer slots, low weight, high base speed).
 
 ## Stage 3: Automating learned manual workflows
@@ -22,8 +23,9 @@ Continuous auto-drive and automatic retry are the primary VS1 model, not an Auto
 
 ## Stage 4: Environments & Hazards
 - **Checkpoint landmarks:** Fuel stations, guard posts, outposts and other meaningful locations may follow the VS1 Scrap Pile landmark type. These examples are not new VS1 requirements. Earlier unlocked farming remains selectable; new discovery must not be required for continued Scrap production.
-- **New Roads:** "Glacier Pass" (Extreme Cooling buff, but high traction loss/durability drain). "Desert Highway" (High Heat generation).
-- Players must swap their builds (e.g., removing radiators on Glacier Pass to save weight) depending on the environment.
+- **Road Region / World Region transitions:** Several checkpoints share a region. Milestones may change environment, terrain grammar, obstacle families, useful/necessary specializations and later acquisition opportunities. Reuse authored terrain/obstacle pieces with different compositions; no unique scenery per checkpoint or final region names/counts/boundaries is locked.
+- **Mechanical build changes:** Hills/load pressure Engines/Cooling, loose/slippery surfaces pressure Tires, holes/drops pressure Suspension and long routes pressure Fuel capacity. Regions should change what equipment is useful, rather than only increase difficulty numbers or require the same type at higher tiers forever. Earlier roadmap road names were examples, not final map data; no mandatory durability drain or blanket Radiator-removal strategy is approved.
+- **Tradeoffs and safe retry:** Specialized solutions carry meaningful costs; highest-progress and best-Scrap/time builds may differ. Severe Engine/Radiator incompatibility can cause catastrophic overheating/explosion and retry, never equipment deletion. Exact terrain/compatibility/heat/explosion/farming formulas remain open; no degradation, per-part health or mandatory global durability is added.
 
 ## Stage 5: Meta Progression (Prestige)
 - **Engineering Knowledge:** A system where eventually retiring a maxed-out chassis grants a permanent global currency (Knowledge Points) to upgrade baseline garage efficiency (e.g., cheaper Scavenge costs, base stat multipliers).

@@ -14,6 +14,11 @@
 ## Approved idle design rule
 The primary VS1 cycle is continuous auto-drive, fuel-limited automatic reset/refill/retry and physical checkpoints with Progress/Push or player-selected earlier-checkpoint Farm. Most automation should originate from a manual workflow the player first understands (acquisition, merging, sorting/movement); continuous driving/retry is baseline, while later automation unlocks remain open. Merge Board, Inventory and Equipped Parts are separate; only Equipped Parts affect active stats/installed visuals. Board geometry/capacity and surrounding exact balance/UX remain undecided (D01/D02). Current discrete-run code is a foundation requiring adaptation, not a competing design authority.
 
+## Core equipment / road-region contract
+Parts conceptually have Family + Type/Specialization + Tier + Tradeoffs + Compatibility (D01/D02/D03). Tier strengthens a specific type; type determines suitability. A higher-tier wrong type can perform worse than a lower-tier suitable type on a particular route. Roads/obstacles and milestone regions should change useful builds, not only scale numbers. Push and Farm builds may differ; Inventory supports useful alternatives. Only Equipped Parts affect vehicle performance/installed visuals.
+
+Fuel depletion is the normal automatic attempt ending. Severe Engine/Radiator incompatibility can cause catastrophic overheating/explosion and checkpoint retry, never permanent equipment destruction. No mandatory global durability resource, per-part health bars, equipment degradation, rarity power systems, affixes, runes, skill trees or other RPG layers are approved. Catalogs, stats/formulas, region boundaries, specialized merge/acquisition rules and preset systems remain unresolved. This core philosophy does not expand the VS1 production catalog or authorize gameplay, art, merge-board or acquisition design work.
+
 ## 3. Vertical-Slice Philosophy (VS1)
 - Must implement exactly ONE complete gameplay loop.
 - Must use real game systems and production-intent assets.

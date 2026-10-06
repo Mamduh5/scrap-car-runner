@@ -6,7 +6,7 @@ The Rustbucket auto-drives continuously through Scrapland Highway. Fuel consumpt
 ## 2. Physical checkpoints and attempt cycle
 Checkpoints are recognizable road landmarks. A Scrap Pile can serve as the first VS1 checkpoint type; fuel stations, guard posts, outposts and other landmarks are future expansion examples only. At fuel zero, stop the current attempt, reset/refill on its selected/current route and automatically begin the next attempt. Exact checkpoint distances, route reset positions, refill timing, fuel formulas/values and handling of other target bottlenecks remain to be balanced/resolved; no teleport/refill implementation is prescribed here.
 
-Heat, durability and vehicle weaknesses can still inform diagnostics and build decisions. They do not restore the obsolete manual launch -> terminal fail -> payout -> Garage -> relaunch structure. An unsuccessful target attempt is not a successful checkpoint clear; do not carry the old minimum completion/quit payout into the new reward model.
+Fuel depletion is the normal attempt-cycle ending; severe Engine/Radiator incompatibility may instead cause critical overheating/catastrophic failure (see the specialization contract below). Vehicle weakness diagnostics remain useful, but mandatory global durability, per-part health bars, degradation and permanent destruction are not approved target systems. They do not restore the obsolete manual launch -> terminal fail -> payout -> Garage -> relaunch structure. An unsuccessful target attempt is not a successful checkpoint clear; do not carry the old minimum completion/quit payout into the new reward model.
 
 ## 3. Progress / Push versus Farm
 - **Progress / Push:** Attempt farther/new checkpoints. First clear unlocks progression and its one-time first-clear reward.
@@ -28,7 +28,7 @@ Farther checkpoints normally grant more Scrap **per successful clear**, not guar
 
 Stats are chassis base plus Equipped Parts only. Example: Engine T1 and T2 on the board, Engine T3 equipped -> car uses/displays Engine T3. A merge must not implicitly modify or consume the equipped build. Any change to equipment requires an explicit equip/unequip action; do not infer a gesture or swap policy from current commands.
 
-VS1 retains two identical same-family/same-tier merge inputs yielding one higher-tier part; Tier 3 cannot merge. New board input/output/movement rules await redesign. Conserve ownership across all three locations and reject invalid actions without mutation. Definition IDs may still represent duplicate copies; no unique-instance system is chosen here.
+The existing generic VS1 ladder merges two identical IDs into one next-tier part and rejects Tier 3 merges. This baseline does not settle specialized merge rules. Future merging must preserve distinct types: do not assume any two same-family/same-tier parts of different specializations yield a generic upgrade. Same-family + same-type + same-tier matching, cross-type interactions, type evolution and how types are acquired remain explicit pending decisions. Board input/output/movement rules also await separate design. Conserve ownership across all three locations and reject invalid actions without mutation. Definition IDs may still represent duplicate copies; no unique-instance system is chosen here.
 
 ## 6. Manual engineering and Garage responsibility
 The Garage home focuses on the equipped Rustbucket, key stats, Scrap and navigation. Merge, Inventory management and Scavenge can be reached as major systems rather than permanently crowding home. Exact Merge/Inventory layout, move/equip UX and installed-slot gesture remain owner decisions (D05).
@@ -41,10 +41,44 @@ Continuous driving must coexist with player improvements. The existing blanket a
 ## 8. Simulation, visibility and offline principle
 Authoritative gameplay tracks checkpoint/progression, selected farm/progress target, fuel/attempt state, equipped vehicle stats and rewards independently of visible road graphics. Rendering is local to the visible region and may recycle/despawn passed content. Non-visible and later offline repeat progress must be representable mathematically/statefully without replaying all visual frames. Exact offline formula/cap remains open. Current runtime hidden-tab pausing grants no offline rewards; that existing limitation is not a final idle calculation contract.
 
+## Core equipment / road-region contract (owner-approved 2026-10-06)
+### Equipment dimensions and build decisions
+Family identifies the subsystem; Type/Specialization identifies intended terrain, obstacle, strategy or role; Tier expresses strength within that specialization. Tradeoffs and Compatibility describe costs and interactions with the other equipped parts. **Tier determines strength; type determines suitability.** A higher-tier wrong type may perform worse than a lower-tier suitable type on a particular checkpoint or farm route. Specialized equipment should usually solve a meaningful problem at a meaningful cost (weight, speed, fuel use or off-terrain efficiency), not become strictly better everywhere.
+
+Only Equipped Parts affect vehicle performance and installed visuals; parts on the board or in Inventory have no passive effect. Retain useful alternative parts for different routes. A heavy/obstacle-capable **Push Build** can reach a new checkpoint yet farm easy terrain more slowly than a light/speed-focused **Farm Build**. Both are intended strategies; route reliability, clear time and effective Scrap/time can change the optimal farm checkpoint. No formal loadout slots, presets or automatic swapping are chosen.
+
+### Family roles
+| Family | Approved conceptual role | Direction examples only; not production definitions |
+|---|---|---|
+| Engine | Basic power, acceleration/effective driving performance, speed, overcoming hills and heavy resistance | High-speed: fast easy-road farming, weaker climbing/torque, potentially more heat. Torque/power: stronger hills/heavy loads/push, lower top speed. Balanced: general purpose without extreme specialization. |
+| Fuel Tank | Fuel capacity and how long an attempt can continue before zero fuel | Future types may have tradeoffs, but no Fuel Tank types are approved here. |
+| Radiator / Cooling | Sustained-load heat control, stable performance and Engine compatibility | Suitable cooling supports strong engines and long/high-load routes; weak/unsuitable cooling can reduce performance/speed and indirectly increase fuel consumed because completion takes longer. No final cooling catalog is chosen. |
+| Tires | Meaningful surface/terrain suitability, beyond a generic traction or durability number | Road: fast asphalt, weaker specialized surfaces. Grip/track: difficult/steep surfaces, slower/heavier. Oversized/big: large physical obstacles, weight/speed/fuel costs. Ice: ice suitability, lower off-terrain efficiency. Heat-resistant: extreme-hot suitability, possible weight/speed costs. |
+| Suspension | Meaningful obstacle-shape/impact/load suitability, beyond generic durability | Standard: efficient/light on flat road, weak extreme obstacles. Heavy-duty: heavy vehicle/impact support with weight/speed costs. Long-travel: deep holes/rough terrain/large drops, heavy and inefficient for fast flat farming. |
+
+All example names/catalogs are provisional and impose no exact tiers, values, unlocks or VS1 production requirements.
+
+### Engine / Radiator compatibility and attempt failure
+A Radiator too weak or unsuitable for its equipped Engine can produce severe overheating. In sufficiently bad combinations the vehicle may reach critical heat, fail catastrophically and show an explosion/failure presentation before the target checkpoint. The current attempt ends and resets/retries through the checkpoint system. **Equipment remains owned and equipped; explosion is an attempt failure/presentation state, never permanent part deletion.** The UI should eventually warn about dangerous combinations before or while running. Exact compatibility formulas, heat/explosion thresholds and presentation are unresolved; no warning gesture, blanket equip rejection or new art is specified.
+
+Fuel depletion remains the normal ending. Do not generalize this approved severe-overheat exception into independent health/instant-fail systems for every family, a mandatory global durability resource or equipment degradation. The durability field, tire/suspension buffers and breakdown branch in §10 are unchanged legacy implementation evidence, not the target gameplay requirement.
+
+### Road conditions and milestone regions
+Possible surface conditions include normal asphalt, damaged/torn road, dirt, rock, sand/mud, ice, water, extreme heat/lava-like terrain and later specialized surfaces. Possible obstacles include bumps, rough road, potholes/deep holes, large drops, steep descents, ramps, ledges, hills and broken terrain. These examples give types purpose; none is a new approved VS1 content list.
+
+Long uphills pressure Engine power; sustained engine load pressures Cooling; loose/slippery surfaces pressure Tires; large obstacles/holes/drops pressure Suspension; long routes pressure Fuel capacity. Mixed routes create tradeoffs across systems. Performance emerges from the equipped combination and road conditions, not a hard numeric gate at every checkpoint.
+
+Several checkpoints belong to a larger Road Region / World Region. At milestone transitions, environment, terrain grammar, obstacle families and useful/necessary specializations may change; new acquisition opportunities may unlock later. Reuse authored terrain/obstacle pieces while changing composition; no unique environment per checkpoint is needed. Progression should sometimes change what build works, not demand the same type at ever-higher tiers. Region names/counts/boundaries and checkpoint requirements remain open; no illustrative range becomes data.
+
+### Future merge and acquisition implications
+Merge matching across types, cross-type interactions, type evolution and specialized type acquisition remain unresolved; do not collapse distinct Engine types into a generic next-tier result. Later acquisition must consider family, type, region, unlocked specializations and player targeting/control because unrestricted random acquisition may become frustrating. Exact pools, drop rates, targeting and shop behavior remain open; do not redesign Scavenge or the board in this update.
+
+No random affixes/stat or quality rolls, rarity power systems, rune sockets, skill trees, character stats, legendary procs, equipment durability degradation or permanent destruction are approved. Type catalogs/names, stats/weights, compatibility/heat/explosion/terrain/farming formulas, checkpoint requirements, region boundaries/names, merge rules, capacity, acquisition/drop systems, type unlocks and loadout preset systems remain owner decisions. This core philosophy does not enlarge the current VS1 catalog.
+
 ## 9. Open decisions and implementation boundary
 Merge-board dimensions/shape, capacity and expansion; exact Inventory capacity; exact Scrap rewards and first-clear part drops; fuel values/formulas; checkpoint distances; route reset/refill details; offline formula/cap; automation unlocks; checkpoint-selection UI; exact acquisition probabilities/economy; board/move/equip UX and equipment application timing remain unresolved. Existing unbounded storage and numeric acquisition/fuel/reward constants do not lock these new design choices.
 
-This owner-approved correction changes documentation only. No runtime, save version or assets change. D06 preserves existing storage/recovery safeguards and identifies future adaptation. D14 assigns future work without marking implementation complete.
+The specialization contract above adds its explicit open decisions to this list. This owner-approved correction changes documentation only. No runtime, save version or assets change. D06 preserves existing storage/recovery safeguards and identifies future adaptation. D14 assigns future work without marking implementation complete.
 
 ## 10. Existing foundation snapshot — not the continuous model
 The following records the unchanged discrete-run implementation and provisional measurements, not requirements for new scene work or final checkpoint balance. Terminal minimum payouts, quit rewards, per-run tokens and hidden-tab behavior here require review/adaptation before continuous integration. Preserve useful mathematical safety and idempotency properties, not obsolete product behavior.

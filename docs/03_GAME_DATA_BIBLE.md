@@ -9,6 +9,25 @@ Continuous state must represent physical checkpoint progression/unlocks, selecte
 
 This is a conceptual contract, not a new TypeScript/save schema. Board shape/dimensions/capacity/expansion, exact Inventory capacity, reward values/drop tables, fuel values, checkpoint distances, offline formula/cap, automation unlocks, selection UI and acquisition probabilities/economy remain TBD. Later schema work must conserve ownership, first-clear eligibility and selected intent and migrate known v1 saves explicitly; do not invent fields or increment the version here.
 
+## Equipment and road-region design-level model (pending implementation)
+A part definition must conceptually represent **Family + Type/Specialization + Tier**, plus future per-type tradeoff and compatibility metadata. Family alone is slot/category identity, not the complete performance/merge identity. Tier expresses strength within a type; a higher-tier wrong type can underperform a lower-tier suitable type.
+
+| Concept | Required design meaning; exact encoding remains open |
+|---|---|
+| Family | Engine, Fuel Tank, Radiator/Cooling, Tires or Suspension subsystem |
+| Type / Specialization | Intended road/surface, obstacle, role or farming strategy; catalog and names TBD |
+| Tier | Strength within the specific type, not universal superiority across types |
+| Tradeoffs | Meaningful suitability costs such as weight, speed, fuel consumption or off-terrain performance; values/formulas TBD |
+| Compatibility | Interactions among equipped definitions, especially Engine/Radiator; metadata and formulas/thresholds TBD |
+| Road Region / World Region | Groups multiple checkpoints; milestones may change presentation, terrain grammar, obstacle families, suitable types and later acquisition opportunities |
+| Road / checkpoint conditions | Surface and physical obstacle composition against which equipped builds perform; not merely a stage number/hard stat gate |
+
+This is a design-level model, not a replacement runtime interface or new save schema. Region names/counts/boundaries, terrain/obstacle formulas, checkpoint requirements, type unlocks and acquisition opportunities remain open. Reusable authored pieces can form multiple checkpoint challenges; no unique environment per checkpoint or fixed checkpoint ranges are required. Type catalogs/examples in D02 do not populate production tables. Fuel Tank specializations remain unapproved.
+
+Only Equipped Parts contribute stats/performance and installed visuals. Inventory supports useful alternative push/farm builds, not just merge inputs. Dangerous Engine/Radiator combinations may cause catastrophic overheating/explosion and automatic checkpoint retry while preserving equipped ownership; no degradation, global durability requirement or permanent destruction is added.
+
+Future data/save adaptation must represent type identity without conflating alternatives, preserve owned definition IDs and distinguish slot-family validity from performance compatibility. Exact ID encoding, metadata, runtime/save fields and migration remain future implementation decisions. Specialized merge matching/cross-type interactions/type evolution and acquisition pools/rates/targeting/shop behavior remain unresolved. No affix/rarity/rune/skill-tree/random-roll/proc/character-stat systems or preset/auto-swap features are introduced.
+
 ## 1. Existing implementation data schemas (v1)
 
 ```typescript
@@ -72,7 +91,7 @@ interface SaveData {
 }
 ```
 
-## 2. Initial Content (VS1)
+## 2. Existing provisional content (VS1 foundation snapshot)
 
 ### Chassis
 - **ID:** `chassis_rustbucket`
@@ -81,7 +100,7 @@ interface SaveData {
 - **Slots:** engine, fuel, cooling, tires, suspension
 
 ### Parts
-*(Stats are additive to base)*
+*(Existing runtime stats are additive to chassis base. The family/tier-only catalog below does not yet encode specialization/terrain/Engine-Radiator interactions. It remains unchanged numerical evidence, not universal tier superiority or a final specialized catalog.)*
 
 **Family: Engine (Provides Power, adds Weight)**
 - `engine_t1`: Rusty Motor (Tier 1) - Power: +10, Weight: +10
@@ -98,12 +117,12 @@ interface SaveData {
 - `cooling_t2`: Scavenged Radiator (Tier 2) - Cooling: +25
 - `cooling_t3`: Dual-Fan Array (Tier 3) - Cooling: +60
 
-**Family: Tires (Provides Durability buffer)**
+**Family: Tires (Existing runtime durability buffer; target role is terrain specialization)**
 - `tires_t1`: Bald Tires (Tier 1) - Durability: +10
 - `tires_t2`: Patched Rubber (Tier 2) - Durability: +30
 - `tires_t3`: Off-road Treads (Tier 3) - Durability: +70
 
-**Family: Suspension (Provides Durability buffer)**
+**Family: Suspension (Existing runtime durability buffer; target role is obstacle specialization)**
 - `suspension_t1`: Rusted Springs (Tier 1) - Durability: +10
 - `suspension_t2`: Stiff Shocks (Tier 2) - Durability: +30
 - `suspension_t3`: Heavy Duty Leaf (Tier 3) - Durability: +70
