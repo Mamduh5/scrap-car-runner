@@ -36,8 +36,8 @@ The Garage is a focused home/build overview: Rustbucket, equipped parts, importa
 
 Three distinct locations:
 
-- **Merge Board:** Active merge/work area; placement, movement and merging await board design.
-- **Inventory:** Owned stored parts off the board and not equipped.
+- **Workbench / Merge Board:** Persistent active engineering/merge workspace, finite and expandable through progression; exact capacity, geometry and interaction remain open.
+- **Inventory:** Retained general long-term item/part storage, separate from active Workbench contents and Equipped Parts; future non-part content may use it. It is not merely spare-part or board-overflow storage.
 - **Equipped Parts:** Engine, Fuel Tank, Radiator/Cooling, Tires and Suspension installed on the Rustbucket, one slot per family.
 
 **Only Equipped Parts determine active vehicle stats and installed-part visuals**, with chassis base stats. Board or Inventory ownership alone contributes nothing. Merging must not unexpectedly consume, replace or modify an equipped part; direct equipped-input eligibility remains pending board design. With Engine T1/T2 on the board and Engine T3 equipped, the car uses/displays Engine T3.
@@ -58,7 +58,7 @@ Chunky pixel art, scrappy machinery and readable feedback. The owner-approved AR
 ## 11. Automation and Scope
 **Most automation should originate from a manual workflow the player first understands.** Manual acquisition, merging and sorting/movement can later become auto-acquisition, auto-merge and sorting automation. Progression should automate repetitive work so the game increasingly plays parts of itself, rather than only multiplying passive numbers. Unlocks and implementation remain deferred. Continuous auto-drive/retry is the VS1 baseline, not a later automation unlock.
 
-No manual racing, backpack inventory tetris, combat or 3D simulator. Merge-board geometry/capacity/expansion, exact Inventory capacity, rewards, fuel numbers, checkpoint distances, offline formula/cap, automation unlocks, checkpoint-selection UI and acquisition probabilities/economy remain unresolved; do not redesign the board in this correction.
+No manual racing, backpack inventory tetris, combat or 3D simulator. Exact Workbench geometry/capacity values/expansion costs and milestones, exact Inventory capacity, rewards, fuel numbers, checkpoint distances, offline formula/cap, automation unlocks, checkpoint-selection UI and acquisition probabilities/economy remain unresolved; do not redesign the board in this correction.
 
 ## 12. Core Equipment Specialization and Road-Region Philosophy
 Every part has **Family**, **Type/Specialization**, **Tier**, **Tradeoffs** and **Compatibility** as conceptual dimensions. Family identifies the subsystem; type identifies terrain/obstacle/role suitability; tier expresses strength within that type. Compatibility describes interactions with other equipped parts, especially Engine/Radiator. Specialized equipment should usually solve a meaningful problem at a meaningful cost such as weight, speed, fuel use or weaker off-terrain performance; avoid a specialized type that is simply strictly better everywhere.
@@ -99,4 +99,13 @@ Special transformation components are an **optional future extension**, outside 
 
 Direct merging of equipped parts is currently disfavored / expected to require unequipping first, but final interaction behavior depends on Merge Board design. This is pending, not a locked equipped-input prohibition or mandatory unequip workflow. Merging must not unexpectedly modify the running vehicle.
 
-Merge Board geometry (grid/non-grid, shape, dimensions), capacity/slot count, expansion, variable-size parts, spatial structure, interaction gesture/workflow, result placement, full-board handling and Inventory transfers remain unresolved. Direct equipped-part merging and whether unequip is required await board design; equipment application timing remains open. Future max-tier handling beyond the existing generic VS1 Tier 3 rejection, special transformation-component rules/future type transformation, merge automation and Auto Merge targeting/configuration remain open.
+Workbench / Merge Board is finite and expandable through progression; successful normal merge results belong on the Workbench. Exact geometry/visual arrangement, starting and maximum capacity/slot count, expansion costs/milestones, variable-size parts, interaction gesture/workflow, result placement cell, full-capacity handling and Inventory transfers remain unresolved. Direct equipped-part merging and whether unequip is required await board design; equipment application timing remains open. Future max-tier handling beyond the existing generic VS1 Tier 3 rejection, special transformation-component rules/future type transformation, detailed Multi-Merge and Auto-Merge rules/unlocks/scope/targeting/configuration remain open.
+
+## 15. Merge Workshop structure and Inventory (owner-approved 2026-10-06)
+The Merge screen has **TOP: Merge Area** and **BOTTOM: Workbench / Merge Board**. The Workbench is persistent, finite active engineering space, expandable through progression. Inventory remains separate general long-term item/part storage, capable of future content beyond car parts; it is neither only spare car-part storage nor merely Workbench overflow. Equipped Parts remain the current Rustbucket build and the only installed contributions to stats/visuals.
+
+The Merge Area prepares/performs **Input A + Input B + merge action**; it is interaction space, not permanent storage or a fourth persistent location. A successful normal manual merge consumes two compatible Workbench parts and creates one next-tier same-type Workbench part. Show the new part through temporary result/reward presentation (for example Road Tire T1 + Road Tire T1 → Road Tire T2). Feedback is not authoritative storage. No permanently occupied Result/output slot is required, and no automatic Inventory transfer is implied. Exact destination cell, user-selected placement and presentation remain open.
+
+Workbench capacity is active engineering capacity; Inventory capacity is storage capacity. Expansion enables more parallel merge chains/active projects, less workspace pressure and stronger future automation capacity, without fixing balance. Normal manual pair merging comes first. **Multi-Merge** is approved only as a potential later progression/convenience unlock for processing several compatible pairs more efficiently. **Auto-Merge** is approved as later idle automation of learned manual merging. Both must build on the Workbench workflow and preserve its meaning rather than bypass it. Neither is initial core behavior; rules, unlocks and implementation remain deferred.
+
+Detailed open decisions are listed in D02’s Merge Workshop contract. Exact visual styling/composition is not production-approved. Core family/type/tier matching, Scavenge source/investment rules and equipped-input deferral remain unchanged.
