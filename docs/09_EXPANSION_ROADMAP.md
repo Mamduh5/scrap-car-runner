@@ -18,7 +18,7 @@ Sources may unlock through checkpoint/region progress to help pursue equipment f
 - **More Tiers:** Expand parts up to Tier 5.
 - **New Part Families:** Add Transmission (modifies Power curve) and Armor (mitigates specific damage types).
 - **Core specialization philosophy:** Family + Type/Specialization + Tier + Tradeoffs + Compatibility is now a core design contract (D01/D02), not merely optional late variety. Future catalog expansion implements it only within separately approved scope: Engine speed/torque/balanced roles, terrain-specific Tires, obstacle-specific Suspension and Engine/Radiator interactions. Fuel Tank types remain unapproved. Names/catalog/stats/unlocks are open; no examples become production definitions.
-- **Alternative useful builds:** Type suitability can beat raw tier. Retain push/farm alternatives in Inventory; no preset slots or automatic swapping are chosen. Merge/type-evolution rules and exact source catalog/cost/pool/rate/targeting-control/shop details remain explicit future decisions; the source/investment acquisition philosophy above is approved.
+- **Alternative useful builds:** Type suitability can beat raw tier. Retain push/farm alternatives in Inventory; no preset slots or automatic swapping are chosen. Core merges preserve type and require equal family/type/tier; cross-type fusion is excluded. Optional future transformation rules and exact source catalog/cost/pool/rate/targeting-control/shop details remain explicit future decisions; the source/investment acquisition philosophy above is approved.
 - **New Chassis:** Unlock a "Heavy Truck" (more slots, higher weight) and "Speedster" (fewer slots, low weight, high base speed).
 
 ## Stage 3: Automating learned manual workflows
@@ -39,3 +39,12 @@ Continuous auto-drive and automatic retry are the primary VS1 model, not an Auto
 - Any additional commercial audio polish builds on the required VS1 audio already produced and accepted under D13; audio production does not begin at this stage.
 - Capacitor wrapper for native Android/iOS builds.
 - Rewarded ads (e.g., watch an ad for a free Tier 3 part or double run rewards) - strictly optional, no forced interstitials.
+
+## Merge progression boundary
+Core merging requires two copies with the **same Family + same Type/Specialization + same Tier**, producing one **next-tier part of the same family and type**. Different families, types or tiers are invalid inputs; matching family and tier alone is insufficient. Type is persistent gameplay identity: no generic, random or hybrid output and no cross-type fusion/recipe graph. Targeted Scavenge supplies matching specialization duplicates; source pools, Scrap investment, probabilities and unlocks remain unchanged.
+
+Special transformation components are an **optional future extension**, outside core merging and not required for VS1 or initial board design. Engine + special modification component → modified/specialized Engine is conceptual only; no component catalog, recipes, transformation rules, acquisition, balance, UI or unlocks are defined.
+
+Direct merging of equipped parts is currently disfavored / expected to require unequipping first, but final interaction behavior depends on Merge Board design. This is pending, not a locked equipped-input prohibition or mandatory unequip workflow. Merging must not unexpectedly modify the running vehicle.
+
+Merge Board geometry (grid/non-grid, shape, dimensions), capacity/slot count, expansion, variable-size parts, spatial structure, interaction gesture/workflow, result placement, full-board handling and Inventory transfers remain unresolved. Direct equipped-part merging and whether unequip is required await board design; equipment application timing remains open. Future max-tier handling beyond the existing generic VS1 Tier 3 rejection, special transformation-component rules/future type transformation, merge automation and Auto Merge targeting/configuration remain open. This records scope only, with no new VS1 requirement or automation design.
