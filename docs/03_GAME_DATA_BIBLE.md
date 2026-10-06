@@ -26,7 +26,24 @@ This is a design-level model, not a replacement runtime interface or new save sc
 
 Only Equipped Parts contribute stats/performance and installed visuals. Inventory supports useful alternative push/farm builds, not just merge inputs. Dangerous Engine/Radiator combinations may cause catastrophic overheating/explosion and automatic checkpoint retry while preserving equipped ownership; no degradation, global durability requirement or permanent destruction is added.
 
-Future data/save adaptation must represent type identity without conflating alternatives, preserve owned definition IDs and distinguish slot-family validity from performance compatibility. Exact ID encoding, metadata, runtime/save fields and migration remain future implementation decisions. Specialized merge matching/cross-type interactions/type evolution and acquisition pools/rates/targeting/shop behavior remain unresolved. No affix/rarity/rune/skill-tree/random-roll/proc/character-stat systems or preset/auto-swap features are introduced.
+Future data/save adaptation must represent type identity without conflating alternatives, preserve owned definition IDs and distinguish slot-family validity from performance compatibility. Exact ID encoding, metadata, runtime/save fields and migration remain future implementation decisions. Specialized merge matching/cross-type interactions/type evolution remain unresolved. Acquisition now uses the approved source/investment model below; exact pools/rates/targeting controls/shop behavior remain open. No affix/rarity/rune/skill-tree/random-roll/proc/character-stat systems or preset/auto-swap features are introduced.
+
+## Scavenge acquisition design-level model (pending implementation)
+**Scavenge Source controls family/type availability and relative weights; Scrap search investment controls tier odds.** Randomness remains intentional, normally without an exact item guarantee. General Scavenge stays broad/relatively inexpensive/relevant; specialized sources provide targeting, typically at higher Scrap cost. Shared parts can occur in multiple sources. Source/checkpoint/region unlocks and scalable tier odds need not require duplicate tier-numbered sources. Scrap is the only approved acquisition currency.
+
+| Conceptual data | Meaning; exact encoding/values remain open |
+|---|---|
+| Scavenge Source identity | ID plus source identity/name; final catalog/names/count TBD |
+| Unlock state / requirement | Source eligibility, possibly checkpoint/region progression; exact conditions/mappings TBD |
+| Scrap cost model | Source cost and interaction with investment; prices/multipliers/formulas TBD |
+| Allowed / weighted families | Family availability and relative weighting, not guaranteed equipment |
+| Allowed / weighted types | Specialization availability/weighting; supports shared parts across sources |
+| Tier probability rules / reference | Base rules/reference modified by search investment and possibly progression/upgrades; exact distributions TBD |
+| Progression availability | Which sources/types/search opportunities are available; unlock/scaling details TBD |
+| Search Investment additional cost | Extra Scrap committed to improve higher-tier odds; exact levels/costs/control TBD |
+| Search Investment tier modification | Changes tier probability without erasing the selected source's family/type identity |
+
+This is conceptual data only: no runtime interface, source/drop table, save field, version bump, new currency or production balance change. Preserve existing definition IDs and ownership; selected-source/investment persistence scope and future migrations remain implementation decisions. First-clear interaction, guaranteed/pity mechanics, duplicate protection, reveal flow and automation limits/unlocks/configuration are unresolved. Acquisition feeds distinct specialized merge inputs; exact merge compatibility stays open. D02 owns detailed philosophy and the complete acquisition decision list.
 
 ## 1. Existing implementation data schemas (v1)
 
@@ -128,7 +145,7 @@ interface SaveData {
 - `suspension_t3`: Heavy Duty Leaf (Tier 3) - Durability: +70
 
 ### Existing provisional economy (requires continuous-model adaptation)
-- **Scavenge Cost:** 10 Scrap (Gives 1 random Tier 1 part).
+- **Existing Scavenge baseline:** 10 Scrap gives one random Tier 1 part. This unchanged runtime cost/pool is not the final General-source price, source catalog or investment/tier distribution; new source/investment behavior requires future authorized adaptation.
 - **Existing discrete-run reward (superseded design):** 5 Scrap guaranteed + 1 Scrap per 10m driven. This unchanged runtime formula is not the future checkpoint payout; repeat Scrap and first-clear bonuses require future implementation and balance.
 - **Merge Cost:** 0 (Free).
 

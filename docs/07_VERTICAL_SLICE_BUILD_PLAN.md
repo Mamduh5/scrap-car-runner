@@ -7,6 +7,11 @@ D01/D02/D03's Family + Type/Specialization + Tier + Tradeoffs + Compatibility ph
 
 Preserve alternative push/farm equipment in Inventory and expose only equipped contributions. Severe Engine/Radiator incompatibility can cause catastrophic overheating/explosion and checkpoint retry without destroying equipment; fuel is the normal ending, not a new global durability/health/degradation model. Exact catalog/names/stats/weights/formulas/thresholds and milestone-region requirements remain open. Applicable future implementation must resolve its bounded inputs first; do not invent final catalog, board, acquisition or loadout-preset design.
 
+## Scavenge-source design dependency
+D01/D02/D03 now approve multiple sources with family/type pools/weighting, and additional Scrap investment that improves higher-tier odds while retaining source identity. Acquisition remains random but directable, not exact-item shopping. General stays broad/relatively inexpensive/relevant; specialized targeting is typically more expensive, not universally better loot. Shared parts may occur across sources. Region/checkpoint unlocks and tier scaling without mandatory duplicate sources are supported conceptually; exact catalog, prices, odds and mappings remain open. Scrap is the only approved acquisition currency.
+
+Manual source/investment/timing choices precede later automation. Applicable implementation must resolve its bounded inputs and adapt the generic runtime command before UI production. This documents philosophy only; no Scavenge layout, board redesign, new currency, catalog/drop table or balance values are created.
+
 ## Phase 1: Project Foundation ✅ COMPLETE
 - **Goal:** Setup the build environment and production-grade technical foundation.
 - **Tasks:** Phaser 4 + TypeScript + Vite 8 project. Domain/service/data structure. Save abstraction. Unit tests. Data validator.
@@ -31,8 +36,8 @@ Preserve alternative push/farm equipment in Inventory and expose only equipped c
 
 ## Phase 4: Scavenge & Merge Logic
 - **Goal:** Core meta-loop mechanics.
-- **Tasks:** Resolve applicable acquisition/economy and board/movement contracts before integration, including specialized type identity, merge matching/cross-type interactions/type evolution and family/type/region/unlock/targeting acquisition decisions. Adapt commands to conserve Merge Board / Inventory / Equipped Parts separately; remove implicit equipped-input merge behavior. Bind manual acquisition/merge UI to validated owners; do not invent probabilities, board geometry or automation unlocks.
-- **Validation:** Current generic VS1 ladder remains three tiers; any later authorized type support preserves distinct alternatives rather than silently merging different specializations into a generic upgrade. Validate only resolved merge/acquisition contracts and ownership persistence; no exact specialized merge rule is chosen here.
+- **Tasks:** Resolve applicable acquisition/economy and board/movement contracts before integration, including specialized type identity, merge matching/cross-type interactions/type evolution and source catalog/unlock/cost/pool/weight/tier-investment decisions under the approved random-but-directable acquisition model. Adapt commands to conserve Merge Board / Inventory / Equipped Parts separately; remove implicit equipped-input merge behavior. Adapt acquisition to accept resolved source/investment choices, with Scrap spending and type-preserving results owned by services; integrate focused Scavenge accessible from Garage/hub without placing all controls on home. Bind manual acquisition/merge UI to validated owners; do not invent probabilities, board geometry or automation unlocks.
+- **Validation:** Current generic VS1 ladder remains three tiers; any later authorized type support preserves distinct alternatives rather than silently merging different specializations into a generic upgrade. Verify General remains relevant, specialized sources bias types without normally guaranteeing exact items, investment improves tier odds without changing source identity, and no secondary acquisition currency is required. Validate only resolved merge/acquisition contracts and ownership persistence; no exact specialized merge rule is chosen here.
 
 ## Phase 5: Installation & Stat Calculation
 - **Goal:** Vehicle engineering.

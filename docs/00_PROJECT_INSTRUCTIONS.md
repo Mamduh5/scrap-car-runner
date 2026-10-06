@@ -19,6 +19,11 @@ Parts conceptually have Family + Type/Specialization + Tier + Tradeoffs + Compat
 
 Fuel depletion is the normal automatic attempt ending. Severe Engine/Radiator incompatibility can cause catastrophic overheating/explosion and checkpoint retry, never permanent equipment destruction. No mandatory global durability resource, per-part health bars, equipment degradation, rarity power systems, affixes, runes, skill trees or other RPG layers are approved. Catalogs, stats/formulas, region boundaries, specialized merge/acquisition rules and preset systems remain unresolved. This core philosophy does not expand the VS1 production catalog or authorize gameplay, art, merge-board or acquisition design work.
 
+## Core Scavenge / part-acquisition contract
+Acquisition is random but directable through multiple Scavenge Sources: selected source controls eligible/weighted families and types; additional Scrap search investment improves higher-tier probability while preserving source identity. General Scavenge stays broad, relatively inexpensive and useful after specialized sources unlock; specialized sources primarily offer targeting, typically at greater Scrap cost, not guaranteed exact equipment or universally better loot. Sources can share parts and may unlock through regions/checkpoints without fixed mappings. Scrap remains the only approved acquisition currency.
+
+Manual source/investment/timing choices precede later automation. Final source names/counts, unlocks, costs/multipliers, loot tables/weights/tier probabilities, investment UI/levels, pity/duplicate protection, first-clear interactions, reveal flow and Auto Scavenger settings/unlocks remain open. Source selection does not equip parts or settle merge compatibility; no runtime/schema/art/board/UI production or new currency is authorized by this documentation update.
+
 ## 3. Vertical-Slice Philosophy (VS1)
 - Must implement exactly ONE complete gameplay loop.
 - Must use real game systems and production-intent assets.

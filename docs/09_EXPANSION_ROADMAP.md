@@ -9,15 +9,20 @@ This document outlines the planned expansion of the game AFTER Vertical Slice 1 
 - Goal: Prove the fun of the engineering/diagnosis loop.
 - **VS1 audio track:** D13 governs Golden Audio production and browser codec/unlock proof during VS1. Full production audio and integrated listening/device acceptance precede presentation-complete VS1 (D14 M3). Native/WebView codec confirmation remains later Android work; it does not block browser-stage sonic approval.
 
+## Approved Scavenge acquisition direction
+The core model is multiple Scavenge Sources for family/type pool control and weighting, plus additional Scrap investment for better higher-tier odds. General stays broad/relatively inexpensive/relevant; specialized sources improve targeting at typically higher cost while remaining random, not exact-item shops or universally better loot. Sources may overlap in shared parts such as Cooling. Scrap remains the only approved acquisition currency; any future secondary currency remains an unapproved open possibility.
+
+Sources may unlock through checkpoint/region progress to help pursue equipment for new road problems. Mud/off-road, high-tech and mountain salvage, plus future ice/water/heat/industrial salvage, are concepts only, not final names/catalogs/pools/mappings. Existing sources can scale to higher tiers through investment/progression/future upgrades without mandatory tier-numbered duplicates. All costs, rates, investment controls and unlock/scaling mechanics remain open; no new source content or UI implementation is authorized here.
+
 ## Stage 2: Depth & Build Variety
 - **More Tiers:** Expand parts up to Tier 5.
 - **New Part Families:** Add Transmission (modifies Power curve) and Armor (mitigates specific damage types).
 - **Core specialization philosophy:** Family + Type/Specialization + Tier + Tradeoffs + Compatibility is now a core design contract (D01/D02), not merely optional late variety. Future catalog expansion implements it only within separately approved scope: Engine speed/torque/balanced roles, terrain-specific Tires, obstacle-specific Suspension and Engine/Radiator interactions. Fuel Tank types remain unapproved. Names/catalog/stats/unlocks are open; no examples become production definitions.
-- **Alternative useful builds:** Type suitability can beat raw tier. Retain push/farm alternatives in Inventory; no preset slots or automatic swapping are chosen. Merge/type-evolution and acquisition/pool/rate/targeting/shop rules remain explicit future decisions.
+- **Alternative useful builds:** Type suitability can beat raw tier. Retain push/farm alternatives in Inventory; no preset slots or automatic swapping are chosen. Merge/type-evolution rules and exact source catalog/cost/pool/rate/targeting-control/shop details remain explicit future decisions; the source/investment acquisition philosophy above is approved.
 - **New Chassis:** Unlock a "Heavy Truck" (more slots, higher weight) and "Speedster" (fewer slots, low weight, high base speed).
 
 ## Stage 3: Automating learned manual workflows
-**Most automation should originate from a manual workflow the player first understands.** Manual acquisition -> later auto-acquisition; manual merging -> later auto-merge; manual sorting/movement -> later sorting automation. Progression automates repetitive low-level work so the game increasingly plays parts of itself, not merely a passive multiplier. Exact unlocks, pricing and behavior are TBD; no automation implementation is required in VS1.
+**Most automation should originate from a manual workflow the player first understands.** Manual acquisition -> later auto-acquisition; manual merging -> later auto-merge; manual sorting/movement -> later sorting automation. Progression automates repetitive low-level work so the game increasingly plays parts of itself, not merely a passive multiplier. For Scavenge, the manual workflow specifically teaches source selection, investment/cost choice and timing. A later Auto Scavenger may use a selected source/investment and optional Scrap spending limit; this is an example, not final configuration. Exact unlocks, pricing, behavior and spending limits/UI are TBD; no automation implementation is required in VS1.
 
 Continuous auto-drive and automatic retry are the primary VS1 model, not an Auto-Run feature deferred to this stage. Later offline/non-visible calculation builds on authoritative mathematical/stateful progression independent of rendering; exact formula/cap remains open.
 
