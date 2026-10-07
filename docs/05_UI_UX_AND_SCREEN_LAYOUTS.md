@@ -6,13 +6,13 @@
 - Anchor critical UI to the safe rectangle and re-anchor on Phaser resize; backgrounds may bleed into the flexible area. Typography sizes and wrapping require rendered proof on this canvas, not a universal 360-wide layout.
 
 ## 2. Screen responsibilities and continuous flow
-`Boot` -> focused Garage home, with navigation to the Run view and major engineering systems. The Run represents continuous auto-drive/automatic attempts, not a sequence gated by a mandatory Result modal and Garage return. Entering/leaving a view is not launching/settling an attempt. Merge screen has a top Merge Area and bottom expandable Workbench; exact visual layout, Inventory layout and checkpoint-selection controls remain undecided.
+`Boot` -> Garage central home/inspection hub. Consistent primary navigation is Workshop / Garage / Scavenge across main gameplay screens; tap/select the Garage car for direct Run access, without a mandatory popup. Run and Inventory are secondary views, not extra primary pillars. The Run represents continuous auto-drive/automatic attempts, not a sequence gated by a mandatory Result modal and Garage return. Entering/leaving a view is not launching/settling an attempt. Merge screen has a top Merge Area and bottom expandable Workbench; exact visual layout, Inventory layout and checkpoint-selection controls remain undecided.
 
 ## 3. Garage home/build overview
-Garage focuses on the Rustbucket/current equipped build, five equipped family representations, important vehicle information, Scrap and navigation/settings. Merge, Inventory management and Scavenge need not be permanently embedded in home. Do not prescribe a bottom inventory grid, fixed merge-board geometry, or required DRIVE button. This is a responsibility correction, not a Garage art/layout redesign; Garage-side ART-03 is unfinished separately from approved ART-03R Run visuals.
+Garage shows the current equipped Rustbucket running/tested in place and only Fuel / Heat / Speed as the current near-car live status set. Workshop, Inventory item/equipment management, Scavenge and the full highway remain separate responsibilities. An equipped summary may be useful but no permanent five-slot panel or Garage equipment gesture is locked (§20). Do not prescribe a bottom inventory grid, fixed merge-board geometry, or required DRIVE button. This is a responsibility correction, not a Garage art/layout redesign; Garage-side ART-03 is unfinished separately from approved ART-03R Run visuals.
 
 ## 4. Run view
-Show the auto-driving Rustbucket, relevant distance/progression and selected Progress/Push or Farm target, fuel/attempt information and useful vehicle telemetry. Recognizable checkpoint landmarks belong to the road; a Scrap Pile can serve as the first VS1 type. Parallax, nearby terrain and state-driven smoke/sputter/spark feedback use the approved Run visual direction. Render only local visible content; recycled visuals do not discard authoritative progression (D06).
+Show the auto-driving Rustbucket, relevant distance/progression and current progression frontier, Repeat ON/OFF and selected unlocked repeat checkpoint, fuel/attempt information and useful vehicle telemetry. Recognizable checkpoint landmarks belong to the road; a Scrap Pile can serve as the first VS1 type. Parallax, nearby terrain and state-driven smoke/sputter/spark feedback use the approved Run visual direction. Render only local visible content; recycled visuals do not discard authoritative progression (D06).
 
 Fuel depletes during attempts. At zero fuel, stop/reset/refill on the selected/current route and automatically retry without a player launch action. Keep automatic cycle feedback readable. Fuel/heat ratio displays must be safe for zero capacities. D02 §10 includes legacy durability thresholds, not a requirement to add a global durability gauge to the approved model.
 
@@ -34,12 +34,12 @@ The `Boot` scene is a minimal Phaser preload wrapper:
 No gameplay occurs during Boot. Application composition hydrates progress before Phaser boots. The current foundation displays technical diagnostics only; asset loading and Garage transition are future work.
 
 ## 8. OWNER DECISION REQUIRED — installed-slot and move/equip UX
-Existing service commands establish conservation and compatibility, not a product gesture. Before GAR-01 becomes READY, the owner must resolve default installed-slot tap behavior, access to details/uninstall, MAX-tier behavior and detailed occupied-slot targeting UX. Valid one-for-one swaps are approved in §18; Board/Inventory layout and exact movement/equipping UX remain undecided. Do not carry forward earlier mandatory tap-to-install or automatic merge/equipment changes as locked rules.
+Existing service commands establish conservation and compatibility, not a product gesture. Before affected equipment work becomes READY, resolve applicable installed-slot tap, details/uninstall, MAX-tier and occupied-slot targeting UX in Inventory/item management. This does not mandate a Garage five-slot panel; any Garage equipped summary and its interactions remain separately open (§20). Valid one-for-one swaps are approved in §18; Board/Inventory layout and exact movement/equipping UX remain undecided. Do not carry forward earlier mandatory tap-to-install or automatic merge/equipment changes as locked rules.
 
 GAR-01 remains BACKLOG / not READY until applicable decisions and inputs are resolved. This does not block existing typography/visual proof work. Reject wrong-family targets visibly with no mutation.
 
 ## 9. Player intent and controls
-Allow deliberate Progress/Push or repeated Farm of an earlier unlocked/reachable checkpoint. Do not always choose the highest unlocked target. Exact checkpoint selection UI, pause/control surface and navigation details remain open. Leaving the Run view or stopping pushing is not a quit-for-distance-payout flow. If explicit pause is retained, it must control authoritative simulation rather than merely freeze graphics; lifecycle/background handling follows D06. No obsolete abandoned-run payout is mandated.
+Checkpoint inspection/selection and Repeat ON/OFF belong in Run, not Garage. Repeat OFF advances from the current frontier; Repeat ON loops a selected already unlocked checkpoint (earlier or highest) without advancing beyond it. Inspecting an older checkpoint while OFF does not rewind advancement. No formal Farm/Push modes or mode buttons; exact selector/toggle styling and secondary navigation details remain open. Leaving the Run view or stopping pushing is not a quit-for-distance-payout flow. If explicit pause is retained, it must control authoritative simulation rather than merely freeze graphics; lifecycle/background handling follows D06. No obsolete abandoned-run payout is mandated.
 
 ## 10. Diagnostic states
 Fuel exhaustion communicates the automatic refill/retry cycle. Engine/Radiator mismatch may produce catastrophic overheating/explosion, ending the attempt before its target and automatically retrying without deleting equipped parts. Tire terrain suitability and Suspension obstacle suitability can explain slower/less reliable completion and useful build changes; do not infer per-family health bars or mandatory global durability. Exact formulas, warning/presentation thresholds and control behavior remain to be settled; do not infer a mandatory terminal failure modal. Existing audio/typography semantic IDs may be reused without locking the old flow.
@@ -113,3 +113,47 @@ Investment stays selected until changed, after every batch and when unaffordable
 A failed check consumes nothing, rolls/generates nothing and changes no Inventory items. Success commits complete cost and every result directly into Inventory before reveal; no partial batch, deliberate Mail overflow, automatic Workbench/equipment placement or permanent temporary-loot store. All revealed Parts are already owned non-stacking Inventory instances. Continuous Run/checkpoint rewards can change state immediately before execution; during reveal they see the whole committed batch. Existing Mail safety applies only to unavoidable rewards that cannot fit.
 
 One-by-one batch reveal followed by summary is a possible liked direction, not locked behavior. Sequential/summary-first/other order, animation, skip button, duration, result-card geometry, rare-result effects and summary screen remain open. Reveal never creates items or deducts Scrap and is not a separate transaction per animation. Source names/count, costs/multipliers, investment values/tier curves, pools/weights, Auto Scavenge configuration and permanent source upgrades as possible later scope remain unresolved. Future automation must preserve D02/D06 safety; no Scavenge UI/art/runtime or automation implementation.
+
+## 20. Garage / global navigation / Run responsibilities (owner-approved 2026-10-07)
+### Central live home hub
+Garage is the primary central home/control hub: see the current Rustbucket, understand immediate live state, access major systems and enter detailed Run. It is useful and alive, not a parked-car waiting room, Merge Board, Inventory, Scavenge screen or miniature full highway. Normal driving continues while Garage, Workshop, Inventory or Scavenge is open; Parts may be changed while running. No ordinary return-to-Garage/parking prerequisite for equipment changes is approved. Exact equipment-application timing/safety remains a later contract, not permission to indefinitely block engineering.
+
+Show the current equipped Rustbucket **running / being tested in place**, as an active machine under inspection. Possible later cues include wheel motion, engine vibration, exhaust, subtle chassis motion and active gauges/test equipment; these are conceptual art directions only. Do not choose exact test-rig art, animations or duplicate moving highway terrain/checkpoint presentation here.
+
+Current near-car live status is exactly **Fuel / Heat / Speed**, visually associated with the active car. No default Scrap/min, detailed terrain analysis, checkpoint tables, large diagnostic dashboard or extra secondary-stat panel. Exact gauge styling/placement remains open; richer information may belong elsewhere or later.
+
+### Screen responsibilities and navigation
+| Screen | Approved responsibility/access |
+|---|---|
+| Garage | Central live inspection/home hub; visible active car, Fuel / Heat / Speed, Mail/global HUD, primary navigation and direct Run entry |
+| Workshop | Workbench / merging; contextual access to Inventory where needed |
+| Scavenge | Source / investment / batch acquisition; contextual Inventory access where needed |
+| Inventory | Important secondary item/equipment-management screen; not removed or a fourth primary destination |
+| Run | Actual Scrapland Highway visualization, moving terrain/obstacles, continuous road performance and checkpoint/Repeat controls |
+
+Primary navigation contains exactly **Workshop (left) / Garage (center/home) / Scavenge (right)** for now. Its meaning/access is consistent and universal across main gameplay screens. This is conceptual order, not a finalized bottom bar, pixel geometry, artwork or button size. Run is already happening continuously and is a detailed view/control surface, not a fourth or substituted primary pillar. Inventory also stays secondary; exact contextual buttons/gestures and secondary-view return/navigation details remain open.
+
+**Tap/select the active Rustbucket in Garage → enter Run directly**, with no mandatory intermediate popup. Exact hit area, transition animation and secondary access methods remain open. Opening/leaving Run never launches/settles an attempt or pauses simulation by navigation alone. Garage should not contain the full checkpoint selector.
+
+### Repeat control in Run
+Run owns inspection/selection of unlocked checkpoints and a small **Repeat / Repeat Checkpoint ON/OFF** control. No formal Farm Mode/Push Mode buttons or inverted “Don’t Push” wording.
+
+- **Repeat OFF:** automatically continue from the active progression frontier toward new checkpoints; successful clears advance and continue farther.
+- **Repeat ON:** loop the selected already unlocked checkpoint, earlier or highest, without advancing beyond it; earn normal repeats and reset/refill according to the checkpoint loop.
+- Inspecting/selecting an older checkpoint while OFF does not rewind the frontier or initiate replay through every old checkpoint. An older checkpoint becomes the repeated active target only with Repeat ON.
+
+Final copy/localization, selector/toggle appearance, detailed Run UI and control-transition timing remain open. Push/farm equipment philosophies and Scrap/time optimization remain useful; they do not imply formal player modes.
+
+### Global HUD, Mail and branding
+Scrap stays persistently visible during normal gameplay in the conceptual **top-left global HUD**. It consumes no Inventory capacity. Mail is accessible from Garage/global HUD in a recognizable conceptual **top-right** position. Exact dimensions/icon treatment/vertical offsets/alignment remain visual decisions.
+
+Mail may eventually serve rewards, unavoidable overflow delivery, update logs/patch information, announcements, gifts/messages and other communication/reward functions. These are possible future roles, not a finalized catalog or system. Preserve prior Mail safety: unavoidable items that cannot fit may use it, but manual Unequip and deliberate Scavenge cannot. Do not define inbox capacity, expiry, claiming, tabs, announcement format, notification counts or other Mail behavior here.
+
+Do not reserve Garage gameplay space for a large SCRAP CAR RUNNER logo/title. Branding belongs primarily to store listing, app icon, loading/splash or other appropriate surfaces. A large decorative GARAGE heading is not required unless later visual evidence supports it. Existing typography roles are preserved without forcing them onto this screen.
+
+### Equipment summary, future cars and open decisions
+The car visual reflects the equipped build where practical. A small equipped-part summary/panel **may** help, but permanent five-slot visibility, placement, direct Garage drag/drop, tap-to-filter Inventory, tap-for-details and always-visible versus contextual behavior are all unresolved. Primary equipment management stays in Inventory/item-management flow; approved location/swap rules do not choose Garage gestures.
+
+Current core remains **one active car + one active continuous run**. Multiple cars/runs and switching between them are future expansion only. Horizontal switching/scrolling with per-car build/run state is a possible future idea, not approved fleet UX or current economy/save/UI requirements. No current task requires multi-car support.
+
+Explicitly open: Garage pixel layout/art/test-rig presentation/animation; Fuel/Heat/Speed gauge styling; global-nav artwork/dimensions/bar form; Mail icon placement/vertical alignment and system behavior; Inventory access controls; optional equipped panel and its interactions; checkpoint selector/Repeat styling; detailed Run UI; future multi-car implementation/car switching. Documentation only: no gameplay, Garage art/visual production, Mail or fleet implementation.
