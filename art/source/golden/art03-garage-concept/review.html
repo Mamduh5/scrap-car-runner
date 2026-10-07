@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Garage composition final candidate — owner review</title>
+<style>
+*{box-sizing:border-box}body{margin:24px;background:#211921;color:#D6DBE3;font:16px/1.5 system-ui,sans-serif}main{max-width:1040px;margin:auto}h1{font-size:24px}h2{font-size:18px}p{max-width:82ch}.note{color:#FFE784}.tools,.views{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}.tools{gap:8px;margin:20px 0}button{font:inherit;padding:7px 12px;background:#3B3F4E;color:#D6DBE3;border:1px solid #7C8497;cursor:pointer}button[aria-pressed=true]{border-color:#F5C535;color:#FFE784}figure{margin:0}img{display:block;image-rendering:pixelated;width:calc(var(--w)*var(--zoom)*1px);height:calc(var(--h)*var(--zoom)*1px)}figcaption{max-width:36ch;color:#A6AEBD;font-size:14px;margin:12px 0}a{color:#6EBDB2}.legend{border-top:1px solid #565C6E;margin-top:24px;padding-top:16px}main{--zoom:1}
+</style>
+<main>
+<h1>Garage composition final candidate</h1>
+<p class="note">GARAGE COMPOSITION FINAL CANDIDATE — READY FOR OWNER REVIEW</p>
+<p>Refined B’s visual direction is accepted. This is one composition candidate, shown at the maximum canvas and its critical centre crop. The exact approved Rustbucket is composited at native size. Composition approval and production authorization remain pending.</p>
+<div class="tools"><button id="one" aria-pressed="true">1× native pixels</button><button id="two" aria-pressed="false">2× inspection</button><button id="clean" aria-pressed="true">Clean artwork</button><button id="guides" aria-pressed="false">Review guides</button></div>
+<section class="views">
+<figure><h2>Maximum canvas · 216×427</h2><img id="max" style="--w:216;--h:427" src="final-composition/composition-216x427.png" alt="One final Garage composition, exact approved Rustbucket under accepted B canopy and lamp"><figcaption>Additional sky and floor outside the critical crop are background bleed. No HUD, navigation or status indicators are baked in.</figcaption></figure>
+<figure><h2>Critical safe area · 180×288</h2><img id="safe" style="--w:180;--h:288" src="final-composition/safe-180x288.png" alt="Exact centre crop with full Rustbucket and roller platform, airy bay and hanging lamp"><figcaption>Identical pixels cropped at (18,69). Integer centring leaves 69 pixels above and 70 below. Car and platform stay fully visible.</figcaption></figure>
+</section>
+<section class="legend"><h2>Guide key and review boundary</h2><p>Gold: safe boundary and provisional breathing-room reservations for Scrap/Mail, near-car status and bottom navigation. Teal: canonical car bounds and low test rig. Boxes are review aids; they do not settle UI geometry, controls or hit areas.</p><p>The car is 112×56, scale 1, Engine T1 and wheel frame 0. Roof/lamp shapes and visible yard come from accepted B. The generated-car area was repaired as an empty background; the roller bridge was shortened to fit approved wheel spacing. The open bay remains intentionally calm. Extra bleed on the maximum canvas is larger than in the safe crop.</p><p>Ready to review composition before production. The environment is still generated reference material, resampled for this review; palette cleanup, editable production authoring and exports remain future work. No registry promotion or gameplay implementation.</p><p><a href="final-composition/REPORT.md">Final report</a> · <a href="final-composition/guides-216x427-3x.png">Guided maximum PNG, 3×</a> · <a href="final-composition/safe-180x288-3x.png">Clean safe PNG, 3×</a> · <a href="final-composition/validation.json">Validation</a> · <a href="review-history.html">Previous comparison, historical</a></p></section>
+</main>
+<script>
+const main=document.querySelector('main');
+function zoom(n){main.style.setProperty('--zoom',n);for(const [id,v] of [['one',1],['two',2]])document.getElementById(id).setAttribute('aria-pressed',String(n===v));}
+function guides(on){document.getElementById('max').src='final-composition/'+(on?'guides-216x427.png':'composition-216x427.png');document.getElementById('safe').src='final-composition/'+(on?'guides-180x288.png':'safe-180x288.png');document.getElementById('clean').setAttribute('aria-pressed',String(!on));document.getElementById('guides').setAttribute('aria-pressed',String(on));}
+document.getElementById('one').onclick=()=>zoom(1);document.getElementById('two').onclick=()=>zoom(2);document.getElementById('clean').onclick=()=>guides(false);document.getElementById('guides').onclick=()=>guides(true);
+</script></html>

@@ -36,7 +36,7 @@ We use strict integer scaling (`Phaser.Scale.NONE` with computed zoom based on D
 ## 4. Camera and Presentation Angle
 
 - **Game/Road View:** Pure **Side View**. The car faces and travels right.
-- **Garage View:** Same side view for the car to reuse assets, but UI overlays heavily to present the "workshop" feel.
+- **Garage View:** Same right-facing side view and shared equipped-car assets as Run. The Rustbucket is the visual hero, running/tested in place in a half-open scrapyard service bay. Sparse shelter structure and small nearby Fuel / Heat / Speed support the car; detailed engineering UI belongs to its own screens (D05 §20).
 - **UI Parts:** Orthographic/flat presentation for inventory icons.
 
 ## 5. Installed-Part Visual Philosophy
@@ -54,3 +54,16 @@ It has been moved to a machine-readable TypeScript registry:
 `src/game/assets/assetRegistry.ts`
 
 The registry defines naming, dimensions, alpha/color contracts and bindings to game data (`src/data/`). Technical checks live in `tools/assets/validateAssets.ts`; the current command does not execute them. VAL-01 in D14 owns executable/staged validation repair. Until that task passes, `npm run validate:assets` is not coverage or production-approval evidence. See D11 for staged validation and the six-step approval lifecycle.
+
+## 7. Garage Golden concept brief — 2026-10-07
+
+The owner-directed Garage concept pass interprets existing asset names without changing their registry contracts:
+
+**Current owner decision:** Concept B's refined visual direction is accepted. Preserve its canopy, lamp, low rollers, subdued junkyard and open-air palette relationship; no competing directions. The [final composition candidate](../art/source/golden/art03-garage-concept/final-composition/REPORT.md) tightens critical-crop headroom/floor and composites the exact approved Rustbucket at native size. Review covers 216×427 and the centred 180×288 crop. Composition approval and production authorization remain pending; visual-direction acceptance changes no asset lifecycle state.
+
+- `env_garage_wall`: an opaque service-bay backdrop, with a roof/overhang, sparse support frame, hanging task lamp and short rear workshop structure. Large open gaps and subdued outdoor light establish a covered roadside mechanic station; a full enclosed wall is not the brief.
+- `env_garage_lift`: a low improvised test platform / roller bed supporting the active Rustbucket, rather than a mandatory hydraulic lift. Rollers align beneath the wheels; no explanatory text is baked into the art.
+- Structure frames the upper area, the equipped Rustbucket dominates the middle, and the lower support/navigation area stays calm. Keep backdrop contrast below the car, reserve teal primarily for the hero, and avoid crowded junk, a duplicated highway, large titles/logos or decorative dashboards.
+- Fuel / Heat / Speed remain small nearby UI, separate from environment exports. Scrap top-left, Mail top-right and Workshop / Garage / Scavenge order are conceptual reservations from D05; exact controls, glyphs, hit areas and layout remain open.
+
+[Garage concept review package](../art/source/golden/art03-garage-concept/README.md) contains concept references and composition review only. Generated reference pixels are not production assets; neither Garage entry advances beyond `planned`. Production still requires D11 source/cleanup/export and owner acceptance, then VIS-01 evidence. This brief authorizes no optional foreground production, gameplay or final UI implementation.

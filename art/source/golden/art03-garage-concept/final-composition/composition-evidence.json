@@ -1,0 +1,70 @@
+{
+  "scope": "concept composition only",
+  "canvas": [
+    216,
+    427
+  ],
+  "safe": {
+    "x": 18,
+    "y": 69,
+    "width": 180,
+    "height": 288,
+    "rounding": "floor centered origin; 69 above / 70 below"
+  },
+  "car": {
+    "x": 52,
+    "y": 250,
+    "width": 112,
+    "height": 56,
+    "scale": 1,
+    "engine": "T1",
+    "wheelFrame": 0,
+    "wheelCenters": [
+      [
+        78,
+        294
+      ],
+      [
+        138,
+        294
+      ]
+    ],
+    "opaquePixelsVerified": 3407,
+    "mismatches": 0
+  },
+  "platform": {
+    "x": 40,
+    "y": 304,
+    "width": 136,
+    "height": 10,
+    "reason": "central bridge shortened to canonical 60-pixel wheel separation; retained original roller/brace forms"
+  },
+  "headroom": {
+    "safe": 28,
+    "referenceAt216Wide": 46
+  },
+  "floor": {
+    "safe": 43,
+    "referenceAt216Wide": 71
+  },
+  "inputs": [
+    {
+      "path": "public/assets/vehicles/veh_rustbucket_body.png",
+      "sha256": "217e21dc233f309153ffd60962d19f668336bae5b16c313bf8b668e332ca9850"
+    },
+    {
+      "path": "public/assets/vehicles/veh_rustbucket_ov_engine_t1.png",
+      "sha256": "10a09a9b6d6b18da75e8fe7085a0c2f25b2c0647d76c3e53ea24297d1d752d1c"
+    },
+    {
+      "path": "public/assets/vehicles/veh_wheel_tires_t1.png",
+      "sha256": "131d7896fdffbaf571501963701481142c59808a4c8331dc2b9b9ca21c6b87c2"
+    }
+  ],
+  "limitations": [
+    "generated environment resampled nearest-neighbour for review; no production palette/source claim",
+    "sky row extended below lamp; original roof/lamp/visible yard sampled unchanged outside repair window",
+    "guide boxes are review reservations only; no final UI",
+    "maximum canvas includes extra atmosphere outside critical crop"
+  ]
+}

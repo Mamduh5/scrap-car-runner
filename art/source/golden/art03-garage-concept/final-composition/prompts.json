@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-07",
+  "tool": "built-in imagegen",
+  "purpose": "background repair only; no generated car",
+  "prompt": "Use case: precise-object-edit. Edit target: accepted Garage Concept B refinement. This is a technical clean plate for exact sprite compositing, NOT a new direction. Remove ONLY the entire teal/orange vehicle, its wheels, exhaust puff and yellow wheel motion marks; also remove the three blue/orange/gray status strips below the platform. Restore the occluded short corrugated rear panel and subtle distant junkyard/sky behind the removed vehicle naturally. Keep the low roller test platform EXACTLY as shown, empty and intact. Preserve all roof/canopy geometry, restrained roof patches, support posts, hanging lamp, sky, horizon silhouettes and floor, identical framing and colors. No car, no vehicle replacement, no extra props, no UI, no text, no style change. Output same portrait composition; clean empty test bay. This is background preparation only; an exact approved car sprite will be inserted separately.",
+  "editTarget": "../b-refinement/concept-b-refined.png",
+  "rawOutput": "C:/Users/mamdu/.codex/generated_images/01a115bf-650e-7370-be31-68b71ee5324f/exec-d63cd2fb-f0ed-4904-a53d-e2b5acae1846.png",
+  "savedOutput": "clean-plate-reference.png",
+  "compositionMethod": "compose.ts: deterministic nearest sampling, limited source repair windows, native approved sprite blits; no production exports"
+}
