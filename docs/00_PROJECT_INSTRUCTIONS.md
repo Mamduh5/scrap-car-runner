@@ -32,7 +32,7 @@ Direct merging of equipped parts is currently disfavored / expected to require u
 ## Merge Workshop structure contract
 The Merge screen has **TOP: Merge Area** and **BOTTOM: Workbench / Merge Board**. The Workbench is persistent, finite active engineering space, expandable through progression. Inventory remains separate general long-term item/part storage, capable of future content beyond car parts; it is neither only spare car-part storage nor merely Workbench overflow. Equipped Parts remain the current Rustbucket build and the only installed contributions to stats/visuals.
 
-Normal results remain on Workbench with temporary UX feedback; the Merge Area is not storage and no permanent Result slot is required. Capacity is active engineering capacity, distinct from Inventory storage capacity. Manual merges precede future Multi-Merge and later Auto-Merge, which preserve Workbench meaning. Exact visuals, capacity values/expansion balance, transfers, result cell/popup, equipped workflow and automation details remain unresolved (D02/D05). Documentation only; no implementation or asset changes.
+Normal results remain on Workbench with temporary UX feedback; the Merge Area is not storage and no permanent Result slot is required. Capacity is active engineering capacity, distinct from Inventory storage capacity. Manual merges precede future Multi-Merge and later Auto-Merge, which preserve Workbench meaning. Exact visuals, Workbench capacity values/expansion balance, detailed transfer UX, result cell/popup, equipped merge workflow and automation details remain unresolved (D02/D05). Documentation only; no implementation or asset changes.
 
 ## 3. Vertical-Slice Philosophy (VS1)
 - Must implement exactly ONE complete gameplay loop.
@@ -79,3 +79,8 @@ Normal results remain on Workbench with temporary UX feedback; the Merge Area is
 
 ## 10. Foundation contracts
 Use the Node range from package.json and npm run check before handoff. State is service-owned with frozen snapshots. Never swallow storage failures, cast JSON into SaveData, or grant rewards outside validated authoritative transitions (repeat checkpoint clear and one-time first clear in the approved target model). See 06_ARCHITECTURE_AND_SAVE_MODEL.md and 12_SECURITY_AND_TRUST_MODEL.md. Art sources: art/source/; runtime: public/assets/. Public browser release requires cross-tab one-writer protection; Android requires native source ownership and device acceptance.
+
+## Inventory / capacity / Dismantle contract (owner-approved 2026-10-07)
+Inventory is general long-term storage, currently Parts and extensible to later non-part categories, separate from Workbench engineering and the equipped Rustbucket. Base capacity is **150 item instances**, tunable later through playtesting: occupied slots, not weight/family/category limits. Parts do not stack; Scrap and future currencies use no item slots unless separately designed otherwise. Current organization supports Family / Type / Tier.
+
+D02 §11 owns drag/drop direction, single authoritative location, atomic full-Inventory swaps, blocked normal Unequip-to-Inventory and manual Scavenge, Equipped-to-Workbench with room, Workbench merge independence, unavoidable-item Mail safety and deliberate Dismantle for small Scrap. Dismantle location/economics and detailed Inventory/Mail UX remain open. Future progression capacity rewards and optional paid expansion are directions only, never required now. Local-first architecture, v1 schema and implementation/asset/status boundaries remain unchanged.

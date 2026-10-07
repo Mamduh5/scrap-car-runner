@@ -24,7 +24,7 @@ Keep the strict source options. Separate tsconfig.tools.json checks tools and Vi
 
 ## Persistence and platform
 
-Browser localStorage remains sufficient for current local-only VS1, behind an asynchronous raw StorageAdapter. Storage can be unavailable, reject or run out of quota. Current v1 Inventory is unbounded; the approved three-location model leaves exact Inventory/board capacities unresolved. Do not assume a permanent sub-10KB save limit. The repository serializes writes and exposes failures. Native storage durability and WebView lifecycle behavior must be verified when Android is actually introduced.
+Browser localStorage remains sufficient for current local-only VS1, behind an asynchronous raw StorageAdapter. Storage can be unavailable, reject or run out of quota. Current v1 Inventory is unbounded; the approved three-location model sets base Inventory to 150 non-stacking item instances with currencies outside slots; exact Workbench capacity and future Inventory expansion details remain unresolved (D02/D03). Finite Inventory requires no backend. Do not assume a permanent sub-10KB save limit. The repository serializes writes and exposes failures. Native storage durability and WebView lifecycle behavior must be verified when Android is actually introduced.
 
 No Capacitor, native project, ads, purchases, cloud service or backend is added. The current android/ios ignore rules must be revisited before native packaging: explicitly own source/config in version control and ignore generated outputs selectively. The platform boundary supports later adapters; it does not remove native integration/testing work.
 
