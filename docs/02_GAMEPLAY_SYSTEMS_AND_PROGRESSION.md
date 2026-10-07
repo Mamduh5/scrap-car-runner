@@ -93,7 +93,7 @@ Sources can overlap: shared parts may appear in General and multiple specialized
 ### Economy and progression
 **Scrap remains the only approved acquisition currency.** No region tokens/chips/secondary salvage currencies are added. Source cost and additional investment compete for Scrap: more pulls versus better-targeted pulls versus better-tier odds, alongside already-approved Scrap uses. Low investment can favor lower-tier finds; increasing investment improves higher-tier odds at greater cost. Do not invent final cost curves/probabilities or alter the current runtime's numeric balance.
 
-Checkpoint/region progression may unlock relevant sources when new terrain creates equipment needs. Exact unlock numbers, source/region mappings and availability remain open. The same source can stay relevant at future higher tiers through player progression, investment or later Scavenge upgrades; tier-numbered source duplication is not required. Exact scaling rules are undecided.
+Checkpoint/region progression may unlock relevant sources when new terrain creates equipment needs. Exact unlock numbers, source/region mappings and availability remain open. The same source can stay relevant at future higher tiers through player progression or per-use investment; permanent source upgrades are not current core and need separate future approval; tier-numbered source duplication is not required. Exact scaling rules are undecided.
 
 ### Equipment, merge and automation connection
 Acquisition targets Type/Specialization meaningfully and preserves Family + Type + Tier + Tradeoff + Compatibility; it must not collapse back to family/tier only. Finds remain owned parts, not implicit equipped changes. Core matching requires equal family/type/tier and preserves type at the next tier; cross-type fusion is excluded, while optional future transformation remains unresolved, and all Engine T1 parts are not assumed interchangeable.
@@ -134,7 +134,7 @@ Workbench capacity means active engineering capacity; Inventory capacity means s
 Normal manual pair merging comes first. **Multi-Merge** is approved only as a potential later progression/convenience unlock for processing several compatible pairs more efficiently. **Auto-Merge** is approved as later idle automation of learned manual merging. Both must build on the Workbench workflow and preserve its meaning rather than bypass it. Neither is initial core behavior; rules, unlocks and implementation remain deferred.
 
 ### Workshop open decisions
-Exact starting/maximum Workbench capacity, slot/row/column counts, geometry/visual arrangement, expansion costs/unlock milestones, top/bottom proportions, machine/slot styling, merge gesture/workflow, result placement cell and temporary popup UX (size, animation, duration, buttons, particles/art) remain open. Inventory base capacity is 150 item instances; Parts do not stack and currencies use no slots. Family / Type / Tier organization, drag/drop direction and full-Inventory rules are approved below. Future categories, filters/search UX, detailed transfers/automatic placement/move-all and scavenged-result presentation/destination remain open within those rules. Equipped merging and whether unequip is required remain pending; normal Unequip-to-Inventory and direct Equipped-to-Workbench capacity rules are approved below. Multi-Merge unlock/cost/interaction, selected-type versus whole-board scope and one-tier versus chained processing remain open. Auto-Merge unlock/logic, Workbench-only versus Inventory access, tier limits, filters, spending rules and configuration UI remain open. Core deterministic family/type/tier matching remains unchanged. Existing generic Tier 3 rejection and optional future transformation boundaries remain intact.
+Exact starting/maximum Workbench capacity, slot/row/column counts, geometry/visual arrangement, expansion costs/unlock milestones, top/bottom proportions, machine/slot styling, merge gesture/workflow, result placement cell and temporary popup UX (size, animation, duration, buttons, particles/art) remain open. Inventory base capacity is 150 item instances; Parts do not stack and currencies use no slots. Family / Type / Tier organization, drag/drop direction and full-Inventory rules are approved below. Future categories, filters/search UX, detailed transfers/automatic placement/move-all and exact scavenged-result reveal UX (destination is Inventory) remain open within those rules. Equipped merging and whether unequip is required remain pending; normal Unequip-to-Inventory and direct Equipped-to-Workbench capacity rules are approved below. Multi-Merge unlock/cost/interaction, selected-type versus whole-board scope and one-tier versus chained processing remain open. Auto-Merge unlock/logic, Workbench-only versus Inventory access, tier limits, filters, spending rules and configuration UI remain open. Core deterministic family/type/tier matching remains unchanged. Existing generic Tier 3 rejection and optional future transformation boundaries remain intact.
 
 ## 9. Open decisions and implementation boundary
 Exact Workbench dimensions/shape, starting/maximum capacity and expansion costs/milestones; future Inventory expansion details; exact Scrap rewards and first-clear part drops; fuel values/formulas; checkpoint distances; route reset/refill details; offline formula/cap; automation unlocks; checkpoint-selection UI; exact acquisition probabilities/economy; board/move/equip UX and equipment application timing remain unresolved. Existing unbounded storage and numeric acquisition/fuel/reward constants do not lock these new design choices.
@@ -220,7 +220,7 @@ Primary interaction direction is drag-and-drop between **Inventory ↔ Workbench
 
 Atomic swap example (conceptual names only): Inventory 150/150 holds Torque Engine T3 and High-Speed Engine T3 is equipped. Drag Torque onto the occupied Engine slot; Torque becomes equipped and the same Inventory position receives High-Speed. Inventory remains 150/150; no additional slot is required. Invalid movements preserve ownership/state. This manual swap does not approve automatic loadout swapping.
 
-Normal merges still require same Family + same Type/Specialization + same Tier, with same-family/type next-tier output on Workbench. Do not restore automatic merge-result Inventory placement. Inventory fullness does not normally block merging; detailed output-cell/Workbench-space UX remains open. General/Specialized Scavenge and Scrap investment tier odds remain unchanged; full Inventory blocks manual Scavenge irrespective of source. Scavenged-result presentation and precise destination/placement remain unresolved within these constraints.
+Normal merges still require same Family + same Type/Specialization + same Tier, with same-family/type next-tier output on Workbench. Do not restore automatic merge-result Inventory placement. Inventory fullness does not normally block merging; detailed output-cell/Workbench-space UX remains open. General/Specialized Scavenge and Scrap investment tier odds remain unchanged; full Inventory blocks manual Scavenge irrespective of source. Scavenge results go directly to Inventory; exact reveal UX remains open, after authoritative ownership commits (see §12).
 
 ### Mail boundary
 For an **unavoidable item reward + Inventory cannot accept it**, Mail provides safe holding/delivery. Checkpoint, first-clear or system rewards may eventually be examples, but the complete list is not finalized. Mail is not merely an overflow bag: the owner intends a broader Garage-accessible system to be designed separately. It must not become an infinite intentional Scavenge store or a manual Unequip workaround. Mail capacity, expiry, claiming, notifications, message types, attachments UI, inbox layout and broader non-overflow functions remain unresolved; no Mail implementation is authorized.
@@ -234,3 +234,61 @@ Inventory may increase later through **progression milestones/rewards granting p
 Still open: Inventory visual layout; filters/search UX; future non-part item categories; Dismantle formula, invocation location, bulk/multi behavior, confirmation and button placement; precise progression capacity rewards; maximum Inventory capacity; paid amount/pricing and monetization implementation; Mail capacity/expiry/claiming/UI/notifications/message types/attachments/broader functions; scavenged-result presentation; detailed drag/drop/mobile and Workbench movement UX. Other Workbench, equipment-application, merge and acquisition decisions remain open as listed above.
 
 This is design only. The project stays local-first: finite Inventory supports gameplay management, bounded item state, UI usability, save-data discipline and future extensibility without requiring a server. D03/D06 must eventually support the Inventory instance collection/capacity, one authoritative location per Part, Workbench contents, Equipped Parts, separate currencies and future capacity upgrades. No schema fields/production instance IDs, save version, runtime behavior, balance beyond base capacity, art or implementation statuses change.
+
+## 12. Manual Scavenge / batch / atomic execution (owner-approved 2026-10-07)
+### Source, investment and manual unit
+Preserve the approved separation: **Source → family/type availability and relative weighting; Scrap investment → tier probability**. Randomness remains; specialized sources improve targeting without normally guaranteeing an exact desired Part. General stays broad and relatively inexpensive. Higher investment improves high-tier odds at increasing economic cost, without changing the selected source’s identity or pool.
+
+Source selection is primarily **image/card-oriented**, with a recognizable salvage-location image, source name, short identity/useful-equipment indication and cost information, rather than only a plain text list. Selectable banner/location-card clarity can inspire the feel, without copying another game’s assets, branding or exact layout. Card dimensions, artwork, carousel versus grid, typography, visible count and animation remain open.
+
+**One Scavenge unit produces exactly one Part**, never a multi-item crate. All Parts use the selected source’s loot rules and selected investment’s tier rules.
+
+| Selected batch | Part results / required free Inventory slots | Availability |
+|---|---|---|
+| x1 | 1 | First / baseline manual workflow |
+| x3 | 3 | Later progression unlock |
+| x5 | 5 | Later progression unlock |
+| x7 | 7 | Later progression unlock |
+
+Approved convenience progression is **x1 → x3 → x5 → x7**. Larger batches build on learned manual x1; they are not all available immediately. Exact unlock checkpoints, costs, road/upgrade/reward mechanism and whether each requires a separate permanent upgrade remain open. Batch count changes how many units execute together, not loot quality by itself: x7 at investment X means seven acquisitions using that configuration, not inherently better odds than x1.
+
+### Remembered per-use investment
+The player chooses adjustable **per-Scavenge Scrap investment** and may spend substantially more for better high-tier probability. Exact levels, values, multipliers, control UX and probability curves remain open; illustrative low/high labels or large multipliers are not production balance.
+
+Selected investment **persists until the player changes it**, including after x1/x3/x5/x7 execution. Whether remembered globally or independently per source remains explicitly open. Selecting/changing investment spends **zero Scrap**; it is configuration, not a prepaid balance. Scrap is consumed only when a valid Scavenge successfully commits.
+
+If selected investment becomes unaffordable, keep the preference. Requesting Scavenge then rejects with insufficient-Scrap feedback, consumes nothing and leaves the selected investment unchanged. Never silently lower investment or batch count; the player may manually choose cheaper investment, a smaller unlocked batch or obtain more Scrap.
+
+Future tuning must consider normal checkpoint farming, Scavenge base costs, targeted-source costs, small Dismantle returns and other approved Scrap sinks. Scavenge → unwanted Part → Dismantle → Scavenge must not become a profitable infinite reroll loop. No economic formula is defined here.
+
+### Hard requirement: validate fresh authoritative state
+At execution, immediately before committing, validate against **CURRENT AUTHORITATIVE GAME STATE**:
+
+1. Selected source is currently unlocked and valid.
+2. Selected batch is currently unlocked and valid.
+3. Current Inventory occupancy/capacity leaves enough free item slots for the **entire batch**.
+4. Current Scrap can afford the **complete current cost** of the selected source/batch/investment configuration.
+5. Any additional authoritative conditions required by later approved rules.
+
+Derive/check complete current cost for affordability as part of validation; exact cost formulas remain unresolved. Source/batch/investment selection, screen opening, displayed counts or earlier validity checks are never authoritative approval. No intervening authoritative reward/action may invalidate checked state before commit; validation and the resulting transition are one atomic gameplay action under the state owner (D06), not a UI-controlled sequence.
+
+Continuous Run/checkpoint rewards and other actions can change Inventory, Scrap or unlocks while Scavenge is visible. Example: x7 selected at 140/150 appears to fit; a checkpoint item reward changes Inventory to 144/150 before execution. Fresh state has six slots, so x7 is rejected: **zero Scrap consumed, zero loot rolled/generated, zero Inventory item mutation**. A changed balance or unlock likewise must be respected.
+
+### All-or-nothing commit and Inventory destination
+If **any** validation fails, reject cleanly before economic mutation: **no cost, no loot, no Inventory item-state change**. Do not charge/refund, roll first and then discover missing capacity, produce partial results, silently discard items or automatically reduce x7 to x5/x3/x1. x7 with affordability for only five units or room for only six still rejects the entire action.
+
+After all current-state checks pass, conceptually commit one gameplay transaction: **validate/confirm complete current cost → deduct total Scrap → generate the full batch → place the entire batch directly into Inventory → commit resulting authoritative state**. The externally committed state contains both the full cost deduction and every result. Every Scavenge Part is a separate non-stacking Inventory instance; none automatically enters Workbench, Mail, Equipped Parts or permanent temporary-loot storage. Inventory’s base remains 150 item instances and currencies occupy no item slots (§11). Whole-batch capacity is required before any loot roll.
+
+### Reveal after commit; concurrent rewards
+Only **after authoritative acquisition commits** may result reveal begin. All batch Parts already belong to the player and occupy Inventory before/during presentation; reveals are not separate economic transactions and create no authoritative items. Sequential one-by-one reveal followed by summary is a liked possible direction only. Sequential, summary-first or other UX, animation sequence, skip controls, duration, result-card geometry, rare-result effects and summary layout remain undecided.
+
+If x7 commits and a checkpoint reward arrives during reveal, that reward sees current Inventory **including all seven Parts**. If the unavoidable reward cannot fit, existing Mail holding/delivery rules may apply to that reward only. Scavenge results remain in Inventory and never deliberately overflow into Mail. Mail’s broader design remains separately open.
+
+### Future automation, data and open decisions
+Future Auto Scavenge derives from the same source + batch/configuration + investment + current-state validation + execution workflow. It must obey current affordability, whole-batch capacity, source unlocks and batch unlocks; it cannot bypass these safety rules. Exact automation configuration/behavior/unlocks/spending limits remain deferred, with no implementation now.
+
+Current core is progression unlocking source/batch possibilities plus selectable per-use Scrap investment. **Permanent individual-source upgrades are not current core**; they remain possible future expansion only if separately approved.
+
+Eventual conceptual state must represent unlocked sources, unlocked batch sizes, selected source, selected batch, remembered investment, source loot rules and investment tier-odds rules. Execution reads current Scrap, Inventory occupancy/capacity and unlock state. No production field names, runtime schemas, save-version bump or migrations are implemented here (D03/D06).
+
+Explicitly open: final source-card visuals/art/layout; source names/count; base costs and specialized-source multipliers; investment values/multipliers and tier curves; global versus per-source investment memory; batch unlock milestones/costs/mechanism/separate upgrades; exact pools/weights; reveal animation/order/skip/duration/cards/effects/summary; Auto Scavenge configuration/behavior; permanent source upgrades as possible future scope. Existing pity/duplicate/first-clear and other unresolved balance decisions remain open. This is documentation only: no gameplay, Scavenge UI/art, automation, new balance or implementation-status promotion.
