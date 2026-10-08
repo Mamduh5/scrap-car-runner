@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-08",
+  "protectedFiles": 117,
+  "changedProtectedFiles": 0,
+  "archiveEvidenceFilesVerified": 45,
+  "deletedFiles": 0,
+  "checks": [
+    {
+      "id": "env_garage_wall",
+      "path": "public/assets/environments/env_garage_wall.png",
+      "sha256": "4b974cc1df34e40c4843995f31a5c264a6d2c6696f203bbff9ea3fdebd0a84fa",
+      "dimensions": [
+        216,
+        427
+      ],
+      "transparentPixels": 0,
+      "semiTransparentPixels": 0,
+      "offPalettePixels": 0,
+      "colors": [
+        "#4fa3c0",
+        "#31262e",
+        "#8a6f52",
+        "#565c6e",
+        "#3b3f4e",
+        "#76352a",
+        "#5e4838",
+        "#7c8497",
+        "#7cc4d3",
+        "#dec490",
+        "#f4e4b6",
+        "#e3f0d2",
+        "#aeddd6",
+        "#a6aebd"
+      ],
+      "visibleBounds": {
+        "x": 0,
+        "y": 0,
+        "right": 215,
+        "bottom": 426
+      },
+      "chunks": [
+        "IHDR",
+        "sRGB",
+        "IDAT",
+        "IEND"
+      ],
+      "reviewPixelMatch": true
+    },
+    {
+      "id": "env_garage_lift",
+      "path": "public/assets/environments/env_garage_lift.png",
+      "sha256": "72d8d6e76c92cc3661380f5342cb0a65b85d89278defc80019c7e3bcffe6a6bb",
+      "dimensions": [
+        136,
+        20
+      ],
+      "transparentPixels": 1633,
+      "semiTransparentPixels": 0,
+      "offPalettePixels": 0,
+      "colors": [
+        "#7c8497",
+        "#211921",
+        "#8a6f52",
+        "#a6aebd",
+        "#8f5f0e",
+        "#4a2420",
+        "#a24f30",
+        "#b99a68",
+        "#565c6e",
+        "#3b3f4e",
+        "#76352a",
+        "#31262e"
+      ],
+      "visibleBounds": {
+        "x": 1,
+        "y": 0,
+        "right": 134,
+        "bottom": 9
+      },
+      "chunks": [
+        "IHDR",
+        "sRGB",
+        "IDAT",
+        "IEND"
+      ],
+      "reviewPixelMatch": true
+    }
+  ],
+  "safeCrop": {
+    "origin": [
+      18,
+      69
+    ],
+    "size": [
+      180,
+      288
+    ],
+    "mismatches": 0
+  },
+  "contentReview": "Source-layer inspection and visual review: no car/lift/UI/smoke in wall; no car in lift. Semantic exclusions are not inferred from numeric palette checks.",
+  "lifecycle": "Both registry entries remain planned; owner production visual review pending."
+}

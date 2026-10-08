@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Garage production candidate review</title>
+<style>
+:root{color-scheme:dark}body{margin:24px;background:#181b20;color:#d6dbe3;font:16px/1.5 system-ui,sans-serif}main{max-width:1150px;margin:auto}h1{font-size:25px}h2{font-size:19px}a{color:#6ebdb2}button{font:inherit;padding:6px 14px;background:#3b3f4e;color:#f4e4b6;border:1px solid #7c8497;cursor:pointer}figure{margin:0}figcaption{max-width:320px;color:#a6aebd;font-size:14px}.row{display:flex;gap:24px;align-items:start;flex-wrap:wrap;margin:20px 0}img{display:block;image-rendering:pixelated;max-width:none}section{overflow:auto;padding-bottom:10px}.muted{color:#a6aebd}
+</style><main>
+<h1>Garage — production candidates</h1>
+<p>Selected garage-b-tight translated through Aseprite CLI/Lua. Owner production visual review pending. Registry statuses remain planned.</p>
+<p><a href="REPORT.md">Report</a> · <a href="README.md">Sources / palette / reproduction</a> · <a href="../art03-garage-concept/production-preparation/mapping.json">Mapping / exclusions</a> · <a href="validation.json">Validation</a></p>
+<p><button onclick="setScale(1)">1× actual pixels</button> <button onclick="setScale(3)">3× inspection</button> <span id="scale">Showing exact 1× art pixels</span></p>
+<section><h2>Centered safe area — inspect first</h2><div class="row">
+<figure><img class="pixel" src="review/clean-180x288.png" width="180" height="288" alt="Clean 180 by 288 safe-area composition"><figcaption>Clean safe crop. Exact approved Rustbucket; no runtime smoke or UI.</figcaption></figure>
+<figure><img class="pixel" src="review/guided-180x288.png" width="180" height="288" alt="Safe area with separate review guides"><figcaption>Yellow: safe bounds. Teal: car. Red: lift canvas / wheel centers. Blue: provisional Scrap, Mail, telemetry, navigation reservations.</figcaption></figure>
+</div></section>
+<section><h2>Full registered canvas and isolated wall</h2><div class="row">
+<figure><img class="pixel" src="review/clean-216x427.png" width="216" height="427" alt="Clean full composition"><figcaption>216×427 full composition; outer vertical area is non-critical continuation.</figcaption></figure>
+<figure><img class="pixel" src="review/guided-216x427.png" width="216" height="427" alt="Full composition with safe-area guides"><figcaption>Guided full canvas. Guide positions are not final UI or touch targets.</figcaption></figure>
+<figure><img class="pixel" src="review/wall-candidate.png" width="216" height="427" alt="Opaque wall candidate without car or rig"><figcaption>Wall alone: no car, rig, smoke, UI or text.</figcaption></figure>
+</div></section>
+<section><h2>Separate lift and exact-car contact</h2><div class="row">
+<figure><img class="pixel" src="review/lift-candidate.png" width="136" height="20" alt="136 by 20 cutout roller rig"><figcaption>136×20 canvas. Visible profile 10px; lower 10 rows transparent.</figcaption></figure>
+<figure><img src="review/engine-wheel-contact.png" width="540" height="336" alt="Twelve exact engine and wheel combinations"><figcaption>Columns: Engine T1–T3. Rows: wheel frames 0–3. All contacts and exact vehicle pixels verified.</figcaption></figure>
+</div></section>
+<section><h2>Selected reference — composition authority only</h2><img src="../art03-garage-concept/single-image-review/garage-b-tight.png" width="540" height="654" alt="Unchanged selected garage-b-tight reference"><p class="muted">Original 3× display of 180×218. Compare material grouping and roof/lamp/car/rig relationships. Production simplifies the generated shading to canonical palette clusters; the safe area necessarily adds 70 rows.</p></section>
+</main><script>function setScale(s){document.querySelectorAll('img.pixel').forEach(i=>{i.style.width=i.getAttribute('width')*s+'px';i.style.height=i.getAttribute('height')*s+'px'});document.getElementById('scale').textContent='Showing '+s+'× integer art pixels'}</script></html>

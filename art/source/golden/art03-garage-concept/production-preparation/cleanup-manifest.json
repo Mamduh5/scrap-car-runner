@@ -1,0 +1,373 @@
+{
+  "date": "2026-10-08",
+  "classifications": {
+    "C": "Superseded disposable",
+    "D": "Uncertain - preserve",
+    "B": "Historical reference worth archiving",
+    "A": "Required current source/evidence"
+  },
+  "deleted": [],
+  "uncertain": [],
+  "files": [
+    {
+      "original": "art/source/golden/art03-garage-concept/direction-a.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/direction-a.png",
+      "sha256": "e20269dcab6b060dbaffed23cbf00e771692ca0838c2451e2d9da988189b58a1",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/direction-b.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/direction-b.png",
+      "sha256": "e342b4b5943af9db67e756c16b5c85e8dc6762a6bbacefabd1fd3a5dfb7b2939",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/direction-c.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/direction-c.png",
+      "sha256": "4c46e9f625e240a5358e953ef2a7c1567876ffa0dd522e18bb66799e23c41665",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/prompts.json",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/prompts.json",
+      "sha256": "1bb09017d8b0d13559a5db25a35b39fcf2c61ab31f261e3d57e73981cf2a6e14",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/README.md",
+      "classification": "A",
+      "disposition": "kept current; original archived as snapshot before update",
+      "retained": "art/source/golden/art03-garage-concept/archive/snapshots/README.md",
+      "sha256": "798ce1f55cb4c670f58277c4e8354dea978c1c891ef07f339ec0778980dffc4a",
+      "reason": "Selected reference, current review entry point or preparation/acceptance evidence."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/review-history.html",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/review-history.html",
+      "sha256": "3919088b5621e981811f39f81ce03c488ab8c27c55c2eb6928ed68436343ccdd",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/review.html",
+      "classification": "A",
+      "disposition": "kept current; original archived as snapshot before update",
+      "retained": "art/source/golden/art03-garage-concept/archive/snapshots/review.html",
+      "sha256": "4910956b0aa26eedee4f7ec8198f880252f9fd7ab429b6ffe09b2f3eef3b4bfe",
+      "reason": "Selected reference, current review entry point or preparation/acceptance evidence."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/validation.json",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/validation.json",
+      "sha256": "53b3d110c76e01c34c67d15da981a20fb17a40a6d177b580f143b7ec91437435",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/b-refinement/concept-b-refined.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/b-refinement/concept-b-refined.png",
+      "sha256": "57093f8d17ca24aa1e6efb247ab070a9a3476d0638197433375edcf10c46332c",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/b-refinement/prompts.json",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/b-refinement/prompts.json",
+      "sha256": "801337e0b04d610b352c7826000444f7bdf8ecc97db1edecccd86c175ebef0c2",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/b-refinement/REPORT.md",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/b-refinement/REPORT.md",
+      "sha256": "f92b34f7a65b260457e5df6149802f0f98566059bda050f947efe776acaf6a8e",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/b-refinement/validation.json",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/b-refinement/validation.json",
+      "sha256": "191c51236df494a0b3e56e2f8165cb03fa056d2c392892cd3e06fb64276c9652",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/clean-180x288-3x.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/clean-180x288-3x.png",
+      "sha256": "4320436cbdab89ad98045a1c65e22d65781c8aa1c1b395665b7966f3c63fecd0",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/clean-180x288.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/clean-180x288.png",
+      "sha256": "cdffea2e4aece3e2951f2e2be4addfc130a26f267144931782fdb384ffe7aaf9",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/clean-216x427-3x.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/clean-216x427-3x.png",
+      "sha256": "1700aa06db4b5fa63bc008f9ca40e8faf6b2ae8a45b7dac28790225fab7d6792",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/clean-216x427.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/clean-216x427.png",
+      "sha256": "44e88a7df5ba7aae2ac956ec84dfaadc4af5a8af7c5dabaa12e2c4c2814f7f1b",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/compose.ts",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/compose.ts",
+      "sha256": "2b69a407cf54a136e49840c2dbfc2876fc9f0de2884ced13959320e945703008",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/composition-evidence.json",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/composition-evidence.json",
+      "sha256": "84d88ad74d10cceeaa964eff967e5ba99ee539d4b1d7c27ab0cbcdc40c83cced",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/guided-180x288-3x.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/guided-180x288-3x.png",
+      "sha256": "0e05a31edd782aa0faebcc388769c28e6745efbf755e7572b4462506c8960eb4",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/guided-180x288.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/guided-180x288.png",
+      "sha256": "74a37935cc886b5dfda999d394b30b575a3a4c5c13e06d4397ae656fcf121bc9",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/guided-216x427-3x.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/guided-216x427-3x.png",
+      "sha256": "a066233b152b2b6b6ca67eabe14afca6c1377cfab2800415b742a030e5b3c918",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/guided-216x427.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/guided-216x427.png",
+      "sha256": "9b1edb10b30aeff879356bf7506b5cb2a54f0b4f94f162997c1b947ac357f652",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/preservation-baseline.json",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/preservation-baseline.json",
+      "sha256": "ba91d12cac3df5e9923422bb4f6bef90a1711c5ad930e0b7e2faf0f06123bed1",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/REPORT.md",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/REPORT.md",
+      "sha256": "42633f93b45841e987466d6ff04187e5265a5ffbabbab2966471de759257d647",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/composition-correction/validation.json",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/composition-correction/validation.json",
+      "sha256": "4b84281152fc5627b6b16133f13f2c13b44dc8a314cdf4d67639395878a89766",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/approved-car-native.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/approved-car-native.png",
+      "sha256": "607560ce4b6656190588f7c3d5019634d03642781bc12a8bb736fd80b3f0ff49",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/clean-plate-reference.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/clean-plate-reference.png",
+      "sha256": "491543a73e99e906442098b57d2d96f01d1d7bf54a032c8f7dd5ec89dc0cdb86",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/compose.ts",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/compose.ts",
+      "sha256": "7139d786e7d7d23e05fdb674b43866b62ffb23b136267bd0ac5333acb941aafe",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/composition-216x427-3x.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/composition-216x427-3x.png",
+      "sha256": "622c3c87ca79d3878ce114c266944956ca570978a9c938faf84a0da539172948",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/composition-216x427.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/composition-216x427.png",
+      "sha256": "70edc8155edd10f579488b50f9e6db72e7f6d62635b83c9f072e87ab452feb74",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/composition-evidence.json",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/composition-evidence.json",
+      "sha256": "b32e59042028ec8614d6012354e00bd8b57e8055a1dd649eb884a238f17889d3",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/guides-180x288-3x.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/guides-180x288-3x.png",
+      "sha256": "fba67f8a2fa4f202d4d286e4821a49f20be0a89f3bc4eb39657cdd82eabc229a",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/guides-180x288.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/guides-180x288.png",
+      "sha256": "f335ac1b0d1aa6bead6a4781e721ba61ebdda69625507d8d7bb53ac739778168",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/guides-216x427-3x.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/guides-216x427-3x.png",
+      "sha256": "10c74792dc5cf7ee284a0118491e9bb121deb5a135482d75d9c098d78188c52d",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/guides-216x427.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/guides-216x427.png",
+      "sha256": "4ae296ed6c1bf2663ffade2264d5ccabcfb67b8258f388fcc6fba9cda9e8b17e",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/prompts.json",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/prompts.json",
+      "sha256": "9fd7885af5649cb11820f51f4ab1d1532b959ddec43e5bba4a92125f22b0e714",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/REPORT.md",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/REPORT.md",
+      "sha256": "6dd728659d1739da999343206273f15d8f7d40d6ff3d618df340a05aa6daf02a",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/safe-180x288-3x.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/safe-180x288-3x.png",
+      "sha256": "eeda02713ce1d7d41783bafb50fc6c07f3ee0309000438f7ba0542eb94a8c7dd",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/safe-180x288.png",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/safe-180x288.png",
+      "sha256": "4a179ed347c526fb53a55e6175f38b8f7d11c00812f023254501dffe72d67063",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/validation.json",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/validation.json",
+      "sha256": "d30cc1e568b0c5f06173b0f53f2854747243c8eae6e33a4ca6e46b188cb6c927",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/final-composition/verify.ts",
+      "classification": "B",
+      "disposition": "archived",
+      "retained": "art/source/golden/art03-garage-concept/archive/final-composition/verify.ts",
+      "sha256": "00b8091333764e764de7b46b2984d1a9ccd903c9dd0b9d8c355f65ab3acdbf7f",
+      "reason": "Superseded exploration and its historical provenance; retain bytes together."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/production-preparation/inspection.json",
+      "classification": "A",
+      "disposition": "kept",
+      "retained": "art/source/golden/art03-garage-concept/production-preparation/inspection.json",
+      "sha256": "1fcf9defc68bc79c1ebf4322287784d78cb61810ebc08ab69493c0c1aafa405e",
+      "reason": "Selected reference, current review entry point or preparation/acceptance evidence."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/production-preparation/PLAN.md",
+      "classification": "A",
+      "disposition": "kept current; original archived as snapshot before update",
+      "retained": "art/source/golden/art03-garage-concept/archive/snapshots/production-preparation/PLAN.md",
+      "sha256": "ef013595182b16a3375a5e839dfeaebab017cd89e8040100f75501d075495e93",
+      "reason": "Selected reference, current review entry point or preparation/acceptance evidence."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/production-preparation/PRODUCTION-BLOCKER.md",
+      "classification": "A",
+      "disposition": "kept current; original archived as snapshot before update",
+      "retained": "art/source/golden/art03-garage-concept/archive/snapshots/production-preparation/PRODUCTION-BLOCKER.md",
+      "sha256": "ae49739c93717398277d467a343879de931985ac7fd17f768da4a6db4c3d82c3",
+      "reason": "Selected reference, current review entry point or preparation/acceptance evidence."
+    },
+    {
+      "original": "art/source/golden/art03-garage-concept/single-image-review/garage-b-tight.png",
+      "classification": "A",
+      "disposition": "kept",
+      "retained": "art/source/golden/art03-garage-concept/single-image-review/garage-b-tight.png",
+      "sha256": "b203926db3afc428d5cdc659fd67357b6badfba66293c03c9c3c166e42209f6a",
+      "reason": "Selected reference, current review entry point or preparation/acceptance evidence."
+    }
+  ]
+}

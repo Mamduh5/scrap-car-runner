@@ -1,0 +1,163 @@
+{
+  "date": "2026-10-08",
+  "status": "GARAGE COMPOSITION CORRECTION — READY FOR OWNER REVIEW",
+  "ownerFramingChoice": "complete 1x car; compact floor ending above a plain UI reserve",
+  "productionAuthorization": "not given",
+  "checks": {
+    "npmCheckExit": 0,
+    "testFiles": 13,
+    "tests": 250,
+    "productionProofCExit": 1,
+    "expectedProductionErrors": [
+      "ERROR [missing-required] env_garage_wall: required for production/proof_c: environments/env_garage_wall.png",
+      "ERROR [missing-required] env_garage_lift: required for production/proof_c: environments/env_garage_lift.png"
+    ],
+    "protectedFiles": 136,
+    "protectedChanges": 0,
+    "planRows": 62,
+    "planChanges": 0,
+    "states": [
+      "M0|IN PROGRESS",
+      "M1|NOT STARTED",
+      "M2|NOT STARTED",
+      "M3|NOT STARTED",
+      "M4|NOT STARTED",
+      "M5|NOT STARTED",
+      "M6|NOT STARTED",
+      "M7|NOT STARTED",
+      "DOC-01|DONE",
+      "VAL-01|DONE",
+      "VAL-02|DONE",
+      "VAL-03|DONE",
+      "TYPO-01|BACKLOG",
+      "ART-01|DONE",
+      "ART-02|DONE",
+      "ART-03|IN PROGRESS",
+      "VIS-01|BACKLOG",
+      "TYPO-02|BACKLOG",
+      "ART-04|BACKLOG",
+      "AUD-01|BACKLOG",
+      "AUD-02|BACKLOG",
+      "AUD-03|BACKLOG",
+      "ART-05|BACKLOG",
+      "ART-06|BACKLOG",
+      "ART-07|BACKLOG",
+      "ART-08|BACKLOG",
+      "ART-09|BACKLOG",
+      "ART-10|BACKLOG",
+      "ART-11|BACKLOG",
+      "ART-12|BACKLOG",
+      "ART-13|BACKLOG",
+      "ART-14|BACKLOG",
+      "GAR-01|BACKLOG",
+      "GAR-02|BACKLOG",
+      "GAR-03|BACKLOG",
+      "RUN-01|BACKLOG",
+      "RUN-02|BACKLOG",
+      "RES-01|BACKLOG",
+      "SAVE-01|BACKLOG",
+      "AUD-04|BACKLOG",
+      "AUD-05|BACKLOG",
+      "AUD-06|BACKLOG",
+      "AUD-07|BACKLOG",
+      "PLAY-01|BACKLOG",
+      "PLAY-02|BACKLOG",
+      "BAL-01|BACKLOG",
+      "QA-01|BACKLOG",
+      "QA-02|BACKLOG",
+      "VS-01|BACKLOG",
+      "AND-01|BACKLOG",
+      "AND-02|BACKLOG",
+      "AND-03|BACKLOG",
+      "AND-04|BACKLOG",
+      "AND-05|BACKLOG",
+      "MON-01|BACKLOG",
+      "MON-02|BACKLOG",
+      "MON-03|BACKLOG",
+      "REL-01|BACKLOG",
+      "REL-02|BACKLOG",
+      "REL-03|BACKLOG",
+      "REL-04|BACKLOG",
+      "REL-05|BACKLOG"
+    ],
+    "carPixels": 3407,
+    "carMismatches": 0,
+    "fixedEnvironmentPixels": 38880,
+    "translatedEnvironmentPixels": 23328,
+    "environmentMismatches": 0,
+    "safeCropMismatches": 0,
+    "inspection3xMismatches": 0,
+    "localLinksChecked": 75
+  },
+  "browser": {
+    "surface": "Chrome standalone art review",
+    "fourRequestedImagesLoaded": true,
+    "nativeSizes": [
+      [
+        216,
+        427
+      ],
+      [
+        180,
+        288
+      ]
+    ],
+    "cleanAndGuidedInspected": true,
+    "inGameEvidence": false
+  },
+  "knownLimitations": [
+    "plain lower reserve remains visible as chosen by owner; no final UI geometry",
+    "generated environment remains concept material",
+    "no production export or lifecycle promotion"
+  ],
+  "outputs": [
+    {
+      "path": "clean-216x427.png",
+      "width": 216,
+      "height": 427,
+      "sha256": "44e88a7df5ba7aae2ac956ec84dfaadc4af5a8af7c5dabaa12e2c4c2814f7f1b"
+    },
+    {
+      "path": "clean-216x427-3x.png",
+      "width": 648,
+      "height": 1281,
+      "sha256": "1700aa06db4b5fa63bc008f9ca40e8faf6b2ae8a45b7dac28790225fab7d6792"
+    },
+    {
+      "path": "guided-216x427.png",
+      "width": 216,
+      "height": 427,
+      "sha256": "9b1edb10b30aeff879356bf7506b5cb2a54f0b4f94f162997c1b947ac357f652"
+    },
+    {
+      "path": "guided-216x427-3x.png",
+      "width": 648,
+      "height": 1281,
+      "sha256": "a066233b152b2b6b6ca67eabe14afca6c1377cfab2800415b742a030e5b3c918"
+    },
+    {
+      "path": "clean-180x288.png",
+      "width": 180,
+      "height": 288,
+      "sha256": "cdffea2e4aece3e2951f2e2be4addfc130a26f267144931782fdb384ffe7aaf9"
+    },
+    {
+      "path": "clean-180x288-3x.png",
+      "width": 540,
+      "height": 864,
+      "sha256": "4320436cbdab89ad98045a1c65e22d65781c8aa1c1b395665b7966f3c63fecd0"
+    },
+    {
+      "path": "guided-180x288.png",
+      "width": 180,
+      "height": 288,
+      "sha256": "74a37935cc886b5dfda999d394b30b575a3a4c5c13e06d4397ae656fcf121bc9"
+    },
+    {
+      "path": "guided-180x288-3x.png",
+      "width": 540,
+      "height": 864,
+      "sha256": "0e05a31edd782aa0faebcc388769c28e6745efbf755e7572b4462506c8960eb4"
+    }
+  ]
+}

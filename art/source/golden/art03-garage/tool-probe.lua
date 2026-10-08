@@ -1,0 +1,20 @@
+-- A bounded CLI capability check. Output lives in the temporary directory passed by the caller.
+local out = assert(app.params.out)
+local s = Sprite(4, 4, ColorMode.RGB)
+s.layers[1].name = 'probe base'
+local im = Image(4, 4, ColorMode.RGB)
+im:drawPixel(1, 1, app.pixelColor.rgba(86,92,110,255))
+s:newCel(s.layers[1], 1, im, Point(0,0))
+local layer = s:newLayer()
+layer.name = 'probe detail'
+local detail = Image(4,4,ColorMode.RGB)
+detail:drawPixel(2,1,app.pixelColor.rgba(166,174,189,255))
+s:newCel(layer,1,detail,Point(0,0))
+s:saveAs(out..'/probe.aseprite')
+s:saveCopyAs(out..'/probe.png')
+local imported = app.open(out..'/probe.png')
+assert(imported.width == 4 and imported.height == 4)
+local reopened = app.open(out..'/probe.aseprite')
+assert(#reopened.layers == 2)
+assert(Image(imported):isEqual(Image(reopened)))
+print('PASS: batch, Lua, RGBA drawing, named layers, PNG export/import, ASE save/reopen, exact roundtrip; '..tostring(app.version))

@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-08",
+  "aseprite": {
+    "executable": "D:\\Mamduh\\Program Files\\Stearm\\steamapps\\common\\Aseprite\\aseprite.exe",
+    "version": "Aseprite 1.3.18.6-x64",
+    "helpVerified": ["--batch", "--script", "--script-param", "--save-as", "--crop", "--palette", "--color-mode"],
+    "probe": "tool-probe.lua",
+    "passed": ["batch mode", "Lua execution", "exact RGBA pixel drawing", "named layers", "PNG export and import", "aseprite save and reopen", "flattened pixel equality"],
+    "extensionIsolation": "Process-local ASEPRITE_USER_FOLDER in TEMP/scrap-garage-aseprite-recovery/profile. No installation or persistent user preference changes.",
+    "initialObservation": "Default-profile --version/--help printed the pre-existing PixelLab handle-pose.lua nil dlg error but continued. Isolated-profile version/probe/author/export commands had no such error. No PixelLab extension action was invoked.",
+    "documentation": ["https://www.aseprite.org/docs/preferences-folder/", "https://www.aseprite.org/api/image", "https://www.aseprite.org/api/sprite"]
+  },
+  "pixellabMcp": {
+    "discovery": "Currently exposed pixelart_workbench, edit_image and image_to_pixelart schemas inspected.",
+    "verifiedCommands": ["describe start", "describe edits", "describe cli", "inspect synthetic 4x4 PNG", "edit map_colors: one exact pixel changed with alpha preserved"],
+    "syntheticInputId": "5fbefd42-9b84-4709-b9b4-3ba4936d2a9b",
+    "syntheticResultId": "33c43422-e8b3-41d1-b7a1-ea41db09919c",
+    "schemaOnlyNotExecuted": ["select_mask", "patch_pixels alpha repair", "copy_region", "brush", "crop", "repair", "AI image_to_pixelart", "AI edit_image"],
+    "paletteProbe": {"from":"#565c6eff", "to":"#3b3f4eff", "changedPixels":1},
+    "assessment": "Exact editing is operational and could assist bounded repairs. Aseprite Lua met all production needs. No project image uploaded, no AI generation, no paid generation invoked. Full faithful cleanup or cutout generation is not claimed tested."
+  },
+  "nativeGui": "Not used or required. Prior native pipe error does not block CLI/Lua or MCP."
+}

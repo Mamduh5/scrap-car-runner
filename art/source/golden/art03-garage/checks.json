@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-08",
+  "assetProduction": {
+    "command": "npm run validate:assets -- --stage production --phase proof_c",
+    "exitCode": 1,
+    "errors": [
+      {
+        "id": "env_garage_wall",
+        "code": "status-mismatch"
+      },
+      {
+        "id": "env_garage_lift",
+        "code": "status-mismatch"
+      }
+    ],
+    "warnings": 66,
+    "reason": "Owner explicitly requested no lifecycle promotion; registry remains planned."
+  },
+  "projectCheck": {
+    "command": "npm run check",
+    "exitCode": 1,
+    "stoppedAt": "validate:assets",
+    "typechecks": "passed",
+    "testFiles": 13,
+    "tests": 250,
+    "data": "passed"
+  },
+  "separatelyCompleted": {
+    "audio": 0,
+    "simulation": 0,
+    "build": 0,
+    "sourceTypecheck": 0
+  },
+  "diffCheck": 0,
+  "existingWarning": "Phaser chunk exceeds 500 kB",
+  "claim": "Pixel contracts pass; repository gates do not.",
+  "localLinks": {
+    "files": 10,
+    "localLinksChecked": 131,
+    "missing": []
+  },
+  "canonicalStatusRows": {
+    "headCount": 19,
+    "currentCount": 19,
+    "equal": true,
+    "method": "UTF-8 ID/status comparison; prose not compared"
+  }
+}

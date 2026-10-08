@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-08",
+  "stage": "preparation only; schematic edge extension is not production pixels",
+  "reference": {
+    "path": "art/source/golden/art03-garage-concept/single-image-review/garage-b-tight.png",
+    "sha256": "b203926db3afc428d5cdc659fd67357b6badfba66293c03c9c3c166e42209f6a",
+    "native": [
+      180,
+      218
+    ],
+    "scale": 3,
+    "repeatMismatch": 0
+  },
+  "canvas": [
+    216,
+    427
+  ],
+  "safe": {
+    "x": 18,
+    "y": 69,
+    "w": 180,
+    "h": 288
+  },
+  "core": {
+    "x": 18,
+    "y": 104,
+    "w": 180,
+    "h": 218
+  },
+  "car": {
+    "x": 52,
+    "y": 227,
+    "w": 112,
+    "h": 56,
+    "visiblePixels": 3407,
+    "selectedCarMismatch": 0,
+    "inputs": [
+      "veh_rustbucket_body",
+      "veh_rustbucket_ov_engine_t1",
+      "veh_wheel_tires_t1"
+    ],
+    "wheelFrame": 0
+  },
+  "lift": {
+    "x": 40,
+    "y": 281,
+    "w": 136,
+    "h": 20,
+    "visibleProfileHeight": 10,
+    "contactY": 281,
+    "wheelCenters": [
+      [
+        78,
+        271
+      ],
+      [
+        138,
+        271
+      ]
+    ],
+    "localWheelCenters": [
+      [
+        38,
+        -10
+      ],
+      [
+        98,
+        -10
+      ]
+    ]
+  },
+  "reserves": [
+    {
+      "id": "Scrap",
+      "x": 24,
+      "y": 75,
+      "w": 48,
+      "h": 14
+    },
+    {
+      "id": "Mail",
+      "x": 180,
+      "y": 75,
+      "w": 12,
+      "h": 14
+    },
+    {
+      "id": "Fuel / Heat / Speed",
+      "x": 66,
+      "y": 311,
+      "w": 84,
+      "h": 12
+    },
+    {
+      "id": "Workshop | Garage | Scavenge",
+      "x": 24,
+      "y": 333,
+      "w": 168,
+      "h": 18
+    }
+  ],
+  "separation": {
+    "wall": "All canvas positions have opaque authored wall, INCLUDING behind car and lift. Steel fill in map indicates wall responsibility, not a pixel mask.",
+    "lift": "Red 136x20 box is the separate cutout canvas; actual occupied pixels will be a 10px profile.",
+    "exclusions": "Magenta: runtime car silhouette, concept exhaust and potential UI regions. All vehicle/wheels/overlays, smoke, UI, labels, checkpoint controls are excluded from BOTH exports. Backdrop is still authored beneath these regions."
+  },
+  "guideLegend": {
+    "yellow": "centered safe area",
+    "blue": "selected 180x218 core",
+    "teal": "exact approved car bounds",
+    "red": "lift canvas and wheel centers",
+    "magenta": "excluded runtime overlays / provisional UI reservations"
+  },
+  "anchorApproval": "candidate translation; pending owner production visual review"
+}
