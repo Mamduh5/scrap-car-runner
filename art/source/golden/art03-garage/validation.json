@@ -2,6 +2,8 @@
   "date": "2026-10-08",
   "protectedFiles": 117,
   "changedProtectedFiles": 0,
+  "authorizedRegistryLifecycleChange": true,
+  "ownerSealedFilesVerified": 144,
   "archiveEvidenceFilesVerified": 45,
   "deletedFiles": 0,
   "checks": [
@@ -97,6 +99,6 @@
     ],
     "mismatches": 0
   },
-  "contentReview": "Source-layer inspection and visual review: no car/lift/UI/smoke in wall; no car in lift. Semantic exclusions are not inferred from numeric palette checks.",
-  "lifecycle": "Both registry entries remain planned; owner production visual review pending."
+  "contentReview": "Existing production source/visual evidence accepted by owner. No artwork regenerated during closeout.",
+  "lifecycle": "Both Garage entries visual by explicit owner acceptance; neither ingame nor approved."
 }

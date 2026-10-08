@@ -6,7 +6,7 @@
 
 The immutable 540×654 selected image is a 3× display of a 180×218 composition. Selection evidence remains in [inspection.json](production-preparation/inspection.json) and D04/D14. It is composition authority, not a runtime asset.
 
-The owner-authorized non-GUI recovery produced separate layered Aseprite wall/lift masters and exact contract exports. See the [production report](../art03-garage/REPORT.md). Both assets remain planned pending owner production visual review; ART-03 Garage and M0 remain IN PROGRESS.
+The owner-authorized non-GUI recovery produced separate layered Aseprite wall/lift masters and exact contract exports. See the [production report](../art03-garage/REPORT.md). Both assets are now owner visually accepted for the current milestone and recorded as visual. ART-03 is DONE; M0 remains IN PROGRESS. [Acceptance and closeout](../art03-garage/CLOSEOUT.md).
 
 ## Active preparation evidence
 

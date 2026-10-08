@@ -6,8 +6,13 @@ const here='art/source/golden/art03-garage',concept='art/source/golden/art03-gar
 const read=(p:string)=>JSON.parse(readFileSync(p,'utf8').replace(/^\uFEFF/,''));
 const hash=(p:string)=>createHash('sha256').update(readFileSync(p)).digest('hex');
 const before=read(here+'/preservation-baseline.json') as {files:{path:string,sha256:string}[]};
-const changed=before.files.filter(e=>!existsSync(e.path)||hash(e.path)!==e.sha256);
+const approval=read(here+'/owner-approval.json') as {registryChange:{path:string,beforeSha256:string,afterSha256:string},protectedFiles:{path:string,sha256:string}[]};
+// Preserve the original production baseline. Permit only the exact registry bytes
+// sealed by the explicit two-entry owner lifecycle decision, not a generic exemption.
+const authorizedRegistryChange=(e:{path:string,sha256:string})=>e.path===approval.registryChange.path&&e.sha256===approval.registryChange.beforeSha256&&hash(e.path)===approval.registryChange.afterSha256;
+const changed=before.files.filter(e=>!existsSync(e.path)||(hash(e.path)!==e.sha256&&!authorizedRegistryChange(e)));
 if(changed.length)throw Error('Protected files changed: '+JSON.stringify(changed));
+for(const e of approval.protectedFiles)if(!existsSync(e.path)||hash(e.path)!==e.sha256)throw Error('Owner-accepted/protected file changed: '+e.path);
 const archive=read(concept+'/production-preparation/cleanup-manifest.json') as {files:{original:string,retained:string,disposition:string,sha256:string}[]};
 // Every original is retained at its mapped path or historical snapshot.
 const archived=archive.files;
@@ -35,5 +40,5 @@ const full=decodePng(readFileSync(here+'/review/clean-216x427.png')),safe=decode
 let cropMismatch=0;
 for(let y=0;y<288;y++)for(let x=0;x<180;x++)for(let k=0;k<4;k++)if(safe.rgba[(y*180+x)*4+k]!==full.rgba[((y+69)*216+x+18)*4+k])cropMismatch++;
 if(cropMismatch)throw Error('Safe crop differs');
-writeFileSync(here+'/validation.json',JSON.stringify({date:'2026-10-08',protectedFiles:before.files.length,changedProtectedFiles:changed.length,archiveEvidenceFilesVerified:archived.length,deletedFiles:0,checks,safeCrop:{origin:[18,69],size:[180,288],mismatches:cropMismatch},contentReview:'Source-layer inspection and visual review: no car/lift/UI/smoke in wall; no car in lift. Semantic exclusions are not inferred from numeric palette checks.',lifecycle:'Both registry entries remain planned; owner production visual review pending.'},null,2)+'\n');
+writeFileSync(here+'/validation.json',JSON.stringify({date:'2026-10-08',protectedFiles:before.files.length,changedProtectedFiles:changed.length,authorizedRegistryLifecycleChange:true,ownerSealedFilesVerified:approval.protectedFiles.length,archiveEvidenceFilesVerified:archived.length,deletedFiles:0,checks,safeCrop:{origin:[18,69],size:[180,288],mismatches:cropMismatch},contentReview:'Existing production source/visual evidence accepted by owner. No artwork regenerated during closeout.',lifecycle:'Both Garage entries visual by explicit owner acceptance; neither ingame nor approved.'},null,2)+'\n');
 console.log('PASS:',before.files.length,'protected files;',archived.length,'historical/current original files verified; both candidates pass dimensions/alpha/palette and exact reviewed-pixel checks.');

@@ -1,6 +1,6 @@
 # ART-03 Garage production candidates
 
-**READY FOR OWNER VISUAL REVIEW — 2026-10-08.** Both registry statuses remain `planned`; ART-03 Garage and M0 remain IN PROGRESS.
+**GARAGE GOLDEN VISUALS OWNER ACCEPTED — 2026-10-08.** Both Garage entries are `visual`, not `ingame` or `approved`. ART-03 is DONE; M0 remains IN PROGRESS. [Owner acceptance](owner-approval.json) · [Closeout](CLOSEOUT.md).
 
 [Review page](review.html) · [Report](REPORT.md) · [Validation](validation.json) · [Preparation plan](../art03-garage-concept/production-preparation/PLAN.md)
 
@@ -58,8 +58,10 @@ For deliberate first-pass regeneration only, pass absolute `out` to author.lua u
 
 ## Review limits
 
-Safe crop first: inspect car dominance, roof/lamp identity, wheel contact, palette translation, extra safe-area head/floor space and provisional UI breathing room. Full canvas has intentionally non-critical atmosphere above and ground below. Guides are reservations only, not accepted controls or touch targets. No owner visual approval, Phaser/viewport/motion proof or final asset acceptance is implied.
+Safe crop first: inspect car dominance, roof/lamp identity, wheel contact, palette translation, extra safe-area head/floor space and provisional UI breathing room. Full canvas has intentionally non-critical atmosphere above and ground below. Guides are reservations only, not accepted controls or touch targets. Owner visual acceptance is recorded for the current milestone. Phaser/viewport/motion proof and final asset acceptance remain outstanding.
 
-## Repository gate conflict retained explicitly
+## Owner acceptance and future polish
 
-Pixel dimensions, opacity/cutout, canonical palette and reopened-master/export equality pass. The actual project asset validator rejects runtime files recorded as planned with two status-mismatch errors. Therefore both production proof_c validation and npm run check currently exit 1. Registry statuses are intentionally unchanged because the owner said not to promote lifecycle. No validation rule was weakened. Typechecks, all 250 tests, data checks, separately run audio/simulation/build and source checks pass. The normal next evidence-based status would be draft or technical under D11, but that transition was not performed.
+The selected concept served primarily as composition authority during the production translation. The canonical-palette production pass simplified some material/shading character, so Garage visual fidelity may be reconsidered during later in-game polish if warranted. This accepted technical/palette translation debt is non-blocking and is NOT an M0 blocker.
+
+The previous planned-status mismatch is resolved by the explicitly authorized two-entry transition to visual. Historical production checks remain in checks.json; current results are in [closeout-validation.json](closeout-validation.json). No artwork is regenerated in this closeout.

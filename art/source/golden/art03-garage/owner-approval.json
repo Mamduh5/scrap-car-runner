@@ -1,0 +1,703 @@
+{
+  "batch": "ART-03 Garage",
+  "date": "2026-10-08",
+  "decision": "OWNER VISUAL APPROVAL — GARAGE GOLDEN VISUALS",
+  "authority": "Explicit owner acceptance/closeout request in this conversation; accepts both current production candidates for the current milestone.",
+  "lifecycle": "planned -> visual only",
+  "assets": [
+    {
+      "id": "env_garage_wall",
+      "status": "visual",
+      "runtime": {
+        "path": "public/assets/environments/env_garage_wall.png",
+        "sha256": "4b974cc1df34e40c4843995f31a5c264a6d2c6696f203bbff9ea3fdebd0a84fa"
+      },
+      "editableSource": {
+        "path": "art/source/golden/art03-garage/env_garage_wall.aseprite",
+        "sha256": "e4b53e2a70fd3c45a8c9dcd5040b9e23ac6b2d831c83332460f28e4750b7c3d0"
+      }
+    },
+    {
+      "id": "env_garage_lift",
+      "status": "visual",
+      "runtime": {
+        "path": "public/assets/environments/env_garage_lift.png",
+        "sha256": "72d8d6e76c92cc3661380f5342cb0a65b85d89278defc80019c7e3bcffe6a6bb"
+      },
+      "editableSource": {
+        "path": "art/source/golden/art03-garage/env_garage_lift.aseprite",
+        "sha256": "616e3044a5150a40d85ff22439a1964d2aaba29fc9dc9d4b266dcd96cc425fce"
+      }
+    }
+  ],
+  "references": [
+    {
+      "path": "art/source/golden/art03-garage-concept/single-image-review/garage-b-tight.png",
+      "sha256": "b203926db3afc428d5cdc659fd67357b6badfba66293c03c9c3c166e42209f6a"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/inspection.json",
+      "sha256": "1fcf9defc68bc79c1ebf4322287784d78cb61810ebc08ab69493c0c1aafa405e"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/mapping.json",
+      "sha256": "bc3765f2ef129d8f77704d7996b03041a8da6eb629fe21ba86b6decc7f1d1d27"
+    }
+  ],
+  "previews": [
+    {
+      "path": "art/source/golden/art03-garage/review/approved-car.png",
+      "sha256": "607560ce4b6656190588f7c3d5019634d03642781bc12a8bb736fd80b3f0ff49"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/clean-180x288-3x.png",
+      "sha256": "5329f211ef011a4a2d67aebe085c06e09082e008a1f0019b3f1239e056ded249"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/clean-180x288.png",
+      "sha256": "d67a8c3adfec5dee2818be8525dcc719d4f18bbb047c8423333810cf7020a50f"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/clean-216x427-3x.png",
+      "sha256": "ec64ca993695adc79c57e8e20be2a416862a46a62eb6c326e38352672959656a"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/clean-216x427.png",
+      "sha256": "ae23e18008801df630cb87f76454bcb57d035cbbd922cf2910ad16b533e40e8b"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/composition.aseprite",
+      "sha256": "c559db3d8071e1c998514db75bf979341f045c32eb205c9921b58a593f5c3eeb"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/engine-wheel-contact.png",
+      "sha256": "cbc83faeba41101d261eb21aed51ab4ed830cebb84b45c13876db2fdccb5beae"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/guided-180x288-3x.png",
+      "sha256": "c382e12fa895c4633f41b1ad96c0784b56b9b4f3de51c02a8e434882899ac3cb"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/guided-180x288.png",
+      "sha256": "cd910f959cd5510d851d7dd3a1730229156f6fd020aea7d2bfb511f28169721a"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/guided-216x427-3x.png",
+      "sha256": "340351969cc278d1115e2177cea86c705a1b849552c6a1040b979397847ace14"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/guided-216x427.png",
+      "sha256": "1f9bb9c20b32292c55502de091eb6b451a6657944b73bccf4c13bd434b17485f"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/lift-6x.png",
+      "sha256": "d4f2bafee9df01b0aeb562a207b8a85f9f1fd3866b9f8faa4fe88441cb70e4a3"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/lift-candidate.png",
+      "sha256": "72d8d6e76c92cc3661380f5342cb0a65b85d89278defc80019c7e3bcffe6a6bb"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/wall-candidate.png",
+      "sha256": "4b974cc1df34e40c4843995f31a5c264a6d2c6696f203bbff9ea3fdebd0a84fa"
+    }
+  ],
+  "registryChange": {
+    "path": "src/game/assets/assetRegistry.ts",
+    "beforeSha256": "59193ce5e3d148a9b832c0f9e3cd37848e0793db11d5c231bd3e01556ea12ba3",
+    "afterSha256": "4e05eadbe48fe41c8c174ef5c1753d7394f9ee48ef9003ae6bb409654f91f32f",
+    "allowedIds": [
+      "env_garage_wall",
+      "env_garage_lift"
+    ],
+    "from": "planned",
+    "to": "visual"
+  },
+  "inGameProof": "not granted; VIS-01 and later real Garage evidence remain required",
+  "finalApproval": "not granted",
+  "polishDebt": {
+    "blocking": false,
+    "milestone": "not an M0 blocker",
+    "note": "The selected concept served primarily as composition authority during the production translation. The canonical-palette production pass simplified some material/shading character, so Garage visual fidelity may be reconsidered during later in-game polish if warranted. This is accepted technical/palette translation debt and is not an M0 blocker. No polish is authorized by this closeout."
+  },
+  "ART03": "DONE — seven required proof_c entries visually accepted; optional Run cloud remains separately accepted",
+  "milestoneM0": "IN PROGRESS",
+  "protectedFiles": [
+    {
+      "path": "art/source/golden/art03-garage/author.lua",
+      "sha256": "47bbc36e3e0a0d59a40b2b2d5f6abae1557dd9b2432d93ac6b3d64a65f594055"
+    },
+    {
+      "path": "art/source/golden/art03-garage/env_garage_lift.aseprite",
+      "sha256": "616e3044a5150a40d85ff22439a1964d2aaba29fc9dc9d4b266dcd96cc425fce"
+    },
+    {
+      "path": "art/source/golden/art03-garage/env_garage_wall.aseprite",
+      "sha256": "e4b53e2a70fd3c45a8c9dcd5040b9e23ac6b2d831c83332460f28e4750b7c3d0"
+    },
+    {
+      "path": "art/source/golden/art03-garage/palette.lua",
+      "sha256": "d097e33308d88815b19f8eccbd31ce59fea563da983e81aa1309f1af3c15699d"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/approved-car.png",
+      "sha256": "607560ce4b6656190588f7c3d5019634d03642781bc12a8bb736fd80b3f0ff49"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/clean-180x288-3x.png",
+      "sha256": "5329f211ef011a4a2d67aebe085c06e09082e008a1f0019b3f1239e056ded249"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/clean-180x288.png",
+      "sha256": "d67a8c3adfec5dee2818be8525dcc719d4f18bbb047c8423333810cf7020a50f"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/clean-216x427-3x.png",
+      "sha256": "ec64ca993695adc79c57e8e20be2a416862a46a62eb6c326e38352672959656a"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/clean-216x427.png",
+      "sha256": "ae23e18008801df630cb87f76454bcb57d035cbbd922cf2910ad16b533e40e8b"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/composition.aseprite",
+      "sha256": "c559db3d8071e1c998514db75bf979341f045c32eb205c9921b58a593f5c3eeb"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/engine-wheel-contact.png",
+      "sha256": "cbc83faeba41101d261eb21aed51ab4ed830cebb84b45c13876db2fdccb5beae"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/guided-180x288-3x.png",
+      "sha256": "c382e12fa895c4633f41b1ad96c0784b56b9b4f3de51c02a8e434882899ac3cb"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/guided-180x288.png",
+      "sha256": "cd910f959cd5510d851d7dd3a1730229156f6fd020aea7d2bfb511f28169721a"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/guided-216x427-3x.png",
+      "sha256": "340351969cc278d1115e2177cea86c705a1b849552c6a1040b979397847ace14"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/guided-216x427.png",
+      "sha256": "1f9bb9c20b32292c55502de091eb6b451a6657944b73bccf4c13bd434b17485f"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/lift-6x.png",
+      "sha256": "d4f2bafee9df01b0aeb562a207b8a85f9f1fd3866b9f8faa4fe88441cb70e4a3"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/lift-candidate.png",
+      "sha256": "72d8d6e76c92cc3661380f5342cb0a65b85d89278defc80019c7e3bcffe6a6bb"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review/wall-candidate.png",
+      "sha256": "4b974cc1df34e40c4843995f31a5c264a6d2c6696f203bbff9ea3fdebd0a84fa"
+    },
+    {
+      "path": "art/source/golden/art03-garage/review-masters.lua",
+      "sha256": "b2cf88267ca0cfbdd76f494d8de5e1528d8dbeeae9846335428bc7cc252b86a1"
+    },
+    {
+      "path": "art/source/golden/art03-garage/tool-probe.lua",
+      "sha256": "816dc694458eccf058370b71a88a54b3db48b77f0f42eaf35ad5eb9eca3eece7"
+    },
+    {
+      "path": "art/source/golden/art03-garage/verify-masters.lua",
+      "sha256": "507f81b537eb8f9465fce2882833304addb364f8817fbec41c8698cda0d09d7e"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/b-refinement/concept-b-refined.png",
+      "sha256": "57093f8d17ca24aa1e6efb247ab070a9a3476d0638197433375edcf10c46332c"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/b-refinement/prompts.json",
+      "sha256": "801337e0b04d610b352c7826000444f7bdf8ecc97db1edecccd86c175ebef0c2"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/b-refinement/validation.json",
+      "sha256": "191c51236df494a0b3e56e2f8165cb03fa056d2c392892cd3e06fb64276c9652"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/clean-180x288-3x.png",
+      "sha256": "4320436cbdab89ad98045a1c65e22d65781c8aa1c1b395665b7966f3c63fecd0"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/clean-180x288.png",
+      "sha256": "cdffea2e4aece3e2951f2e2be4addfc130a26f267144931782fdb384ffe7aaf9"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/clean-216x427-3x.png",
+      "sha256": "1700aa06db4b5fa63bc008f9ca40e8faf6b2ae8a45b7dac28790225fab7d6792"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/clean-216x427.png",
+      "sha256": "44e88a7df5ba7aae2ac956ec84dfaadc4af5a8af7c5dabaa12e2c4c2814f7f1b"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/composition-evidence.json",
+      "sha256": "84d88ad74d10cceeaa964eff967e5ba99ee539d4b1d7c27ab0cbcdc40c83cced"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/guided-180x288-3x.png",
+      "sha256": "0e05a31edd782aa0faebcc388769c28e6745efbf755e7572b4462506c8960eb4"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/guided-180x288.png",
+      "sha256": "74a37935cc886b5dfda999d394b30b575a3a4c5c13e06d4397ae656fcf121bc9"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/guided-216x427-3x.png",
+      "sha256": "a066233b152b2b6b6ca67eabe14afca6c1377cfab2800415b742a030e5b3c918"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/guided-216x427.png",
+      "sha256": "9b1edb10b30aeff879356bf7506b5cb2a54f0b4f94f162997c1b947ac357f652"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/preservation-baseline.json",
+      "sha256": "ba91d12cac3df5e9923422bb4f6bef90a1711c5ad930e0b7e2faf0f06123bed1"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/composition-correction/validation.json",
+      "sha256": "4b84281152fc5627b6b16133f13f2c13b44dc8a314cdf4d67639395878a89766"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/direction-a.png",
+      "sha256": "e20269dcab6b060dbaffed23cbf00e771692ca0838c2451e2d9da988189b58a1"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/direction-b.png",
+      "sha256": "e342b4b5943af9db67e756c16b5c85e8dc6762a6bbacefabd1fd3a5dfb7b2939"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/direction-c.png",
+      "sha256": "4c46e9f625e240a5358e953ef2a7c1567876ffa0dd522e18bb66799e23c41665"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/approved-car-native.png",
+      "sha256": "607560ce4b6656190588f7c3d5019634d03642781bc12a8bb736fd80b3f0ff49"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/clean-plate-reference.png",
+      "sha256": "491543a73e99e906442098b57d2d96f01d1d7bf54a032c8f7dd5ec89dc0cdb86"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/composition-216x427-3x.png",
+      "sha256": "622c3c87ca79d3878ce114c266944956ca570978a9c938faf84a0da539172948"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/composition-216x427.png",
+      "sha256": "70edc8155edd10f579488b50f9e6db72e7f6d62635b83c9f072e87ab452feb74"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/composition-evidence.json",
+      "sha256": "b32e59042028ec8614d6012354e00bd8b57e8055a1dd649eb884a238f17889d3"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/guides-180x288-3x.png",
+      "sha256": "fba67f8a2fa4f202d4d286e4821a49f20be0a89f3bc4eb39657cdd82eabc229a"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/guides-180x288.png",
+      "sha256": "f335ac1b0d1aa6bead6a4781e721ba61ebdda69625507d8d7bb53ac739778168"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/guides-216x427-3x.png",
+      "sha256": "10c74792dc5cf7ee284a0118491e9bb121deb5a135482d75d9c098d78188c52d"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/guides-216x427.png",
+      "sha256": "4ae296ed6c1bf2663ffade2264d5ccabcfb67b8258f388fcc6fba9cda9e8b17e"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/prompts.json",
+      "sha256": "9fd7885af5649cb11820f51f4ab1d1532b959ddec43e5bba4a92125f22b0e714"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/safe-180x288-3x.png",
+      "sha256": "eeda02713ce1d7d41783bafb50fc6c07f3ee0309000438f7ba0542eb94a8c7dd"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/safe-180x288.png",
+      "sha256": "4a179ed347c526fb53a55e6175f38b8f7d11c00812f023254501dffe72d67063"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/final-composition/validation.json",
+      "sha256": "d30cc1e568b0c5f06173b0f53f2854747243c8eae6e33a4ca6e46b188cb6c927"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/prompts.json",
+      "sha256": "1bb09017d8b0d13559a5db25a35b39fcf2c61ab31f261e3d57e73981cf2a6e14"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/archive/validation.json",
+      "sha256": "53b3d110c76e01c34c67d15da981a20fb17a40a6d177b580f143b7ec91437435"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/cleanup-manifest.json",
+      "sha256": "1d64752125050eb8810b8a0fc18a47ae5825bfeca00580a0e5c4aa81a7304163"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/guides/guided-180x288.png",
+      "sha256": "d114cc88fb2cd57e250134307266408045273c0bd2c9ffa41101bd71494bef30"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/guides/guided-216x427.png",
+      "sha256": "17b54dd1f2f5a7592564548ab32288dc0fe3d0aeceab2f39c3b83e7d415a2191"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/guides/mapping-180x288.png",
+      "sha256": "29407851318914d3ec2b99d52a06a11c88d678812b51ff703c3346a52e6c9db5"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/guides/mapping-216x427.png",
+      "sha256": "165cc56c68f828d42b1b846efa8dd982dc40a3b9efafc3251192ddb4d297d712"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/guides/separation-216x427.png",
+      "sha256": "a15d592d8771d26a87b4560b6ba75b5c5ab3a9d94723482fb617b7056f45c723"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/inspection.json",
+      "sha256": "1fcf9defc68bc79c1ebf4322287784d78cb61810ebc08ab69493c0c1aafa405e"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/mapping-review.aseprite",
+      "sha256": "ce69909bb741681c537efb810f08acf8fe6eccdb17aecaca39941b1eb331e39f"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/production-preparation/mapping.json",
+      "sha256": "bc3765f2ef129d8f77704d7996b03041a8da6eb629fe21ba86b6decc7f1d1d27"
+    },
+    {
+      "path": "art/source/golden/art03-garage-concept/single-image-review/garage-b-tight.png",
+      "sha256": "b203926db3afc428d5cdc659fd67357b6badfba66293c03c9c3c166e42209f6a"
+    },
+    {
+      "path": "art/source/golden/art01/body.ts",
+      "sha256": "47556228fe75d0fa7ceff940368f1bb7745ee6843056161429492bd0a485d215"
+    },
+    {
+      "path": "art/source/golden/art01/build.ts",
+      "sha256": "74500d526caaab313d47dd8ad0a3d35bf75b021508f2e6702c7db5e89996b9fe"
+    },
+    {
+      "path": "art/source/golden/art01/canvas.ts",
+      "sha256": "85796820628ffd5fbd34508ccae26e147bcbcd102f68dd428a3cf299fe68dde4"
+    },
+    {
+      "path": "art/source/golden/art01/engines.ts",
+      "sha256": "c302b2448963cbfa15e89d29dcd8c00312450f27d8d1937cb40d1769b854a141"
+    },
+    {
+      "path": "art/source/golden/art01/preview/contact_parts_and_wheel.png",
+      "sha256": "a360c70683f9ff2e38ccc0da3e2d3a008a500f2a19580e9584e3ebb0d5ec0f6f"
+    },
+    {
+      "path": "art/source/golden/art01/preview/contact_vehicle_ladder.png",
+      "sha256": "b5888f82103ad946c56c2b72474f6e006c3cc01e6a2dafd9f3d64446ba02cf9d"
+    },
+    {
+      "path": "art/source/golden/art01/preview/runtime_scale.png",
+      "sha256": "a75feaea7d8f2a71c197e71a9cc9fb0cd875edd9b84c0bdcafbf31abcb8b3988"
+    },
+    {
+      "path": "art/source/golden/art01/preview.ts",
+      "sha256": "2aefe485ef6990989353cfae237b19a9ae8b9d7e457553883c3bcf364f3bb217"
+    },
+    {
+      "path": "art/source/golden/art01/provenance.json",
+      "sha256": "4a9b248ee8c1fe93c0079dfd5a3726eba276cd6c6fa38004df5af71f109abeb9"
+    },
+    {
+      "path": "art/source/golden/art01/STYLE_REFERENCE.md",
+      "sha256": "ae642e78b2496c1a542f70b381010018d701e1810ebfc17dcb6606ca6ab96c9f"
+    },
+    {
+      "path": "art/source/golden/art01/wheel.ts",
+      "sha256": "eb4523bab8d85164c89e702c493ec57486d39d33890e14a1a44d3d626c337187"
+    },
+    {
+      "path": "art/source/golden/art02/build.ts",
+      "sha256": "b509d5a40619073baffdb78d24394d9a35c49a4f16d04241302f88f680ebdce5"
+    },
+    {
+      "path": "art/source/golden/art02/canvas.ts",
+      "sha256": "d87df53765f9c289b954da5f9c1d35ec4ddfa48e5a60c86f96fb35f9bc2bc4ee"
+    },
+    {
+      "path": "art/source/golden/art02/icons.ts",
+      "sha256": "d0b071f3565e5108a00dc32f3cd21872aff09ca3b32c93c2caf30f980493a45f"
+    },
+    {
+      "path": "art/source/golden/art02/preview/contact_ui_samples.png",
+      "sha256": "5b836d157f5fdfa92a946bec8c5bde66abf755ee4349926d3eb4987ef6cf85d2"
+    },
+    {
+      "path": "art/source/golden/art02/preview/runtime_scale.png",
+      "sha256": "e103fffe98b38136d02e4a1ef2b534524601495643b6bae8c9c1cf0c8e401ece"
+    },
+    {
+      "path": "art/source/golden/art02/provenance.json",
+      "sha256": "6a137c40fabcf9da702309ef0718658dcefa7064328d50f7e718082fa6aa772b"
+    },
+    {
+      "path": "art/source/golden/art02/STYLE_REFERENCE.md",
+      "sha256": "5f003a5ee62477bd73098d38776ddf84c605c000aa0198ffe058ef0ec933a3ab"
+    },
+    {
+      "path": "art/source/golden/art02/ui.ts",
+      "sha256": "9e91e81b7aede5c35401117b899cd4a49892590dd529f993eb1bf3a78651f6b0"
+    },
+    {
+      "path": "art/source/golden/art03/build.ts",
+      "sha256": "435bb7814967324f5603a85719fc720567df8845af8f2911c25a7788601fe6f9"
+    },
+    {
+      "path": "art/source/golden/art03/cloud-review.json",
+      "sha256": "d9856ac08441787b1c8d80451a4e1825989f57fce83800517ec549d12171b283"
+    },
+    {
+      "path": "art/source/golden/art03/masters/far.png",
+      "sha256": "09977975435702a1485d39f0d1796f9b6348e8d44efdee3afc1401016ef39652"
+    },
+    {
+      "path": "art/source/golden/art03/masters/prop.png",
+      "sha256": "872e73f124872379e9f302677dc1cb31f6829601112d11ebe47218f7e0208d46"
+    },
+    {
+      "path": "art/source/golden/art03/masters/puff.png",
+      "sha256": "7d3b403f2fafa8e0f9d13ad0fbf7f899b605518105e756a4abe815d132a4da27"
+    },
+    {
+      "path": "art/source/golden/art03/masters/road.png",
+      "sha256": "2451c60b2621d4991c52bbc2b534d21bc494e5e7fba415a2dbb896ae7dab3a99"
+    },
+    {
+      "path": "art/source/golden/art03/owner-approval.json",
+      "sha256": "b4c568aa98dc23f3c457ff905b437a8a5e9f25efc3c1b01c9b87d59663d2cde9"
+    },
+    {
+      "path": "art/source/golden/art03/pixels/env_clouds_strip.json",
+      "sha256": "951706b8e116e81c119da4fda4a068fbeb35ad20fb52f74867ee027ff9d53227"
+    },
+    {
+      "path": "art/source/golden/art03/pixels/env_far_junkyard.json",
+      "sha256": "e3ab8473448edc396169510a0de07fe0d7e7a47ce6d397e3785c89544256a0c5"
+    },
+    {
+      "path": "art/source/golden/art03/pixels/env_road_asphalt.json",
+      "sha256": "7f46c15998e2a2f439bea6e11a2dd5088b459b830625b088da8d5011ada82fff"
+    },
+    {
+      "path": "art/source/golden/art03/pixels/env_sky_outskirts.json",
+      "sha256": "e871e5487769a99565d356736dc0eb9546745444accff93b518324247e686e21"
+    },
+    {
+      "path": "art/source/golden/art03/pixels/fx_puff.json",
+      "sha256": "8c21012b62bf90e34acfbfe4dd00f2797dc4e0902e5768d15cdf87f5e3198e08"
+    },
+    {
+      "path": "art/source/golden/art03/pixels/prop_scrap_pile_a.json",
+      "sha256": "0536ccca95aaf5fbcba043676ae4c94350361ad4885c28bee7c2fdd5fb266cea"
+    },
+    {
+      "path": "art/source/golden/art03/pixels.ts",
+      "sha256": "da910b0678bb14301d461522803fc331e1a8a5b5a3b8ddc85433115e49f6ed5e"
+    },
+    {
+      "path": "art/source/golden/art03/preview/asset_contact_1x.png",
+      "sha256": "7683e1cc9b358ca6b7d2a38208cf3c120698ffef8c371ad99d91b3a1b443598f"
+    },
+    {
+      "path": "art/source/golden/art03/preview/background_216_1x.png",
+      "sha256": "6c8192c7011635321714900e892535e890a2688c6a150213f54d594a6a90819a"
+    },
+    {
+      "path": "art/source/golden/art03/preview/cloud_tile_repeat_1x.png",
+      "sha256": "094fba1d2eb263e0cd2a8046118c5b64714078d96860409ebe33c7bd42410cd8"
+    },
+    {
+      "path": "art/source/golden/art03/preview/run_1x.png",
+      "sha256": "9aafeedc75837da68d4831c291a64685cd49f66cc6cffe79b063f301d9f52008"
+    },
+    {
+      "path": "art/source/golden/art03/preview/run_216_1x.png",
+      "sha256": "81b9fcad0402b03f245e3a7c5e8eb28d607a22d944252706ef8ca8dab49a5847"
+    },
+    {
+      "path": "art/source/golden/art03/preview/run_max_1x.png",
+      "sha256": "2b0cde10c02a834beabe396fc84e9f4d068904a2e6eca550ca879b4e4a19e0c5"
+    },
+    {
+      "path": "art/source/golden/art03/preview/run_scroll_contact_1x.png",
+      "sha256": "28c29cd39ae4db9498d6c4fb3778f168207757fb5bc57a6cd606dd4d0cfc8562"
+    },
+    {
+      "path": "art/source/golden/art03/preview/run_wide_1x.png",
+      "sha256": "830a2d23060895dd1f2d5783b26de15aa178244515e5cfedda49150bc5534cf4"
+    },
+    {
+      "path": "art/source/golden/art03/prompts.json",
+      "sha256": "2f7b71321ff2a8e8cae744cc30d9cb8ceccd0ec0277088bfcb40831e796a1b6b"
+    },
+    {
+      "path": "art/source/golden/art03/provenance.json",
+      "sha256": "e22542ae32762241d8bb9e28eb8a9d3467aecaebc80e5104fd0dcb12c9288c8c"
+    },
+    {
+      "path": "art/source/golden/art03/README.md",
+      "sha256": "c7f46935112d8e76cc8dea835a78c2c83d785051f0361272b0f29e870784e1ee"
+    },
+    {
+      "path": "art/source/golden/art03/refine-sky.ts",
+      "sha256": "f652273d698756a9d97eb1ed516a26d3a964614b13a289d2e13c85ff59b1fe79"
+    },
+    {
+      "path": "art/source/golden/art03/review-clouds.ts",
+      "sha256": "ab10c262c9c88c324a150648e5df389b44c7f7f5bd60608310cdcecf1851060f"
+    },
+    {
+      "path": "art/source/golden/art03/sky.ts",
+      "sha256": "95070db50dcce971d2fedc768d3734624a8c948867af91cf47f5f0329ec80d2f"
+    },
+    {
+      "path": "art/source/golden/art03/translate-clouds.ts",
+      "sha256": "fdd76d2fd5151835f910d69641104e08aa5a013736836fd129c0aebe5341eb58"
+    },
+    {
+      "path": "art/source/golden/art03/translate.ts",
+      "sha256": "74a516bcb76a89b0460c4a3fe4b9865509c15f03f44c6a6f1ccfe92e1c45f732"
+    },
+    {
+      "path": "art/source/golden/art03/tsconfig.json",
+      "sha256": "ab54464d016a6186531781e06c5ab4062a04fa202dd955c5586389e999702a80"
+    },
+    {
+      "path": "art/source/golden/art03/validate-run.ts",
+      "sha256": "22f2844470892b10b0b3f5f100782c41cad13074f55ec3d5e22ca8d5ce29c9c6"
+    },
+    {
+      "path": "art/source/golden/art03/validation.json",
+      "sha256": "bf50a45e519d25152472b10b9291d292ccc5c995b86a62a3f47f37cfc9da09a6"
+    },
+    {
+      "path": "art/reference/art03_run/clouds_strip_reference.png",
+      "sha256": "65d11a66a2dbbcdde80fa5f335cf6db543faf46e62bb66ab8d04a78f08f02a23"
+    },
+    {
+      "path": "art/reference/art03_run/far_junkyard_reference.png",
+      "sha256": "7b74fb225d21408b0e8abfb2c28ab961e69acbb219c6161a68c3bd2f75d04020"
+    },
+    {
+      "path": "art/reference/art03_run/puff_reference.png",
+      "sha256": "3dfaadb3ecdfc9d98c4f7e8a61d29533ae3a3d269e4c88713f415a5106565ff3"
+    },
+    {
+      "path": "art/reference/art03_run/road_ground_reference.png",
+      "sha256": "c83671f0af734a99e0d5ce8045971bdd76255541b2101ba8c023792dfec9a243"
+    },
+    {
+      "path": "art/reference/art03_run/scrap_pile_reference.png",
+      "sha256": "73c62cbb7a629f30ef288b08a2fa42e267755c93eeabb82b3063d0b51d4e80ee"
+    },
+    {
+      "path": "art/reference/art03_run/sky_base_reference.png",
+      "sha256": "590321965132c265bc5079b16aabf6c1adfa3b43de6e757917f6f3d0fd637467"
+    },
+    {
+      "path": "art/reference/art03_run/sky_composite_reference.png",
+      "sha256": "94897ee29d88f54483e8029cb3cbbc64d30b0d88b863a764d5404c1d39e69791"
+    },
+    {
+      "path": "art/reference/art03_run/terrain_progression_reference.png",
+      "sha256": "c3fcfc2d23b83c8235ec2bacdc2d525ae285eeafacaa81f38d921a16ffee9661"
+    },
+    {
+      "path": "public/assets/effects/fx_puff.png",
+      "sha256": "ab5e8e817a16274e9d9f4d621c58f971e88fa6b540d85db1356848be037dc5c2"
+    },
+    {
+      "path": "public/assets/environments/env_clouds_strip.png",
+      "sha256": "ddf6c2bafe6e2a8d05a1f8327d08df739c21239ce02a13ff1abf4cc05ea7ac17"
+    },
+    {
+      "path": "public/assets/environments/env_far_junkyard.png",
+      "sha256": "4220cd96250a5df62acdad533bc071234c14e7a4b183c77b07535027d02858a4"
+    },
+    {
+      "path": "public/assets/environments/env_garage_lift.png",
+      "sha256": "72d8d6e76c92cc3661380f5342cb0a65b85d89278defc80019c7e3bcffe6a6bb"
+    },
+    {
+      "path": "public/assets/environments/env_garage_wall.png",
+      "sha256": "4b974cc1df34e40c4843995f31a5c264a6d2c6696f203bbff9ea3fdebd0a84fa"
+    },
+    {
+      "path": "public/assets/environments/env_road_asphalt.png",
+      "sha256": "52af231a32857eb848ea152c2400ee5b2024bedf9273b2c711fd3f7608e2962f"
+    },
+    {
+      "path": "public/assets/environments/env_sky_outskirts.png",
+      "sha256": "f9a2b8ad140537f7a5266d9252898abcdb7b793af9c1a2faa26970deb974f7d8"
+    },
+    {
+      "path": "public/assets/icons/icon_scrap.png",
+      "sha256": "21c2749392f1f21e238e935830ca296b8d7fac22cda5c77d71e68a3d0b4e12c8"
+    },
+    {
+      "path": "public/assets/icons/icon_stat_fuel.png",
+      "sha256": "f90ad023c03a05f04678f81331fc979657830a56e4fb8f8ed03ae2ea9cfee62f"
+    },
+    {
+      "path": "public/assets/parts/part_engine_t1.png",
+      "sha256": "c8c44e05080a9b4e4eb83cd8fe50ed8fca9a29a28af615b1083d88068f0b52d5"
+    },
+    {
+      "path": "public/assets/parts/part_engine_t2.png",
+      "sha256": "7d516d66b65faba31766e8ce0252deb296df73d18ba564318dfb9eff4417f184"
+    },
+    {
+      "path": "public/assets/parts/part_engine_t3.png",
+      "sha256": "65ca090adf135b4e3cadd97f5ffb5289dc48d301272b6cbd3a17ccdc18a8adb2"
+    },
+    {
+      "path": "public/assets/props/prop_scrap_pile_a.png",
+      "sha256": "8f87f74504d9a3f0e7d79afcbf7a2b27ab50be2d34d60593ff49bd3a864f989c"
+    },
+    {
+      "path": "public/assets/ui/ui_button_primary.png",
+      "sha256": "767fa3b0f57343b3cee859cb31e4e4eb37a5556d28677d178e51c04416bad946"
+    },
+    {
+      "path": "public/assets/ui/ui_panel_plate.png",
+      "sha256": "526c59858f18ef387a78ea56802b6cad32b7c270993c04de6a48f1251a1fd277"
+    },
+    {
+      "path": "public/assets/ui/ui_slot_frame.png",
+      "sha256": "38d96a797f16f636f92de8acc5ff6b7d03c1e9c447b558facfdee1c0cb65d57c"
+    },
+    {
+      "path": "public/assets/vehicles/veh_rustbucket_body.png",
+      "sha256": "217e21dc233f309153ffd60962d19f668336bae5b16c313bf8b668e332ca9850"
+    },
+    {
+      "path": "public/assets/vehicles/veh_rustbucket_ov_engine_t1.png",
+      "sha256": "10a09a9b6d6b18da75e8fe7085a0c2f25b2c0647d76c3e53ea24297d1d752d1c"
+    },
+    {
+      "path": "public/assets/vehicles/veh_rustbucket_ov_engine_t2.png",
+      "sha256": "1b6ad26129f617a26bc48adc4dea620bfb9591da2efa81d4d4d8d1fe8b1f9632"
+    },
+    {
+      "path": "public/assets/vehicles/veh_rustbucket_ov_engine_t3.png",
+      "sha256": "8f159036137db31c90634d477fb70b15578b9abd416b73e30dc04ee7d2fcc1b1"
+    },
+    {
+      "path": "public/assets/vehicles/veh_wheel_tires_t1.png",
+      "sha256": "131d7896fdffbaf571501963701481142c59808a4c8331dc2b9b9ca21c6b87c2"
+    }
+  ]
+}

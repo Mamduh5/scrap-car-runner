@@ -239,8 +239,8 @@ const fonts: readonly AssetDefinition[] = [
 
 const environments: readonly AssetDefinition[] = [
   // Garage: authored at the maximum viewport; the centred 180x288 safe rect holds everything critical.
-  image('env_garage_wall', 'environments', 216, 427, { phase: 'proof_c', alpha: 'opaque' }),
-  image('env_garage_lift', 'environments', 136, 20, { phase: 'proof_c' }),
+  image('env_garage_wall', 'environments', 216, 427, { phase: 'proof_c', status: 'visual', alpha: 'opaque' }),
+  image('env_garage_lift', 'environments', 136, 20, { phase: 'proof_c', status: 'visual' }),
   image('env_garage_fg', 'environments', 216, 64, { phase: 'polish', required: false }),
   // Run: opaque base sky, optional cloud cutout, far silhouettes and road tiles.
   image('env_sky_outskirts', 'environments', 16, 300, { phase: 'proof_c', status: 'visual', alpha: 'opaque', color: 'sky-ramp', tileX: true, layer: 'sky', binds: [seg(0)] }),

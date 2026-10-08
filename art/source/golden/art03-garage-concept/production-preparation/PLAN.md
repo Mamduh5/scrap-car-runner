@@ -1,7 +1,9 @@
 # Garage production plan — current after recovery, 2026-10-08
 
 **garage-b-tight remains the selected composition. Concept exploration is closed.**
-**Production candidates exist; owner production visual review is pending.**
+**CLOSED AT OWNER VISUAL ACCEPTANCE — 2026-10-08.** Both assets are visual; ART-03 is DONE; M0 remains IN PROGRESS. [Closeout](../../art03-garage/CLOSEOUT.md).
+
+The selected concept served primarily as composition authority during the production translation. The canonical-palette production pass simplified some material/shading character, so Garage visual fidelity may be reconsidered during later in-game polish if warranted. This accepted technical/palette translation debt is non-blocking and is NOT an M0 blocker.
 
 ## Current evidence
 
@@ -39,14 +41,14 @@ Canonical sky_outskirts values replace reference cyan/cream shading; steel/dust/
 
 The full/safe production images retain the canopy, lamp, car and rig and show clear provisional Scrap/Mail, telemetry and navigation reservations. Their geometry is evidence for art review, not final UI or touch-layout approval. The exact canvas necessarily has more surrounding atmosphere than the tight selected study; owner review must assess that translation and the simplified palette.
 
-## Remaining work
+## Work after visual acceptance
 
-1. Owner visual review of the **production** candidates at 1×, safe crop first.
+1. Owner visual review is complete for the current milestone; preserve accepted PNGs and masters.
 2. Apply only requested pixel corrections to the editable masters; ordinary export uses `export.ps1`, never silently reruns `author.lua` over hand edits.
 3. Later VIS-01 Phaser/viewport/motion evidence and final approval remain separate.
 
-Both registry entries remain `planned` per this task's no-promotion instruction, despite candidate files existing and technical evidence passing. ART-03 Garage and M0 remain IN PROGRESS. No gameplay, gauges, navigation, Mail or animation implementation.
+Both registry entries are now `visual` by explicit owner acceptance. Neither is `ingame` or `approved`. ART-03 is DONE; M0 remains IN PROGRESS. No gameplay, gauges, navigation, Mail or animation implementation.
 
-## Repository gate conflict retained explicitly
+## Resolved lifecycle gate
 
-Pixel dimensions, opacity/cutout, canonical palette and reopened-master/export equality pass. The actual project asset validator rejects runtime files recorded as planned with two status-mismatch errors. Therefore both production proof_c validation and npm run check currently exit 1. Registry statuses are intentionally unchanged because the owner said not to promote lifecycle. No validation rule was weakened. Typechecks, all 250 tests, data checks, separately run audio/simulation/build and source checks pass. The normal next evidence-based status would be draft or technical under D11, but that transition was not performed.
+The previous planned-status mismatch is resolved by the owner-authorized visual transition. See [current closeout validation](../../art03-garage/closeout-validation.json); original failing results remain in the historical production evidence.
