@@ -1,0 +1,146 @@
+[
+    {
+        "status":  "M",
+        "path":  "docs/14_IMPLEMENTATION_AND_PROJECT_MANAGEMENT_PLAN.md"
+    },
+    {
+        "status":  "M",
+        "path":  "src/game/scenes/BootScene.ts"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/FILES.json"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/REPORT.md"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/checks.json"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/preservation-baseline.json"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review.html"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/garage-clean-180x288-3x.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/garage-clean-180x288.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/garage-clean-216x427.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/garage-guided-180x288.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/owner-review.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/run-clean-180x288-3x.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/run-clean-180x288.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/run-clean-216x427.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/run-cycle-0.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/run-cycle-1.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/run-cycle-2.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/run-cycle-3.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/run-guided-180x288.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/tile-env_clouds_strip-phase-0.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/tile-env_far_junkyard-phase-0.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/tile-env_road_asphalt-phase-0.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/tile-env_sky_outskirts-phase-0.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/ui-context-180x288.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/vehicle-frame-0.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/vehicle-frame-1.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/vehicle-frame-2.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/review/vehicle-frame-3.png"
+    },
+    {
+        "status":  "??",
+        "path":  "art/source/golden/vis01/runtime-evidence.json"
+    },
+    {
+        "status":  "??",
+        "path":  "src/game/assets/loadProductionAssets.ts"
+    },
+    {
+        "status":  "??",
+        "path":  "src/game/dev/visualProof.ts"
+    },
+    {
+        "status":  "??",
+        "path":  "src/game/scenes/DevVisualProofScene.ts"
+    },
+    {
+        "status":  "??",
+        "path":  "tools/assets/loadProductionAssets.test.ts"
+    },
+    {
+        "status":  "??",
+        "path":  "tools/assets/visualProof.mjs"
+    },
+    {
+        "status":  "??",
+        "path":  "visual-proof.html"
+    }
+]

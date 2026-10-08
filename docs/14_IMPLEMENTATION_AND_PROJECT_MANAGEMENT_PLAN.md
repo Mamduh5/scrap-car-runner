@@ -4,7 +4,7 @@
 |---|---|
 | Status | CURRENT EXECUTION PLAN |
 | Current Milestone | M0 — Production Gates & Golden Visual Proofs |
-| Current Implementation Batch | ART-03 Golden Garage/Run/effect visual production — DONE; required proof_c entries visual |
+| Current Implementation Batch | VIS-01 — runtime evidence complete; IN PROGRESS pending owner integrated visual review |
 | Current Art Activity | Garage Golden visuals owner accepted; wall/lift visual; accepted fidelity debt is non-blocking |
 | Project Management | Milestone-Based Kanban |
 | Sprint Policy | No formal sprints |
@@ -25,7 +25,7 @@ Simulation/progression/target/fuel/rewards are authoritative domain/service stat
 
 **Documentation only:** No runtime/save/asset changes or implementation task completion. Sections 1–8 and the DOC-01 record retain dated audit/history, including obsolete discrete-run observations; they do not override this correction. Existing session APIs, distance/minimum payouts, equipped-input merge fallback and v1's missing board/checkpoint state require future adaptation. Preserve numeric safety, copy conservation, idempotency, storage recovery/error visibility and release safeguards.
 
-**Status protection:** M0 remainsTYPO-01 | DONE. ART-03R Run benchmark remains owner-approved/visual with unchanged exports, references and lifecycle states; Garage ART-03 remains unfinished. TYPO/VIS/art/audio and all other task statuses are unchanged. This correction starts neither gameplay implementation nor merge-board redesign.
+**Status protection:** M0 remains IN PROGRESS. ART-03R Run benchmark remains owner-approved/visual with unchanged exports, references and lifecycle states; Garage ART-03 remains unfinished. TYPO/VIS/art/audio and all other task statuses are unchanged. This correction starts neither gameplay implementation nor merge-board redesign.
 
 **Future readiness:** GAR-01/02 and RUN-01/02/RES-01 must resolve applicable owner decisions and command/schema adaptation under the existing Definition of Ready before implementation. Do not bind new UI directly to obsolete semantics. D02/D03/D05/D06 supply the open decisions; §33 maps their consequences. No new task is declared DONE or READY here.
 
@@ -40,7 +40,7 @@ Multiple checkpoints belong to a Road Region / World Region. Milestones may chan
 
 Core merging requires two copies with the **same Family + same Type/Specialization + same Tier**, producing one **next-tier part of the same family and type**. Different families, types or tiers are invalid inputs; matching family and tier alone is insufficient. Type is persistent gameplay identity: no generic, random or hybrid output and no cross-type fusion/recipe graph. Optional future transformation and detailed source catalogs remain open. Future acquisition considers family/type/region/unlocked specializations/player targeting; pools/drop rates/control/shop behavior are not selected. This records implications without starting board or acquisition design.
 
-**Scope/status protection:** Documentation only; no runtime/schema/catalog/art changes, gameplay implementation or task completion. Existing five-family/three-tier VS1 production content, ART-03R visual approval/references/lifecycle states and unfinished Garage ART-03 remain intact; M0 staysTYPO-01 | DONE. All task/milestone statuses remain unchanged. The generic family/tier-only baseline is incomplete for this design; future authorized work must resolve applicable type/compatibility/region inputs before implementation. No extra specialized catalog or new region/explosion asset batch is automatically authorized.
+**Scope/status protection:** Documentation only; no runtime/schema/catalog/art changes, gameplay implementation or task completion. Existing five-family/three-tier VS1 production content, ART-03R visual approval/references/lifecycle states and unfinished Garage ART-03 remain intact; M0 stays IN PROGRESS. All task/milestone statuses remain unchanged. The generic family/tier-only baseline is incomplete for this design; future authorized work must resolve applicable type/compatibility/region inputs before implementation. No extra specialized catalog or new region/explosion asset batch is automatically authorized.
 
 **Exclusions/open decisions:** No affixes, rarity power systems, runes, skill trees, character stats, random stat/quality rolls, legendary procs, equipment degradation or involuntary permanent destruction. Exact catalog/names/stats/weights, compatibility/heat/explosion/terrain/farming formulas, checkpoint requirements, region boundaries/names, merge interaction, board geometry, future Inventory expansion details, acquisition/drop systems, type unlocks and loadout preset systems remain unresolved (D02/D03 and §33).
 
@@ -57,7 +57,7 @@ Scavenge is a focused screen/system accessible from Garage/hub, not controls per
 
 **Open decisions:** Final source names/counts; source unlock checkpoints/regions/mappings; Scrap prices/cost multipliers; loot tables/family/type weights; tier probabilities; investment levels/UI; guaranteed/pity mechanics; duplicate protection; exact first-clear Scavenge interactions; animation/reveal flow; Auto Scavenger unlocks/spending limits; future secondary currencies. D03 adds only conceptual source/investment data, not runtime/save fields or production values.
 
-**Documentation/status boundary:** The fixed-price generic random-T1 command remains unchanged foundation behavior requiring future adaptation, not the final acquisition contract. No gameplay, runtime schema/catalog/balance, art, new currency, merge-board redesign or Scavenge UI production. All task/milestone statuses remain unchanged: M0TYPO-01 | DONE, ART-03R visually approved with assets/references/lifecycle evidence intact, Garage ART-03 unfinished. Earlier dated scope/decision records remain history; this source/investment contract governs future acquisition wording.
+**Documentation/status boundary:** The fixed-price generic random-T1 command remains unchanged foundation behavior requiring future adaptation, not the final acquisition contract. No gameplay, runtime schema/catalog/balance, art, new currency, merge-board redesign or Scavenge UI production. All task/milestone statuses remain unchanged: M0 IN PROGRESS, ART-03R visually approved with assets/references/lifecycle evidence intact, Garage ART-03 unfinished. Earlier dated scope/decision records remain history; this source/investment contract governs future acquisition wording.
 
 ## Owner-approved Inventory / capacity / Dismantle record — 2026-10-07
 D01/D02/D03/D05/D06 approve general long-term Inventory with **150 item-instance base capacity**, separate from active Workbench and Equipped Parts. Parts do not stack; Scrap/future currencies consume no slots unless separately designed otherwise. Current organization is Family / Type or Specialization / Tier. Each Part has one authoritative location; leaving immediately frees Inventory capacity. Primary movement is drag-and-drop including direct Inventory↔Equipped where valid; detailed gestures/mobile UX remain open.
@@ -70,7 +70,7 @@ Future permanent progression capacity rewards and optional real-money capacity p
 
 D03/D06 record eventual instance collection/capacity/location/Workbench/Equipped/separate-currency/future-upgrade requirements without choosing fields/IDs, altering runtime, implementing migrations or bumping save version. §§18/23/33 and D07 constrain future authorized adaptation. Inventory layout/filter/search, scavenged-result presentation, detailed drag/drop, Dismantle, Mail and expansion economics/UI choices remain open and gate applicable readiness. Earlier dated unique-instance deferral and capacity uncertainty are historical observations superseded at design level only.
 
-**Documentation/status boundary:** All task/milestone statuses and ART-03R evidence remain unchanged; M0TYPO-01 | DONE, Garage unfinished. No gameplay, Inventory visual production, Mail, capacity expansion or monetization implementation begins. Same-family/type/tier merging, finite expandable Workbench, General/Specialized Scavenge, Scrap tier investment, equipment specialization, push/farm and continuous checkpoints are preserved.
+**Documentation/status boundary:** All task/milestone statuses and ART-03R evidence remain unchanged; M0 IN PROGRESS, Garage unfinished. No gameplay, Inventory visual production, Mail, capacity expansion or monetization implementation begins. Same-family/type/tier merging, finite expandable Workbench, General/Specialized Scavenge, Scrap tier investment, equipment specialization, push/farm and continuous checkpoints are preserved.
 
 ## Owner-approved manual Scavenge / batch / atomic execution — 2026-10-07
 D01/D02/D03/D05/D06 now record image/card-oriented source selection, one Part per unit and **x1 → x3 → x5 → x7** progression: x1 baseline, larger convenience batches later. Source controls family/type pool/weights; per-use Scrap investment improves tier odds without changing source identity; batch count alone adds no quality. General remains broad/relatively inexpensive and specialized targeting normally guarantees no exact Part.
@@ -81,7 +81,7 @@ Reveal occurs after authoritative acquisition; all Parts occupy Inventory before
 
 D03 records eventual unlocks, source/batch selection, remembered investment and loot/tier rules without production fields/schema changes. D06 owns atomic gameplay authority under existing local-first/save-error safeguards. D07 and §§18/23/33 constrain future implementation. Catalogs, prices/multipliers/curves, pools/weights, batch unlock milestones/costs/mechanism, investment memory scope, cards/art/reveal and automation details remain open. Balance considers checkpoint farming, source/investment costs, Dismantle returns and approved sinks without profitable reroll loops.
 
-**Status/scope:** Documentation only; no runtime/schema/save-version/balance/art/Scavenge UI or Auto Scavenge implementation. Every task/milestone status and historical audit record remains unchanged; M0TYPO-01 | DONE, Garage unfinished, ART-03R evidence intact. This supersedes destination and remembered-investment uncertainty at design level without claiming implementation complete.
+**Status/scope:** Documentation only; no runtime/schema/save-version/balance/art/Scavenge UI or Auto Scavenge implementation. Every task/milestone status and historical audit record remains unchanged; M0 IN PROGRESS, Garage unfinished, ART-03R evidence intact. This supersedes destination and remembered-investment uncertainty at design level without claiming implementation complete.
 
 ## Owner-approved Garage / navigation / Repeat Checkpoint — 2026-10-07
 D01/D02/D05 approve Garage as the central live inspection/home hub. The current equipped Rustbucket appears running/tested in place, not parked or with the full highway duplicated. Only Fuel / Heat / Speed are current near-car live status; normal simulation continues across Garage/Workshop/Inventory/Scavenge and Parts may change while running, with exact application timing still open.
@@ -94,7 +94,7 @@ Scrap is persistently top-left and recognizable Mail access top-right in the con
 
 D03/D06 record eventual active car, live Fuel/Heat/Speed, current frontier, selected repeat checkpoint and Repeat ON/OFF requirements without schema fields, save version, migrations or multi-car state. One active car/one continuous run is current core; multiple cars/runs and horizontal switching/scrolling with per-car build/run state are future possibilities only. Practical extensibility imposes no current fleet/economy/save/UI requirement.
 
-D07 and §§18/23/24/33 constrain future implementation and preserve remaining Garage art/layout/test cues/gauges/nav artwork/HUD offsets, Inventory access, equipped-summary interaction, Run/Repeat UI, Mail and future switching decisions. **Documentation/status boundary:** no gameplay/runtime/schema/art/Garage visual production/Mail/fleet work or task promotion. M0 staysTYPO-01 | DONE; ART-03R benchmark remains visually approved with evidence unchanged; Garage-side ART-03 remains unfinished. Historical audit sections retain their dated evidence.
+D07 and §§18/23/24/33 constrain future implementation and preserve remaining Garage art/layout/test cues/gauges/nav artwork/HUD offsets, Inventory access, equipped-summary interaction, Run/Repeat UI, Mail and future switching decisions. **Documentation/status boundary:** no gameplay/runtime/schema/art/Garage visual production/Mail/fleet work or task promotion. M0 stays IN PROGRESS; ART-03R benchmark remains visually approved with evidence unchanged; Garage-side ART-03 remains unfinished. Historical audit sections retain their dated evidence.
 
 ## How to Maintain This Plan
 
@@ -126,18 +126,26 @@ Never mark a task DONE because code merely compiles, tests alone pass for work r
 
 | Field | Current state |
 |---|---|
-| Current Milestone | M0 — Production Gates & Golden Visual Proofs;TYPO-01 | DONE |
-| Current Batch | DOC-01 + VAL-01 + VAL-02 + VAL-03 + ART-01 + ART-02 — COMPLETE |
-| Ready Tasks | None in the authorized ART-03R Run-only scope |
+| Current Milestone | M0 — Production Gates & Golden Visual Proofs; IN PROGRESS |
+| Current Batch | VIS-01 — integrated Golden runtime proof ready for owner review |
+| Ready Tasks | No subsequent task started by VIS-01 |
 | Completed Tasks | DOC-01 — documentation reconciled; VAL-01 — visual gates; VAL-02 — audio gates; VAL-03 — viewport discovery verified; ART-01 — Golden vehicle/engine ladder (2026-10-05); ART-02 — Golden UI samples (2026-10-05); ART-03 — Golden Garage/Run/effect visual production (2026-10-08) |
-| In Progress Tasks | None in the completed ART-03 visual-production scope; M0 remainsTYPO-01 | DONE |
-| Validation Tasks | ART-03 visual production complete; TYPO-01/02, VIS-01, palette lock and ART-04 final Golden approval remain; Run source-workflow acknowledgement remains separately recorded |
-| Blocked Tasks | None for Batch 1/ART-01/02; GAR-01 remainsTYPO-02 | DONE / not READY pending owner slot/move/equip decisions, applicable state adaptation and presentation inputs; future GAR/RUN dependencies updated in §18; TYPO-01 remainsTYPO-02 | DONE pending licensed font inputs |
-| Immediate Next Gate | Production typography (TYPO-01), then remaining typography/in-game/final Golden proofs; assessment in §34 |
+| In Progress Tasks | VIS-01 — runtime checks pass; required owner visual acceptance pending |
+| Validation Tasks | Owner integrated visual review of VIS-01; ART-04 remains separate and not started |
+| Blocked Tasks | No technical VIS-01 blocker; future GAR/RUN readiness requires its applicable decisions and inputs |
+| Immediate Next Gate | Review VIS-01; final Golden acceptance and palette lock remain ART-04 |
 
-M0 remainsTYPO-01 | DONE. DOC-01 is DONE: existing canonical contracts were reconciled without changing source, tooling, tests, assets or product decisions. VAL-01 is DONE: the visual CLI now executes preparation, Golden, phase production, full technical and release gates with truthful reports/exit codes and focused regressions. VAL-02 is DONE: correct audio root, explicit preparation/Golden/full stages, structural provenance/source/file checks and regression evidence. VAL-03 is DONE: the existing pure viewport suite runs under the standard test command, with all previous test files preserved. ART-01 is DONE: all eight `proof_a` assets produced, technical gate passed, and explicit OWNER APPROVAL recorded as the Golden visual benchmark. Eight ART-01 assets advanced to `visual` registry status. ART-02 is DONE: all five non-font `proof_b` assets (`icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame`) produced, passed technical validation, and explicit OWNER APPROVAL recorded for the Golden UI benchmark and revised workshop button. Five ART-02 assets advanced to `visual` registry status. Note on `proof_b`: the ART-02 non-font scope is technically complete and visually approved, but the overall `proof_b` bundle remains incomplete, now fully complete and visually approved for all assets (`font_display`, `font_body`). D05 explicitly contains the unresolved installed-slot gesture as OWNER DECISION REQUIRED; GAR-01 remainsTYPO-02 | DONE / not READY until the owner resolves it and its other inputs pass §13.
+M0 remains IN PROGRESS. DOC-01 is DONE: existing canonical contracts were reconciled without changing source, tooling, tests, assets or product decisions. VAL-01 is DONE: the visual CLI now executes preparation, Golden, phase production, full technical and release gates with truthful reports/exit codes and focused regressions. VAL-02 is DONE: correct audio root, explicit preparation/Golden/full stages, structural provenance/source/file checks and regression evidence. VAL-03 is DONE: the existing pure viewport suite runs under the standard test command, with all previous test files preserved. ART-01 is DONE: all eight `proof_a` assets produced, technical gate passed, and explicit OWNER APPROVAL recorded as the Golden visual benchmark. Eight ART-01 assets advanced to `visual` registry status. ART-02 is DONE: all five non-font `proof_b` assets (`icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame`) produced, passed technical validation, and explicit OWNER APPROVAL recorded for the Golden UI benchmark and revised workshop button. Five ART-02 assets advanced to `visual` registry status. Note on `proof_b`: the ART-02 non-font scope is technically complete and visually approved, but the overall `proof_b` bundle remains incomplete, now fully complete and visually approved for all assets (`font_display`, `font_body`). D05 explicitly contains the unresolved installed-slot gesture as OWNER DECISION REQUIRED; GAR-01 remainsTYPO-02 | DONE / not READY until the owner resolves it and its other inputs pass §13.
 
-ART-01, ART-02 and ART-03 visual production are DONE. The seven required proof_c entries are visual; optional Run clouds retain their existing bounded visual acceptance. Garage acceptance seals the unchanged PNGs, Aseprite masters and selected-reference provenance. M0 still requires TYPO-01/02, VIS-01, palette lock and final Golden approval (ART-04); historical Run source-workflow acknowledgement remains separate.
+ART-01, ART-02 and ART-03 visual production are DONE. TYPO-01/02 are complete per the current owner task context. All 22 Golden entries and optional clouds load through the reusable production registry loader. [VIS-01 review](../art/source/golden/vis01/review.html) retains real Phaser/Vite captures and runtime measurements; no lifecycle promotion is made automatically. M0 remains IN PROGRESS pending owner integrated visual acceptance, palette lock and final Golden approval (ART-04). Historical Run source-workflow acknowledgement remains separate.
+
+### VIS-01 integrated runtime evidence — 2026-10-08
+
+Exact §18 acceptance: **Correct keys/frames/fonts load; failures visible; reusable production loader.** Scope includes registry-driven images/sheets/fonts, errors, development-only proof navigation and resize behavior; excludes progress ownership and fake gameplay. D11 §7 defines `ingame` as real Phaser loading, frames/fonts, composition/motion and viewport behavior proved. D14 §§12/14 still require owner acceptance for VISUAL completion.
+
+The separate development-only `visual-proof.html` entry runs Garage, Run, vehicle, UI and seam states without initializing state/storage/gameplay. Clean/guided 180×288 and clean 216×427 captures prove Garage wall/lift/car registration and Run layer order/contact; all Engine tiers, wheel/puff frames, button/slot states and both bitmap fonts are exercised. Runtime checks cover 61 states, integer transforms/zoom, nearest filtering, expected frames, safe bounds, tile placement, resize/DPR and a deliberately failed production request. Garage/Run 3× captures exactly replicate 1× pixels; maximum-canvas safe crops exactly match safe captures. All 190 pre-existing art/runtime files are byte-identical.
+
+**VIS-01 remains IN PROGRESS pending owner integrated visual review; technical implementation/evidence is complete and no critical visual defect remains.** The [report](../art/source/golden/vis01/REPORT.md) and [measurements](../art/source/golden/vis01/runtime-evidence.json) distinguish proof from owner acceptance. All assets remain `visual`; optional clouds retain their technical/visual-only exception. ART-04 remains BACKLOG; M0 remains IN PROGRESS. No art generation, Garage polish, typography-proof change, gameplay or next-task execution.
 
 ### VAL-01 implementation evidence — 2026-10-05
 
@@ -192,7 +200,7 @@ One exact include entry now collects this pure Node-compatible suite. Before/aft
 | Production build | Passed; existing large Phaser chunk warning remains |
 | Diff whitespace check | `git diff --check` passed |
 
-This establishes pure viewport-math coverage, not browser resize/orientation/DPR-event handling, Phaser rendering, touch, typography or physical-device acceptance. Golden/full asset gates were not run for VAL-03. Batch 1 is complete; M0 remainsTYPO-01 | DONE.
+This establishes pure viewport-math coverage, not browser resize/orientation/DPR-event handling, Phaser rendering, touch, typography or physical-device acceptance. Golden/full asset gates were not run for VAL-03. Batch 1 is complete; M0 remains IN PROGRESS.
 
 ### ART-01 implementation and approval evidence — 2026-10-05
 
@@ -224,7 +232,7 @@ ART-01 is DONE.
 | Test suite | All 13 test files / 248 tests passed |
 | Owner decision | APPROVED — accepted as the Golden UI benchmark for future production; button refinement accepted |
 
-ART-01 and ART-02 are DONE. M0 remainsTYPO-01 | DONE. ART-03 is READY.
+ART-01 and ART-02 are DONE. M0 remains IN PROGRESS. ART-03 is READY.
 
 ### Core merge compatibility design record — owner-approved 2026-10-06
 
@@ -269,7 +277,7 @@ approval from tests. No entry advances to `ingame` or `approved`.
 | Run technical gate | Six per-entry passes; `validation.json` and `cloud-review.json` record current results and sealed approval integrity |
 | Full proof_c | Expected failure only for absent Garage wall/lift: two errors, 66 future warnings |
 | Tests / typechecks | 13 files / 250 tests; source, tools and dedicated ART-03 source typechecks pass |
-| Registry and task status | Six Run entries visual; Garage planned/not started; ART-03 overallTYPO-01 | DONE / incomplete; M0TYPO-01 | DONE |
+| Registry and task status | Six Run entries visual; Garage planned/not started; ART-03 overallTYPO-01 | DONE / incomplete; M0 IN PROGRESS |
 | Remaining acceptance | Separate source-workflow acknowledgement, VIS-01 loading/motion/viewport evidence, palette lock and final Golden approval; Garage production not begun |
 
 Obsolete comparisons and duplicate enlargements were removed after repairing
@@ -305,7 +313,7 @@ The [production report](../art/source/golden/art03-garage/REPORT.md) records two
 
 The owner accepts env_garage_wall and env_garage_lift for the current milestone. Only these two registry entries advance planned → visual; no ingame/approved promotion. [Owner acceptance](../art/source/golden/art03-garage/owner-approval.json) seals unchanged production PNGs, layered Aseprite masters, selected garage-b-tight and selection evidence. [Closeout](../art/source/golden/art03-garage/CLOSEOUT.md) records validation and preservation.
 
-**ART-03 is DONE:** its §18 visual-production acceptance and seven required §21 proof_c entries are satisfied, following the same task/lifecycle distinction as ART-01/02. VIS-01 owns later real loading/viewport/motion proof; ART-04 owns final Golden acceptance and palette lock. M0 remainsTYPO-01 | DONE. No unrelated task is promoted. The separate historical Run source-workflow acknowledgement is not waived by Garage acceptance.
+**ART-03 is DONE:** its §18 visual-production acceptance and seven required §21 proof_c entries are satisfied, following the same task/lifecycle distinction as ART-01/02. VIS-01 owns later real loading/viewport/motion proof; ART-04 owns final Golden acceptance and palette lock. M0 remains IN PROGRESS. No unrelated task is promoted. The separate historical Run source-workflow acknowledgement is not waived by Garage acceptance.
 
 The selected concept served primarily as composition authority during the production translation. The canonical-palette production pass simplified some material/shading character, so Garage visual fidelity may be reconsidered during later in-game polish if warranted. This accepted technical/palette translation debt is non-blocking and is NOT an M0 blocker.
 
@@ -723,7 +731,7 @@ Milestone status uses only `NOT STARTED`, `IN PROGRESS`, `VALIDATION`, `BLOCKED`
 
 | Milestone | Status | Goal | Entry conditions | Required tasks | Exit criteria | Human approval? | Next unlocked work |
 |---|---|---|---|---|---|---|---|
-| **M0 — Production Gates & Golden Visual Proofs** |TYPO-01 | DONE | Trustworthy gates and approved presentation baseline | Current checkout | DOC-01, VAL-01/02/03, TYPO-01/02, ART-01/02/03/04, VIS-01 | Exact 22 Golden assets approved; typography proven; palette locked; gates execute correctly | VISUAL | Non-Golden art and production scenes |
+| **M0 — Production Gates & Golden Visual Proofs** | IN PROGRESS | Trustworthy gates and approved presentation baseline | Current checkout | DOC-01, VAL-01/02/03, TYPO-01/02, ART-01/02/03/04, VIS-01 | Exact 22 Golden assets approved; typography proven; palette locked; gates execute correctly | VISUAL | Non-Golden art and production scenes |
 | **M1 — Garage Engineering Ready** | NOT STARTED | Focused Garage overview and explicit equipment/part-location interactions | M0; required Garage assets | ART-05/06/08/09/10/11, GAR-01/02/03 | Valid loaded saves render; starter installation works; commands and rejection feedback work | VISUAL, PLAYTEST | Complete run loop |
 | **M2 — Playable Vertical Slice** | NOT STARTED | Continuous attempts/checkpoints → repeat rewards → engineer → improve/push/farm | Required road/HUD assets and service contracts | ART-07/12, RUN-01/02, RES-01, PLAY-01/02; SAVE-01 before meaningful external playtest | Repeat Scrap funds acquisition; first-clear bonus settles once; automatic fuel reset/refill/retry works; earlier farm selection persists; merges preserve equipment and explicit equip improves capability | PLAYTEST | Balance and integrated presentation proof |
 | **M3 — Presentation-Complete VS1** | NOT STARTED | Coherent complete VS1 with required art/audio | Playable loop | ART-13/14, AUD-01…07, BAL-01, QA-01/02, VS-01 | All 86 required visual entries and 13 audio entries accepted; complete touch/layout/audio/diagnosis proof | VISUAL, AUDIO, PLAYTEST, DEVICE | V1 scope and release hardening |
@@ -813,13 +821,13 @@ Priorities: **P0** immediate critical path; **P1** required for VS1; **P2** late
 | VAL-01 | DONE | P0 | Make visual gates executable | End false-success validation | Baseline CLI no-op resolved; 41 regressions; execution evidence above | None | Hard for visual acceptance | VAL-02/03, DOC-01 | AR, PAL, D11, AV | CLI/report/exit codes; stage presence gates; asset-specific status recording; visual/audio tree ownership; focused PNG/palette/gate regressions | Art scope, gameplay | Real invocation rejects invalid/missing stage inputs; full release enforces required assets and locked palette | T, U, positive/negative CLI cases | NONE | MEDIUM | MEDIUM |
 | VAL-02 | DONE | P0 | Repair audio production gate | Validate the actual runtime tree honestly | Correct root/stages; 36 regressions; execution evidence above | None | Hard for audio acceptance | VAL-01/03, DOC-01 | D13, AU | Correct root; explicit preparation/Golden/full stages; Golden membership; required/scope semantics; provenance and invalid-file checks appropriate to chosen exports | Codec finalization, asset creation | Correct-path files found; missing stage assets fail; full gate requires 13; preparation cannot masquerade as production acceptance | T, U, CLI path/stage cases | NONE | MEDIUM | MEDIUM |
 | VAL-03 | DONE | P0 | Discover existing viewport tests | Restore existing mathematical coverage | Excluded test glob | None | Hard for viewport gate | VAL-01/02 | VP, Vitest config | Include pure viewport tests | Phaser scene test rewrites | Existing suite discovered and executed by standard test command | T, U | NONE | LOW | SMALL |
-| TYPO-01 |TYPO-01 | DONE | P0 | Production font/rendering foundation | Render existing typography in AP coordinates | font_display and font_body candidates generated; pending owner review and runtime integration | VAL-01; DOC-01 font contract | Hard for typography proof | ART-01/02/03, AUD-01 | TY, AR fonts, D04/05 | `font_display`, `font_body`, editable/licensed sources, XML/PNG exports, renderer/key mapping, explicit sizing/wrap behavior | Font identity/role redesign | Fonts load reliably; intended renderer used; actual logical widths respected | T, AV-stage; focused renderer checks | VISUAL | HIGH | MEDIUM |
+| TYPO-01 | DONE | P0 | Production font/rendering foundation | Render existing typography in AP coordinates | font_display and font_body candidates generated; pending owner review and runtime integration | VAL-01; DOC-01 font contract | Hard for typography proof | ART-01/02/03, AUD-01 | TY, AR fonts, D04/05 | `font_display`, `font_body`, editable/licensed sources, XML/PNG exports, renderer/key mapping, explicit sizing/wrap behavior | Font identity/role redesign | Fonts load reliably; intended renderer used; actual logical widths respected | T, AV-stage; focused renderer checks | VISUAL | HIGH | MEDIUM |
 | ART-01 | DONE | P0 | Golden vehicle/engine ladder | Prove vehicle silhouette and progression | Eight `proof_a` entries produced; technical gate passed; owner visual approval recorded | VAL-01 | Hard for Golden approval | TYPO-01, ART-02/03, AUD | D04, D11, AR | Exact eight entries in §21 | Non-Golden production | Clean source/exports; T1–T3 readable; overlay registration and wheel cycle work; owner approval recorded | AV-stage | VISUAL | HIGH | MEDIUM |
 | ART-02 | DONE | P0 | Golden UI samples | Prove tactile controls | Five non-font `proof_b` entries produced; technical gate passed; owner visual approval recorded | VAL-01 | Hard for Golden approval | ART-01/03, TYPO-01 | D04/05/11, AR | Scrap/fuel icons, plate, primary button, slot frames | Remaining UI batch | Frame states, slicing, text/background combinations work; owner approval recorded | AV-stage | VISUAL | HIGH | MEDIUM |
 | ART-03 | DONE | P0 | Golden Garage/road/effect samples | Prove scene coherence | All seven required proof_c entries technically valid and owner visually accepted; Garage closeout 2026-10-08 seals exact PNG/master/reference hashes; optional clouds unchanged | VAL-01 | Hard for Golden approval | ART-01/02, TYPO-01 | D04/11, AR | Exact seven entries in §21 | Remaining terrain/props | Composition, tiling, vehicle contrast and puff treatment work | AV-stage | VISUAL | HIGH | MEDIUM |
-| VIS-01 |TYPO-02 | DONE | P0 | Production loading and retained proof view | Exercise real exports through Phaser | Boot preload empty; proof scene inactive | Technical inputs from ART-01/02/03 and TYPO-01 | Hard for rendered approval | AUD-03 after inputs | AR, VP, D05/06 | Registry-driven images/sheets/fonts, errors, development-only proof navigation and resize behavior | Progress ownership, fake gameplay | Correct keys/frames/fonts load; failures visible; reusable production loader | T, U where meaningful, AV-stage | VISUAL | MEDIUM | MEDIUM |
-| TYPO-02 |TYPO-02 | DONE | P0 | Typography visual acceptance | Prove readability on production backgrounds | Current proof insufficient | TYPO-01, VIS-01, technical ART-02/03 | Hard for Golden approval | AUD proof | TY, D05, VP | §21 samples at target viewports; narrow demonstrated corrections | New font/branding system | Hierarchy, numbers, wrapping and labels accepted at real size | T, AV-stage | VISUAL; DEVICE spot-check | HIGH | MEDIUM |
-| ART-04 |TYPO-02 | DONE | P0 | Approve exact Golden visual set | Unlock controlled expansion | 0/22 approved | ART-01/02/03, TYPO-02, VIS-01 | Hard for all non-Golden art | Audio track | AR, PAL, D04/11 | All 22; composition review; palette lock and truthful statuses | Additional art families | Owner accepts every Golden entry; locked palette passes gate | AV-stage with locked palette | VISUAL | HIGH | SMALL |
+| VIS-01 | IN PROGRESS | P0 | Production loading and retained proof view | Exercise real exports through Phaser | Reusable loader and 61-state Phaser proof complete; owner review pending | Technical inputs from ART-01/02/03 and TYPO-01 | Hard for rendered approval | AUD-03 after inputs | AR, VP, D05/06 | Registry-driven images/sheets/fonts, errors, development-only proof navigation and resize behavior | Progress ownership, fake gameplay | Correct keys/frames/fonts load; failures visible; reusable production loader | T, U where meaningful, AV-stage | VISUAL | MEDIUM | MEDIUM |
+| TYPO-02 | DONE | P0 | Typography visual acceptance | Prove readability on production backgrounds | Current proof insufficient | TYPO-01, VIS-01, technical ART-02/03 | Hard for Golden approval | AUD proof | TY, D05, VP | §21 samples at target viewports; narrow demonstrated corrections | New font/branding system | Hierarchy, numbers, wrapping and labels accepted at real size | T, AV-stage | VISUAL; DEVICE spot-check | HIGH | MEDIUM |
+| ART-04 | BACKLOG | P0 | Approve exact Golden visual set | Unlock controlled expansion | 0/22 approved | ART-01/02/03, TYPO-02, VIS-01 | Hard for all non-Golden art | Audio track | AR, PAL, D04/11 | All 22; composition review; palette lock and truthful statuses | Additional art families | Owner accepts every Golden entry; locked palette passes gate | AV-stage with locked palette | VISUAL | HIGH | SMALL |
 | AUD-01 |TYPO-02 | DONE | P1 | Golden music pair | Prove shared sonic identity | D13 sequence; no sources | Entitlement preflight | Hard for audio Golden gate | Visual/scene work | D13, AU | Garage candidates → motif → Run candidates → pair; raw/session/master/provenance | Remaining music, final codec claim | Pair coherent and instrumental; Garage repetition and Run restart auditions pass | Provenance/master checks | AUDIO | HIGH | MEDIUM |
 | AUD-02 |TYPO-02 | DONE | P1 | Four Golden SFX | Prove vehicle/interaction/failure sound | D13 exact set | Source/license preflight | Hard for audio Golden gate | AUD-01, visual work | D13, AU | Engine loop, merge, click, fail; source/master/provenance | Remaining seven SFX | Engine tolerates expected rate range; feedback clear and tolerable | AA-stage/master checks | AUDIO | HIGH | MEDIUM |
 | AUD-03 |TYPO-02 | DONE | P1 | Browser codec/unlock proof | Select viable browser delivery candidates | `.mp3` provisional; no runtime proof | VAL-02, AUD-01/02, VIS-01 | Hard for browser audio integration | Garage/Run work | D13, AU, AudioService | Candidate encodes in actual Phaser; looping, unlock, switching, resume, latency/size | Native approval claim | Repeated playback accepted on desktop and physical mobile browser; native limitation explicit | AA-stage; playback assertions where useful | AUDIO, DEVICE | HIGH | MEDIUM |
@@ -1271,9 +1279,9 @@ The original validation-repair batch is complete. Newly recorded decisions gate 
 
 ## 34. Final Readiness
 
-### ART-01 / ART-02 / ART-03 VISUAL PRODUCTION COMPLETE — M0TYPO-01 | DONE
+### ART-01 / ART-02 / ART-03 VISUAL PRODUCTION COMPLETE — M0 IN PROGRESS
 
-**DOC-01, VAL-01, VAL-02, VAL-03, ART-01, ART-02 and ART-03 are DONE. All seven required ART-03 entries are owner visually accepted; optional Run clouds remain visual. Garage PNGs/masters and selected composition are unchanged. M0 remainsTYPO-01 | DONE.**
+**DOC-01, VAL-01, VAL-02, VAL-03, ART-01, ART-02 and ART-03 are DONE. All seven required ART-03 entries are owner visually accepted; optional Run clouds remain visual. Garage PNGs/masters and selected composition are unchanged. M0 remains IN PROGRESS.**
 
 ART-02 established the Golden UI visual grammar for Scrap Car Runner:
 - All five non-font `proof_b` visual assets produced and validated (`icon_scrap`, `icon_stat_fuel`, `ui_panel_plate`, `ui_button_primary`, `ui_slot_frame`).
@@ -1282,18 +1290,18 @@ ART-02 established the Golden UI visual grammar for Scrap Car Runner:
 - Technical validation passed; 5 ART-02 assets advanced to `visual` in registry lifecycle.
 - UI reference documented in `art/source/golden/art02/STYLE_REFERENCE.md` (establishing durable UI hierarchy: heavy structural `ui_panel_plate` vs lighter repeated `ui_slot_frame`).
 - Owner visual review passed; ART-02 transitioned to **DONE**.
-- Truthful `proof_b` note: ART-02 non-font scope is technically complete and visually approved, but the overall `proof_b` gate remains incomplete, blocked by missing TYPO-01 font inputs (`font_display`, `font_body`).
+- Truthful `proof_b` note: ART-02 non-font scope is technically complete and visually approved, the historical missing-font blocker is resolved: current `proof_b` and Golden technical gates pass; both bitmap fonts load in Phaser.
 
 Readiness reassessment under §13:
 - **ART-01:** Visual benchmark approved; **DONE**.
 - **ART-02:** Golden UI benchmark approved; **DONE**.
 - **ART-03:** **DONE** — required Garage/Run/effect visual production accepted. Two Garage assets advance only to visual; five required Run entries and optional clouds retain their existing visual states. VIS-01 and ART-04 are separate gates; the historical Run source-workflow acknowledgement remains separate.
 - **TYPO-01:** Licensed production font inputs (Silkscreen, VT323) retained and bitmap font candidates generated. Is **DONE**.
-- **VIS-01:** ART-01/02/03 technical art inputs are complete; TYPO-01 fonts remain missing. Remains **BACKLOG**.
-- **TYPO-02, ART-04 and non-Golden art:** Require completion of remaining Golden batches, typography proof, and in-game proof; remain **BACKLOG**.
+- **VIS-01:** Runtime implementation and retained evidence complete; **IN PROGRESS** pending owner integrated visual acceptance. See the VIS-01 review package above.
+- **TYPO-02:** **DONE** per current owner task context; existing typography proofs and font pipeline are unchanged. **ART-04 and non-Golden art:** remain **BACKLOG**; no final approval, palette lock or expansion begins.
 - **AUD-01/02:** Source/licensing and entitlement preflight remain unevidenced; remain **BACKLOG**.
 
-M0 remainsTYPO-01 | DONE. No broader non-Golden task was started. Remaining M0 gates are production typography (TYPO-01), typography acceptance (TYPO-02), in-game proof (VIS-01), palette lock and final approval of all 22 Golden entries (ART-04). Accepted Garage fidelity debt is not an M0 blocker.
+M0 remains IN PROGRESS. No broader non-Golden task was started. Remaining M0 gates are owner integrated visual acceptance of VIS-01, palette lock and final approval of all 22 Golden entries (ART-04). Accepted Garage fidelity debt is not an M0 blocker.
 
 The 2026-10-06 correction updates design and future implementation scope only. Statuses remain intact; applicable GAR/RUN readiness follows the updated dependencies in §§18, 23, 24 and 33. No gameplay or merge-board redesign was started.
 

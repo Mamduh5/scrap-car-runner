@@ -1,6 +1,7 @@
-/** Foundation boot only: state is hydrated by main.ts; gameplay and asset loading are deferred. */
+/** Foundation boot: main.ts hydrates state; registry exports load here; gameplay is deferred. */
 import Phaser from 'phaser';
 import { GameStateService } from '@/services/state/GameStateService';
+import { loadProductionAssets } from '@/game/assets/loadProductionAssets';
 
 export const SCENE_KEYS = {
   BOOT:   'BootScene',
@@ -9,20 +10,22 @@ export const SCENE_KEYS = {
 } as const;
 
 export class BootScene extends Phaser.Scene {
+  private assetFailures: string[] = [];
   constructor() {
     super({ key: SCENE_KEYS.BOOT });
   }
 
   preload(): void {
-    // Asset loading will be added here in the asset phase when production art is ready.
-    // The asset list, sizes and paths are defined by src/game/assets/assetRegistry.ts (canonical);
-    // load entries whose status is 'technical' or beyond via runtimeFiles()/runtimeUrl().
-    // See docs/04_ART_DIRECTION_AND_ASSET_REGISTRY.md and docs/11_ASSET_PRODUCTION_WORKFLOW.md.
-    this.load.bitmapFont('font_display', 'assets/fonts/font_display.png', 'assets/fonts/font_display.xml');
-    this.load.bitmapFont('font_body', 'assets/fonts/font_body.png', 'assets/fonts/font_body.xml');
+    this.assetFailures = loadProductionAssets(this);
   }
 
   create(): void {
+    if (this.assetFailures.length) {
+      this.add.text(4, 4, 'Production asset load failed\n' + this.assetFailures.join('\n'), {
+        fontSize: '8px', color: '#ffffff', wordWrap: { width: this.scale.width - 8 },
+      });
+      return;
+    }
     // Temporary: display technical validation text.
     // This will be replaced by the real transition to GarageScene in Phase 3.
     const state: unknown = this.registry.get('gameState');

@@ -1,0 +1,36 @@
+[
+    {
+        "command":  "npm run validate:assets:golden",
+        "exitCode":  0,
+        "summary":  "Technical passes: 23; errors: 0; warnings: 64\nPASS — selected technical gate passed; no visual/in-game/final approval granted"
+    },
+    {
+        "command":  "npm run validate:assets -- --stage production --phase proof_a",
+        "exitCode":  0,
+        "summary":  "Technical passes: 23; errors: 0; warnings: 64\nPASS — selected technical gate passed; no visual/in-game/final approval granted"
+    },
+    {
+        "command":  "npm run validate:assets -- --stage production --phase proof_b",
+        "exitCode":  0,
+        "summary":  "Technical passes: 23; errors: 0; warnings: 64\nPASS — selected technical gate passed; no visual/in-game/final approval granted"
+    },
+    {
+        "command":  "npm run validate:assets -- --stage production --phase proof_c",
+        "exitCode":  0,
+        "summary":  "Technical passes: 23; errors: 0; warnings: 64\nPASS — selected technical gate passed; no visual/in-game/final approval granted"
+    },
+    {
+        "command":  "git diff --check",
+        "exitCode":  0
+    },
+    {
+        "command":  "npm run check",
+        "exitCode":  0,
+        "summary":  "14 test files / 253 tests; source/tools typechecks, data/assets/audio validation, simulation and build passed in this session."
+    },
+    {
+        "command":  "node --import tsx/esm tools/assets/visualProof.mjs",
+        "exitCode":  0,
+        "summary":  "61 states; 23 textures/fonts; real failed production request visible; 190 protected files unchanged; runtime-evidence.json retained."
+    }
+]
