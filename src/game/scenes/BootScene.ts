@@ -18,6 +18,8 @@ export class BootScene extends Phaser.Scene {
     // The asset list, sizes and paths are defined by src/game/assets/assetRegistry.ts (canonical);
     // load entries whose status is 'technical' or beyond via runtimeFiles()/runtimeUrl().
     // See docs/04_ART_DIRECTION_AND_ASSET_REGISTRY.md and docs/11_ASSET_PRODUCTION_WORKFLOW.md.
+    this.load.bitmapFont('font_display', 'assets/fonts/font_display.png', 'assets/fonts/font_display.xml');
+    this.load.bitmapFont('font_body', 'assets/fonts/font_body.png', 'assets/fonts/font_body.xml');
   }
 
   create(): void {
@@ -39,6 +41,6 @@ export class BootScene extends Phaser.Scene {
     }).setOrigin(0.5);
 
     // In Phase 3, replace the above with:
-    //   this.scene.start(SCENE_KEYS.GARAGE);
+    this.scene.start('DevTypographyScene');
   }
 }

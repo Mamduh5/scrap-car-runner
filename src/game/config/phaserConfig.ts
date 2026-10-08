@@ -19,6 +19,7 @@
 
 import Phaser from 'phaser';
 import { BootScene } from '@/game/scenes/BootScene';
+import { DevTypographyScene } from '@/game/scenes/DevTypographyScene';
 import { PALETTE_HEX } from '@/game/assets/palette';
 import { computePixelViewport, readWindowViewport, VIEWPORT_LIMITS } from '@/game/config/pixelViewport';
 
@@ -54,5 +55,6 @@ export const phaserConfig: Phaser.Types.Core.GameConfig = {
 
   scene: [
     BootScene,
+    DevTypographyScene,
   ],
 };

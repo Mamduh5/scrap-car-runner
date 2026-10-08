@@ -1,0 +1,68 @@
+[
+  {
+    "role": "distanceCounter",
+    "fontKey": "font_display",
+    "fontSize": 16,
+    "text": "2,450 M",
+    "x": 85,
+    "y": 10,
+    "width": 85,
+    "height": 21,
+    "pass": true
+  },
+  {
+    "role": "currency",
+    "fontKey": "font_body",
+    "fontSize": 16,
+    "text": "850 SCRAP",
+    "x": 98,
+    "y": 45,
+    "width": 72,
+    "height": 17,
+    "pass": true
+  },
+  {
+    "role": "currency",
+    "fontKey": "font_body",
+    "fontSize": 16,
+    "text": "14,500 SCRAP",
+    "x": 74,
+    "y": 74,
+    "width": 96,
+    "height": 17,
+    "pass": true
+  },
+  {
+    "role": "statLabel",
+    "fontKey": "font_body",
+    "fontSize": 16,
+    "text": "FUEL LEVEL:",
+    "x": 10,
+    "y": 103,
+    "width": 88,
+    "height": 17,
+    "pass": true
+  },
+  {
+    "role": "statValue",
+    "fontKey": "font_body",
+    "fontSize": 16,
+    "text": "45% / 100%",
+    "x": 90,
+    "y": 132,
+    "width": 80,
+    "height": 17,
+    "pass": true
+  },
+  {
+    "role": "statValue",
+    "fontKey": "font_body",
+    "fontSize": 16,
+    "text": "125 MPH",
+    "x": 114,
+    "y": 161,
+    "width": 56,
+    "height": 17,
+    "pass": true
+  }
+]

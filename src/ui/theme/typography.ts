@@ -3,8 +3,8 @@ export type TextCasing = 'none' | 'uppercase' | 'lowercase' | 'titlecase' | 'sen
 
 export interface TypographyToken {
   readonly type: TextRenderingType;
-  /** The font family name (for 'text') or the cache key (for 'bitmap'). */
-  readonly family: string;
+  /** The cache key for the bitmap font. */
+  readonly fontKey: string;
   /** Size in logical pixels (assuming 360x640 base viewport). */
   readonly size: number;
   /** Palette hex colour or '#RRGGBB'. */
@@ -31,13 +31,11 @@ export interface TypographyToken {
 // or import it from palette.ts to bind them).
 import { PALETTE_HEX } from '../../game/assets/palette';
 
-// Primary Display Font: Silkscreen (OFL) - Chunky, mechanical, scrapyard feel.
-// Used for Headings, Action Buttons, and Large Distance counters.
-const FONT_DISPLAY = 'Silkscreen';
+// Primary Display Font cache key.
+const FONT_DISPLAY = 'font_display';
 
-// Secondary Body/Stats Font: VT323 (OFL) - Crisp, tall pixel font, high numeric readability.
-// Used for body text, tooltips, stats, parts.
-const FONT_BODY = 'VT323';
+// Secondary Body/Stats Font cache key.
+const FONT_BODY = 'font_body';
 
 /**
  * The canonical source of truth for all UI typography roles in Scrap Car Runner.
@@ -47,8 +45,8 @@ export const UI_TYPOGRAPHY = {
   // Screen and Section Titles
   gameTitle: {
     type: 'bitmap',
-    family: FONT_DISPLAY,
-    size: 48,
+    fontKey: FONT_DISPLAY,
+    size: 16,
     color: PALETTE_HEX.teal_3,
     casing: 'uppercase',
     align: 'center',
@@ -58,8 +56,8 @@ export const UI_TYPOGRAPHY = {
 
   screenTitle: {
     type: 'bitmap', // Recommended production type
-    family: FONT_DISPLAY,
-    size: 24,
+    fontKey: FONT_DISPLAY,
+    size: 16,
     color: PALETTE_HEX.steel_4,
     casing: 'uppercase',
     align: 'center',
@@ -68,7 +66,7 @@ export const UI_TYPOGRAPHY = {
 
   sectionHeader: {
     type: 'bitmap',
-    family: FONT_DISPLAY,
+    fontKey: FONT_DISPLAY,
     size: 16,
     color: PALETTE_HEX.steel_3,
     casing: 'uppercase',
@@ -78,7 +76,7 @@ export const UI_TYPOGRAPHY = {
   // Buttons
   buttonPrimary: {
     type: 'bitmap',
-    family: FONT_DISPLAY,
+    fontKey: FONT_DISPLAY,
     size: 16,
     color: PALETTE_HEX.ink_0,
     casing: 'uppercase',
@@ -87,7 +85,7 @@ export const UI_TYPOGRAPHY = {
 
   buttonSecondary: {
     type: 'bitmap',
-    family: FONT_BODY,
+    fontKey: FONT_BODY,
     size: 16,
     color: PALETTE_HEX.steel_4,
     casing: 'uppercase',
@@ -97,8 +95,8 @@ export const UI_TYPOGRAPHY = {
   // Stats and HUD (Numbers must be highly legible and update fast)
   distanceCounter: {
     type: 'bitmap',
-    family: FONT_DISPLAY,
-    size: 32,
+    fontKey: FONT_DISPLAY,
+    size: 16,
     color: PALETTE_HEX.steel_4,
     casing: 'uppercase',
     align: 'right',
@@ -107,8 +105,8 @@ export const UI_TYPOGRAPHY = {
 
   currency: {
     type: 'bitmap',
-    family: FONT_BODY,
-    size: 24,
+    fontKey: FONT_BODY,
+    size: 16,
     color: PALETTE_HEX.yellow_2,
     casing: 'uppercase',
     align: 'right',
@@ -116,7 +114,7 @@ export const UI_TYPOGRAPHY = {
 
   statLabel: {
     type: 'bitmap',
-    family: FONT_BODY,
+    fontKey: FONT_BODY,
     size: 16,
     color: PALETTE_HEX.steel_3,
     casing: 'uppercase',
@@ -125,8 +123,8 @@ export const UI_TYPOGRAPHY = {
 
   statValue: {
     type: 'bitmap',
-    family: FONT_BODY,
-    size: 24,
+    fontKey: FONT_BODY,
+    size: 16,
     color: PALETTE_HEX.steel_4,
     casing: 'uppercase',
     align: 'right',
@@ -135,30 +133,30 @@ export const UI_TYPOGRAPHY = {
 
   // Body and Text
   body: {
-    type: 'text', // Safe for Phaser Text since it might wrap heavily
-    family: FONT_BODY,
+    type: 'bitmap', // Safe for Phaser Text since it might wrap heavily
+    fontKey: FONT_BODY,
     size: 16,
     color: PALETTE_HEX.steel_4,
     casing: 'none',
     align: 'left',
     lineHeight: 18,
-    wordWrapWidth: 320, // Default safe width for 360px portrait
+    wordWrapWidth: 160, // Default safe width for 180px logical portrait
   } as TypographyToken,
 
   caption: {
-    type: 'text',
-    family: FONT_BODY,
-    size: 12,
+    type: 'bitmap',
+    fontKey: FONT_BODY,
+    size: 16,
     color: PALETTE_HEX.steel_3,
     casing: 'none',
     align: 'left',
-    wordWrapWidth: 320,
+    wordWrapWidth: 160,
   } as TypographyToken,
 
   // Inventory & Parts
   partName: {
     type: 'bitmap',
-    family: FONT_BODY,
+    fontKey: FONT_BODY,
     size: 16,
     color: PALETTE_HEX.yellow_2,
     casing: 'titlecase',
@@ -167,8 +165,8 @@ export const UI_TYPOGRAPHY = {
 
   tierLabel: {
     type: 'bitmap',
-    family: FONT_DISPLAY,
-    size: 12,
+    fontKey: FONT_DISPLAY,
+    size: 16,
     color: PALETTE_HEX.dura_2,
     casing: 'uppercase',
     align: 'center',
@@ -177,8 +175,8 @@ export const UI_TYPOGRAPHY = {
 
   resultCause: {
     type: 'bitmap',
-    family: FONT_DISPLAY,
-    size: 24,
+    fontKey: FONT_DISPLAY,
+    size: 16,
     color: PALETTE_HEX.heat_1,
     casing: 'uppercase',
     align: 'center',
@@ -188,7 +186,7 @@ export const UI_TYPOGRAPHY = {
   // Warnings and States
   warning: {
     type: 'bitmap',
-    family: FONT_BODY,
+    fontKey: FONT_BODY,
     size: 16,
     color: PALETTE_HEX.heat_1, // Orange/Red
     casing: 'uppercase',
@@ -197,8 +195,8 @@ export const UI_TYPOGRAPHY = {
 
   criticalWarning: {
     type: 'bitmap',
-    family: FONT_DISPLAY,
-    size: 24,
+    fontKey: FONT_DISPLAY,
+    size: 16,
     color: PALETTE_HEX.heat_1,
     casing: 'uppercase',
     align: 'center',
@@ -207,7 +205,7 @@ export const UI_TYPOGRAPHY = {
 
   success: {
     type: 'bitmap',
-    family: FONT_DISPLAY,
+    fontKey: FONT_DISPLAY,
     size: 16,
     color: PALETTE_HEX.dura_2, // Green
     casing: 'uppercase',
@@ -216,7 +214,7 @@ export const UI_TYPOGRAPHY = {
 
   toast: {
     type: 'bitmap',
-    family: FONT_BODY,
+    fontKey: FONT_BODY,
     size: 16,
     color: PALETTE_HEX.paper_2,
     casing: 'none',
@@ -233,7 +231,7 @@ export type TypographyRole = keyof typeof UI_TYPOGRAPHY;
  */
 export function toPhaserTextStyle(token: TypographyToken): Phaser.Types.GameObjects.Text.TextStyle {
   const style: Phaser.Types.GameObjects.Text.TextStyle = {
-    fontFamily: token.family,
+    fontFamily: token.fontKey,
     fontSize: `${token.size}px`,
     color: token.color,
   };

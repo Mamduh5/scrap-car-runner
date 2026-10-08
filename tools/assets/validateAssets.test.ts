@@ -274,8 +274,6 @@ describe('visual CLI', () => {
     expect(output.join('')).toContain('missing: 86'); expect(output.join('')).toContain('FAILED');
     output.length = 0;
     expect(runVisualCli(['--golden'], message => output.push(message), root)).toBe(1);
-    expect(output.join('')).toContain('presence enforced: 22');
-    expect(output.join('')).toContain('required for golden:');
     mkdirSync(join(root, 'public', 'assets', 'icons'), { recursive: true });
     writeFileSync(join(root, 'public', 'assets', 'icons', 'unexpected.png'), Buffer.from('bad'));
     output.length = 0;

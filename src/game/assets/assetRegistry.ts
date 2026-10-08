@@ -233,8 +233,8 @@ const ui: readonly AssetDefinition[] = [
 ];
 
 const fonts: readonly AssetDefinition[] = [
-  font('font_display', { phase: 'proof_b', alpha: 'binary', color: 'grayscale' }),
-  font('font_body', { phase: 'proof_b', alpha: 'binary', color: 'grayscale' }),
+  font('font_display', { phase: 'proof_b', status: 'visual', alpha: 'binary', color: 'grayscale' }),
+  font('font_body', { phase: 'proof_b', status: 'visual', alpha: 'binary', color: 'grayscale' }),
 ];
 
 const environments: readonly AssetDefinition[] = [

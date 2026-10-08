@@ -1,0 +1,57 @@
+[
+  {
+    "role": "gameTitle",
+    "fontKey": "font_display",
+    "fontSize": 16,
+    "text": "SCRAP CAR\nRUNNER",
+    "x": 34,
+    "y": 10,
+    "width": 113,
+    "height": 42,
+    "pass": true
+  },
+  {
+    "role": "screenTitle",
+    "fontKey": "font_display",
+    "fontSize": 16,
+    "text": "WORKSHOP",
+    "x": 37,
+    "y": 66,
+    "width": 106,
+    "height": 21,
+    "pass": true
+  },
+  {
+    "role": "sectionHeader",
+    "fontKey": "font_display",
+    "fontSize": 16,
+    "text": "STORAGE",
+    "x": 10,
+    "y": 99,
+    "width": 87,
+    "height": 21,
+    "pass": true
+  },
+  {
+    "role": "buttonPrimary",
+    "fontKey": "font_display",
+    "fontSize": 16,
+    "text": "SCAVENGE",
+    "x": 38,
+    "y": 132,
+    "width": 104,
+    "height": 21,
+    "pass": true
+  },
+  {
+    "role": "buttonSecondary",
+    "fontKey": "font_body",
+    "fontSize": 16,
+    "text": "REPAIR",
+    "x": 66,
+    "y": 165,
+    "width": 48,
+    "height": 17,
+    "pass": true
+  }
+]

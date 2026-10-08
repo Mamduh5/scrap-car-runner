@@ -1,0 +1,57 @@
+[
+  {
+    "role": "partName",
+    "fontKey": "font_body",
+    "fontSize": 16,
+    "text": "Rusty V8 Engine",
+    "x": 10,
+    "y": 10,
+    "width": 120,
+    "height": 17,
+    "pass": true
+  },
+  {
+    "role": "tierLabel",
+    "fontKey": "font_display",
+    "fontSize": 16,
+    "text": "TIER 3",
+    "x": 58,
+    "y": 39,
+    "width": 64,
+    "height": 21,
+    "pass": true
+  },
+  {
+    "role": "body",
+    "fontKey": "font_body",
+    "fontSize": 16,
+    "text": "Provides moderate cooling. Prone to leaks under heavy load.",
+    "x": 10,
+    "y": 72,
+    "width": 136,
+    "height": 68,
+    "pass": true
+  },
+  {
+    "role": "body",
+    "fontKey": "font_body",
+    "fontSize": 16,
+    "text": "Increases speed by 10%. Requires clean fuel.",
+    "x": 10,
+    "y": 152,
+    "width": 152,
+    "height": 51,
+    "pass": true
+  },
+  {
+    "role": "caption",
+    "fontKey": "font_body",
+    "fontSize": 16,
+    "text": "Tip: Upgrade radiator for better cooling.",
+    "x": 10,
+    "y": 215,
+    "width": 152,
+    "height": 51,
+    "pass": true
+  }
+]

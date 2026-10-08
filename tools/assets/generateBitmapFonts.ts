@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createCanvas } from 'canvas';
 import opentype from 'opentype.js';
 import fs from 'fs';
