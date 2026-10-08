@@ -1,0 +1,28 @@
+{
+  "fonts": [
+    {
+      "assetId": "font_display",
+      "typeface": "Silkscreen",
+      "filename": "silkscreen/Silkscreen-Regular.ttf",
+      "upstreamSource": "Google Fonts GitHub Repository",
+      "upstreamUrl": "https://github.com/google/fonts/tree/main/ofl/silkscreen",
+      "license": "OFL-1.1",
+      "licensePath": "silkscreen/OFL.txt",
+      "downloadDate": "2026-10-08",
+      "hash_sha256": "C845473330B94C2079CE9AF01C51AC8BA2D99C24F4D14C039843BBB8E642EBD8",
+      "intendedUse": "Bitmap-font source for Golden typography production"
+    },
+    {
+      "assetId": "font_body",
+      "typeface": "VT323",
+      "filename": "vt323/VT323-Regular.ttf",
+      "upstreamSource": "Google Fonts GitHub Repository",
+      "upstreamUrl": "https://github.com/google/fonts/tree/main/ofl/vt323",
+      "license": "OFL-1.1",
+      "licensePath": "vt323/OFL.txt",
+      "downloadDate": "2026-10-08",
+      "hash_sha256": "CF4DE751ADA78CEAC033DBE16A687742939995B77BC2A052AE17A4957958594D",
+      "intendedUse": "Bitmap-font source for Golden typography production"
+    }
+  ]
+}
