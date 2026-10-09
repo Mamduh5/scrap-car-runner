@@ -169,8 +169,12 @@ const CHASSIS_ID = 'chassis_rustbucket';
 const ROAD_ID = 'road_scrapland_highway';
 const seg = (segment: number): AssetBinding => ({ type: 'roadSegment', roadId: ROAD_ID, segment });
 const part = (family: PartFamily, tier: number): AssetBinding => ({ type: 'part', id: family + '_t' + tier });
-/** The golden set uses the engine family as the progression-ladder proof. */
-const familyPhase = (family: PartFamily): AssetPhase => (family === 'engine' ? 'proof_a' : 'parts');
+/** The golden set uses the engine family as the progression-ladder proof. UI Golden expansion needs T1 icons for all families. */
+const familyPhase = (family: PartFamily, tier: number): AssetPhase => {
+  if (family === 'engine') return 'proof_a';
+  if (tier === 1) return 'proof_b';
+  return 'parts';
+};
 
 // ---------------------------------------------------------------------------------------------
 // Registry
@@ -182,7 +186,7 @@ const vehicles: readonly AssetDefinition[] = [
   // Overlays for the four body-mounted families (tires are the wheel sheets below).
   ...(['engine', 'fuel', 'cooling', 'suspension'] as const).flatMap(family => TIERS.map(tier =>
     image('veh_rustbucket_ov_' + family + '_t' + tier, 'vehicles', 112, 56, {
-      phase: familyPhase(family), status: family === 'engine' ? 'visual' : 'planned', family,
+      phase: family === 'engine' ? 'proof_a' : 'parts', status: family === 'engine' ? 'visual' : 'planned', family,
       binds: [{ type: 'chassis', id: CHASSIS_ID }, part(family, tier)],
     }))),
   // Authored 4-frame wheel cycles (no code rotation of low-resolution wheels).
@@ -196,7 +200,7 @@ const vehicles: readonly AssetDefinition[] = [
 
 const parts: readonly AssetDefinition[] = PART_FAMILIES.flatMap(family => TIERS.map(tier =>
   image('part_' + family + '_t' + tier, 'parts', 24, 24, {
-    phase: familyPhase(family), status: family === 'engine' ? 'visual' : 'planned', margin: 1, family, binds: [part(family, tier)],
+    phase: familyPhase(family, tier), status: family === 'engine' ? 'visual' : 'planned', margin: 1, family, binds: [part(family, tier)],
   })));
 if (TIERS.length !== MAX_TIER) throw new Error('assetRegistry TIERS must match MAX_TIER');
 
@@ -205,12 +209,13 @@ const icons: readonly AssetDefinition[] = [
   image('icon_stat_fuel', 'icons', 16, 16, { phase: 'proof_b', status: 'visual', margin: 1 }),
   image('icon_stat_power', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_stat_cooling', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
-  image('icon_stat_heat', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
+  image('icon_stat_heat', 'icons', 16, 16, { phase: 'proof_b', margin: 1 }),
   image('icon_stat_durability', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_stat_weight', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
-  image('icon_stat_speed', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
+  image('icon_stat_speed', 'icons', 16, 16, { phase: 'proof_b', margin: 1 }),
   image('icon_ui_settings', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_ui_pause', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
+  image('icon_ui_mail', 'icons', 16, 16, { phase: 'proof_b', margin: 1 }),
 ];
 
 const ui: readonly AssetDefinition[] = [

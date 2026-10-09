@@ -5,6 +5,8 @@ These phases describe VS1 integration areas. [D14](14_IMPLEMENTATION_AND_PROJECT
 ## Equipment-specialization design dependency
 D01/D02/D03's Family + Type/Specialization + Tier + Tradeoffs + Compatibility philosophy is a core contract for future work, not completion of specialized gameplay or an expansion of the VS1 production catalog. Higher tier is not universally best: road conditions can favor a lower-tier suitable type. Engine performance includes hills/load/speed, Radiator supports sustained-load compatibility, Tires specialize by terrain, Suspension by obstacle shape and Fuel Tank by available fuel/attempt duration. No Fuel Tank type catalog is approved.
 
+**Vertical-slice constraint:** One Engine family is insufficient to demonstrate the intended specialization gameplay. A minimal playable demonstration must meaningfully exercise Engine, Radiator, and Tires interactions (unless further design evidence justifies a different subset). This does not remove Fuel Tank or Suspension from the approved five-family model, but separates M0 visual requirements from VS1 gameplay requirements. Avoid pulling the entire art catalog into M0.
+
 Preserve alternative push/farm equipment in Inventory and expose only equipped contributions. Severe Engine/Radiator incompatibility can cause catastrophic overheating/explosion and checkpoint retry without destroying equipment; fuel is the normal ending, not a new global durability/health/degradation model. Exact catalog/names/stats/weights/formulas/thresholds and milestone-region requirements remain open. Applicable future implementation must resolve its bounded inputs first; do not invent final catalog, board, acquisition or loadout-preset design.
 
 ## Scavenge-source design dependency
