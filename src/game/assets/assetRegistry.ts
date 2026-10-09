@@ -36,7 +36,7 @@ export type AssetStatus = (typeof ASSET_STATUSES)[number];
  * Production order. `proof_*` is the golden reference set; it must be fully approved before any
  * other phase may leave `planned` (validator rule `golden-gate`).
  */
-export const ASSET_PHASES = ['proof_a', 'proof_b', 'proof_c', 'hero', 'ui', 'parts', 'road', 'fx', 'polish'] as const;
+export const ASSET_PHASES = ['proof_a', 'proof_b', 'proof_b2', 'proof_c', 'hero', 'ui', 'parts', 'road', 'fx', 'polish'] as const;
 export type AssetPhase = (typeof ASSET_PHASES)[number];
 
 /**
@@ -172,7 +172,7 @@ const part = (family: PartFamily, tier: number): AssetBinding => ({ type: 'part'
 /** The golden set uses the engine family as the progression-ladder proof. UI Golden expansion needs T1 icons for all families. */
 const familyPhase = (family: PartFamily, tier: number): AssetPhase => {
   if (family === 'engine') return 'proof_a';
-  if (tier === 1) return 'proof_b';
+  if (tier === 1) return 'proof_b2';
   return 'parts';
 };
 
@@ -209,13 +209,13 @@ const icons: readonly AssetDefinition[] = [
   image('icon_stat_fuel', 'icons', 16, 16, { phase: 'proof_b', status: 'visual', margin: 1 }),
   image('icon_stat_power', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_stat_cooling', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
-  image('icon_stat_heat', 'icons', 16, 16, { phase: 'proof_b', margin: 1 }),
+  image('icon_stat_heat', 'icons', 16, 16, { phase: 'proof_b2', margin: 1 }),
   image('icon_stat_durability', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_stat_weight', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
-  image('icon_stat_speed', 'icons', 16, 16, { phase: 'proof_b', margin: 1 }),
+  image('icon_stat_speed', 'icons', 16, 16, { phase: 'proof_b2', margin: 1 }),
   image('icon_ui_settings', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_ui_pause', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
-  image('icon_ui_mail', 'icons', 16, 16, { phase: 'proof_b', margin: 1 }),
+  image('icon_ui_mail', 'icons', 16, 16, { phase: 'proof_b2', margin: 1 }),
 ];
 
 const ui: readonly AssetDefinition[] = [

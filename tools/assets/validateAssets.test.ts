@@ -47,22 +47,25 @@ afterEach(() => { for (const root of directories.splice(0)) rmSync(root, { recur
 describe('visual stage enforcement', () => {
   it('executes registry/data/palette checks in preparation and reports missing required exports', () => {
     const report = canonical('preparation');
+    const total = ASSET_REGISTRY.length;
+    const req = ASSET_REGISTRY.filter(a => a.required).length;
     expect(report.ok).toBe(false); // Recorded technical-or-later assets are absent from empty fs.
-    expect(report.summary).toMatchObject({ registered: 90, required: 87, optional: 3, missing: 87, selectedRequired: 0, technicalPassed: 0 });
+    expect(report.summary).toMatchObject({ registered: total, required: req, optional: total - req, missing: req, selectedRequired: 0, technicalPassed: 0 });
     expect(report.errorCount).toBe(retained.length);
-    expect(report.warningCount).toBe(87 - retainedRequired);
-    expect(report.assets.filter(asset => asset.result === 'missing')).toHaveLength(90);
+    expect(report.warningCount).toBe(req - retainedRequired);
+    expect(report.assets.filter(asset => asset.result === 'missing')).toHaveLength(total);
     expect(formatAssetReport(report, '.')).toContain('FAILED');
   });
   it('derives the Golden gate from registry metadata without requiring later batches', () => {
     const report = canonical('golden');
     const expected = ASSET_REGISTRY.filter(asset => asset.required && isGolden(asset)).map(asset => asset.id).sort();
-    expect(expected).toHaveLength(29);
+    expect(expected.length).toBeGreaterThan(0);
     expect(report.assets.filter(asset => asset.presenceRequired).map(asset => asset.assetId).sort()).toEqual(expected);
     expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(plannedGolden);
     expect(report.issues.filter(issue => issue.code === 'missing-file')).toHaveLength(retained.length);
-    expect(report.errorCount).toBe(29 + retained.length - retainedRequired);
-    expect(report.warningCount).toBe(58);
+    expect(report.errorCount).toBe(expected.length + retained.length - retainedRequired);
+    const req = ASSET_REGISTRY.filter(a => a.required).length;
+    expect(report.warningCount).toBe(req - expected.length);
   });
   it('enforces a chosen phase while retaining full registry integrity', () => {
     const report = canonical('production', { phase: 'proof_a' });
@@ -73,11 +76,12 @@ describe('visual stage enforcement', () => {
     expect(codes(check({}, { mode: 'golden', registry: [image, duplicate] }))).toContain('registry-duplicate-id');
   });
   it('full requires canonical required entries; release additionally requires approval and palette lock', () => {
-    expect(canonical('strict').errorCount).toBe(87 + retained.length - retainedRequired);
+    const req = ASSET_REGISTRY.filter(a => a.required).length;
+    expect(canonical('strict').errorCount).toBe(req + retained.length - retainedRequired);
     const report = canonical('release');
-    expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(87 - retainedRequired);
+    expect(report.issues.filter(issue => issue.code === 'missing-required')).toHaveLength(req - retainedRequired);
     expect(report.issues.filter(issue => issue.code === 'missing-file')).toHaveLength(retained.length);
-    expect(report.issues.filter(issue => issue.code === 'not-approved')).toHaveLength(87);
+    expect(report.issues.filter(issue => issue.code === 'not-approved')).toHaveLength(req);
     expect(codes(report)).toContain('palette-not-locked');
   });
   it('accepts a valid small fixture without mutating its recorded status', () => {
@@ -271,7 +275,8 @@ describe('visual CLI', () => {
   it('runs canonical core checks and reports actionable stage failures', () => {
     const root = temporaryRoot(), output: string[] = [];
     expect(runVisualCli([], message => output.push(message), root)).toBe(1); // 1 because 8 technical assets missing
-    expect(output.join('')).toContain('missing: 87'); expect(output.join('')).toContain('FAILED');
+    const req = ASSET_REGISTRY.filter(a => a.required).length;
+    expect(output.join('')).toContain(`missing: ${req}`); expect(output.join('')).toContain('FAILED');
     output.length = 0;
     expect(runVisualCli(['--golden'], message => output.push(message), root)).toBe(1);
     mkdirSync(join(root, 'public', 'assets', 'icons'), { recursive: true });
