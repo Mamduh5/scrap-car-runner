@@ -5,7 +5,7 @@ import { loadProductionAssets } from '../assets/loadProductionAssets';
 import { VIEWPORT_LIMITS } from '../config/pixelViewport';
 import { UI_TYPOGRAPHY, type TypographyRole } from '../../ui/theme/typography';
 
-type ProofState = 'garage' | 'run' | 'vehicle' | 'ui' | 'seams';
+type ProofState = 'garage' | 'run' | 'vehicle' | 'ui' | 'seams' | 'art02b_run' | 'art02b_garage' | 'art02b_slots' | 'art02b_icons' | 'art02b_seven';
 interface Bound { key: string; x: number; y: number; width: number; height: number; integer: boolean; safe: boolean }
 interface Tile { key: string; width: number; height: number; phase: number; copies: number[]; adjacent: boolean }
 export interface VisualProofReport {
@@ -35,7 +35,7 @@ export class DevVisualProofScene extends Phaser.Scene {
   private animating = false;
   private elapsed = 0;
   constructor() { super('DevVisualProofScene'); }
-  preload(): void { this.failures = loadProductionAssets(this); }
+  preload(): void { this.failures = loadProductionAssets(this, undefined, 'draft'); }
   create(): void {
     if (this.failures.length) {
       const error = document.createElement('pre'); error.id = 'proof-error';
@@ -78,10 +78,11 @@ export class DevVisualProofScene extends Phaser.Scene {
     if (critical) this.record(key, object);
     return object;
   }
-  private label(role: TypographyRole, text: string, x: number, y: number): void {
+  private label(role: TypographyRole, text: string, x: number, y: number): Phaser.GameObjects.BitmapText {
     const token = UI_TYPOGRAPHY[role];
     const object = this.add.bitmapText(x, y, token.fontKey, text, token.size).setTint(Number.parseInt(token.color.slice(1), 16));
     this.record(token.fontKey + ':' + text, object);
+    return object;
   }
   private panel(x: number, y: number, width: number, height: number, key = 'ui_panel_plate', frame = 0): void {
     const slices = ASSET_BY_ID.get(key)?.nineSlice;
@@ -178,6 +179,11 @@ export class DevVisualProofScene extends Phaser.Scene {
           this.car(this.sx + 34, this.sy + 14 + tier * 68, tier);
         }
         break;
+      case 'art02b_run': this.art02b_run(); break;
+      case 'art02b_garage': this.art02b_garage(); break;
+      case 'art02b_slots': this.art02b_slots(); break;
+      case 'art02b_icons': this.art02b_icons(); break;
+      case 'art02b_seven': this.art02b_seven(); break;
       case 'seams':
         this.tile('env_sky_outskirts', this.sy - 12, 0);
         this.tile(this.seamKey, this.sy + 100, this.phase + (ASSET_BY_ID.get(this.seamKey)?.kind === 'image' ? (ASSET_BY_ID.get(this.seamKey) as {size:{w:number}}).size.w - 90 : 0));
@@ -214,5 +220,89 @@ export class DevVisualProofScene extends Phaser.Scene {
     window.__visualProof = { report, show: (state, guides = false, frame = 0, phase = 0, tile = 'env_sky_outskirts') => {
       this.state = state; this.guides = guides; this.frame = frame; this.phase = phase; this.seamKey = tile; this.compose();
     } };
+  }
+
+  private art02b_run(): void {
+    const roadY = this.sy + 214;
+    const skyY = roadY - 300;
+    const sky = this.textures.get('env_sky_outskirts');
+    if (!sky.has('top-row')) sky.add('top-row', 0, 0, 0, 16, 1);
+    if (skyY > 0) this.add.tileSprite(0, 0, this.scale.width, skyY, 'env_sky_outskirts', 'top-row').setOrigin(0);
+    this.tile('env_sky_outskirts', skyY, this.phase);
+    this.tile('env_clouds_strip', roadY - 156, Math.floor(this.phase / 3) + 294);
+    this.tile('env_far_junkyard', roadY - 96, this.phase + 166);
+    this.tile('env_road_asphalt', roadY, this.phase);
+    const road = this.textures.get('env_road_asphalt');
+    if (!road.has('bottom-row')) road.add('bottom-row', 0, 0, 47, 64, 1);
+    const below = this.scale.height - roadY - 48;
+    if (below > 0) this.add.tileSprite(0, roadY + 48, this.scale.width, below, 'env_road_asphalt', 'bottom-row').setOrigin(0);
+    this.image('prop_scrap_pile_a', this.sx + 126, roadY - 53);
+    this.car(this.sx + 20, roadY - 55, 2);
+
+    // Concept C Run HUD
+    this.image('icon_scrap', this.sx + 8, this.sy + 6);
+    this.label('currency', '342', this.sx + 28, this.sy + 5);
+    this.image('icon_ui_mail', this.sx + 180 - 16 - 8, this.sy + 6);
+  }
+
+  private art02b_garage(): void {
+    this.image('env_garage_wall', this.sx - 18, this.sy - 69, 0, false);
+    this.image('env_garage_lift', this.sx + 22, this.sy + 212);
+    this.car(this.sx + 34, this.sy + 158, 1);
+
+    // Global Anchors
+    this.image('icon_scrap', this.sx + 8, this.sy + 6);
+    this.label('currency', '342', this.sx + 28, this.sy + 5);
+    this.image('icon_ui_mail', this.sx + 180 - 16 - 8, this.sy + 6);
+
+    // Garage telemetry above car
+    const carCx = this.sx + 34 + 56;
+    const stripY = this.sy + 158 - 22; // Above car
+    const startX = carCx - 60;
+
+    // Fuel, Heat, Speed manually positioned to match concept
+    const inner = 4;
+    const itemGap = 34; // approx spacing
+
+    this.image('icon_stat_fuel', startX, stripY);
+    this.label('statValue', '45%', startX + 14 + inner, stripY - 1).setDropShadow(1, 1, 0x130e14, 1);
+
+    this.image('icon_stat_heat', startX + itemGap, stripY);
+    this.label('statValue', '20%', startX + itemGap + 14 + inner, stripY - 1).setDropShadow(1, 1, 0x130e14, 1);
+
+    this.image('icon_stat_speed', startX + itemGap * 2, stripY);
+    this.label('statValue', '4.2', startX + itemGap * 2 + 14 + inner, stripY - 1).setDropShadow(1, 1, 0x130e14, 1);
+  }
+
+  private art02b_seven(): void {
+    this.panel(this.sx + 4, this.sy + 4, 172, 100);
+    const parts = ['part_fuel_t1', 'part_cooling_t1', 'part_tires_t1', 'part_suspension_t1'];
+    const icons = ['icon_stat_heat', 'icon_stat_speed', 'icon_ui_mail'];
+
+    parts.forEach((p, i) => this.image(p, this.sx + 14 + i * 34, this.sy + 20));
+    icons.forEach((ic, i) => this.image(ic, this.sx + 14 + i * 34, this.sy + 60));
+  }
+
+  private art02b_slots(): void {
+    this.panel(this.sx + 4, this.sy + 4, 172, 280);
+    const items = ['part_engine_t1', 'part_fuel_t1', 'part_cooling_t1', 'part_tires_t1', 'part_suspension_t1'];
+
+    const startX = this.sx + 6;
+    const startY = this.sy + 20;
+
+    items.forEach((item, i) => {
+      this.image('ui_slot_frame', startX + i * 34, startY);
+      this.image(item, startX + i * 34 + 3, startY + 3);
+    });
+  }
+
+  private art02b_icons(): void {
+    this.panel(this.sx + 4, this.sy + 4, 172, 100);
+    const icons = ['icon_scrap', 'icon_stat_fuel', 'icon_stat_heat', 'icon_stat_speed', 'icon_ui_mail'];
+    const startX = this.sx + 14;
+    const startY = this.sy + 20;
+    icons.forEach((ic, i) => {
+      this.image(ic, startX + i * 30, startY);
+    });
   }
 }

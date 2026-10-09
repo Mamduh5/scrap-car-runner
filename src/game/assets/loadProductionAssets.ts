@@ -1,14 +1,18 @@
 /** Shared production loader: lifecycle eligibility and URLs come only from the registry. */
 import type Phaser from 'phaser';
-import { ASSET_REGISTRY, ASSET_STATUSES, runtimeFiles, runtimeUrl, type AssetDefinition } from './assetRegistry';
+import { ASSET_REGISTRY, ASSET_STATUSES, runtimeFiles, runtimeUrl, type AssetDefinition, type AssetStatus } from './assetRegistry';
 
-export function loadProductionAssets(scene: Phaser.Scene, assets: readonly AssetDefinition[] = ASSET_REGISTRY): string[] {
+export function loadProductionAssets(
+  scene: Phaser.Scene,
+  assets: readonly AssetDefinition[] = ASSET_REGISTRY,
+  threshold: AssetStatus = 'technical'
+): string[] {
   const failures: string[] = [];
   const onError = (file: Phaser.Loader.File): void => { failures.push(file.key + ': ' + file.url); };
   scene.load.on('loaderror', onError);
   scene.load.once('complete', () => scene.load.off('loaderror', onError));
   for (const asset of assets) {
-    if (ASSET_STATUSES.indexOf(asset.status) < ASSET_STATUSES.indexOf('technical')) continue;
+    if (ASSET_STATUSES.indexOf(asset.status) < ASSET_STATUSES.indexOf(threshold)) continue;
     const files = runtimeFiles(asset);
     const png = runtimeUrl(files[0]!);
     switch (asset.kind) {

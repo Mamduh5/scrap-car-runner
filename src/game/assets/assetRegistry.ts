@@ -200,7 +200,7 @@ const vehicles: readonly AssetDefinition[] = [
 
 const parts: readonly AssetDefinition[] = PART_FAMILIES.flatMap(family => TIERS.map(tier =>
   image('part_' + family + '_t' + tier, 'parts', 24, 24, {
-    phase: familyPhase(family, tier), status: family === 'engine' ? 'visual' : 'planned', margin: 1, family, binds: [part(family, tier)],
+    phase: familyPhase(family, tier), status: family === 'engine' ? 'visual' : (tier === 1 ? 'draft' : 'planned'), margin: 1, family, binds: [part(family, tier)],
   })));
 if (TIERS.length !== MAX_TIER) throw new Error('assetRegistry TIERS must match MAX_TIER');
 
@@ -209,13 +209,13 @@ const icons: readonly AssetDefinition[] = [
   image('icon_stat_fuel', 'icons', 16, 16, { phase: 'proof_b', status: 'visual', margin: 1 }),
   image('icon_stat_power', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_stat_cooling', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
-  image('icon_stat_heat', 'icons', 16, 16, { phase: 'proof_b2', margin: 1 }),
+  image('icon_stat_heat', 'icons', 16, 16, { phase: 'proof_b2', status: 'draft', margin: 1 }),
   image('icon_stat_durability', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_stat_weight', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
-  image('icon_stat_speed', 'icons', 16, 16, { phase: 'proof_b2', margin: 1 }),
+  image('icon_stat_speed', 'icons', 16, 16, { phase: 'proof_b2', status: 'draft', margin: 1 }),
   image('icon_ui_settings', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
   image('icon_ui_pause', 'icons', 16, 16, { phase: 'ui', margin: 1 }),
-  image('icon_ui_mail', 'icons', 16, 16, { phase: 'proof_b2', margin: 1 }),
+  image('icon_ui_mail', 'icons', 16, 16, { phase: 'proof_b2', status: 'draft', margin: 1 }),
 ];
 
 const ui: readonly AssetDefinition[] = [
